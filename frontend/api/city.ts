@@ -1,0 +1,133 @@
+export const addCityAPI = async (city) => {
+    // const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// console.log("token")
+    const token =process.env.NEXT_PUBLIC_TOKEN;
+
+  
+    if (!token) {
+      throw new Error("User not authenticated!");
+    }
+  
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/city", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ title }),
+    });
+  
+    if (!response.status) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to add city");
+    }
+  
+    return response.json();
+  };
+  
+
+  export async function getCityTableData() {
+    // Fake delay
+    await new Promise((resolve) => setTimeout(resolve, 1400));
+    
+  
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/city"); // Replace with actual API endpoint
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      return []; // Return an empty array in case of an error
+    }
+  }
+
+
+  export const deleteCityAPI = async (id: string) => {
+    // const token = localStorage.getItem("token"); // 🔹 Retrieve token
+
+
+    const token =process.env.NEXT_PUBLIC_TOKEN;
+
+  console.log("eati"+id)
+    if (!token) {
+      throw new Error("User not authenticated!");
+    }
+  
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/city/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ id }),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to delete city");
+    }
+  
+    return response.json();
+  };
+
+
+  
+  
+
+  export const getCityById = async (id: string) => {
+    // const token = localStorage.getItem("token"); // 🔹 Retrieve token
+
+
+    const token =process.env.NEXT_PUBLIC_TOKEN;
+
+  console.log("eati"+token)
+    if (!token) {
+      throw new Error("User not authenticated!");
+    }
+  
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/city/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      // body: JSON.stringify({ id }),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to get city");
+    }
+  
+    return response.json();
+  };
+
+
+  export const updateCityAPI = async (id,city) => {
+    // const token = localStorage.getItem("token"); // 🔹 Retrieve token
+
+    const token =process.env.NEXT_PUBLIC_TOKEN;
+
+  
+    if (!token) {
+      throw new Error("User not authenticated!");
+    }
+  
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/city/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(city),
+    });
+  
+    if (!response.status) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to add city");
+    }
+  
+    return response.json();
+  };
