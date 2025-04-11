@@ -17,9 +17,9 @@ import blogs from "@/data/blogs";
 import Image from "next/image";
 
 export const metadata = {
-  title: 'Blog Details || FindHouse - Real Estate React Template',
+  title: 'Blog Details || Wegrow - Real Estate React Template',
   description:
-    'FindHouse - Real Estate React Template',
+    'Wegrow - Real Estate React Template',
 }
 
 const BlogDetailsDynamic = ({params}) => {

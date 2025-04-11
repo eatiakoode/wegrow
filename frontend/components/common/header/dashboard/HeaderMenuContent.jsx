@@ -250,7 +250,7 @@ const HeaderMenuContent = ({ float = "" }) => {
       data-menu-style="horizontal"
     >
       <li className="dropitem">
-        <a
+        {/* <a
           href="#"
           className={
             home.some((page) => page.routerPath?.split('/')[1] === pathname?.split('/')[1])
@@ -260,7 +260,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
           <span className="title">Home</span>
           <span className="arrow"></span>
-        </a>
+        </a> */}
         {/* <!-- Level Two--> */}
 
         <ul className="sub-menu ">
@@ -281,7 +281,7 @@ const HeaderMenuContent = ({ float = "" }) => {
       {/* End .dropitem */}
 
       <li className="dropitem">
-        <a
+        {/* <a
           href="#"
           className={
             listing.some((parent) => {
@@ -295,7 +295,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
           <span className="title">Listing</span>
           <span className="arrow"></span>
-        </a>
+        </a> */}
         {/* <!-- Level Two--> */}
         <ul className="sub-menu ">
           {listing.map((item) => (
@@ -334,7 +334,7 @@ const HeaderMenuContent = ({ float = "" }) => {
       {/* End .dropitem */}
 
       <li className="dropitem">
-        <a
+        {/* <a
           href="#"
           className={
             property.some((parent) => {
@@ -350,7 +350,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
           <span className="title">Property</span>{" "}
           <span className="arrow"></span>
-        </a>
+        </a> */}
         <ul className="sub-menu ">
           {property.map((item) => (
             <li className="dropitem arrow" key={item.id}>
@@ -393,7 +393,7 @@ const HeaderMenuContent = ({ float = "" }) => {
       {/* End .dropitem */}
 
       <li className="dropitem">
-        <a
+        {/* <a
           href="#"
           className={
             pages.some((page) => page.routerPath?.split('/')[1] === pathname?.split('/')[1])
@@ -403,7 +403,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
           <span className="title">Pages</span>
           <span className="arrow"></span>
-        </a>
+        </a> */}
         <ul className="sub-menu ">
           {pages.map((item) => (
             <li key={item.id}>
@@ -422,7 +422,7 @@ const HeaderMenuContent = ({ float = "" }) => {
       {/* End .dropitem */}
 
       <li className="dropitem">
-        <a
+        {/* <a
           href="#"
           className={
             blog.some(
@@ -436,7 +436,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
           <span className="title">Blog</span>
           <span className="arrow"></span>
-        </a>
+        </a> */}
         <ul className="sub-menu ">
           {blog.map((item) => (
             <li key={item.id}>
@@ -457,14 +457,14 @@ const HeaderMenuContent = ({ float = "" }) => {
       </li>
       {/* End .dropitem */}
 
-      <li className="last">
+      {/* <li className="last">
         <Link
           href="/contact"
           className={pathname === "/contact" ? "ui-active" : undefined}
         >
           Contact
         </Link>
-      </li>
+      </li> */}
       {/* End .dropitem */}
 
       <li className="user_setting">

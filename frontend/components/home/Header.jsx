@@ -31,20 +31,20 @@ const Header = () => {
 
         <Link href="/" className="navbar_brand float-start dn-smd">
           <Image
-            width={200}
+            width={170}
             height={65}
             className="logo1 contain"
             src="/assets/images/logo.svg"
             alt="logo.svg"
           />
           <Image
-            width={40}
-            height={45}
+            width={165}
+            height={60}
             className="logo2 contain"
-            src="/assets/images/logo.svg"
-            alt="logo.svg"
+            src="/assets/images/logo-dark.png"
+            alt="logo-dark.png"
           />
-          {/* <span>FindHouse</span> */}
+          {/* <span>Wegrow</span> */}
         </Link>
         {/* site logo brand */}
 

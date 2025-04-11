@@ -69,10 +69,11 @@ const CreateList = () => {
       
       try {
         const addCity = {
-          ...city,
+          title:title,
           countryid: selectedCountry,
           stateid: selectedState,
         };
+        console.log(addCity)
         const data = await addCityAPI(addCity); // 🔹 Call the API function
         
         console.log(data);

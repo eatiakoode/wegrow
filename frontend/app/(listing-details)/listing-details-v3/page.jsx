@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import ListingDetailsV3 from "@/components/listing-details-v3";
 
 export const metadata = {
-  title: 'Listing Single – Details V3 || FindHouse - Real Estate React Template',
+  title: 'Listing Single – Details V3 || Wegrow - Real Estate React ',
   description:
-    'FindHouse - Real Estate React Template',
+    'Wegrow - Real Estate React ',
 }
 
 const index = () => {

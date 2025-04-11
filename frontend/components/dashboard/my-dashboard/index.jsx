@@ -4,6 +4,7 @@ import MobileMenu from "../../common/header/MobileMenu";
 import Activities from "./Activities";
 import AllStatistics from "./AllStatistics";
 import StatisticsChart from "./StatisticsChart";
+import CopyRight from "../../common/footer/CopyRight";
 
 const index = () => {
   return (
@@ -80,14 +81,15 @@ const index = () => {
                 </div>
               </div>
               {/* End .row  */}
-
-              <div className="row mt50">
+<CopyRight/>
+              {/* <div className="row mt50">
                 <div className="col-lg-12">
                   <div className="copyright-widget text-center">
                     <p>© 2020 Find House. Made with love.</p>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              
               {/* End .row */}
             </div>
             {/* End .col */}

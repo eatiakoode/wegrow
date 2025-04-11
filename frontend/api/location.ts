@@ -1,4 +1,4 @@
-export const addLocationAPI = async (title: string,cityid: string) => {
+export const addLocationAPI = async (location) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
     const token =process.env.NEXT_PUBLIC_TOKEN;
@@ -13,7 +13,7 @@ export const addLocationAPI = async (title: string,cityid: string) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ title ,cityid}),
+      body: JSON.stringify(location),
     });
   
     if (!response.status) {

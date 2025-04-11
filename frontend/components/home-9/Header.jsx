@@ -31,8 +31,8 @@ const Header = () => {
         {/* <!-- Menu Toggle btn--> */}
         <a href="#" className="navbar_brand float-start dn-smd">
           <Image
-            width={40}
-            height={45}
+            width={170}
+            height={75}
             className="logo1 img-fluid"
             src="/assets/images/header-logo.png"
             alt="header-logo.png"
@@ -44,7 +44,7 @@ const Header = () => {
             src="/assets/images/header-logo2.png"
             alt="header-logo2.png"
           />
-          <span>FindHouse</span>
+          {/* <span>Wegrow</span> */}
         </a>
         {/* site logo brand */}
 
