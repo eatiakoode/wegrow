@@ -14,6 +14,10 @@ const locationRouter = require("./routes/locationRouter.js");
 const amenityRouter = require("./routes/amenityRouter.js");
 const categoryRouter = require("./routes/categoryRoute");
 const propertytypeRouter = require("./routes/propertytypeRoute");
+const builderRouter = require("./routes/builderRouter");
+const agentRouter = require("./routes/agentRouter");
+const propertyRouter = require("./routes/propertyRouter");
+
 
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
@@ -34,6 +38,11 @@ app.use("/api/location", locationRouter);
 app.use("/api/amenity", amenityRouter);
 app.use("/api/category", categoryRouter);
 app.use("/api/propertytype", propertytypeRouter);
+app.use("/api/builder", builderRouter);
+app.use("/api/agent", agentRouter);
+app.use("/api/property", propertyRouter);
+
+
 
 
 const path = require("path");

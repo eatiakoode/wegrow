@@ -50,7 +50,7 @@ const getCity = asyncHandler(async (req, res) => {
     const getaCity = await City.findById(id);
     const message={
       "status":"success",
-      "message":"Data deleted sucessfully",
+      "message":"Data city sucessfully",
       "data":getaCity
     }
     res.json(message);
@@ -67,10 +67,27 @@ const getallCity = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const getCityStateId = asyncHandler(async (req, res) => {
+  const { stateid } = req.params;
+  validateMongoDbId(stateid);
+  try {
+    const getallState = await City.find({ stateid: stateid });
+    const message={
+      "status":"success",
+      "message":"Data City sucessfully",
+      "data":getallState
+    }
+    res.json(message);
+   
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   createCity,
   updateCity,
   deleteCity,
   getCity,
   getallCity,
+  getCityStateId
 };

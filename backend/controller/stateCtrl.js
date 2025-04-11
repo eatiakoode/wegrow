@@ -50,7 +50,7 @@ const getState = asyncHandler(async (req, res) => {
     const getState = await State.findById(id);
     const message={
       "status":"success",
-      "message":"Data deleted sucessfully",
+      "message":"Data city sucessfully",
       "data":getState
     }
     res.json(message);
@@ -74,7 +74,7 @@ const getStateCountryId = asyncHandler(async (req, res) => {
     const getallState = await State.find({ countryid: countryid });
     const message={
       "status":"success",
-      "message":"Data deleted sucessfully",
+      "message":"Data State sucessfully",
       "data":getallState
     }
     res.json(message);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { addAgentAPI } from "../../../api/agent";
+import { addAgentAPI } from "../../../api/agent.ts";
 const CreateList = () => {
    const [title, setTitle] = useState("");
     const [error, setError] = useState("");
