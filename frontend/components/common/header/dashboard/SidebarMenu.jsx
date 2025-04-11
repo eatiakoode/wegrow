@@ -37,11 +37,14 @@ const SidebarMenu = () => {
     { id: 1, name: "Add Property type", route: "/add-propertytype" },
     { id: 2, name: "Property type List", route: "/my-propertytype" }
   ];
+  const myBuilder = [
+    { id: 1, name: "Add Builder", route: "/add-builder" },
+    { id: 2, name: "Builder List", route: "/my-builder" }
+  ];
   
   const myProperties = [
-    { id: 1, name: "General Elements", route: "/my-properties" },
-    { id: 2, name: "Advanced Elements", route: "/my-properties" },
-    { id: 3, name: "Editors", route: "/my-properties" },
+    { id: 1, name: "Add Property", route: "/create-listing" },
+    { id: 2, name: "Property List", route: "/my-properties" }
   ];
   const reviews = [
     { id: 1, name: "My Reviews", route: "/my-review" },
@@ -69,20 +72,20 @@ const SidebarMenu = () => {
         <li className="sidebar_header header">
           <Link href="/">
             <Image
-              width={40}
-              height={45}
-              src="/assets/images/header-logo2.png"
-              alt="header-logo2.png"
+              width={170}
+              height={65}
+              src="/assets/images/logo.svg"
+              alt="logo.svg"
             />
-            <span>FindHouse</span>
+            {/* <span>Wegrow</span> */}
           </Link>
         </li>
         {/* End header */}
 
         <li className="title">
-          <span>Main</span>
+          {/* <span>Main</span> */}
           <ul>
-            <li
+            {/* <li
               className={`treeview ${
                 isSinglePageActive("/my-dashboard", pathname)
                   ? "active"
@@ -93,8 +96,8 @@ const SidebarMenu = () => {
                 <i className="flaticon-layers"></i>
                 <span> Dashboard</span>
               </Link>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className={`treeview ${
                 isSinglePageActive("/create-listing", pathname)
                   ? "active"
@@ -105,8 +108,8 @@ const SidebarMenu = () => {
                 <i className="flaticon-plus"></i>
                 <span> Create Listing</span>
               </Link>
-            </li>
-            <li
+            </li> */}
+            {/* <li
               className={`treeview ${
                 isSinglePageActive("/my-message", pathname)
                   ? "active"
@@ -117,7 +120,7 @@ const SidebarMenu = () => {
                 <i className="flaticon-envelope"></i>
                 <span> Message</span>
               </Link>
-            </li>
+            </li> */}
           </ul>
         </li>
         {/* End Main */}
@@ -232,6 +235,25 @@ const SidebarMenu = () => {
               </a>
               <ul className="treeview-menu collapse" id="my-propertytype">
                 {myPropertytype.map((item) => (
+                  <li key={item.id}>
+                    <Link href={item.route}>
+                      <i className="fa fa-circle"></i> {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+            <li
+              className={`treeview ${
+                isParentPageActive(myBuilder, pathname) ? "active" : ""
+              }`}
+            >
+              <a data-bs-toggle="collapse" href="#my-builder">
+                <i className="flaticon-home"></i> <span>My Builder</span>
+                <i className="fa fa-angle-down pull-right"></i>
+              </a>
+              <ul className="treeview-menu collapse" id="my-builder">
+                {myBuilder.map((item) => (
                   <li key={item.id}>
                     <Link href={item.route}>
                       <i className="fa fa-circle"></i> {item.name}

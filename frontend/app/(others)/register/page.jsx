@@ -2,9 +2,9 @@ import dynamic from "next/dynamic";
 import SignUp from "@/components/register";
 
 export const metadata = {
-  title: 'SignUp || FindHouse - Real Estate React Template',
+  title: 'SignUp || Wegrow - Real Estate React',
   description:
-    'FindHouse - Real Estate React Template',
+    'Wegrow - Real Estate React',
 }
 
 const index = () => {

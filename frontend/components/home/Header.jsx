@@ -31,7 +31,7 @@ const Header = () => {
 
         <Link href="/" className="navbar_brand float-start dn-smd">
           <Image
-            width={200}
+            width={170}
             height={65}
             className="logo1 contain"
             src="/assets/images/logo.svg"
@@ -44,7 +44,7 @@ const Header = () => {
             src="/assets/images/logo2.png"
             alt="logo2.png"
           />
-          {/* <span>FindHouse</span> */}
+          {/* <span>Wegrow</span> */}
         </Link>
         {/* site logo brand */}
 

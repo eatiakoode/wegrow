@@ -14,7 +14,7 @@ export const addCityAPI = async (city) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ title }),
+      body: JSON.stringify(city),
     });
   
     if (!response.status) {
@@ -87,7 +87,7 @@ export const addCityAPI = async (city) => {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/city/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/city/byid/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -130,4 +130,21 @@ export const addCityAPI = async (city) => {
     }
   
     return response.json();
+  };
+
+  export const  getCityByStateTableData = async (id: string) => {
+    // Fake delay
+    await new Promise((resolve) => setTimeout(resolve, 1400));
+  
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/city/bystate/${id}`); // Replace with actual API endpoint
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch state");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching state:", error);
+      return []; // Return an empty array in case of an error
+    }
   };

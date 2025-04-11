@@ -9,10 +9,10 @@ import { getStateByCountryTableData } from "../../../api/state";
 
 const CreateList = () => {
   const params = useParams();
-    console.log("Params:", params); // Debugging log
+    // console.log("Params:", params); // Debugging log
   
     const id = params?.id;
-    console.log("City ID:", id); // Debugging log
+    // console.log("City ID:", id); // Debugging log
   
     const router = useRouter();
     const [city, setCity] = useState({ title: "", status: false });
@@ -22,36 +22,91 @@ const CreateList = () => {
     const [states, setStates] = useState([]);
     const [selectedState, setSelectedState] = useState("");
   
+    // useEffect(() => {
+    //   if (!id) return;
+      
+    //   const fetchCity = async () => {
+    //     try {
+    //       const data = await getCityById(id);
+    //       console.log("Fetched City Data:", data); // Debugging log
+          
+          
+    //       setCity({ title: data.data.title, status: data.data.status,countryid: data.data.countryid,stateid: data.data.stateid });
+    //       setSelectedCountry( data.data.countryid);
+    //       console.log(data.data.stateid+'data.data.stateid')
+    //       setSelectedState( data.data.stateid);
+    //     } catch (error) {
+    //       // console.error("Error fetching city:", error);
+    //     } finally {
+    //       setLoading(false);
+    //     }
+    //   };
+  
+    //   fetchCity();
+    //   const fetchCountries = async () => {
+    //             try {
+    //               const response = await getCountryTableData();
+    //               // console.log("response")
+    //               // console.log(response)
+          
+    //               setCountries(response || []);
+    //             } catch (err) {
+    //               console.error("Error fetching Country:", err);
+    //             }
+    //           };
+          
+    //           fetchCountries(); 
+    //           const fetchStates = async () => {
+    //             console.log(selectedCountry+"selectedCountry")
+    //             try {
+    //               const response = await getStateByCountryTableData(selectedCountry);
+    //               console.log("response")
+    //               console.log(response)
+          
+    //               setStates(response || []);
+    //             } catch (err) {
+    //               console.error("Error fetching Country:", err);
+    //             }
+    //           };
+          
+    //           fetchStates(); 
+    // }, [id]);
+
     useEffect(() => {
       if (!id) return;
-      
-      const fetchCity = async () => {
+    
+      const fetchCityAndCountryData = async () => {
         try {
-          const data = await getCityById(id);
-          console.log("Fetched City Data:", data); // Debugging log
-          setCity({ title: data.data.title, status: data.data.status });
+          const [cityRes, countriesRes] = await Promise.all([
+            getCityById(id),
+            getCountryTableData()
+          ]);
+    
+          const cityData = cityRes.data;
+          setCity({
+            title: cityData.title,
+            status: cityData.status,
+            countryid: cityData.countryid,
+            stateid: cityData.stateid,
+          });
+    
+          setSelectedCountry(cityData.countryid);
+          setSelectedState(cityData.stateid);
+          setCountries(countriesRes || []);
+    
+          // ✅ Fetch states AFTER setting selectedCountry
+          const statesRes = await getStateByCountryTableData(cityData.countryid);
+          setStates(statesRes.data || []);
         } catch (error) {
-          console.error("Error fetching city:", error);
+          console.error("Error fetching city/country/state data:", error);
         } finally {
           setLoading(false);
         }
       };
-  
-      fetchCity();
-      const fetchCountries = async () => {
-                try {
-                  const response = await getCountryTableData();
-                  console.log("response")
-                  console.log(response)
-          
-                  setCountries(response || []);
-                } catch (err) {
-                  console.error("Error fetching Country:", err);
-                }
-              };
-          
-              fetchCountries(); 
+    
+      fetchCityAndCountryData();
     }, [id]);
+    
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -79,12 +134,12 @@ const CreateList = () => {
     };
      const handleCountryChange = (e) => {
           setSelectedCountry(e.target.value);
-          console.log("cahnegvalue"+e.target.value)
+          // console.log("cahnegvalue"+e.target.value)
           const fetchState = async (countryid) => {
             try {
               const response = await getStateByCountryTableData(countryid);
-              console.log("response")
-              console.log(response)
+              // console.log("response")
+              // console.log(response)
       
               setStates(response.data || []);
             } catch (err) {
@@ -134,7 +189,7 @@ const CreateList = () => {
               data-width="100%"
             >
               <option value="">-- Select State --</option>
-              {states.map((state) => (
+               {states.map((state) => (
                 <option key={state._id} value={state._id}>
                   {state.title}
                 </option>

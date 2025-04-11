@@ -10,13 +10,13 @@ const MobileMenu = () => {
         <div className="header stylehome1">
           <div className="main_logo_home2 text-center">
             <Image
-              width={40}
-              height={45}
+              width={170}
+              height={65}
               className="nav_logo_img contain mt20"
               src="/assets/images/header-logo2.png"
               alt="header-logo2.png"
             />
-            <span className="mt20">FindHouse</span>
+            {/* <span className="mt20">Wegrow</span> */}
           </div>
           {/* main_logo_home2 */}
 
