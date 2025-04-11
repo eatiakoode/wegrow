@@ -38,11 +38,11 @@ const Header = () => {
             alt="logo.svg"
           />
           <Image
-            width={165}
-            height={60}
+            width={200}
+            height={65}
             className="logo2 contain"
-            src="/assets/images/logo-dark.png"
-            alt="logo-dark.png"
+            src="/assets/images/logo2.png"
+            alt="logo2.png"
           />
           {/* <span>Wegrow</span> */}
         </Link>

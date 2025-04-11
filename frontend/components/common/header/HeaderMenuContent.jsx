@@ -146,72 +146,78 @@ const HeaderMenuContent = ({ float = "" }) => {
     },
   ];
 
+  // const property = [
+  //   {
+  //     id: 1,
+  //     title: "User Admin",
+  //     items: [
+  //       {
+  //         name: "Dashboard",
+  //         routerPath: "/my-dashboard",
+  //       },
+  //       {
+  //         name: "My Properties",
+  //         routerPath: "/my-properties",
+  //       },
+  //       {
+  //         name: "My Message",
+  //         routerPath: "/my-message",
+  //       },
+  //       {
+  //         name: "My Review",
+  //         routerPath: "/my-review",
+  //       },
+  //       {
+  //         name: "My Favourites",
+  //         routerPath: "/my-favourites",
+  //       },
+  //       {
+  //         name: "My Profile",
+  //         routerPath: "/my-profile",
+  //       },
+  //       {
+  //         name: "My Package",
+  //         routerPath: "/my-package",
+  //       },
+  //       {
+  //         name: "My Saved Search",
+  //         routerPath: "/my-saved-search",
+  //       },
+  //       {
+  //         name: "Add Property",
+  //         routerPath: "/create-listing",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Listing Single",
+  //     items: [
+  //       {
+  //         name: "Single V1",
+  //         routerPath: "/listing-details-v1",
+  //       },
+  //       {
+  //         name: "Single V2",
+  //         routerPath: "/listing-details-v2",
+  //       },
+  //       {
+  //         name: "Single V3",
+  //         routerPath: "/listing-details-v3",
+  //       },
+  //       {
+  //         name: "Single V4",
+  //         routerPath: "/listing-details-v4",
+  //       },
+  //     ],
+  //   },
+  // ];
+
   const property = [
-    {
-      id: 1,
-      title: "User Admin",
-      items: [
-        {
-          name: "Dashboard",
-          routerPath: "/my-dashboard",
-        },
-        {
-          name: "My Properties",
-          routerPath: "/my-properties",
-        },
-        {
-          name: "My Message",
-          routerPath: "/my-message",
-        },
-        {
-          name: "My Review",
-          routerPath: "/my-review",
-        },
-        {
-          name: "My Favourites",
-          routerPath: "/my-favourites",
-        },
-        {
-          name: "My Profile",
-          routerPath: "/my-profile",
-        },
-        {
-          name: "My Package",
-          routerPath: "/my-package",
-        },
-        {
-          name: "My Saved Search",
-          routerPath: "/my-saved-search",
-        },
-        {
-          name: "Add Property",
-          routerPath: "/create-listing",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "Listing Single",
-      items: [
-        {
-          name: "Single V1",
-          routerPath: "/listing-details-v1",
-        },
-        {
-          name: "Single V2",
-          routerPath: "/listing-details-v2",
-        },
-        {
-          name: "Single V3",
-          routerPath: "/listing-details-v3",
-        },
-        {
-          name: "Single V4",
-          routerPath: "/listing-details-v4",
-        },
-      ],
-    },
+    { id: 1, name: "Residential", routerPath: "/residential" },
+    { id: 2, name: "Commercial", routerPath: "/commercial" },
   ];
+  
 
   const blog = [
     { id: 1, name: "Blog List 1", routerPath: "/blog-list-1" },
@@ -254,11 +260,11 @@ const HeaderMenuContent = ({ float = "" }) => {
           }
         >
           <span className="title">Home</span>
-          <span className="arrow"></span>
+          {/* <span className="arrow"></span> */}
         </a>
         {/* <!-- Level Two--> */}
 
-        <ul className="sub-menu ">
+        {/* <ul className="sub-menu ">
           {home.map((item) => (
             <li key={item.id}>
               <Link
@@ -271,7 +277,7 @@ const HeaderMenuContent = ({ float = "" }) => {
               </Link>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </li>
       {/* End .dropitem */}
 
@@ -288,11 +294,12 @@ const HeaderMenuContent = ({ float = "" }) => {
               : undefined
           }
         >
-          <span className="title">Listing</span>
-          <span className="arrow"></span>
+          
+          <span className="title">About Us</span>
+          {/* <span className="arrow"></span> */}
         </a>
         {/* <!-- Level Two--> */}
-        <ul className="sub-menu ">
+        {/* <ul className="sub-menu ">
           {listing.map((item) => (
             <li className="dropitem arrow" key={item.id}>
               <a
@@ -305,7 +312,7 @@ const HeaderMenuContent = ({ float = "" }) => {
               >
                 {item.title}
               </a>
-              {/* <!-- Level Three--> */}
+              { <!-- Level Three--> }
               <ul className="sub-menu ">
                 {item.items.map((val, i) => (
                   <li key={i}>
@@ -324,7 +331,7 @@ const HeaderMenuContent = ({ float = "" }) => {
               </ul>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </li>
       {/* End .dropitem */}
 
@@ -332,59 +339,32 @@ const HeaderMenuContent = ({ float = "" }) => {
         <a
           href="#"
           className={
-            property.some((parent) => {
-              return parent.items.some(
-                (page) =>
-                  page.routerPath?.split('/')[1] === pathname?.split('/')[1] 
-                  // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
-              );
-            })
+            property.some((item) => item.routerPath?.split("/")[1] === pathname?.split("/")[1])
               ? "ui-active"
               : undefined
           }
         >
-          <span className="title">Property</span>{" "}
+          <span className="title">Property</span>
           <span className="arrow"></span>
         </a>
-        <ul className="sub-menu ">
+        <ul className="sub-menu">
           {property.map((item) => (
-            <li className="dropitem arrow" key={item.id}>
-              <a
-                href="#"
+            <li key={item.id}>
+              <Link
+                href={item.routerPath}
                 className={
-                  item.items.some(
-                    (page) =>
-                      page.routerPath?.split('/')[1] === pathname?.split('/')[1] 
-                      // page.routerPath?.split('/')[1] + "/[id]" === pathname?.split('/')[1]
-                  )
+                  pathname?.split("/")[1] === item.routerPath?.split("/")[1]
                     ? "ui-active"
                     : undefined
                 }
               >
-                {item.title}
-              </a>
-              {/* <!-- Level Three--> */}
-              <ul className="sub-menu ">
-                {item.items.map((val, i) => (
-                  <li key={i}>
-                    <Link
-                      href={val.routerPath}
-                      className={
-                        pathname?.split('/')[1] === val.routerPath?.split('/')[1] 
-                        // val.routerPath + "/[id]" === pathname?.split('/')[1]
-                          ? "ui-active"
-                          : undefined
-                      }
-                    >
-                      {val.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+                {item.name}
+              </Link>
             </li>
           ))}
         </ul>
       </li>
+
       {/* End .dropitem */}
 
       <li className="dropitem">
