@@ -9,8 +9,7 @@ const Footer = () => {
         <div className="footer_about_widget">
           <h4>About Site</h4>
           <p>
-            We’re reimagining how you buy, sell and rent. It’s now easier to get
-            into a place you love. So let’s do this, together.
+          we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment.
           </p>
         </div>
       </div>
@@ -24,16 +23,19 @@ const Footer = () => {
               <Link href="/">About Us</Link>
             </li>
             <li>
+              <Link href="/">Contact Us</Link>
+            </li>
+            <li>
               <Link href="/">Terms & Conditions</Link>
             </li>
             <li>
-              <Link href="/">User’s Guide</Link>
+              <Link href="/">FAQs</Link>
             </li>
             <li>
-              <Link href="/">Support Center</Link>
+              <Link href="/">Blog</Link>
             </li>
             <li>
-              <Link href="/">Press Info</Link>
+              <Link href="/">Builder</Link>
             </li>
           </ul>
         </div>
@@ -45,19 +47,16 @@ const Footer = () => {
           <h4>Contact Us</h4>
           <ul className="list-unstyled">
             <li>
-              <a href="mailto:info@Wegrow.com">info@Wegrow.com</a>
+              <a href="mailto:Info@wegrowinfraventures.com">Info@wegrowinfraventures.com</a>
             </li>
             <li>
-              <a href="#">Collins Street West, Victoria</a>
+              <a href="#">TOWER-2, DLF CORPORATE GREENS, 1205, Southern Peripheral Rd,</a>
             </li>
             <li>
-              <a href="#">8007, Australia.</a>
+              <a href="#"> Sector 74A, Gurugram, Haryana 122004</a>
             </li>
             <li>
-              <a href="tel:+4733378901">+1 246-345-0699</a>
-            </li>
-            <li>
-              <a href="tel:+4733378901">+1 246-345-0695</a>
+              <a href="tel:+91 74219-22000">+91 74219-22000</a>
             </li>
           </ul>
         </div>

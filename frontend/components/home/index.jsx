@@ -3,6 +3,7 @@ import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import MobileMenu from "../common/header/MobileMenu";
 import Partners from "../common/Partners";
+import Testimonial from "../common/Testimonial";
 import Blogs from "../common/Blogs";
 import FeaturedProperties from "./FeaturedProperties";
 import FindProperties from "./FindProperties";
@@ -79,13 +80,38 @@ const Index = () => {
         </div>
       </section>
 
+
+      {/* <!-- Our Testimonials --> */}
+      <section id="our-testimonials" className="our-testimonial home5">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 offset-lg-3">
+              <div className="main-title text-center">
+                <h2 className="color-white">Testimonials</h2>
+                <p className="color-white">Here could be a nice sub title</p>
+              </div>
+            </div>
+          </div>
+          {/* End .row */}
+          <div className="row">
+            <div className="col-lg-6 offset-lg-3">
+              <div className="testimonial_grid_slider">
+                <Testimonial />
+              </div>
+            </div>
+          </div>
+          {/* End .row */}
+        </div>
+        {/* End .container */}
+      </section>
+
       {/* <!-- Our Blog --> */}
       <section className="our-blog bgc-f7 pb30">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
-                <h2>Articles & Tips</h2>
+                <h2>Our Blogs</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
             </div>

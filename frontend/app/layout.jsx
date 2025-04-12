@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link  rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,400i,500,600,700&display=swap" />
-        <link rel="icon" href="./favicon.ico" />
+        <link rel="icon" href="/assets/images/favicon.png" />
       </head>
       <body >
       
