@@ -68,10 +68,27 @@ const getallLocation = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const getLocationCityId = asyncHandler(async (req, res) => {
+  const { cityid } = req.params;
+  validateMongoDbId(cityid);
+  try {
+    const getallLocation = await Location.find({ cityid: cityid });
+    const message={
+      "status":"success",
+      "message":"Data Location sucessfully",
+      "data":getallLocation
+    }
+    res.json(message);
+   
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   createLocation,
   updateLocation,
   deleteLocation,
   getLocation,
   getallLocation,
+  getLocationCityId
 };
