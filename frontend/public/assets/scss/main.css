@@ -7178,11 +7178,11 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 }
 
 .our-testimonial.home5:before {
-  background-image: url("../images/background/6.jpg");
+  background-image: url("../images/testimonial/testimonials.webp");
   bottom: 0;
   content: "";
   left: 0;
-  opacity: 0.149;
+  opacity: 0.1;
   position: absolute;
   right: 0;
   top: 0;

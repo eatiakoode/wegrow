@@ -1,4 +1,5 @@
 import GlobalFilter from "./GlobalFilter";
+import GlobalFilterCommercial from "./GlobalFilterCommercial";
 
 const GlobalHeroFilter = ({ className = "" }) => {
   return (
@@ -14,7 +15,7 @@ const GlobalHeroFilter = ({ className = "" }) => {
             aria-controls="pills-home"
             aria-selected="true"
           >
-            Buy
+            Residential
           </a>
         </li>
 
@@ -28,7 +29,7 @@ const GlobalHeroFilter = ({ className = "" }) => {
             aria-controls="pills-profile"
             aria-selected="false"
           >
-            Rent
+            Commercial
           </a>
         </li>
       </ul>
@@ -49,7 +50,7 @@ const GlobalHeroFilter = ({ className = "" }) => {
           role="tabpanel"
           aria-labelledby="pills-profile-tab"
         >
-          <GlobalFilter />
+          <GlobalFilterCommercial />
         </div>
       </div>
     </div>
