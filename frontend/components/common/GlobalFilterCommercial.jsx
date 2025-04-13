@@ -71,12 +71,9 @@ const GlobalFilter = ({ className = "" }) => {
             <div className="candidate_revew_select">
               <select className="selectpicker w100 form-select show-tick">
                 <option value="">Property Type</option>
-                <option>Apartment</option>
-                <option>Bungalow</option>
-                <option>Condo</option>
-                <option>House</option>
-                <option>Land</option>
-                <option>Single Family</option>
+                <option>Furnished</option>
+                <option>Semi Furnished</option>
+                <option>Unfurnished</option>
               </select>
             </div>
           </div>
