@@ -59,7 +59,7 @@ const Blogs = () => {
                     alt={item.img}
                   />
                 </Link>
-                <div className="blog_tag">{item.postMeta}</div>
+                {/* <div className="blog_tag">{item.postMeta}</div> */}
               </div>
               {/* End .thumb */}
 

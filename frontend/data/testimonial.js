@@ -1,7 +1,7 @@
 module.exports = [
   {
     id: 1,
-    img: "/assets/images/testimonial/1.png",
+    img: "/assets/images/testimonial/man.png",
     name: "Augusta Silva",
     designation: "Sales Manager",
     text: `Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.`,
@@ -9,7 +9,7 @@ module.exports = [
   },
   {
     id: 2,
-    img: "/assets/images/testimonial/2.png",
+    img: "/assets/images/testimonial/man.png",
     name: "Augusta Silva",
     designation: "Sales Manager",
     text: `Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.`,
@@ -17,7 +17,7 @@ module.exports = [
   },
   {
     id: 3,
-    img: "/assets/images/testimonial/3.png",
+    img: "/assets/images/testimonial/man.png",
     name: "Augusta Silva",
     designation: "Sales Manager",
     text: `Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.`,
@@ -25,7 +25,7 @@ module.exports = [
   },
   {
     id: 4,
-    img: "/assets/images/testimonial/4.png",
+    img: "/assets/images/testimonial/man.png",
     name: "Augusta Silva",
     designation: "Sales Manager",
     text: `Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.`,
@@ -33,7 +33,7 @@ module.exports = [
   },
   {
     id: 5,
-    img: "/assets/images/testimonial/5.png",
+    img: "/assets/images/testimonial/man.png",
     name: "Augusta Silva",
     designation: "Sales Manager",
     text: `Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.`,
@@ -41,7 +41,7 @@ module.exports = [
   },
   {
     id: 6,
-    img: "/assets/images/testimonial/6.png",
+    img: "/assets/images/testimonial/man.png",
     name: "Augusta Silva",
     designation: "Sales Manager",
     text: `Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.`,

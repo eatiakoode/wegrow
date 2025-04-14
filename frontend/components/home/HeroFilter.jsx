@@ -4,10 +4,9 @@ const HeroFilter = () => {
     return (
         <div className="home_content">
             <div className="home-text text-center">
-                <h2 className="fz55">Find Your Dream Home</h2>
+                <h2 className="fz55">Luxury & Aspirational</h2>
                 <p className="fz18 color-white">
-                    From as low as $10 per day with limited time offer
-                    discounts.
+                Where Dreams Find Their Address
                 </p>
             </div>
             {/* End .home-text */}
