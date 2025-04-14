@@ -24,7 +24,7 @@ const GlobalFilter = ({ className = "" }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Enter keyword..."
+              placeholder="Find your dream home — start typing..."
               onChange={(e) => dispatch(addKeyword(e.target.value))}
             />
           </div>
@@ -37,15 +37,15 @@ const GlobalFilter = ({ className = "" }) => {
               <select className="selectpicker w100 form-select show-tick">
                 <option value="">Select City</option>
                 <option value="1">Gurgaon</option>
+                                        <option value="4">Sohna</option>
                                         <option value="2">New Delhi</option>
                                         <option value="3">Greater Noida</option>
-                                        <option value="4">Faridabad</option>
               </select>
             </div>
           </div>
         </li>
 
-        <li className="list-inline-item">
+        {/* <li className="list-inline-item">
           <div className="search_option_two">
             <div className="candidate_revew_select">
               <select className="selectpicker w100 form-select show-tick">
@@ -64,16 +64,17 @@ const GlobalFilter = ({ className = "" }) => {
               </select>
             </div>
           </div>
-        </li>
+        </li> */}
 
         <li className="list-inline-item">
           <div className="search_option_two">
             <div className="candidate_revew_select">
               <select className="selectpicker w100 form-select show-tick">
                 <option value="">Property Type</option>
-                <option>Furnished</option>
-                <option>Semi Furnished</option>
-                <option>Unfurnished</option>
+                <option>Retail Shops</option>
+                <option>Office Space</option>
+                <option>Studios</option>
+                <option>SCO Plots</option>
               </select>
             </div>
           </div>
@@ -119,7 +120,7 @@ const GlobalFilter = ({ className = "" }) => {
         </li> */}
         {/* End li */}
 
-        <li className="custome_fields_520 list-inline-item">
+        {/* <li className="custome_fields_520 list-inline-item">
           <div className="navbered">
             <div className="mega-dropdown ">
               <span
@@ -139,7 +140,6 @@ const GlobalFilter = ({ className = "" }) => {
 
                   <CheckBoxFilter />
                 </div>
-                {/* End .row */}
 
                 <div className="row p15 pt0-xsd">
                   <div className="col-lg-12 col-xl-12">
@@ -148,12 +148,12 @@ const GlobalFilter = ({ className = "" }) => {
                     </ul>
                   </div>
                 </div>
-                {/* End .row */}
+                
               </div>
-              {/* End .dropdown-menu */}
+              
             </div>
           </div>
-        </li>
+        </li> */}
         {/* End li */}
 
         <li className="list-inline-item">

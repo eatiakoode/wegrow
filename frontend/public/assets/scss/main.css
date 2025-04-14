@@ -1,13 +1,4 @@
-/*******
-Project/Template Name:  Wegrow - Real Estate React Nextjs Template
-Template Url:  
-Author: ib-themes
-Author Url: https://themeforest.net/user/ib-themes/portfolio
-Version: 1.0
-Description: Wegrow - Real Estate React Nextjs Template
-Tag: advanced custom search, agency, agent, business, clean, corporate, directory, google maps, homes, idx agent, listing properties, membership packages, property, real broker, real estate, real estate agent, real estate agency, realtor
 
-********/
 /* CSS Document */
 @import "~bootstrap/scss/bootstrap";
 @import url(../scss/font-awesome.min.css);
@@ -15,104 +6,6 @@ Tag: advanced custom search, agency, agent, business, clean, corporate, director
 @import url(../scss/flaticon.css);
 
 /* Table of contents */
-
-/*== Typography ==*/
-/* Search Overlay */
-/*== Header Top Style ==*/
-/* Header Top Search Field css home2 */
-/*== Menu Style For Home V1 & V2 ==*/
-/*== Menu Style For Home V2 ==*/
-/*== Menu Style For Home V3 ==*/
-/*== Menu Style For Home V4 ==*/
-/*== Menu Style For Home V5 ==*/
-/*== Menu Style For Home V6 ==*/
-/*== Menu Style For Home V7 ==*/
-/*== Mobile Menu Css ==*/
-/*== Home Css ==*/
-/* ==== Home 2 Main Sliders === */
-/*== Home Icon Box ==*/
-/*== Home Five Overlay Slider ==*/
-/*== School Category Courses ==*/
-/*== Feature Property ==*/
-/*== Property Cities ==*/
-/*== Search Smart Property ==*/
-/*== Single Property ==*/
-/*== Listing Single V5 Page Sticky Nav ==*/
-/*== Why Choose Us ==*/
-/*== Popular Job Categories => Icon Hover Image Box ==*/
-/*== Funfact Counter ==*/
-/*== Footer Social Widget ==*/
-/*== 1st Layout Footer ==*/
-/*== Footer Widget ==*/
-/*== Inner Pages Breadcrumb ==*/
-/*== About Page About Content ==*/
-/*== About home3 ==*/
-/*== Testimonials Grid ==*/
-/*== Blog Post Home V1 ==*/
-/*== Team Slider Code ==*/
-/*== Pricing Table Four ==*/
-/*== Our Partners ==*/
-/*== Error/404 Page ==*/
-/*== Invoice Page ==*/
-/*== Service Pages Style Code ==*/
-/*== LogIn Register Page ==*/
-/* Create a custom checkbox */
-/*== Search Widget Faq Page ==*/
-/*== Question Widget Faq Page ==*/
-/*== Terms & Condition Page ==*/
-/*== Tab Widget UI Page ==*/
-/*== Table Widget UI Page ==*/
-/*== Message Box Widget UI Page ==*/
-/*== Form Input Widget UI Page ==*/
-/*== Form Textarea Widget UI Page ==*/
-/*== Form Tooltip Widget UI Page ==*/
-/*== Select Search Box Widget UI Page ==*/
-/*== Radiobox, Checkbox, Switch Widget UI Page ==*/
-/*== CheckBox Widget UI Page ==*/
-/*== SwithcBox Widget UI Page ==*/
-/*== Select Box Widget UI Page ==*/
-/*== MultiSelect CheckBox Widget UI Page ==*/
-/*== Blog Post Main Page ==*/
-/*== Blog Grid Post ==*/
-/*== Search Widget Blog Page ==*/
-/*== Category Widget Blog Page ==*/
-/*== Recent Post Widget Blog Page ==*/
-/*== Tag Widget Blog Page ==*/
-/*== BlokQuote Blog Sinlge Page ==*/
-/*== Next Prev Pagination Blog Sinlge Page ==*/
-/*== Commenting Blog Sinlge Page ==*/
-/*== Commenting Form Blog Sinlge Page ==*/
-/*== Dashbord details Page ==*/
-/*== Header User Notification & User ID ==*/
-/*== Header User Setting ID ==*/
-/*== Candidate Job Review Page Table ==*/
-/*== My Resume Page ==*/
-/*== Message Page ==*/
-/*== DashBoard Pages ==*/
-/*== sidebar about widget ==*/
-/*== Pricing SLider ==*/
-/*== Profile Avatar ==*/
-/*== UI Page Elements ==*/
-/*== Alpha v2 Page ==*/
-/*== Testimonials Home V3 ==*/
-/*== Contact Page ==*/
-/*== Maximage_slider ==*/
-/*== Color Area ==*/
-/*== Button Area ==*/
-/*== Fonts Size, Font Weights, Height, Display & Position ==*/
-/*== Custome Margin Padding ==*/
-/*== BackGround Images ==*/
-/*== BackGround Color White Overlay ==*/
-/*== Parallax Css ==*/
-/*== Divider Css ==*/
-/*== Chart Js Css ==*/
-/*== Tags Bar Css ==*/
-/*== arrow fontawesome icon to the right */
-/*== Shop Page Style ==*/
-/*== Shop Order Page Style ==*/
-/*== Shop Chaeckout Page Style ==*/
-/*== Shop Single Page Style ==*/
-/*== New Pricing Range Smooth Slider ==*/
 
 /*== Typography ==*/
 html {
@@ -2837,7 +2730,8 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu > li.last {
   color: #484848;
   line-height: 1.2;
   height: 50px;
-  width: 215px;
+  width: 285px;
+  /* width: 215px; */
 }
 
 .home1-advnc-search.home2.style2 ul li:first-child .form-control::placeholder,
@@ -2961,7 +2855,8 @@ header.header-nav.menu_style_home_seven .ace-responsive-menu > li.last {
   font-weight: bold;
   line-height: 1.2;
   height: 50px;
-  width: 170px;
+  /* width: 170px; */
+  width: 240px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
@@ -5259,7 +5154,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .for_blog.feat_property .thumb img {
   opacity: 1;
 }
-
+.for_blog.feat_property .details .fp_footer .fp_pdate{margin-top: 6px;}
 .feat_property .thumb .thmb_cntnt,
 .properti_city.home6 .thumb .thmb_cntnt {
   bottom: 0;
@@ -5626,7 +5521,16 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   font-family: "Nunito";
   color: #777777;
   line-height: 1.2;
-  margin-top: 15px;
+  /* margin-top: 15px; */
+  margin-top: 0px;
+}
+.feat_property .details .fp_footer .fp_pdate .circle-shape{
+  width:40px;
+  height: 40px;
+  background-color: #dcdcdc;
+  border-radius: 40px;
+  line-height: 40px;
+  text-align: center;
 }
 
 .feat_property.home2 .details .fp_footer .fp_pdate {
@@ -7420,11 +7324,16 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .parner_reg_btn a.btn {
   border-radius: 8px;
   /* background-color: rgb(255, 120, 124); */
-  background-color: rgb(88, 129, 87);
-  -webkit-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+  /* background-color: rgb(88, 129, 87); */
+  background-color: rgb(255, 255, 255, 0.3);
+  /* -webkit-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
   -moz-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
   -o-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
-  box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+  box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3); */
+  -webkit-box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.3);
+  -o-box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.3);
+  box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.3);
   height: 60px;
   line-height: 50px;
   width: 200px;
@@ -10292,6 +10201,13 @@ ul.mc_parent_list ul.mc_child_list .membership_header h4 {
 .our_partner {
   text-align: center;
 }
+.our_partner .contain{
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+.our_partner .contain:hover, .our_partner .contain:focus{
+  filter: grayscale(0%);
+}
 
 .start-partners.home5 {
   background-image: -moz-linear-gradient(0deg, rgb(250, 124, 65) 0%, rgb(255, 101, 101) 100%);
@@ -10305,6 +10221,51 @@ ul.mc_parent_list ul.mc_child_list .membership_header h4 {
   background-image: -webkit-linear-gradient(0deg, rgb(60, 4, 135) 0%, rgb(76, 21, 148) 100%);
   background-image: -ms-linear-gradient(0deg, rgb(60, 4, 135) 0%, rgb(76, 21, 148) 100%);
   background-image: linear-gradient(0deg, rgb(60, 4, 135) 0%, rgb(76, 21, 148) 100%);
+}
+
+.apartments-listing ul{margin-bottom: 15px;border-bottom:1px solid #dedede;
+}
+.apartments-listing ul.list-unstyled{
+  border:none
+}
+.apartments-listing ul .nav-link{background-color: transparent;padding:15px 30px;border-radius: 0px;color: var(--grey-color);}
+.apartments-listing ul .nav-link.active{
+  color: var(--black-color);
+  border-bottom: 1px solid #000000;background-color: transparent;
+  font-weight:700
+}
+.apartments-listing .accordion-filter .accordion-header{
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+.apartments-listing .accordion-filter .accordion-header:before {
+  position: absolute;
+  content: "";
+  left: 100%;
+  right: auto;
+  top: 42%;
+  transform: translateY(-50%) rotate(-45deg);
+  border-left: 1px solid var(--darkgrey-color);
+  border-bottom: 1px solid var(--darkgrey-color);
+  width: 14px;
+  height: 14px;
+  -webkit-transition: all 0.5s ease 0s;
+  -moz-transition: all 0.5s ease 0s;
+  -ms-transition: all 0.5s ease 0s;
+  transition: all 0.5s ease 0s;
+}
+.apartments-listing .accordion-filter .accordion-header.active-header:before{
+  transform: translateY(-50%) rotate(-225deg);
+  top: 54%;
+}
+.apartments-listing .accordion-filter .accordion-body ul li{
+  color: var(--darkgrey-color)
+}
+.apartments-listing .accordion-filter .accordion-body ul li:hover, .apartments-listing .accordion-filter .accordion-body ul li:focus{
+  color:var(--color-primary)
 }
 
 /*== Our Newslatters ==*/

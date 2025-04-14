@@ -5,6 +5,7 @@ import MobileMenu from "../common/header/MobileMenu";
 import Partners from "../common/Partners";
 import Testimonial from "../common/Testimonial";
 import Blogs from "../common/Blogs";
+import ExploreMoreProperties from "../common/ExploreMoreProperties";
 import FeaturedProperties from "./FeaturedProperties";
 import FindProperties from "./FindProperties";
 import Header from "./Header";
@@ -138,6 +139,15 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+       {/* <!-- Start Call to Action --> */}
+
+       <section className="start-partners bgc-f7 pt50 pb50">
+        <div className="container">
+          <ExploreMoreProperties />
+        </div>
+      </section>
+
 
       {/* <!-- Start Call to Action --> */}
       <section className="start-partners bgc-thm pt50 pb50">

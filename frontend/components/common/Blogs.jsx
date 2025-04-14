@@ -84,7 +84,7 @@ const Blogs = () => {
 
                 <div className="fp_footer">
                   <ul className="fp_meta float-start mb0">
-                    <li className="list-inline-item">
+                    {/* <li className="list-inline-item">
                       <a href="#">
                         <Image
                           width={40}
@@ -93,7 +93,7 @@ const Blogs = () => {
                           alt={item.posterAvatar}
                         />
                       </a>
-                    </li>
+                    </li> */}
                     <li className="list-inline-item">
                       <a href="#">{item.posterName}</a>
                     </li>

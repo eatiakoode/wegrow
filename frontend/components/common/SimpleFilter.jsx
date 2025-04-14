@@ -30,7 +30,7 @@ const SimpleFilter = () => {
             type="text"
             className="form-control"
             id="exampleInputName1"
-            placeholder="Enter keyword..."
+            placeholder="Find your dream home — start typing..."
           />
         </div>
       </li>

@@ -1,5 +1,8 @@
 :root {
     --color-primary: #A3B18A;
+    --grey-color: #b3b3b3;
+    --black-color: #000000;
+    --darkgrey-color: #484848;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -129,7 +132,7 @@ h4 {
     }
 }
 .home1-advnc-search ul li .search_option_two {
-    width: 180px;
+    width: 250px;
     @media (max-width: 520px) {
         width: 100%;
     }

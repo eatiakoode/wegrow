@@ -113,7 +113,17 @@ const FeaturedProperties = () => {
                 <Link href="/agent-v2">{item.posterName}</Link>
               </li>
             </ul>
-            <div className="fp_pdate float-end">{item.postedYear}</div>
+            {/* <div className="fp_pdate float-end">{item.postedYear}</div> */}
+            <div className="fp_pdate float-end d-flex gap-2 align-items-center">
+              <a href={`tel:${item.phone}`} className="me-2 circle-shape text-dark">
+                {/* <i className="fa fa-phone"></i> */}
+                <span className="flaticon-telephone"></span>
+              </a>
+              <a href={`mailto:${item.email}`} className="circle-shape text-dark">
+                {/* <i className="fa fa-envelope"></i> */}
+                <span className="flaticon-black-back-closed-envelope-shape"></span>
+              </a>
+            </div>
           </div>
           {/* End .fp_footer */}
         </div>
