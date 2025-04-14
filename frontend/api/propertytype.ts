@@ -77,7 +77,6 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
 
 
     const token =process.env.NEXT_PUBLIC_TOKEN;
-  console.log("eati"+id)
     if (!token) {
       throw new Error("User not authenticated!");
     }

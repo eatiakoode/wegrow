@@ -77,12 +77,11 @@ export const addLocationAPI = async (location) => {
 
 
     const token =process.env.NEXT_PUBLIC_TOKEN;
-  console.log("eati"+id)
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/location/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/location/byid/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -123,4 +122,21 @@ export const addLocationAPI = async (location) => {
     }
   
     return response.json();
+  };
+
+  export const  getLocationByCityTableData = async (id: string) => {
+    // Fake delay
+    await new Promise((resolve) => setTimeout(resolve, 1400));
+  console.log("es"+id)
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/location/bycity/${id}`); // Replace with actual API endpoint
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch location");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching location:", error);
+      return []; // Return an empty array in case of an error
+    }
   };
