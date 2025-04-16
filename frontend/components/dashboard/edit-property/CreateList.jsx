@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import { getCityByStateTableData } from "../../../api/city";
 
 import { getCountryTableData } from "../../../api/country";
@@ -12,7 +13,7 @@ import { getAmenityTableData } from "../../../api/amenity";
 import { getBuilderTableData } from "../../../api/builder";
 import { getConstructionstatusTableData } from "../../../api/constructionstatus";
 import { getFurnishingstatusTableData } from "../../../api/furnishingstatus";
-import { addPropertyAPI } from "../../../api/property";
+import { getPropertyById, updatePropertyAPI } from "../../../api/property";
 
 import selectedFiles from "../../../utils/selectedFiles";
 import Image from "next/image";
@@ -20,6 +21,8 @@ import Image from "next/image";
 
 
 const CreateList = () => {
+  const params = useParams();  
+      const id = params?.id; 
   // --- State Hooks ---
 const [title, setTitle] = useState("");
 const [slug, setSlug] = useState("");
@@ -86,11 +89,20 @@ const [constructionstatus, setConstructionstatus] = useState([]);
   const [metadescription, setMetaDescription] = useState([]);
 
   const [featuredimage, setFeaturedImage] = useState(null);
-
+  const [featuredimageget, setFeaturedImageGet] = useState(null);
+  const [siteplan, setSitePlan] = useState(null);
+  const [siteplanget, setSitePlanGet] = useState(null);
+  
   // upload profile
-  const uploadFeaturedImage = (e) => {
-      setFeaturedImage(e.target.files[0]);
+  const uploadSitePlan = (e) => {
+      setSitePlan(e.target.files[0]);
   };
+
+  const uploadFeaturedImage = (e) => {
+    setFeaturedImage(e.target.files[0]);
+};
+
+  
 
 
   const [propertySelectedImgs, setPropertySelectedImgs] = useState([]);
@@ -117,7 +129,81 @@ const [constructionstatus, setConstructionstatus] = useState([]);
   
 // --- Fetch Initial Data ---
 useEffect(() => {
+   if (!id) return;      
+        const fetchProperty = async () => {
+          try {
+            const data = await getPropertyById(id);
+            // console.log("data")
+            // console.log(data)
+            // console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
+            // setBuilder({ title: data.data.title, status: data.data.status, description: data.data.description });
+            setTitle(data.data.title)
+            setSlug(data.data.slug)
+            setDescription(data.data.description)
+            setPrice(data.data.price)
+            setAddress(data.data.address)
+            setSelectedCountry(data.data.countryid)
+            setSelectedState(data.data.stateid)
+            setSelectedCity(data.data.cityid)
+            setSelectedLocation(data.data.locationid)
+            setSelectedCategory(data.data.categoryid)
+            setSelectedPropertytype(data.data.propertytypeid)
+            setSelectedBuilder(data.data.builderid)
+            setSelectedAmenity(data.data.amenityid)
+            setSelectedConstructionstatus(data.data.constructionstatus)
+            setSelectedFurnishingstatus(data.data.furnishingstatus)
+            setSelectedFeaturedProperty(data.data.featuredproperty)
+            setSelectedReraApproved(data.data.reraapproved)
+            setPropertyid(data.data.propertyid)
+            setAreasize(data.data.areasize)
+            setSizePrefix(data.data.sizeprefix)
+            setBedRooms(data.data.bedrooms)
+            setBathRooms(data.data.bathrooms)
+            setGarages(data.data.garages)
+            setGaragesSize(data.data.garagessize)
+            setYearBuild(data.data.yearbuild)
+            setMapEmbedCode(data.data.mapembedcode)
+            setVideoEmbedCode(data.data.videoembedcode)
+            setNearBy(data.data.nearby)
+            setSellerName(data.data.sellername)
+            setSellerEmail(data.data.selleremail)
+            setSellerPhone(data.data.sellerphone)
+
+            setZipCode(data.data.zipcode)
+            setReraNumber(data.data.reranumber)
+            setMetatitle(data.data.metatitle)
+            setMetaDescription(data.data.metadescription)
+
+
+            
+            if(data.data.featuredimageurl) {
+              setFeaturedImageGet(process.env.NEXT_PUBLIC_API_URL+data.data.featuredimageurl)
+            }
+            if(data.data.siteplanurl) {
+              setSitePlan(process.env.NEXT_PUBLIC_API_URL+data.data.siteplanurl)
+            }
+            
+            const statesRes = await getStateByCountryTableData(data.data.countryid);
+            setStates(statesRes.data || []);
+            const cityRes = await getCityByStateTableData(data.data.stateid);
+            setCities(cityRes.data || []);
+            const locationRes = await getLocationByCityTableData(data.data.cityid);
+            setLocations(locationRes.data || []);
+
+            const propertytypeRes = await getPropertytypeByCategoryTableData(data.data.categoryid);
+            setPropertytypes(propertytypeRes.data || []);
+            
+          } catch (error) {
+            console.error("Error fetching Builder:", error);
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchProperty();
+     
   const fetchData = async () => {
+    
     try {
       const [countryRes, constRes, furnRes, catRes, amenityRes, builderRes] = await Promise.all([
         getCountryTableData(),
@@ -139,7 +225,7 @@ useEffect(() => {
     }
   };
   fetchData();
-}, []);
+}, [id]);
 
 // --- Handlers ---
 
@@ -219,7 +305,7 @@ const handleAddressChange = (e) => {
   if (e.target.value.trim() !== "") setError("");
 };
 // --- Submit ---
-const addProperty = async (e) => {
+const updateProperty = async (e) => {
   e.preventDefault();
   const newErrors = {};
 
@@ -277,7 +363,7 @@ const addProperty = async (e) => {
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
       nearby, sellername, selleremail, sellerphone, 
-      reranumber, zipcode, metatitle, metadescription,featuredimage
+      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan
     };
     
     
@@ -289,33 +375,9 @@ const addProperty = async (e) => {
         formData.append(key, payload[key]);
       }
     }
-//     console.log("formDataapi")
-//     // console.log(formData)
-//     for (let [key, value] of formData.entries()) {
-//       console.log(`${key}:`, value);
-//     }
-// console.log("formDataendapi")
-// console.log("selectedAmenity")
-// console.log(selectedAmenity)
-//         const amenityArray = selectedAmenity?.split(',') || [];
-//         console.log("amenityArray")
-//         console.log(amenityArray)
-//       amenityArray.forEach((id) => {
-//       formData.append("amenityid", id.trim());
-//       });
 
-//       console.log("formDataapiafeter")
-//     // console.log(formData)
-//     for (let [key, value] of formData.entries()) {
-//       console.log(`${key}:`, value);
-//     }
-// console.log("formDataendapiafeter")
-    
-    // Append image file
-   
-    
 
-    const res = await addPropertyAPI(formData);
+    const res = await updatePropertyAPI(id,formData);
     alert(res.message);
 
     // Reset fields and errors
@@ -330,7 +392,7 @@ const addProperty = async (e) => {
 
   return (
     <>
-    <form onSubmit={addProperty} className="row">
+    <form onSubmit={updateProperty} className="row">
       <div className="col-lg-5">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="propertyTitle">Property Title</label>
@@ -841,7 +903,7 @@ const addProperty = async (e) => {
         <div className="col-lg-12">
           <h3 className="mb30">Property media</h3>
         </div>
-        <div className="col-lg-12">
+        <div className="col-lg-6">
         <div htmlFor="featuredimage">Featured Image</div>
                 <div className="wrap-custom-file">
               
@@ -851,20 +913,47 @@ const addProperty = async (e) => {
                         accept="image/png, image/gif, image/jpeg"
                         onChange={uploadFeaturedImage}
                     />
-                    <label
-                        style={
-                          featuredimage !== null
-                                ? {
-                                      backgroundImage: `url(${URL.createObjectURL(
-                                        featuredimage
-                                      )})`,
-                                  }
-                                : undefined
-                        }
-                        htmlFor="featuredimage"
+                   <label
+                      htmlFor="image1"
+                      style={
+                        featuredimageget                          
+                        ? { backgroundImage: `url(${featuredimageget})` }
+                          : featuredimage
+                          ? { backgroundImage: `url(${URL.createObjectURL(featuredimage)})` }
+                          : undefined
+                      }
                     >
+                        
                         <span>
                             <i className="flaticon-download"></i> Upload featured image{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
+            <div className="col-lg-6">
+        <div htmlFor="SitePlan">Site Plan</div>
+                <div className="wrap-custom-file">
+              
+                    <input
+                        type="file"
+                        id="SitePlan"
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={uploadSitePlan}
+                    />
+                   <label
+                      htmlFor="image1"
+                      style={
+                        siteplanget                          
+                        ? { backgroundImage: `url(${siteplanget})` }
+                          : siteplan
+                          ? { backgroundImage: `url(${URL.createObjectURL(siteplan)})` }
+                          : undefined
+                      }
+                    >
+                        
+                        <span>
+                            <i className="flaticon-download"></i> Upload Site Plan{" "}
                         </span>
                     </label>
                 </div>

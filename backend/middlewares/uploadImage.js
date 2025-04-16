@@ -55,4 +55,94 @@ const blogImgResize = async (req, res, next) => {
   );
   next();
 };
-module.exports = { uploadPhoto, productImgResize, blogImgResize };
+
+const builderImgResize = async (req) => {
+  if (!req.files || !Array.isArray(req.files)) return;
+
+  const processedFilenames = [];
+
+  await Promise.all(
+    req.files.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "builder", filename);
+
+      await sharp(file.path)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+// const builderImgResize = async (req, res, next) => {
+//   if (!req.files) return next();
+//   await Promise.all(
+//     req.files.map(async (file) => {
+//       await sharp(file.path)
+//         .resize(300, 300)
+//         .toFormat("jpeg")
+//         .jpeg({ quality: 90 })
+//         .toFile(`public/images/builder/${file.filename}`);
+//       // fs.unlinkSync(`public/images/blogs/${file.filename}`);
+//     })
+//   );
+//   next();
+// };
+const featuredImageResize = async (req) => {
+  if (!req.files || !Array.isArray(req.files)) return;
+
+  const processedFilenames = [];
+
+  await Promise.all(
+    req.files.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "property", filename);
+
+      await sharp(file.path)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+const sitePlanResize = async (req) => {
+  if (!req.files || !Array.isArray(req.files)) return;
+
+  const processedFilenames = [];
+
+  await Promise.all(
+    req.files.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "propertyplan", filename);
+
+      await sharp(file.path)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize };

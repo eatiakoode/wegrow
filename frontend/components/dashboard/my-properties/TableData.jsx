@@ -1,30 +1,60 @@
+
+
+"use client"; // Add this at the top
 import Image from "next/image";
 import properties from "../../../data/properties";
+import { getPropertyTableData,deletePropertyAPI } from "../../../api/property";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const TableData = () => {
+  const [propertyList, setPropertyList] = useState([]);
+      const router = useRouter();
+    
+      const fetchPropertyData = async () => {
+        const data = await getPropertyTableData();
+        console.log(data)
+        setPropertyList(data);
+      };
+      const deleteProperty = async (id) => {
+          const isConfirmed = window.confirm("Are you sure you want to delete this property?");
+          if (!isConfirmed) return;
+      
+          try {
+            const data = await deletePropertyAPI(id); // 🔹 Call the API function
+            
+            alert(data.message);
+            setPropertyList((prevPropertyList) => prevPropertyList.filter((property) => property._id !== id));
+            //setTitle(""); // ✅ Reset input after success
+          } catch (error) {
+            alert("Failed to delete Property.");
+            //setError(error.message); // ❌ Show error if request fails
+          }
+        };
   let theadConent = [
     "Listing Title",
     "Date published",
     "Status",
-    "View",
+    // "View",
     "Action",
   ];
-  let tbodyContent = properties?.slice(0, 4)?.map((item) => (
+  let tbodyContent = propertyList?.slice(0, 4)?.map((item) => (
     <tr key={item.id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">
           <div className="thumb">
-            <Image
-              width={150}
-              height={220}
-              className="img-whp cover"
-              src={item.img}
-              alt="fp1.jpg"
-            />
+          <Image
+            width={150}
+            height={220}
+            className="img-whp cover"
+            src={`${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`}
+            alt="Image"
+            unoptimized
+          />
             <div className="thmb_cntnt">
               <ul className="tag mb0">
                 <li className="list-inline-item">
-                  <a href="#">For Rent</a>
+                  <a href="#">{item.categoryid.title}</a>
                 </li>
               </ul>
             </div>
@@ -38,7 +68,7 @@ const TableData = () => {
               </p>
               <a className="fp_price text-thm" href="#">
                 ${item.price}
-                <small>/mo</small>
+                {/* <small>/mo</small> */}
               </a>
             </div>
           </div>
@@ -46,38 +76,43 @@ const TableData = () => {
       </td>
       {/* End td */}
 
-      <td>30 December, 2020</td>
+      <td>{new Date(item.createdAt).toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  })}</td>
       {/* End td */}
 
       <td>
-        <span className="status_tag badge">Pending</span>
-      </td>
+      
+      <span className={`status_tag ${item.status ? 'badge2' : 'badge'}`}>{item.status ? "Active" : "Deactive"}</span>
+
+    </td>
       {/* End td */}
 
-      <td>2,345</td>
+      {/* <td>2,345</td> */}
       {/* End td */}
 
       <td>
         <ul className="view_edit_delete_list mb0">
-          <li
+        <li
             className="list-inline-item"
             data-toggle="tooltip"
             data-placement="top"
             title="Edit"
           >
-            <a href="#">
+            <button  onClick={() => router.push(`/edit-property/${item._id}`)}>
               <span className="flaticon-edit"></span>
-            </a>
+            </button>
           </li>
           {/* End li */}
 
-          <li
-            className="list-inline-item"
+          <li className="list-inline-item"
             data-toggle="tooltip"
             data-placement="top"
             title="Delete"
           >
-            <a href="#">
+            <a href="#"  onClick={() => deleteProperty(item._id)}>
               <span className="flaticon-garbage"></span>
             </a>
           </li>
@@ -86,7 +121,9 @@ const TableData = () => {
       {/* End td */}
     </tr>
   ));
-
+  useEffect(() => {
+    fetchPropertyData();
+  }, []);
   return (
     <>
       <table className="table">

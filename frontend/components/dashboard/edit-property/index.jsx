@@ -54,7 +54,7 @@ const index = () => {
 
                 <div className="col-lg-12 mb10">
                   <div className="breadcrumb_content style2">
-                    <h2 className="breadcrumb_title">Add New Property</h2>
+                    <h2 className="breadcrumb_title">Update Property</h2>
                     <p>We are glad to see you again!</p>
                   </div>
                 </div>
@@ -91,13 +91,13 @@ const index = () => {
                     </div>
                     <PropertyMediaUploader />
                   </div> */}
-                  {/* <div className="my_dashboard_review mt30">
+                  <div className="my_dashboard_review mt30">
                     <div className="col-lg-12">
                       <h3 className="mb30">Floor Plans</h3>
                       <button className="btn admore_btn mb30">Add More</button>
                     </div>
                     <FloorPlans />
-                  </div> */}
+                  </div>
                 </div>
                 {/* End .col */}
               </div>

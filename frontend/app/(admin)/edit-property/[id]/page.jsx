@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
-import HomeMain from "@/components/home";
+import EditProperty from "@/components/dashboard/edit-property";
 
 export const metadata = {
-  title: 'Home || Wegrow - Real Estate React Template',
+  title: 'My Properties || Wegrow - Real Estate React Template',
   description:
     'Wegrow - Real Estate React Template',
 }
@@ -10,7 +10,7 @@ export const metadata = {
 const index = () => {
   return (
     <>
-      <HomeMain />
+      <EditProperty />
     </>
   );
 };

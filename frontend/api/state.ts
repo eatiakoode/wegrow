@@ -6,6 +6,12 @@ export const addStateAPI = async (title: string,countryid: string) => {
     if (!token) {
       throw new Error("User not authenticated!");
     }
+    console.log("formDataapi")
+    console.log({ title ,countryid})
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}:`, value);
+    // }
+console.log("formDataendapi")
   
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/state", {
       method: "POST",

@@ -51,7 +51,7 @@ const TableData = () => {
         </div>
       </td>
       {/* End td */}
-      <td>{item.country?.title}</td>
+      <td>{item.countryid?.title}</td>
       <td>{new Date(item.createdAt).toLocaleDateString('en-US', {
     month: 'short',
     day: '2-digit',
