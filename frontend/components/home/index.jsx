@@ -143,10 +143,21 @@ const Index = () => {
        {/* <!-- Start Call to Action --> */}
 
        <section className="start-partners bgc-f7 pt50 pb50">
-        <div className="container">
-          <ExploreMoreProperties />
-        </div>
+            <div className="container">
+                <div className="row">
+                  <div className="col-lg-6 offset-lg-3">
+                    <div className="main-title text-center">
+                      <h2>Explore new properties</h2>
+                      <p>Discover the latest off-plan properties and be informed</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <ExploreMoreProperties />
+                </div>
+            </div>
       </section>
+      
 
 
       {/* <!-- Start Call to Action --> */}

@@ -325,7 +325,7 @@ const HeaderMenuContent = ({ float = "" }) => {
 
       {/* End .dropitem */}
 
-      <li className="dropitem">
+      {/* <li className="dropitem">
         <Link
           href="/gallery"
           className={
@@ -334,7 +334,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         >
         <span className="title">Gallery</span>
         </Link>
-      </li>
+      </li> */}
 
 
 

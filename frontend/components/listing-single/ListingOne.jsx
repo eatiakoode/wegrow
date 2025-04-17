@@ -37,7 +37,7 @@ export default function ListingOne({property}) {
                       <span className="flaticon-heart"></span>
                     </a>
                   </li>
-                  <li className="list-inline-item">
+                  {/* <li className="list-inline-item">
                     <a href="#">
                       <span className="flaticon-share"></span>
                     </a>
@@ -46,7 +46,7 @@ export default function ListingOne({property}) {
                     <a href="#">
                       <span className="flaticon-printer"></span>
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
               {/* End activity and social sharing */}

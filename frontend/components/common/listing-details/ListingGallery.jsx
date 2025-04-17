@@ -39,7 +39,7 @@ const ListingGallery = () => {
                           <span className="flaticon-heart"></span>
                         </a>
                       </li>
-                      <li className="list-inline-item">
+                      {/* <li className="list-inline-item">
                         <a href="#">
                           <span className="flaticon-share"></span>
                         </a>
@@ -48,7 +48,7 @@ const ListingGallery = () => {
                         <a href="#">
                           <span className="flaticon-printer"></span>
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                   {/* End activity and social sharing */}

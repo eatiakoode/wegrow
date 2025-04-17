@@ -91,7 +91,7 @@ export default function ListingTwo({property}) {
                           <span className="flaticon-heart"></span>
                         </a>
                       </li>
-                      <li className="list-inline-item">
+                      {/* <li className="list-inline-item">
                         <a href="#">
                           <span className="flaticon-share"></span>
                         </a>
@@ -100,7 +100,7 @@ export default function ListingTwo({property}) {
                         <a href="#">
                           <span className="flaticon-printer"></span>
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </div>
