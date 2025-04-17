@@ -58,11 +58,11 @@ const FeaturedProperties = () => {
                   <span className="flaticon-transfer-1"></span>
                 </a>
               </li>
-              <li className="list-inline-item">
+              {/* <li className="list-inline-item">
                 <a href="#">
                   <span className="flaticon-heart"></span>
                 </a>
-              </li>
+              </li> */}
             </ul>
             {/* End .icon */}
 

@@ -43,7 +43,7 @@ const index = () => {
                         <span className="flaticon-heart"></span>
                       </a>
                     </li>
-                    <li className="list-inline-item">
+                    {/* <li className="list-inline-item">
                       <a href="#">
                         <span className="flaticon-share"></span>
                       </a>
@@ -52,7 +52,7 @@ const index = () => {
                       <a href="#">
                         <span className="flaticon-printer"></span>
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
                 <div className="price text-end tal-400">
