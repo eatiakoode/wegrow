@@ -38,19 +38,23 @@ const TableData = () => {
     // "View",
     "Action",
   ];
-  let tbodyContent = propertyList?.slice(0, 4)?.map((item) => (
+  let tbodyContent = propertyList?.slice(0, 10)?.map((item, index) => (
     <tr key={item.id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">
           <div className="thumb">
           <Image
-            width={150}
-            height={220}
-            className="img-whp cover"
-            src={`${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`}
-            alt="Image"
-            unoptimized
-          />
+              width={150}
+              height={220}
+              className="img-whp cover"
+              src={
+                item.featuredimageurl
+                  ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
+                  : "/default-placeholder.jpg"
+              }
+              alt= {`${item.title}${index + 1}${item.featuredimageurl}`}
+              unoptimized // Optional: disables Next.js image optimization (useful if external images)
+            />
             <div className="thmb_cntnt">
               <ul className="tag mb0">
                 <li className="list-inline-item">

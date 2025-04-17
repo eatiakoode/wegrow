@@ -21,6 +21,7 @@ import Image from "next/image";
 
 
 const CreateList = () => {
+  const router = useRouter();
   const params = useParams();  
       const id = params?.id; 
   // --- State Hooks ---
@@ -54,6 +55,7 @@ const [selectedBuilder, setSelectedBuilder] = useState("");
 
 const [amenities, setAmenities] = useState([]);
 const [selectedAmenity, setSelectedAmenity] = useState("");
+const [status, setStatus] = useState("");
 
 
 const [constructionstatus, setConstructionstatus] = useState([]);
@@ -92,13 +94,18 @@ const [constructionstatus, setConstructionstatus] = useState([]);
   const [featuredimageget, setFeaturedImageGet] = useState(null);
   const [siteplan, setSitePlan] = useState(null);
   const [siteplanget, setSitePlanGet] = useState(null);
+  const [loading, setLoading] = useState(true);
   
   // upload profile
   const uploadSitePlan = (e) => {
+    // alert("test")
       setSitePlan(e.target.files[0]);
+      setSitePlanGet("")
+      // setSitePlanGet(e.target.files[0])
   };
 
   const uploadFeaturedImage = (e) => {
+    setFeaturedImageGet("")
     setFeaturedImage(e.target.files[0]);
 };
 
@@ -174,13 +181,15 @@ useEffect(() => {
             setMetatitle(data.data.metatitle)
             setMetaDescription(data.data.metadescription)
 
+            setStatus(data.data.status)
+
 
             
             if(data.data.featuredimageurl) {
               setFeaturedImageGet(process.env.NEXT_PUBLIC_API_URL+data.data.featuredimageurl)
             }
             if(data.data.siteplanurl) {
-              setSitePlan(process.env.NEXT_PUBLIC_API_URL+data.data.siteplanurl)
+              setSitePlanGet(process.env.NEXT_PUBLIC_API_URL+data.data.siteplanurl)
             }
             
             const statesRes = await getStateByCountryTableData(data.data.countryid);
@@ -308,6 +317,11 @@ const handleAddressChange = (e) => {
 const updateProperty = async (e) => {
   e.preventDefault();
   const newErrors = {};
+  console.log("propertySelectedImgs")
+  console.log(propertySelectedImgs)
+  
+  console.log("siteplan")
+  console.log(siteplan)
 
   const requiredFields = [
     { key: "title", value: title, name: "Title" },
@@ -363,7 +377,7 @@ const updateProperty = async (e) => {
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
       nearby, sellername, selleremail, sellerphone, 
-      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan
+      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status,propertySelectedImgs
     };
     
     
@@ -375,10 +389,13 @@ const updateProperty = async (e) => {
         formData.append(key, payload[key]);
       }
     }
-
+    propertySelectedImgs.forEach((file) => {
+      formData.append('propertyimageslist', file); // no [] needed
+    });
 
     const res = await updatePropertyAPI(id,formData);
-    alert(res.message);
+    // alert(res.message);
+    // router.push("/my-properties");
 
     // Reset fields and errors
     setError({});
@@ -914,7 +931,7 @@ const updateProperty = async (e) => {
                         onChange={uploadFeaturedImage}
                     />
                    <label
-                      htmlFor="image1"
+                      htmlFor="featuredimage"
                       style={
                         featuredimageget                          
                         ? { backgroundImage: `url(${featuredimageget})` }
@@ -942,7 +959,7 @@ const updateProperty = async (e) => {
                         onChange={uploadSitePlan}
                     />
                    <label
-                      htmlFor="image1"
+                      htmlFor="SitePlan"
                       style={
                         siteplanget                          
                         ? { backgroundImage: `url(${siteplanget})` }
@@ -1031,7 +1048,22 @@ const updateProperty = async (e) => {
           </div>
           
         </div>
-        
+        <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input ui_kit_select_search form-group">
+          <label>Status</label>
+          <select
+  className="selectpicker form-select"
+  data-live-search="true"
+  data-width="100%"
+  value={status ? "active" : "deactive"}
+  onChange={(e) => setStatus(e.target.value === "active")}
+>
+        <option value="active">Active</option>
+        <option value="deactive">Deactive</option>
+      </select>
+        </div>
+      </div>
+      {/* End .col */}
 
       {/* End .col */}
       </div>

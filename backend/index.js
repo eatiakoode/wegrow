@@ -19,6 +19,9 @@ const agentRouter = require("./routes/agentRouter");
 const propertyRouter = require("./routes/propertyRouter");
 const furnishingstatusRouter = require("./routes/furnishingstatusRouter");
 const constructionstatusRouter = require("./routes/constructionstatusRouter");
+const blogRouter = require("./routes/blogRouter");
+const testimonialRouter = require("./routes/testimonialRouter");
+const propertypageRouter = require("./routes/propertypageRouter");
 
 
 
@@ -54,6 +57,10 @@ app.use("/api/agent", agentRouter);
 app.use("/api/property", propertyRouter);
 app.use("/api/furnishingstatus", furnishingstatusRouter);
 app.use("/api/constructionstatus", constructionstatusRouter);
+app.use("/api/blog", blogRouter);
+app.use("/api/testimonial", testimonialRouter);
+app.use("/api/propertypage", propertypageRouter);
+
 
 
 

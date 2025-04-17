@@ -1,20 +1,20 @@
 const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
-const { featuredImageResize } = require("../middlewares/uploadImage");
+const { featuredImageResize,sitePlanResize,propertySelectedImgsResize } = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 
 const createProperty = asyncHandler(async (req, res) => {
   try {
     if(req.files){
-      if (!req.files.featuredimage.length < 0) {
+      if (req.files && req.files.featuredimage && req.files.featuredimage.length > 0) {
         const processedImages  =await featuredImageResize(req);
         if (processedImages.length > 0) {
           // ✅ Append logo filename to req.body
           req.body.featuredimageurl = "public/images/property/"+processedImages[0];
         }
       }
-      if (!req.files.siteplan.length < 0) {
+      if (req.files || req.files.siteplan && req.files.siteplan.length > 0) {
         const processedImagesplan  =await sitePlanResize(req);
         if (processedImagesplan.length > 0) {
           // ✅ Append logo filename to req.body
@@ -28,6 +28,9 @@ const createProperty = asyncHandler(async (req, res) => {
         .split(",")
         .map((id) => new mongoose.Types.ObjectId(id.trim()));
     }
+    console.log("req.body")
+    console.log(req.body)
+
     const newProperty = await Property.create(req.body);
     //res.json(newProperty);
     const message={
@@ -44,16 +47,24 @@ const updateProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    if(req.files){
-      if (!req.files.featuredimage.length < 0) {
+    console.log("req.body.propertySelectedImgs")
+    
+    if(req.files  && req.files != null){
+      
+      // console.log("featuredimage")
+      // console.log(req.files.featuredimage)
+      // console.log("files")
+      // console.log(req.files)
+      if (req.files && req.files.featuredimage && req.files.featuredimage.length > 0) {
         const processedImages  =await featuredImageResize(req);
         if (processedImages.length > 0) {
           // ✅ Append logo filename to req.body
           req.body.featuredimageurl = "public/images/property/"+processedImages[0];
         }
       }
-      if (!req.files.siteplan.length < 0) {
+      if (req.files || req.files.siteplan && req.files.siteplan.length > 0) {
         const processedImagesplan  =await sitePlanResize(req);
+
         if (processedImagesplan.length > 0) {
           // ✅ Append logo filename to req.body
           req.body.siteplanurl = "public/images/propertyplan/"+processedImagesplan[0];

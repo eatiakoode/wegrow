@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
 import { getCityByStateTableData } from "../../../api/city";
 
 import { getCountryTableData } from "../../../api/country";
@@ -20,6 +21,7 @@ import Image from "next/image";
 
 
 const CreateList = () => {
+  const router = useRouter();
   // --- State Hooks ---
 const [title, setTitle] = useState("");
 const [slug, setSlug] = useState("");
@@ -86,12 +88,16 @@ const [constructionstatus, setConstructionstatus] = useState([]);
   const [metadescription, setMetaDescription] = useState([]);
 
   const [featuredimage, setFeaturedImage] = useState(null);
+  const [siteplan, setSitePlan] = useState(null);
 
   // upload profile
   const uploadFeaturedImage = (e) => {
       setFeaturedImage(e.target.files[0]);
   };
-
+  const uploadSitePlan = (e) => {
+    // alert("test")
+      setSitePlan(e.target.files[0]);
+  };
 
   const [propertySelectedImgs, setPropertySelectedImgs] = useState([]);
   
@@ -220,9 +226,14 @@ const handleAddressChange = (e) => {
 };
 // --- Submit ---
 const addProperty = async (e) => {
+ 
   e.preventDefault();
   const newErrors = {};
-
+  console.log("propertySelectedImgs")
+  console.log(propertySelectedImgs)
+  
+  console.log("siteplan")
+  console.log(siteplan)
   const requiredFields = [
     { key: "title", value: title, name: "Title" },
     { key: "slug", value: slug, name: "Slug" },
@@ -259,6 +270,7 @@ const addProperty = async (e) => {
   }
 
   try {
+    console.log(propertySelectedImgs)
     const payload = {
       title, slug, description, price, address,
       countryid: selectedCountry,
@@ -277,7 +289,7 @@ const addProperty = async (e) => {
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
       nearby, sellername, selleremail, sellerphone, 
-      reranumber, zipcode, metatitle, metadescription,featuredimage
+      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,propertySelectedImgs
     };
     
     
@@ -289,34 +301,11 @@ const addProperty = async (e) => {
         formData.append(key, payload[key]);
       }
     }
-//     console.log("formDataapi")
-//     // console.log(formData)
-//     for (let [key, value] of formData.entries()) {
-//       console.log(`${key}:`, value);
-//     }
-// console.log("formDataendapi")
-// console.log("selectedAmenity")
-// console.log(selectedAmenity)
-//         const amenityArray = selectedAmenity?.split(',') || [];
-//         console.log("amenityArray")
-//         console.log(amenityArray)
-//       amenityArray.forEach((id) => {
-//       formData.append("amenityid", id.trim());
-//       });
 
-//       console.log("formDataapiafeter")
-//     // console.log(formData)
-//     for (let [key, value] of formData.entries()) {
-//       console.log(`${key}:`, value);
-//     }
-// console.log("formDataendapiafeter")
-    
-    // Append image file
-   
-    
 
     const res = await addPropertyAPI(formData);
-    alert(res.message);
+    router.push("/my-properties");
+    // alert(res.message);
 
     // Reset fields and errors
     setError({});
@@ -841,7 +830,7 @@ const addProperty = async (e) => {
         <div className="col-lg-12">
           <h3 className="mb30">Property media</h3>
         </div>
-        <div className="col-lg-12">
+        <div className="col-lg-6">
         <div htmlFor="featuredimage">Featured Image</div>
                 <div className="wrap-custom-file">
               
@@ -865,6 +854,36 @@ const addProperty = async (e) => {
                     >
                         <span>
                             <i className="flaticon-download"></i> Upload featured image{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
+            <div className="col-lg-6">
+        <div htmlFor="SitePlan">Site Plan</div>
+                <div className="wrap-custom-file">
+              
+                    <input
+                        type="file"
+                        id="SitePlan"
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={uploadSitePlan}
+                    />
+                  <label
+                        style={
+                          siteplan !== null
+                                ? {
+                                      backgroundImage: `url(${URL.createObjectURL(
+                                        siteplan
+                                      )})`,
+                                  }
+                                : undefined
+                        }
+                        htmlFor="SitePlan"
+                    >
+                        
+                        <span>
+                            <i className="flaticon-download"></i> Upload Site Plan{" "}
                         </span>
                     </label>
                 </div>
