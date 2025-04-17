@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 // import moment from 'moment';
 
 const TableData = () => {
-  console.log("test")
+  // console.log("test")
    const [cityList, setCityList] = useState([]);
     const router = useRouter();
   
@@ -34,6 +34,8 @@ const TableData = () => {
       };
   let theadConent = [
     "Listing Title",
+    "Country",
+    "State",
     "Date published",
     "Status",
     "Action",
@@ -51,7 +53,8 @@ const TableData = () => {
         </div>
       </td>
       {/* End td */}
-
+      <td>{item.countryid?.title}</td>
+      <td>{item.stateid?.title}</td>
       <td>{new Date(item.createdAt).toLocaleDateString('en-US', {
     month: 'short',
     day: '2-digit',

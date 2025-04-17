@@ -19,6 +19,9 @@ const agentRouter = require("./routes/agentRouter");
 const propertyRouter = require("./routes/propertyRouter");
 const furnishingstatusRouter = require("./routes/furnishingstatusRouter");
 const constructionstatusRouter = require("./routes/constructionstatusRouter");
+const blogRouter = require("./routes/blogRouter");
+const testimonialRouter = require("./routes/testimonialRouter");
+const propertypageRouter = require("./routes/propertypageRouter");
 
 
 
@@ -30,8 +33,15 @@ const cors = require("cors");
 dbConnect();
 app.use(morgan("dev"));
 app.use(cors());
+app.use(express.json());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// const bodyParser = require('body-parser');
+
+// app.use(bodyParser.json({ limit: '10mb' })); // or more
+// app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+
 app.use(cookieParser());
 app.use("/api/user", authRouter);
 
@@ -47,6 +57,10 @@ app.use("/api/agent", agentRouter);
 app.use("/api/property", propertyRouter);
 app.use("/api/furnishingstatus", furnishingstatusRouter);
 app.use("/api/constructionstatus", constructionstatusRouter);
+app.use("/api/blog", blogRouter);
+app.use("/api/testimonial", testimonialRouter);
+app.use("/api/propertypage", propertypageRouter);
+
 
 
 

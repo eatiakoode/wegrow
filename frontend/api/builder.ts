@@ -1,4 +1,13 @@
-export const addBuilderAPI = async (title: string) => {
+// export const addBuilderAPI = async (formData) => {
+//   const response = await axios.post("/your-api-endpoint", formData, {
+//     headers: {
+//       "Content-Type": "multipart/form-data",
+//     },
+//   });
+//   return response.data;
+// };
+
+export const addBuilderAPI = async (formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 // console.log("token")
     const token =process.env.NEXT_PUBLIC_TOKEN;
@@ -7,14 +16,19 @@ export const addBuilderAPI = async (title: string) => {
     if (!token) {
       throw new Error("User not authenticated!");
     }
-  
+//     console.log("formDataapi")
+//     console.log(formData)
+//     for (let [key, value] of formData.entries()) {
+//       console.log(`${key}:`, value);
+//     }
+// console.log("formDataendapi")
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/builder", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ title }),
+      body: formData
     });
   
     if (!response.status) {
@@ -110,14 +124,19 @@ export const addBuilderAPI = async (title: string) => {
     if (!token) {
       throw new Error("User not authenticated!");
     }
-  
+    console.log("formDataapi")
+        console.log(builder)
+        for (let [key, value] of builder.entries()) {
+          console.log(`${key}:`, value);
+        }
+    console.log("formDataendapi")
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/builder/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(builder),
+      body: builder,
     });
   
     if (!response.status) {

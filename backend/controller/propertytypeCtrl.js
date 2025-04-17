@@ -68,10 +68,27 @@ const getallPropertytype = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const getPropertytypeCategoryId = asyncHandler(async (req, res) => {
+  const { categoryid } = req.params;
+  validateMongoDbId(categoryid);
+  try {
+    const getallPropertytype = await Propertytype.find({ categoryid: categoryid });
+    const message={
+      "status":"success",
+      "message":"Data Propertytype sucessfully",
+      "data":getallPropertytype
+    }
+    res.json(message);
+   
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   createPropertytype,
   updatePropertytype,
   deletePropertytype,
   getPropertytype,
   getallPropertytype,
+  getPropertytypeCategoryId
 };

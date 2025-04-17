@@ -1,9 +1,22 @@
 const Builder = require("../models/builderModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
+const { uploadPhoto, builderImgResize } = require("../middlewares/uploadImage");
 
 const createBuilder = asyncHandler(async (req, res) => {
+  // console.log(req.body)
+  // console.log(req.file)
+  // builderImgResize(req.file)
   try {
+    if(req.files){
+      const processedImages  =await builderImgResize(req);
+      // console.log("newBuilderimage")
+      // console.log(processedImages)
+      if (processedImages.length > 0) {
+        // ✅ Append logo filename to req.body
+        req.body.logoimage = "public/images/builder/"+processedImages[0];
+      }
+    }
     const newBuilder = await Builder.create(req.body);
     const message={
       "status":"success",
@@ -19,10 +32,27 @@ const updateBuilder = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
+    
+    if(req.files){
+        const processedImages  =await builderImgResize(req);
+        console.log("newBuilderimage")
+        console.log(processedImages)
+        if (processedImages.length > 0) {
+          // ✅ Append logo filename to req.body
+          req.body.logoimage = "public/images/builder/"+processedImages[0];
+        }
+      }
+
     const updatedBuilder = await Builder.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res.json(updatedBuilder);
+    const message={
+      "status":"success",
+      "message":"Data updated sucessfully",
+      "data":updatedBuilder
+    }
+    res.json(message);
+    // res.json(updatedBuilder);
   } catch (error) {
     throw new Error(error);
   }

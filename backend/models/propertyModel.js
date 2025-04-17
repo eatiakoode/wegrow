@@ -6,113 +6,224 @@ var propertySchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
+      // unique: true,
       index: true,
+    },
+    slug: {
+      type: String,
+      required: true,
+      // unique: true,
+      // index: true,
     },
     description: {
       type: String,
       required: true,
-      unique: true,
-      index: true,
+      // unique: true,
+      // index: true,
     },
     price: {
       type: String,
       required: true,
-      unique: true,
-      index: true,
+      // unique: true,
+      // index: true,
     },
     countryid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Country", 
-      required: true,
+      // required: true,
     },
     stateid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "State", 
-      required: true,
+      // required: true,
     },
     cityid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "City", // 🔗 This should match the name you used in mongoose.model("City", ...)
-      required: true,
+      // required: true,
     },
     locationid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Location", // 🔗 This should match the name you used in mongoose.model("City", ...)
-      required: true,
+      // required: true,
     },
     address: {
       type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
     zipcode: {
       type: String,
-      required: true,
-      unique: true,
-      index: true,
-    },
-    propertid: {
-      type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
     areasize: {
       type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
     },    
-    room: {
+    sizeprefix: {
       type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
-    bedroom: {
+    bedrooms: {
       type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
-    bathroom: {
+    bathrooms: {
       type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
-    propertytype: {
+    garages: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    garagessize: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    yearbuild: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    mapembedcode: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    videoembedcode: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    nearby: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    sellername: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    selleremail: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    sellerphone: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    propertytypeid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Propertytype", // 🔗 This should match the name you used in mongoose.model("Propertytype", ...)
-      required: true,
+      // required: true,
     },
     builderid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Builder", // 🔗 This should match the name you used in mongoose.model("Builder", ...)
-      required: true,
+      // required: true,
     },
     agentid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Agent", // 🔗 This should match the name you used in mongoose.model("Agent", ...)
-      required: true,
+      // required: true,
     },
     amenityid: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Amenity", // 🔗 This should match the name you used in mongoose.model("Amenity", ...)
-      required: true,
+      // required: true,
     }],
     categoryid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category", // 🔗 This should match the name you used in mongoose.model("Category", ...)
-      required: true,
+      // required: true,
+    },
+    constructionstatus: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Constructionstatus", // 🔗 This should match the name you used in mongoose.model("Category", ...)
+      // required: true,
+    },
+    furnishingstatus: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Furnishingstatus", // 🔗 This should match the name you used in mongoose.model("Category", ...)
+      // required: true,
+    },
+    reraapproved: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    reranumber: {
+      type: String,
+      // index: true,
+    },
+    featuredproperty: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    propertyid: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
     type: {
       type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
+      default: "buy",
+    },
+    featuredimageurl:{
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    siteplanurl:{
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    metatitle:{
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    metadescription:{
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
     status: {
       type: Boolean,

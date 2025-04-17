@@ -61,7 +61,7 @@ const getState = asyncHandler(async (req, res) => {
 });
 const getallState = asyncHandler(async (req, res) => {
   try {
-    const getallState = await State.find();
+    const getallState = await State.find().populate("countryid");
     res.json(getallState);
   } catch (error) {
     throw new Error(error);

@@ -61,7 +61,7 @@ const getCity = asyncHandler(async (req, res) => {
 });
 const getallCity = asyncHandler(async (req, res) => {
   try {
-    const getallCity = await City.find();
+    const getallCity = await City.find().populate("countryid").populate("stateid");
     res.json(getallCity);
   } catch (error) {
     throw new Error(error);

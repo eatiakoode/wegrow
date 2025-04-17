@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import HomeMain from "@/components/home";
 
 export const metadata = {
-  title: 'Home-1 || Wegrow - Real Estate React Template',
+  title: 'Home || Wegrow - Real Estate React Template',
   description:
     'Wegrow - Real Estate React Template',
 }

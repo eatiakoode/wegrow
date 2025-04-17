@@ -81,7 +81,7 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/propertytype/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/propertytype/byid/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -122,4 +122,21 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
     }
   
     return response.json();
+  };
+
+  export const  getPropertytypeByCategoryTableData = async (id: string) => {
+    // Fake delay
+    await new Promise((resolve) => setTimeout(resolve, 1400));
+  
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/propertytype/bycategory/${id}`); // Replace with actual API endpoint
+      
+      if (!response.ok) {
+        throw new Error("Failed to fetch property type");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching property type:", error);
+      return []; // Return an empty array in case of an error
+    }
   };

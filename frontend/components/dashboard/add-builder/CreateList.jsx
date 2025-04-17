@@ -4,7 +4,14 @@ import { useState } from "react";
 import { addBuilderAPI } from "../../../api/builder";
 const CreateList = () => {
    const [title, setTitle] = useState("");
+   const [description, setDescription] = useState("");
     const [error, setError] = useState("");
+    const [logo, setLogo] = useState(null);
+
+    // upload profile
+    const uploadLogo = (e) => {
+        setLogo(e.target.files[0]);
+    };
   
     const handleTitleChange = (e) => {
       setTitle(e.target.value);
@@ -16,29 +23,69 @@ const CreateList = () => {
     };
   
     const addBuilder = async (e) => {
-      
       e.preventDefault();
-  
+    
       if (!title.trim()) {
         setError("Title is required");
         return;
       }
-      // alert("testw")
+    
       setError("");
-      
+    
       try {
-        const data = await addBuilderAPI(title); // 🔹 Call the API function
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("description", description);
+        if (logo) {
+          formData.append("logo", logo);
+        }
+        
+    // console.log("formDataend")
+    // console.log(formData)
+        const data = await addBuilderAPI(formData); // Use FormData here
         console.log(data);
         alert(data.message);
-  
-        setTitle(""); // ✅ Reset input after success
+    
+        setTitle("");
+        setDescription("");
+        setLogo(null);
       } catch (error) {
-        setError(error.message); // ❌ Show error if request fails
+        setError(error.message);
       }
     };
+    
+    
   return (
     <>
     <form onSubmit={addBuilder} className="row">
+    <div className="col-lg-12">
+                <div className="wrap-custom-file">
+                    <input
+                        type="file"
+                        id="image1"
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={uploadLogo}
+                    />
+                    <label
+                        style={
+                            logo !== null
+                                ? {
+                                      backgroundImage: `url(${URL.createObjectURL(
+                                          logo
+                                      )})`,
+                                  }
+                                : undefined
+                        }
+                        htmlFor="image1"
+                    >
+                        <span>
+                            <i className="flaticon-download"></i> Upload Photo{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
+            {/* End .col */}
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="builderTitle">Builder Title</label>
@@ -47,7 +94,17 @@ const CreateList = () => {
         </div>
       </div>
       {/* End .col */}
+      <div className="col-lg-12">
+          <div className="my_profile_setting_textarea form-group">
+            <label htmlFor="builderDescription">Description</label>
+            <textarea id="builderDescription" className="form-control" rows="7"  value={description} onChange={(e) => setDescription(e.target.value)}  placeholder="Enter builder description"></textarea>
+            {error.description && <span className="text-danger">{error.description}</span>}
+          </div>
+          
+        </div>
+        
 
+      {/* End .col */}
       <div className="col-lg-6 col-xl-6 d-none">
         <div className="my_profile_setting_input ui_kit_select_search form-group">
           <label>Status</label>

@@ -10,6 +10,18 @@ var builderSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    description:{
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
+    logoimage:{
+      type: String,
+      // required: true,
+      unique: true,
+      index: true,
+    },
     status: {
       type: Boolean,
       default: true,
