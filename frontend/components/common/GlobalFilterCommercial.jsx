@@ -63,7 +63,7 @@ const GlobalFilter = ({ className = "" }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Find your dream home — start typing..."
+              placeholder="Find your dream place — start typing..."
               onChange={(e) => dispatch(addKeyword(e.target.value))}
             />
           </div>
