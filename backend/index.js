@@ -22,6 +22,13 @@ const constructionstatusRouter = require("./routes/constructionstatusRouter");
 const blogRouter = require("./routes/blogRouter");
 const testimonialRouter = require("./routes/testimonialRouter");
 const propertypageRouter = require("./routes/propertypageRouter");
+const faqRouter = require("./routes/faqRouter");
+
+// Frontend API route
+const cityFrontendRoute = require("./routes/cityFrontendRoute");
+const propertytypeFrontendRouter = require("./routes/propertytypeFrontendRouter");
+
+
 
 
 
@@ -43,24 +50,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 app.use(cookieParser());
-app.use("/api/user", authRouter);
+app.use("/admin/api/user", authRouter);
 
-app.use("/api/country", countryRouter);
-app.use("/api/state", stateRouter);
-app.use("/api/city", cityRouter);
-app.use("/api/location", locationRouter);
-app.use("/api/amenity", amenityRouter);
-app.use("/api/category", categoryRouter);
-app.use("/api/propertytype", propertytypeRouter);
-app.use("/api/builder", builderRouter);
-app.use("/api/agent", agentRouter);
-app.use("/api/property", propertyRouter);
-app.use("/api/furnishingstatus", furnishingstatusRouter);
-app.use("/api/constructionstatus", constructionstatusRouter);
-app.use("/api/blog", blogRouter);
-app.use("/api/testimonial", testimonialRouter);
-app.use("/api/propertypage", propertypageRouter);
+app.use("/admin/api/country", countryRouter);
+app.use("/admin/api/state", stateRouter);
+app.use("/admin/api/city", cityRouter);
+app.use("/admin/api/location", locationRouter);
+app.use("/admin/api/amenity", amenityRouter);
+app.use("/admin/api/category", categoryRouter);
+app.use("/admin/api/propertytype", propertytypeRouter);
+app.use("/admin/api/builder", builderRouter);
+app.use("/admin/api/agent", agentRouter);
+app.use("/admin/api/property", propertyRouter);
+app.use("/admin/api/furnishingstatus", furnishingstatusRouter);
+app.use("/admin/api/constructionstatus", constructionstatusRouter);
+app.use("/admin/api/blog", blogRouter);
+app.use("/admin/api/testimonial", testimonialRouter);
+app.use("/admin/api/propertypage", propertypageRouter);
+app.use("/admin/api/faq", faqRouter);
 
+// Frontend API
+app.use("/frontend/api/city", cityFrontendRoute);
+app.use("/frontend/api/propertytype", propertytypeFrontendRouter);
 
 
 

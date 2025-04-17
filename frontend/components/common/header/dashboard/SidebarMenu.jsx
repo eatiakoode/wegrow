@@ -63,6 +63,10 @@ const SidebarMenu = () => {
     { id: 2, name: "Testimonial List", route: "/my-testimonial" }
   ];
   
+  const myFaq = [
+    { id: 1, name: "Add FAQ", route: "/add-faq" },
+    { id: 2, name: "FAQ List", route: "/my-faq" }
+  ];
   const reviews = [
     { id: 1, name: "My Reviews", route: "/my-review" },
     { id: 2, name: "Visitor Reviews", route: "/my-review" },
@@ -372,6 +376,26 @@ const SidebarMenu = () => {
               </a>
               <ul className="treeview-menu collapse" id="my-Propertypage">
                 {myPropertypage.map((item) => (
+                  <li key={item.id}>
+                    <Link href={item.route}>
+                      <i className="fa fa-circle"></i> {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+            {/* end Propertypage */}
+            <li
+              className={`treeview ${
+                isParentPageActive(myFaq, pathname) ? "active" : ""
+              }`}
+            >
+              <a data-bs-toggle="collapse" href="#my-faq">
+                <i className="flaticon-home"></i> <span>My FAQ</span>
+                <i className="fa fa-angle-down pull-right"></i>
+              </a>
+              <ul className="treeview-menu collapse" id="my-faq">
+                {myFaq.map((item) => (
                   <li key={item.id}>
                     <Link href={item.route}>
                       <i className="fa fa-circle"></i> {item.name}

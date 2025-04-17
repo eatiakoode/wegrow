@@ -213,6 +213,12 @@ var propertySchema = new mongoose.Schema(
       // unique: true,
       // index: true,
     },
+    propertyimageurl:[{
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    }],
     metatitle:{
       type: String,
       // required: true,

@@ -28,7 +28,7 @@ const uploadPhoto = multer({
 const photoUploadMiddleware = uploadPhoto.fields([
   { name: 'featuredimage', maxCount: 1 },
   { name: 'siteplan', maxCount: 1 },
-  { name: 'propertySelectedImgs', maxCount: 1 },
+  { name: 'propertySelectedImgs', maxCount: 10 },
   
 ]);
 const productImgResize = async (req, res, next) => {
@@ -151,17 +151,14 @@ const featuredImageResize = async (req) => {
   return processedFilenames;
 };
 const sitePlanResize = async (req) => {
-  console.log("sitePlanResize")
-  console.log(req.files)
-  console.log("sitePlanResizefiles")
+  
 
   if (!req.files.siteplan || !Array.isArray(req.files.siteplan)) return;
 
   const processedFilenames = [];
-  console.log("sitePlanResizes")
+ 
   await Promise.all(
     req.files.siteplan.map(async (file) => {
-      console.log(file.filename)
       // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
       const filename =file.filename
       const outputPath = path.join("public", "images", "propertyplan", filename);
@@ -205,4 +202,31 @@ const testimonialImgResize = async (req) => {
 
   return processedFilenames;
 };
-module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize };
+
+const propertySelectedImgsResize = async (req) => {
+
+  if (!req.files.propertySelectedImgs || !Array.isArray(req.files.propertySelectedImgs)) return;
+
+  const processedFilenames = [];
+  await Promise.all(
+    req.files.propertySelectedImgs.map(async (file) => {
+      
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "propertyimage", filename);
+
+      await sharp(file.path)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push("public/images/propertyimage/"+filename);
+    })
+  );
+
+  return processedFilenames;
+};
+module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize };
