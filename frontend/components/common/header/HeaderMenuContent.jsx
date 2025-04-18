@@ -214,8 +214,8 @@ const HeaderMenuContent = ({ float = "" }) => {
   // ];
 
   const property = [
-    { id: 1, name: "Residential", routerPath: "/residential" },
-    { id: 2, name: "Commercial", routerPath: "/commercial" },
+    { id: 1, name: "Residential", routerPath: "/listing-list-v1" },
+    { id: 2, name: "Commercial", routerPath: "/listing-list-v1" },
   ];
   
 
@@ -230,19 +230,19 @@ const HeaderMenuContent = ({ float = "" }) => {
     },
   ];
 
-  const pages = [
-    { id: 1, name: "About Us", routerPath: "/about-us" },
-    { id: 2, name: "Gallery", routerPath: "/gallery" },
-    { id: 3, name: "Faq", routerPath: "/faq" },
-    { id: 4, name: "LogIn", routerPath: "/login" },
-    { id: 5, name: "Compare", routerPath: "/compare" },
-    { id: 6, name: "Membership", routerPath: "/membership" },
+  // const pages = [
+  //   { id: 1, name: "About Us", routerPath: "/about-us" },
+  //   { id: 2, name: "Gallery", routerPath: "/gallery" },
+  //   { id: 3, name: "Faq", routerPath: "/faq" },
+  //   { id: 4, name: "LogIn", routerPath: "/login" },
+  //   { id: 5, name: "Compare", routerPath: "/compare" },
+  //   { id: 6, name: "Membership", routerPath: "/membership" },
 
-    { id: 7, name: "Register", routerPath: "/register" },
-    { id: 8, name: "Service", routerPath: "/service" },
-    { id: 9, name: "404 Page", routerPath: "/404" },
-    { id: 10, name: "Terms & Conditions", routerPath: "/terms" },
-  ];
+  //   { id: 7, name: "Register", routerPath: "/register" },
+  //   { id: 8, name: "Service", routerPath: "/service" },
+  //   { id: 9, name: "404 Page", routerPath: "/404" },
+  //   { id: 10, name: "Terms & Conditions", routerPath: "/terms" },
+  // ];
 
   return (
     <ul
@@ -252,7 +252,7 @@ const HeaderMenuContent = ({ float = "" }) => {
     >
       <li className="dropitem">
         <a
-          href="#"
+          href="/"
           className={
             home.some((page) => page.routerPath?.split('/')[1] === pathname?.split('/')[1])
               ? "ui-active"
@@ -283,7 +283,7 @@ const HeaderMenuContent = ({ float = "" }) => {
 
       <li className="dropitem">
         <Link
-          href="/aboutus"
+          href="/about-us"
           className={
             pathname?.split("/")[1] === "aboutus" ? "ui-active" : undefined
           }
@@ -348,6 +348,19 @@ const HeaderMenuContent = ({ float = "" }) => {
           }
         >
           <span className="title">Blog</span>
+        </Link>
+      </li>
+
+      {/* End .dropitem */}
+
+      <li className="dropitem">
+        <Link
+          href="/faq"
+          className={
+            pathname?.split("/")[1] === "blog" ? "ui-active" : undefined
+          }
+        >
+          <span className="title">Faq</span>
         </Link>
       </li>
 

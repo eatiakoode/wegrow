@@ -6,7 +6,7 @@ import MobileMenu from "../common/header/MobileMenu";
 import Partners from "../common/Partners";
 import PopupSignInUp from "../common/PopupSignInUp";
 import WhyChoose from "../common/WhyChoose";
-import Testimonial from "../home-7/Testimonial";
+import Testimonial from "../common/Testimonial";
 import BreadCrumbBanner from "./BreadCrumbBanner";
 import Team from "./Team";
 import OurMission from "./OurMission";
@@ -30,9 +30,13 @@ const index = () => {
       <section className="about-section">
         <div className="container">
           <div className="row">
-            <div className="col-lg-6 offset-lg-3">
+            <div className="col-lg-8 offset-lg-2">
               <div className="main-title text-center">
-                <h2 className="mt0">Our Mission Is To Wegrow</h2>
+                {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
+                <h2 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h2> */}
+                <h2 className="mt0 color-main">Face of wegrow</h2>
+                <h2 className="mt0">From the Founders' Desk</h2>
+                
               </div>
             </div>
           </div>
@@ -67,7 +71,7 @@ const index = () => {
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
                 <h2>Our Team</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Experience excellence with our expert team.</p>
               </div>
             </div>
           </div>
@@ -82,13 +86,13 @@ const index = () => {
       </section>
 
       {/* <!-- Our Testimonials --> */}
-      <section className="our-testimonials">
+      <section className="our-testimonial home5">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center mb20">
-                <h2>Testimonials</h2>
-                <p>Here could be a nice sub title</p>
+                <h2 className="color-white">Testimonials</h2>
+                <p className="color-white">Here could be a nice sub title</p>
               </div>
             </div>
           </div>

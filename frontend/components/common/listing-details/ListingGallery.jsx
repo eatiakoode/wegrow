@@ -14,7 +14,7 @@ const ListingGallery = () => {
             <div className="row mb30">
               <div className="col-lg-7 col-xl-8">
                 <div className="single_property_title mt30-767">
-                  <h2>{singleItem.title}</h2>
+                  {/* <h2>{singleItem.title}</h2> */}
                   <p>{singleItem.location}</p>
                 </div>
               </div>
@@ -39,16 +39,7 @@ const ListingGallery = () => {
                           <span className="flaticon-heart"></span>
                         </a>
                       </li>
-                      {/* <li className="list-inline-item">
-                        <a href="#">
-                          <span className="flaticon-share"></span>
-                        </a>
-                      </li>
-                      <li className="list-inline-item">
-                        <a href="#">
-                          <span className="flaticon-printer"></span>
-                        </a>
-                      </li> */}
+                     
                     </ul>
                   </div>
                   {/* End activity and social sharing */}
