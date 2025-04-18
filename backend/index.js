@@ -27,6 +27,8 @@ const faqRouter = require("./routes/faqRouter");
 // Frontend API route
 const cityFrontendRoute = require("./routes/cityFrontendRoute");
 const propertytypeFrontendRouter = require("./routes/propertytypeFrontendRouter");
+const propertyFrontendRouter = require("./routes/propertyFrontendRouter");
+
 
 
 
@@ -72,6 +74,7 @@ app.use("/admin/api/faq", faqRouter);
 // Frontend API
 app.use("/frontend/api/city", cityFrontendRoute);
 app.use("/frontend/api/propertytype", propertytypeFrontendRouter);
+app.use("/frontend/api/property", propertyFrontendRouter);
 
 
 

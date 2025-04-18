@@ -2,14 +2,20 @@ export const addPropertyAPI = async (title) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 console.log("title")
 console.log(title)
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
 
   
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/property", {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/property", {
       method: "POST",
       headers: {
         // "Content-Type": "application/json",
@@ -33,7 +39,7 @@ console.log(title)
     
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/property"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/property"); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -49,12 +55,18 @@ console.log(title)
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/property/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/property/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -79,12 +91,18 @@ console.log(title)
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/property/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/property/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -105,14 +123,20 @@ console.log(title)
   export const updatePropertyAPI = async (id,property) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
 
   
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/property/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/property/${id}`, {
       method: "PUT",
       headers: {
         // "Content-Type": "application/json",

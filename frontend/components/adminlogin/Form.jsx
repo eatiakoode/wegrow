@@ -1,16 +1,72 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { addAdminLoginAPI } from "../../api/adminlogin";
+import { useRouter, useParams } from "next/navigation";
+// import { toast } from 'react-toastify';
+// import Modal from '../components/Modal';
+// npm install react-toastify
+
 
 const Form = () => {
+  const router = useRouter();
+  // const [showDialog, setShowDialog] = useState(false);
+   const [user, setUser] = useState("");
+   const [password, setPassword] = useState("");
+      const [error, setError] = useState("");
+      // useEffect(() => {
+      //   alert("sjdz")
+      //   toast.success("Login successful!");
+      // }, []);
+      const addAdminLogin = async (e) => {
+          e.preventDefault();
+         
+      
+          
+      
+          setError("");
+          const formData = {
+            "email": user,
+            "password": password};
+      
+          try {
+            const data = await addAdminLoginAPI(formData);
+            console.log("data");
+            console.log(data);
+            // alert(data.message);
+            setUser("");
+            setPassword("");
+            if (data.status=="success") {
+              console.log("success");
+              // toast.success("Login successful!");
+              localStorage.setItem("user", JSON.stringify(data.data));
+              // alert(data.message);
+              router.push("/cmswegrow/my-dashboard");
+              const userData = JSON.parse(localStorage.getItem("user"));
+              console.log("userData");
+            console.log(userData);
+            } else
+            if (data.status=="fail") {
+              const err = await res.json();
+              throw new Error(err.message || "Login failed");
+            }
+        
+           
+          } catch (error) {
+            setError(error.message);
+          }
+        };
   return (
-    <form action="#">
+    <form  onSubmit={addAdminLogin}  >
       <div className="heading text-center">
-        <h3>Login to your account</h3>
-        <p className="text-center">
+        <h3>Login to CMS dashboard</h3>
+        {/* <p className="text-center">
           Dont have an account?{" "}
           <Link href="/register" className="text-thm">
             Sign Up!
           </Link>
-        </p>
+        </p> */}
       </div>
       {/* End .heading */}
 
@@ -19,7 +75,7 @@ const Form = () => {
           type="text"
           className="form-control"
           required
-          placeholder="User Name Or Email"
+          placeholder="User Name Or Email"  value={user} onChange={(e) => setUser(e.target.value)} 
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
@@ -34,7 +90,7 @@ const Form = () => {
           type="password"
           className="form-control"
           required
-          placeholder="Password"
+          placeholder="Password"   value={password} onChange={(e) => setPassword(e.target.value)} 
         />
         <div className="input-group-prepend">
           <div className="input-group-text">
@@ -67,15 +123,16 @@ const Form = () => {
       <button type="submit" className="btn btn-log w-100 btn-thm">
         Log In
       </button>
+     
       {/* login button */}
 
-      <div className="divide">
+      {/* <div className="divide">
         <span className="lf_divider">Or</span>
         <hr />
-      </div>
+      </div> */}
       {/* devider */}
 
-      <div className="row mt25">
+      {/* <div className="row mt25">
         <div className="col-lg-6">
           <button
             type="submit"
@@ -83,19 +140,19 @@ const Form = () => {
           >
             <i className="fa fa-facebook float-start mt5"></i> Facebook
           </button>
-        </div>
+        </div>*/}
         {/* End .col */}
 
-        <div className="col-lg-6">
+        {/* <div className="col-lg-6">
           <button
             type="submit"
             className="btn btn2 btn-block color-white bgc-gogle mb0 w-100"
           >
             <i className="fa fa-google float-start mt5"></i> Google
           </button>
-        </div>
+        </div> */}
         {/* End .col */}
-      </div>
+     {/* </div> */}
       {/* more signin options */}
     </form>
   );

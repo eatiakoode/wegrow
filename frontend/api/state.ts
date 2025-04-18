@@ -1,7 +1,14 @@
 export const addStateAPI = async (title: string,countryid: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
+    console.log(token)
   
     if (!token) {
       throw new Error("User not authenticated!");
@@ -13,7 +20,7 @@ export const addStateAPI = async (title: string,countryid: string) => {
     // }
 console.log("formDataendapi")
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/state", {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/state", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +43,7 @@ console.log("formDataendapi")
     await new Promise((resolve) => setTimeout(resolve, 1400));
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/state"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/state"); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -52,12 +59,18 @@ console.log("formDataendapi")
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
-  
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/state/${id}`, {
+    console.log(token)
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/state/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -82,12 +95,18 @@ console.log("formDataendapi")
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/state/byid/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/state/byid/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -108,12 +127,18 @@ console.log("formDataendapi")
   export const updateStateAPI = async (id,state) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/state/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/state/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -135,7 +160,7 @@ console.log("formDataendapi")
     await new Promise((resolve) => setTimeout(resolve, 1400));
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/state/bycountry/${id}`); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/state/bycountry/${id}`); // Replace with actual API endpoint
       
       if (!response.ok) {
         throw new Error("Failed to fetch state");

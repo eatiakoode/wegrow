@@ -399,7 +399,7 @@ const updateProperty = async (e) => {
 
     const res = await updatePropertyAPI(id,formData);
     // alert(res.message);
-    // router.push("/my-properties");
+    router.push("/my-properties");
 
     // Reset fields and errors
     setError({});

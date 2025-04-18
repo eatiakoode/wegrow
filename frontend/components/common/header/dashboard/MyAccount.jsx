@@ -5,14 +5,23 @@ import { isSinglePageActive } from "../../../../utils/daynamicNavigation";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+import { useRouter, useParams } from "next/navigation";
+import useAuth from "../../../../utils/useAuth";
+
 const MyAccount = () => {
+  useAuth();
+  const router = useRouter();
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    router.push('/cmswegrow');
+  };
   const pathname = usePathname()
   const profileMenuItems = [
     { id: 1, name: "My Profile", ruterPath: "/my-profile" },
     { id: 2, name: " My Message", ruterPath: "/my-message" },
     { id: 3, name: " My Favourite", ruterPath: "/my-favourites" },
     { id: 4, name: " My Package", ruterPath: "/my-package" },
-    { id: 5, name: " Log out", ruterPath: "/login" },
+    // { id: 5, name: " Log out", ruterPath: "/login" },
   ];
 
   return (
@@ -47,6 +56,12 @@ const MyAccount = () => {
             {item.name}
           </Link>
         ))}
+        
+            <a className="dropdown-item" href="#"  onClick={() => handleLogout()}>
+              Log out
+            </a>
+          
+
       </div>
     </>
   );

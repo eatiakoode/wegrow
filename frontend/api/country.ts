@@ -1,14 +1,17 @@
 export const addCountryAPI = async (title: string) => {
-    // const token = localStorage.getItem("token"); // 🔹 Retrieve token
-// console.log("token")
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+  const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
 
   
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/country", {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/country", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +35,7 @@ export const addCountryAPI = async (title: string) => {
     
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/country"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/country"); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -48,12 +51,18 @@ export const addCountryAPI = async (title: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/country/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/country/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -78,12 +87,18 @@ export const addCountryAPI = async (title: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/country/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/country/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -104,14 +119,20 @@ export const addCountryAPI = async (title: string) => {
   export const updateCountryAPI = async (id,country) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
 
   
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/country/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/country/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
