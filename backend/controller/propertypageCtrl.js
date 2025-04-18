@@ -1,7 +1,6 @@
 const Propertypage = require("../models/propertypageModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
-const { featuredImageResize,sitePlanResize } = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 
 const createPropertypage = asyncHandler(async (req, res) => {

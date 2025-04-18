@@ -1,4 +1,6 @@
-'use client'
+"use client";
+
+import { useState, useEffect } from "react";
 
 import {
   addKeyword,
@@ -8,8 +10,45 @@ import {
 import CheckBoxFilter from "./CheckBoxFilter";
 import GlobalSelectBox from "./GlobalSelectBox";
 import { useRouter } from "next/navigation";
+import { getCityTableData,getCityByStateTableData } from "./../../api/frontend/city";
+import { getPropertytypeByCategoryTableData} from "../../api/frontend/propertytype.ts";
 
 const GlobalFilter = ({ className = "" }) => {
+  const [cities, setCities] = useState([]);
+    const [selectedCity, setSelectedCity] = useState("");
+    const [propertytypes, setPropertytypes] = useState([]);
+    const [selectedPropertytype, setSelectedPropertytype] = useState("");
+    useEffect(() => {
+      const fetchCities = async () => {
+        try {
+          const response = await getCityTableData();
+          console.log("response")
+          console.log(response)
+          
+  
+          setCities(response || []);
+        } catch (err) {
+          console.error("Error fetching Country:", err);
+        }
+      };
+  
+      fetchCities();
+      const fetchPropertytypes = async () => {
+        try {
+          const value="67ea48d17cfa562fe8eaafd0"
+          const response = await getPropertytypeByCategoryTableData(value);
+          console.log("responsepropertytypes")
+          console.log(response.data)
+          
+  
+          setPropertytypes(response.data || []);
+        } catch (err) {
+          console.error("Error fetching Country:", err);
+        }
+      };
+  
+      fetchPropertytypes();
+      }, []);
   const router = useRouter()
   // submit handler
   const submitHandler = () => {
@@ -24,7 +63,7 @@ const GlobalFilter = ({ className = "" }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Find your dream home — start typing..."
+              placeholder="Find your dream place — start typing..."
               onChange={(e) => dispatch(addKeyword(e.target.value))}
             />
           </div>
@@ -34,13 +73,28 @@ const GlobalFilter = ({ className = "" }) => {
         <li className="list-inline-item">
           <div className="search_option_two">
             <div className="candidate_revew_select">
-              <select className="selectpicker w100 form-select show-tick">
+              {/* <select className="selectpicker w100 form-select show-tick">
                 <option value="">Select City</option>
                 <option value="1">Gurgaon</option>
                                         <option value="4">Sohna</option>
                                         <option value="2">New Delhi</option>
                                         <option value="3">Greater Noida</option>
-              </select>
+              </select> */}
+              <select
+              id="citySelect"
+              className="selectpicker w100 form-select show-tick"
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)} 
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Select City --</option>
+              {cities.map((city) => (
+                <option key={city._id} value={city._id}>
+                  {city.title}
+                </option>
+              ))}
+            </select>
             </div>
           </div>
         </li>
@@ -69,13 +123,28 @@ const GlobalFilter = ({ className = "" }) => {
         <li className="list-inline-item">
           <div className="search_option_two">
             <div className="candidate_revew_select">
-              <select className="selectpicker w100 form-select show-tick">
+              {/* <select className="selectpicker w100 form-select show-tick">
                 <option value="">Property Type</option>
                 <option>Retail Shops</option>
                 <option>Office Space</option>
                 <option>Studios</option>
                 <option>SCO Plots</option>
-              </select>
+              </select> */}
+              <select
+              id="citySelect"
+              className="selectpicker w100 form-select show-tick"
+              value={selectedPropertytype}
+              onChange={(e) => setSelectedPropertytype(e.target.value)} 
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Property Type --</option>
+              {propertytypes.map((propertytype) => (
+                <option key={propertytype._id} value={propertytype._id}>
+                  {propertytype.title}
+                </option>
+              ))}
+            </select>
             </div>
           </div>
         </li>

@@ -1,5 +1,6 @@
-'use client'
+"use client";
 
+import { useState, useEffect } from "react";
 import {
   addKeyword,
   // addLocation,
@@ -9,12 +10,51 @@ import CheckBoxFilter from "./CheckBoxFilter";
 import GlobalSelectBox from "./GlobalSelectBox";
 import { useRouter } from "next/navigation";
 
+import { getCityTableData,getCityByStateTableData } from "./../../api/frontend/city";
+import { getPropertytypeByCategoryTableData} from "../../api/frontend/propertytype.ts";
+
 const GlobalFilter = ({ className = "" }) => {
+  const [cities, setCities] = useState([]);
+    const [selectedCity, setSelectedCity] = useState("");
+    const [propertytypes, setPropertytypes] = useState([]);
+    const [selectedPropertytype, setSelectedPropertytype] = useState("");
+    useEffect(() => {
+      const fetchCities = async () => {
+        try {
+          const response = await getCityTableData();
+          console.log("response")
+          console.log(response)
+          
+  
+          setCities(response || []);
+        } catch (err) {
+          console.error("Error fetching Country:", err);
+        }
+      };
+  
+      fetchCities();
+      const fetchPropertytypes = async () => {
+        try {
+          const value="67e67294759f85d6bf7a131a"
+          const response = await getPropertytypeByCategoryTableData(value);
+          console.log("responsepropertytypes")
+          console.log(response.data)
+          
+  
+          setPropertytypes(response.data || []);
+        } catch (err) {
+          console.error("Error fetching Country:", err);
+        }
+      };
+  
+      fetchPropertytypes();
+      }, []);
   const router = useRouter()
   // submit handler
   const submitHandler = () => {
     router.push("/listing-grid-v1");
   };
+ 
 
   return (
     <div className={`home1-advnc-search ${className}`}>
@@ -34,13 +74,28 @@ const GlobalFilter = ({ className = "" }) => {
         <li className="list-inline-item">
           <div className="search_option_two">
             <div className="candidate_revew_select">
-              <select className="selectpicker w100 form-select show-tick">
+            <select
+              id="citySelect"
+              className="selectpicker w100 form-select show-tick"
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)} 
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Select City --</option>
+              {cities.map((city) => (
+                <option key={city._id} value={city._id}>
+                  {city.title}
+                </option>
+              ))}
+            </select>
+              {/* <select className="selectpicker w100 form-select show-tick">
                 <option value="">Select City</option>
                 <option value="1">Gurgaon</option>
                                         <option value="4">Sohna</option>
                                         <option value="2">New Delhi</option>
                                         <option value="3">Greater Noida</option>
-              </select>
+              </select> */}
             </div>
           </div>
         </li>
@@ -69,13 +124,28 @@ const GlobalFilter = ({ className = "" }) => {
         <li className="list-inline-item">
           <div className="search_option_two">
             <div className="candidate_revew_select">
-              <select className="selectpicker w100 form-select show-tick">
+            <select
+              id="citySelect"
+              className="selectpicker w100 form-select show-tick"
+              value={selectedPropertytype}
+              onChange={(e) => setSelectedPropertytype(e.target.value)} 
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Property Type --</option>
+              {propertytypes.map((propertytype) => (
+                <option key={propertytype._id} value={propertytype._id}>
+                  {propertytype.title}
+                </option>
+              ))}
+            </select>
+              {/* <select className="selectpicker w100 form-select show-tick">
                 <option value="">Property Type</option>
                 <option>High Rise</option>
                 <option>Low Rise</option>
                 <option>Plots</option>
                 <option>Villas</option>
-              </select>
+              </select> */}
             </div>
           </div>
         </li>

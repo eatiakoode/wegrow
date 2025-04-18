@@ -6,16 +6,33 @@ const mongoose = require("mongoose");
 
 const createProperty = asyncHandler(async (req, res) => {
   try {
-    if(req.files){
-      if (req.files && req.files.featuredimage && req.files.featuredimage.length > 0) {
+    if (req.files && Object.keys(req.files).length > 0) {
+      
+      if (req.files && req.files.propertySelectedImgs && req.files.propertySelectedImgs.length > 0  && Object.keys(req.files.propertySelectedImgs).length > 0 && Array.isArray(req.files.propertySelectedImgs)) {
+        console.log("no propertySelectedImgs")
+        const propertySelectedImgs  = await propertySelectedImgsResize(req);
+        if (propertySelectedImgs.length > 0) {
+          // ✅ Append logo filename to req.body
+          // console.log("Property Images:", propertySelectedImgs);
+          req.body.propertyimageurl = propertySelectedImgs;
+        }
+      }
+     
+      if (req.files && req.files.featuredimage && Array.isArray(req.files.featuredimage) && req.files.featuredimage.length > 0 ) { 
+        console.log(req.files.featuredimage)
+        console.log("no featuredImageResize")
         const processedImages  =await featuredImageResize(req);
         if (processedImages.length > 0) {
           // ✅ Append logo filename to req.body
           req.body.featuredimageurl = "public/images/property/"+processedImages[0];
         }
       }
-      if (req.files || req.files.siteplan && req.files.siteplan.length > 0) {
+      if (req.files && req.files.siteplan && Array.isArray(req.files.siteplan) && req.files.siteplan.length > 0 ) { 
+        
+        console.log(req.files.siteplan)
+        console.log("no siteplan")
         const processedImagesplan  =await sitePlanResize(req);
+
         if (processedImagesplan.length > 0) {
           // ✅ Append logo filename to req.body
           req.body.siteplanurl = "public/images/propertyplan/"+processedImagesplan[0];
@@ -47,22 +64,33 @@ const updateProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    console.log("req.body.propertySelectedImgs")
-    
-    if(req.files  && req.files != null){
+   
+
+    if (req.files && Object.keys(req.files).length > 0) {
       
-      // console.log("featuredimage")
-      // console.log(req.files.featuredimage)
-      // console.log("files")
-      // console.log(req.files)
-      if (req.files && req.files.featuredimage && req.files.featuredimage.length > 0) {
+      if (req.files && req.files.propertySelectedImgs && req.files.propertySelectedImgs.length > 0  && Object.keys(req.files.propertySelectedImgs).length > 0 && Array.isArray(req.files.propertySelectedImgs)) {
+        console.log("no propertySelectedImgs")
+        const propertySelectedImgs  = await propertySelectedImgsResize(req);
+        if (propertySelectedImgs.length > 0) {
+          // ✅ Append logo filename to req.body
+          // console.log("Property Images:", propertySelectedImgs);
+          req.body.propertyimageurl = propertySelectedImgs;
+        }
+      }
+     
+      if (req.files && req.files.featuredimage && Array.isArray(req.files.featuredimage) && req.files.featuredimage.length > 0 ) { 
+        console.log(req.files.featuredimage)
+        console.log("no featuredImageResize")
         const processedImages  =await featuredImageResize(req);
         if (processedImages.length > 0) {
           // ✅ Append logo filename to req.body
           req.body.featuredimageurl = "public/images/property/"+processedImages[0];
         }
       }
-      if (req.files || req.files.siteplan && req.files.siteplan.length > 0) {
+      if (req.files && req.files.siteplan && Array.isArray(req.files.siteplan) && req.files.siteplan.length > 0 ) { 
+        
+        console.log(req.files.siteplan)
+        console.log("no siteplan")
         const processedImagesplan  =await sitePlanResize(req);
 
         if (processedImagesplan.length > 0) {

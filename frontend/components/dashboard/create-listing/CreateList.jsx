@@ -301,6 +301,9 @@ const addProperty = async (e) => {
         formData.append(key, payload[key]);
       }
     }
+    propertySelectedImgs.forEach((file) => {
+      formData.append("propertySelectedImgs", file); // Repeat key name for each file
+    });
 
 
     const res = await addPropertyAPI(formData);

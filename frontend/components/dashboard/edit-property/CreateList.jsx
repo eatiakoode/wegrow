@@ -113,6 +113,8 @@ const [constructionstatus, setConstructionstatus] = useState([]);
 
 
   const [propertySelectedImgs, setPropertySelectedImgs] = useState([]);
+  const [propertySelectedImgsget, setPropertySelectedImgsGet] = useState([]);
+  
   
     // multiple image select
     const multipleImage = (e) => {
@@ -191,6 +193,8 @@ useEffect(() => {
             if(data.data.siteplanurl) {
               setSitePlanGet(process.env.NEXT_PUBLIC_API_URL+data.data.siteplanurl)
             }
+            
+            setPropertySelectedImgsGet(data.data.propertyimageurl)
             
             const statesRes = await getStateByCountryTableData(data.data.countryid);
             setStates(statesRes.data || []);
@@ -377,7 +381,7 @@ const updateProperty = async (e) => {
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
       nearby, sellername, selleremail, sellerphone, 
-      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status,propertySelectedImgs
+      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status
     };
     
     
@@ -390,7 +394,7 @@ const updateProperty = async (e) => {
       }
     }
     propertySelectedImgs.forEach((file) => {
-      formData.append('propertyimageslist', file); // no [] needed
+      formData.append("propertySelectedImgs", file); // Repeat key name for each file
     });
 
     const res = await updatePropertyAPI(id,formData);
@@ -978,16 +982,21 @@ const updateProperty = async (e) => {
             </div>
             <div className="col-lg-12">
                     <ul className="mb-0">
-                      {propertySelectedImgs.length > 0
-                        ? propertySelectedImgs?.map((item, index) => (
+                      {propertySelectedImgsget.length > 0
+                        ? propertySelectedImgsget?.map((item, index) => (
                             <li key={index} className="list-inline-item">
                               <div className="portfolio_item">
                                 <Image
                                   width={200}
                                   height={200}
                                   className="img-fluid cover"
-                                  src={URL.createObjectURL(item)}
-                                  alt="fp1.jpg"
+                                  src={
+                                    item
+                                      ? `${process.env.NEXT_PUBLIC_API_URL}${item}`
+                                      : "/default-placeholder.jpg"
+                                  }
+                                  alt= {`${item.title}${index + 1}${item}`}
+                                  unoptimized
                                 />
                                 <div
                                   className="edu_stats_list"
@@ -1006,6 +1015,34 @@ const updateProperty = async (e) => {
                         : undefined}
             
                       {/* End li */}
+                       {propertySelectedImgs.length > 0
+                                  ? propertySelectedImgs?.map((item, index) => (
+                                      <li key={index} className="list-inline-item">
+                                        <div className="portfolio_item">
+                                          <Image
+                                            width={200}
+                                            height={200}
+                                            className="img-fluid cover"
+                                            src={URL.createObjectURL(item)}
+                                            alt="fp1.jpg"
+                                          />
+                                          <div
+                                            className="edu_stats_list"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Delete"
+                                            data-original-title="Delete"
+                                          >
+                                            <a onClick={() => deleteImage(item.name)}>
+                                              <span className="flaticon-garbage"></span>
+                                            </a>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    ))
+                                  : undefined}
+                      
+                                {/* End li */}
                     </ul>
                   </div>
                   <div className="col-lg-12">
