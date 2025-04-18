@@ -1,17 +1,17 @@
-import Comments from "../blog-details/Comments";
-import Ratings from "../blog-details/Ratings";
-import ReviewBox from "../blog-details/ReviewBox";
+// import Comments from "../blog-details/Comments";
+// import Ratings from "../blog-details/Ratings";
+// import ReviewBox from "../blog-details/ReviewBox";
 import AdditionalDetails from "../common/listing-details/AdditionalDetails";
-import Attachments from "../common/listing-details/Attachments";
-import FloorPlans from "../common/listing-details/FloorPlans";
+// import Attachments from "../common/listing-details/Attachments";
+// import FloorPlans from "../common/listing-details/FloorPlans";
 import PropertyDescriptions from "../common/listing-details/PropertyDescriptions";
 import PropertyDetails from "../common/listing-details/PropertyDetails";
 import PropertyFeatures from "../common/listing-details/PropertyFeatures";
 import PropertyItem from "../common/listing-details/PropertyItem";
 import PropertyLocation from "../common/listing-details/PropertyLocation";
-import PropertyVideo from "../common/listing-details/PropertyVideo";
+// import PropertyVideo from "../common/listing-details/PropertyVideo";
 import WalkScore from "../common/listing-details/WalkScore";
-import WhatsNearby from "../common/listing-details/WhatsNearby";
+// import WhatsNearby from "../common/listing-details/WhatsNearby";
 
 const DetailsContent = () => {
   return (
@@ -47,12 +47,12 @@ const DetailsContent = () => {
       </div>
       {/* End .additional_details */}
 
-      <div className="property_attachment_area">
+      {/* <div className="property_attachment_area">
         <h4 className="mb30">Property Attachments</h4>
         <div className="iba_container style2">
           <Attachments />
         </div>
-      </div>
+      </div> */}
       {/* End .property_attachment_area */}
 
       <div className="application_statics mt30">
@@ -80,17 +80,17 @@ const DetailsContent = () => {
       </div>
       {/* End .location_area */}
 
-      <div className="application_statics mt30">
+      {/* <div className="application_statics mt30">
         <h4 className="mb30">Floor plans</h4>
         <div className="faq_according style2">
           <FloorPlans />
         </div>
-      </div>
+      </div> */}
       {/* End .floor_plane */}
 
-      <div className="shop_single_tab_content style2 mt30">
+      {/* <div className="shop_single_tab_content style2 mt30">
         <PropertyVideo />
-      </div>
+      </div> */}
       {/* End property-video  */}
 
       <div className="walkscore_area mt30">
@@ -98,13 +98,13 @@ const DetailsContent = () => {
       </div>
       {/* End walkscore_area */}
 
-      <div className="whats_nearby mt30">
+      {/* <div className="whats_nearby mt30">
         <h4 className="mb10">What&apos;s Nearby</h4>
         <WhatsNearby />
-      </div>
+      </div> */}
       {/* End what's nearby area */}
 
-      <div className="product_single_content">
+      {/* <div className="product_single_content">
         <div className="mbp_pagination_comments mt30">
           <div className="total_review">
             <h4>896 Reviews</h4>
@@ -118,7 +118,7 @@ const DetailsContent = () => {
               Write a Review
             </a>
           </div>
-          {/* End .total_review */}
+         
           <Comments />
           <div className="custom_hr"></div>
 
@@ -139,7 +139,7 @@ const DetailsContent = () => {
             <ReviewBox />
           </div>
         </div>
-      </div>
+      </div> */}
       {/* End review and comment area area */}
     </>
   );
