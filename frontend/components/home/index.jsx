@@ -153,7 +153,12 @@ const Index = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <ExploreMoreProperties />
+                    <div className="col-lg-6">
+                      <ExploreMoreProperties />
+                    </div>
+                    <div className="col-lg-5 offset-lg-1 ml-auto">
+                      <ExploreMoreProperties />
+                    </div>
                 </div>
             </div>
       </section>
