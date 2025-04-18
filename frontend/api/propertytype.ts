@@ -1,13 +1,19 @@
 export const addPropertytypeAPI = async (title: string,categoryid: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
   
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/propertytype", {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/propertytype", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +36,7 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
     await new Promise((resolve) => setTimeout(resolve, 1400));
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/propertytype"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/propertytype"); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -46,12 +52,18 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/propertytype/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/propertytype/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -76,12 +88,18 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/propertytype/byid/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/propertytype/byid/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -102,12 +120,18 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
   export const updatePropertytypeAPI = async (id,propertytype) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/propertytype/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/propertytype/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +153,7 @@ export const addPropertytypeAPI = async (title: string,categoryid: string) => {
     await new Promise((resolve) => setTimeout(resolve, 1400));
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/propertytype/bycategory/${id}`); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/propertytype/bycategory/${id}`); // Replace with actual API endpoint
       
       if (!response.ok) {
         throw new Error("Failed to fetch property type");

@@ -10,7 +10,13 @@
 export const addTestimonialAPI = async (formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 // console.log("token")
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
 
   
     if (!token) {
@@ -22,7 +28,7 @@ export const addTestimonialAPI = async (formData) => {
 //       console.log(`${key}:`, value);
 //     }
 // console.log("formDataendapi")
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/testimonial", {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/testimonial", {
       method: "POST",
       headers: {
         // "Content-Type": "application/json",
@@ -46,7 +52,7 @@ export const addTestimonialAPI = async (formData) => {
     
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL+"api/testimonial"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/testimonial"); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -62,12 +68,18 @@ export const addTestimonialAPI = async (formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/testimonial/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/testimonial/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -92,12 +104,18 @@ export const addTestimonialAPI = async (formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/testimonial/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/testimonial/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -118,7 +136,13 @@ export const addTestimonialAPI = async (formData) => {
   export const updateTestimonialAPI = async (id,testimonial) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
-    const token =process.env.NEXT_PUBLIC_TOKEN;
+    // const token =process.env.NEXT_PUBLIC_TOKEN;
+    const userData = JSON.parse(localStorage.getItem("user"));
+console.log(userData.name);
+// const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // console.log("token")
+//     const token =process.env.NEXT_PUBLIC_TOKEN;
+const token =userData.token
 
   
     if (!token) {
@@ -130,7 +154,7 @@ export const addTestimonialAPI = async (formData) => {
           console.log(`${key}:`, value);
         }
     console.log("formDataendapi")
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL+`api/testimonial/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/testimonial/${id}`, {
       method: "PUT",
       headers: {
         // "Content-Type": "application/json",

@@ -13,63 +13,63 @@ const SidebarMenu = () => {
   const pathname = usePathname()
 
   const myCountry = [
-    { id: 1, name: "Add Country", route: "/add-country" },
-    { id: 2, name: "Country List", route: "/my-country" }
+    { id: 1, name: "Add Country", route: "/cmswegrow/add-country" },
+    { id: 2, name: "Country List", route: "/cmswegrow/my-country" }
   ];
   const myState = [
-    { id: 1, name: "Add State", route: "/add-state" },
-    { id: 2, name: "State List", route: "/my-state" }
+    { id: 1, name: "Add State", route: "/cmswegrow/add-state" },
+    { id: 2, name: "State List", route: "/cmswegrow/my-state" }
   ];
   const myCity = [
-    { id: 1, name: "Add City", route: "/add-cities" },
-    { id: 2, name: "City List", route: "/my-cities" }
+    { id: 1, name: "Add City", route: "/cmswegrow/add-cities" },
+    { id: 2, name: "City List", route: "/cmswegrow/my-cities" }
   ];
  
   const myLocation = [
-    { id: 1, name: "Add Location", route: "/add-location" },
-    { id: 2, name: "Location List", route: "/my-location" }
+    { id: 1, name: "Add Location", route: "/cmswegrow/add-location" },
+    { id: 2, name: "Location List", route: "/cmswegrow/my-location" }
   ];
   const myAmenity = [
-    { id: 1, name: "Add Amenity", route: "/add-amenities" },
-    { id: 2, name: "Amenity List", route: "/my-amenities" }
+    { id: 1, name: "Add Amenity", route: "/cmswegrow/add-amenities" },
+    { id: 2, name: "Amenity List", route: "/cmswegrow/my-amenities" }
   ];
   const myPropertytype = [
-    { id: 1, name: "Add Property type", route: "/add-propertytype" },
-    { id: 2, name: "Property type List", route: "/my-propertytype" }
+    { id: 1, name: "Add Property type", route: "/cmswegrow/add-propertytype" },
+    { id: 2, name: "Property type List", route: "/cmswegrow/my-propertytype" }
   ];
   const myBuilder = [
-    { id: 1, name: "Add Builder", route: "/add-builder" },
-    { id: 2, name: "Builder List", route: "/my-builder" }
+    { id: 1, name: "Add Builder", route: "/cmswegrow/add-builder" },
+    { id: 2, name: "Builder List", route: "/cmswegrow/my-builder" }
   ];
   const myAgent = [
-    { id: 1, name: "Add Agent", route: "/add-agent" },
-    { id: 2, name: "Agent List", route: "/my-agent" }
+    { id: 1, name: "Add Agent", route: "/cmswegrow/add-agent" },
+    { id: 2, name: "Agent List", route: "/cmswegrow/my-agent" }
   ];
   
   const myProperties = [
-    { id: 1, name: "Add Property", route: "/create-listing" },
-    { id: 2, name: "Property List", route: "/my-properties" }
+    { id: 1, name: "Add Property", route: "/cmswegrow/create-listing" },
+    { id: 2, name: "Property List", route: "/cmswegrow/my-properties" }
   ];
   const myBlog = [
-    { id: 1, name: "Add Blog", route: "/add-blog" },
-    { id: 2, name: "Blog List", route: "/my-blog" }
+    { id: 1, name: "Add Blog", route: "/cmswegrow/add-blog" },
+    { id: 2, name: "Blog List", route: "/cmswegrow/my-blog" }
   ];
   const myPropertypage = [
-    { id: 1, name: "Add Property page", route: "/add-propertypage" },
-    { id: 2, name: "Property page List", route: "/my-propertypage" }
+    { id: 1, name: "Add Property page", route: "/cmswegrow/add-propertypage" },
+    { id: 2, name: "Property page List", route: "/cmswegrow/my-propertypage" }
   ];
   const myTestimonial = [
-    { id: 1, name: "Add Testimonial", route: "/add-testimonial" },
-    { id: 2, name: "Testimonial List", route: "/my-testimonial" }
+    { id: 1, name: "Add Testimonial", route: "/cmswegrow/add-testimonial" },
+    { id: 2, name: "Testimonial List", route: "/cmswegrow/my-testimonial" }
   ];
   
   const myFaq = [
-    { id: 1, name: "Add FAQ", route: "/add-faq" },
-    { id: 2, name: "FAQ List", route: "/my-faq" }
+    { id: 1, name: "Add FAQ", route: "/cmswegrow/add-faq" },
+    { id: 2, name: "FAQ List", route: "/cmswegrow/my-faq" }
   ];
   const reviews = [
-    { id: 1, name: "My Reviews", route: "/my-review" },
-    { id: 2, name: "Visitor Reviews", route: "/my-review" },
+    { id: 1, name: "My Reviews", route: "/cmswegrow/my-review" },
+    { id: 2, name: "Visitor Reviews", route: "/cmswegrow/my-review" },
   ];
   const manageAccount = [
     {
@@ -106,18 +106,18 @@ const SidebarMenu = () => {
         <li className="title">
           {/* <span>Main</span> */}
           <ul>
-            {/* <li
+            <li
               className={`treeview ${
                 isSinglePageActive("/my-dashboard", pathname)
                   ? "active"
                   : ""
               }`}
             >
-              <Link href="/my-dashboard">
+              <Link href="/cmswegrow/my-dashboard">
                 <i className="flaticon-layers"></i>
                 <span> Dashboard</span>
               </Link>
-            </li> */}
+            </li>
             {/* <li
               className={`treeview ${
                 isSinglePageActive("/create-listing", pathname)

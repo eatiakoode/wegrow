@@ -3,8 +3,7 @@ const {
   getCity,
   getallCity,
   getCityStateId,
-} = require("../controller/cityCtrl");
-const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware");
+} = require("../controller/frontend/cityCtrl");
 const router = express.Router();
 
 
