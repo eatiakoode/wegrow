@@ -90,6 +90,12 @@ a:focus {
 a img {
   border: none;
 }
+.sticky{
+  position: sticky;
+}
+.top-80{
+  top:80px;
+}
 
 .form-control {
   height: 50px;
@@ -5524,12 +5530,20 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   /* margin-top: 15px; */
   margin-top: 0px;
 }
-.feat_property .details .fp_footer .fp_pdate .circle-shape{
+/* .feat_property .details .fp_footer .fp_pdate .circle-shape{
   width:40px;
   height: 40px;
   background-color: #dcdcdc;
   border-radius: 40px;
   line-height: 40px;
+  text-align: center;
+} */
+.circle-shape{
+  width:40px;
+  height: 40px;
+  background-color: #dcdcdc;
+  border-radius: 40px;
+  line-height: 40px!important;
   text-align: center;
 }
 
