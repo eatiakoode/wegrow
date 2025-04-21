@@ -1,9 +1,29 @@
 const City = require("../models/cityModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
+const { cityImgResize } = require("../middlewares/uploadImage");
 
 const createCity = asyncHandler(async (req, res) => {
   try {
+    
+    if(req.files){
+      const processedImages  =await cityImgResize(req);
+      if (processedImages.length > 0) {
+        // ✅ Append logo filename to req.body
+        req.body.citylogoimage = "public/images/city/"+processedImages[0];
+      }
+    }
+    // if (req.files && Object.keys(req.files).length > 0) {      
+    //   if (req.files && req.files.citylogo && req.files.citylogo.length > 0  && Object.keys(req.files.citylogo).length > 0 && Array.isArray(req.files.citylogo)) {        
+    //   const processedImages  =await cityImgResize(req);
+    //   console.log("req.files.citylogo req.body.citylogoimage")
+    //     if (processedImages.length > 0) {
+    //       req.body.citylogoimage = "public/images/city/"+processedImages[0];
+    //     }
+    //   }
+    // }
+   
+
     const newCity = await City.create(req.body);
     const message={
       "status":"success",
@@ -19,6 +39,14 @@ const updateCity = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
+    if(req.files){
+      const processedImages  =await cityImgResize(req);
+      if (processedImages.length > 0) {
+        // ✅ Append logo filename to req.body
+        req.body.citylogoimage = "public/images/city/"+processedImages[0];
+      }
+    }
+    console.log(req.body.citylogoimage)
     const updatedCity = await City.findByIdAndUpdate(id, req.body, {
       new: true,
     });

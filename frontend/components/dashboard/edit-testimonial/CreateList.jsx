@@ -14,6 +14,7 @@ const CreateList = () => {
     const [status, setStatus] = useState("");
     const [loading, setLoading] = useState(true);
     const [description, setDescription] = useState("");
+    const [designation, setDesignation] = useState("");
     const [error, setError] = useState("");  
     const [logo, setLogo] = useState(null);
     const [logoimage, setLogoImage] = useState(null);
@@ -32,6 +33,7 @@ const CreateList = () => {
           setTitle(data.data.title)
           setStatus(data.data.status)
           setDescription(data.data.description)
+          setDesignation(data.data.designation)
           if(data.data.logoimage) {
           setLogoImage(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
           }
@@ -51,6 +53,7 @@ const CreateList = () => {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
+        formData.append("designation", designation);
         formData.append("status", status);
         if (logo) {
           formData.append("logo", logo);
@@ -112,6 +115,20 @@ const CreateList = () => {
         name="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+      />
+        </div>
+      </div>
+      {/* End .col */}
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="Testimonialdesignation">Testimonial designation</label>
+          <input
+        type="text"
+        className="form-control"
+        id="Testimonialdesignation"
+        name="designation"
+        value={designation}
+        onChange={(e) => setDesignation(e.target.value)}
       />
         </div>
       </div>

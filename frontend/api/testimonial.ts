@@ -148,12 +148,12 @@ const token =userData.token
     if (!token) {
       throw new Error("User not authenticated!");
     }
-    console.log("formDataapi")
-        console.log(testimonial)
-        for (let [key, value] of testimonial.entries()) {
-          console.log(`${key}:`, value);
-        }
-    console.log("formDataendapi")
+    // console.log("formDataapi")
+    //     console.log(testimonial)
+    //     for (let [key, value] of testimonial.entries()) {
+    //       console.log(`${key}:`, value);
+    //     }
+    // console.log("formDataendapi")
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/testimonial/${id}`, {
       method: "PUT",
       headers: {

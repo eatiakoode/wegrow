@@ -59,13 +59,13 @@ const FeaturedProperties = () => {
             unoptimized // Optional: disables Next.js image optimization (useful if external images)
           />
           <div className="thmb_cntnt">
-            {/* <ul className="tag mb0">
-              {item.saleTag.map((val, i) => (
-                <li className="list-inline-item" key={i}>
-                  <a href="#">{val}</a>
+            <ul className="tag mb0">
+              {/* {item.saleTag.map((val, i) => ( */}
+                <li className="list-inline-item" key="1">
+                  <a href="#">{item.categoryid?.title}</a>
                 </li>
-              ))}
-            </ul> */}
+              {/* ))} */}
+            </ul>
             {/* End .tag */}
 
             <ul className="icon mb0">
@@ -82,8 +82,8 @@ const FeaturedProperties = () => {
             </ul>
             {/* End .icon */}
 
-            <Link href={`/listing-details-v1/${item._id}`} className="fp_price">
-              ${item.price}
+            <Link href={`/property-detail/${item._id}`} className="fp_price">
+              {item.price}
               {/* <small>/mo</small> */}
             </Link>
           </div>
@@ -94,7 +94,7 @@ const FeaturedProperties = () => {
           <div className="tc_content">
             <p className="text-thm">{item.propertytypeid?.title}</p>
             <h4>
-              <Link href={`/listing-details-v1/${item.id}`}>{item.title}</Link>
+              <Link href={`/property-detail/${item._id}`} >{item.title}</Link>
             </h4>
             <p>
               <span className="flaticon-placeholder"></span>

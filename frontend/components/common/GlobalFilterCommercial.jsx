@@ -26,7 +26,7 @@ const GlobalFilter = ({ className = "" }) => {
           console.log(response)
           
   
-          setCities(response || []);
+          setCities(response.data || []);
         } catch (err) {
           console.error("Error fetching Country:", err);
         }

@@ -29,6 +29,7 @@ const photoUploadMiddleware = uploadPhoto.fields([
   { name: 'featuredimage', maxCount: 1 },
   { name: 'siteplan', maxCount: 1 },
   { name: 'propertySelectedImgs', maxCount: 10 },
+  // { name: 'citylogo', maxCount: 1 },
   
 ]);
 const productImgResize = async (req, res, next) => {
@@ -142,7 +143,7 @@ const featuredImageResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      fs.unlinkSync(file.path); // delete original uploaded file
+      // fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push(filename);
     })
@@ -169,7 +170,7 @@ const sitePlanResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      fs.unlinkSync(file.path); // delete original uploaded file
+      // fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push(filename);
     })
@@ -221,7 +222,7 @@ const propertySelectedImgsResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      fs.unlinkSync(file.path); // delete original uploaded file
+      // fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push("public/images/propertyimage/"+filename);
     })
@@ -229,4 +230,63 @@ const propertySelectedImgsResize = async (req) => {
 
   return processedFilenames;
 };
-module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize };
+
+const cityImgResize = async (req) => {
+  console.log("filename 1")
+
+  if (!req.files || !Array.isArray(req.files)) return;
+  console.log("filename 2")
+
+  const processedFilenames = [];
+
+  await Promise.all(
+    req.files.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "city", filename);
+
+      await sharp(file.path)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(file.path); // delete original uploaded file
+console.log("filename")
+console.log(filename)
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+// const cityImgResize = async (req) => {
+  
+
+//   if (!req.files.citylogo || !Array.isArray(req.files.citylogo)) return;
+
+//   const processedFilenames = [];
+ 
+//   await Promise.all(
+//     req.files.citylogo.map(async (file) => {
+//       // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+//       const filename =file.filename
+//       const outputPath = path.join("public", "images", "city", filename);
+
+//       await sharp(file.path)
+//         .resize(300, 300)
+//         .toFormat("jpeg")
+//         .jpeg({ quality: 90 })
+//         .toFile(outputPath);
+
+//       // fs.unlinkSync(file.path); // delete original uploaded file
+
+//       processedFilenames.push(filename);
+//     })
+//   );
+
+//   return processedFilenames;
+// };
+
+module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize ,cityImgResize};

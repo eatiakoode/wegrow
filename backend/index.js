@@ -25,9 +25,11 @@ const propertypageRouter = require("./routes/propertypageRouter");
 const faqRouter = require("./routes/faqRouter");
 
 // Frontend API route
-const cityFrontendRoute = require("./routes/cityFrontendRoute");
-const propertytypeFrontendRouter = require("./routes/propertytypeFrontendRouter");
-const propertyFrontendRouter = require("./routes/propertyFrontendRouter");
+const cityFrontendRoute = require("./routes/frontend/cityFrontendRoute");
+const propertytypeFrontendRouter = require("./routes/frontend/propertytypeFrontendRouter");
+const propertyFrontendRouter = require("./routes/frontend/propertyFrontendRouter");
+const testimonialFrontendRouter = require("./routes/frontend/testimonialFrontendRouter");
+const blogFrontendRouter = require("./routes/frontend/blogRouter");
 
 
 
@@ -75,6 +77,9 @@ app.use("/admin/api/faq", faqRouter);
 app.use("/frontend/api/city", cityFrontendRoute);
 app.use("/frontend/api/propertytype", propertytypeFrontendRouter);
 app.use("/frontend/api/property", propertyFrontendRouter);
+app.use("/frontend/api/testimonial", testimonialFrontendRouter);
+app.use("/frontend/api/blog", blogFrontendRouter);
+
 
 
 

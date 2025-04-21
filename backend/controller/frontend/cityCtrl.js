@@ -1,6 +1,7 @@
 const City = require("../../models/cityModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../../utils/validateMongodbId");
+const Property = require("../../models/propertyModel");
 
 
 const getCity = asyncHandler(async (req, res) => {
@@ -22,7 +23,12 @@ const getCity = asyncHandler(async (req, res) => {
 const getallCity = asyncHandler(async (req, res) => {
   try {
     const getallCity = await City.find({"status":true}).populate("countryid").populate("stateid");
-    res.json(getallCity);
+    const message={
+      "status":"success",
+      "message":"Data Add sucessfully",
+      "data":getallCity
+    }
+    res.json(message);
   } catch (error) {
     throw new Error(error);
   }
@@ -43,8 +49,43 @@ const getCityStateId = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+
+const countPropertiesByCity = asyncHandler(async (req, res) => {
+  try {
+    const result = await City.aggregate([
+      {
+        $lookup: {
+          from: "properties", // the collection name in MongoDB
+          localField: "_id",
+          foreignField: "cityid",
+          as: "properties"
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          cityId: "$_id",
+          cityName: "$title",
+          propertyCount: { $size: "$properties" }
+        }
+      }
+    ]);
+    // const getallState = await City.find({ stateid: stateid });
+    const message={
+      "status":"success",
+      "message":"Data City sucessfully",
+      "data":result
+    }
+    res.json(message);
+    // console.log(result);
+  } catch (error) {
+    console.error("Error counting properties by city:", error);
+  }
+
+});
 module.exports = {
   getCity,
   getallCity,
-  getCityStateId
+  getCityStateId,
+  countPropertiesByCity
 };

@@ -1,0 +1,44 @@
+ export async function getBlogTableData() {
+    // Fake delay
+    await new Promise((resolve) => setTimeout(resolve, 1400));
+    
+  
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/blog/list"); // Replace with actual API endpoint
+      if (!response.ok) {
+        throw new Error("Failed to fetch blog");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error fetching blog:", error);
+      return []; // Return an empty array in case of an error
+    }
+  }
+
+
+  export const getBlogById = async (id: string) => {
+    // const token = localStorage.getItem("token"); // 🔹 Retrieve token
+
+
+    const token =process.env.NEXT_PUBLIC_TOKEN;
+    if (!token) {
+      throw new Error("User not authenticated!");
+    }
+  
+    const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+`api/blog/byid/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      // body: JSON.stringify({ id }),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to get blog");
+    }
+  
+    return response.json();
+  };
+

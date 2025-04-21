@@ -1,0 +1,32 @@
+const Blog = require("../../models/blogModel");
+const asyncHandler = require("express-async-handler");
+const validateMongoDbId = require("../../utils/validateMongodbId");
+
+const getBlog = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    const getaBlog = await Blog.findById(id);
+    const message={
+      "status":"success",
+      "message":"Data deleted sucessfully",
+      "data":getaBlog
+    }
+    res.json(message);
+   //res.json(getaBlog);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+const getallBlog = asyncHandler(async (req, res) => {
+  try {
+    const getallBlog = await Blog.find({"status":true});
+    res.json(getallBlog);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+module.exports = {
+  getBlog,
+  getallBlog,
+};

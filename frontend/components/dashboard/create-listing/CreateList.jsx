@@ -307,7 +307,7 @@ const addProperty = async (e) => {
 
 
     const res = await addPropertyAPI(formData);
-    router.push("/my-properties");
+    router.push("/cmswegrow/my-properties");
     // alert(res.message);
 
     // Reset fields and errors

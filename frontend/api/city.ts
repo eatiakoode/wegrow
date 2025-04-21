@@ -1,4 +1,4 @@
-export const addCityAPI = async (city) => {
+export const addCityAPI = async (formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 // console.log("token")
     // const token =process.env.NEXT_PUBLIC_TOKEN;
@@ -17,10 +17,10 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/city", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(city),
+      body: formData,
     });
   
     if (!response.status) {
@@ -138,10 +138,10 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/city/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(city),
+      body: city,
     });
   
     if (!response.status) {

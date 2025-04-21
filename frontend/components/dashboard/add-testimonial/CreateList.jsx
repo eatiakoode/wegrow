@@ -7,6 +7,8 @@ const CreateList = () => {
   const router = useRouter();
    const [title, setTitle] = useState("");
    const [description, setDescription] = useState("");
+   const [designation, setDesignation] = useState("");
+   
     const [error, setError] = useState("");
     const [logo, setLogo] = useState(null);
 
@@ -15,14 +17,7 @@ const CreateList = () => {
         setLogo(e.target.files[0]);
     };
   
-    const handleTitleChange = (e) => {
-      setTitle(e.target.value);
-  
-      // ✅ Clear the error when user starts typing
-      if (e.target.value.trim() !== "") {
-        setError("");
-      }
-    };
+   
   
     const addTestimonial = async (e) => {
       e.preventDefault();
@@ -37,6 +32,7 @@ const CreateList = () => {
       try {
         const formData = new FormData();
         formData.append("title", title);
+        formData.append("designation", designation);
         formData.append("description", description);
         if (logo) {
           formData.append("logo", logo);
@@ -92,7 +88,15 @@ const CreateList = () => {
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="TestimonialTitle">Testimonial Title</label>
-          <input type="text" className="form-control" id="TestimonialTitle" value={title} onChange={handleTitleChange} />
+          <input type="text" className="form-control" id="TestimonialTitle" value={title} onChange={(e) => setTitle(e.target.value)} />
+          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+        </div>
+      </div>
+       {/* End .col */}
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="Testimonialdesignation">Testimonial designation</label>
+          <input type="text" className="form-control" id="Testimonialdesignation" value={designation}  onChange={(e) => setDesignation(e.target.value)}  />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
       </div>

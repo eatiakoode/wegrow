@@ -10,6 +10,12 @@ var citySchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    citylogoimage: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
     countryid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Country", 

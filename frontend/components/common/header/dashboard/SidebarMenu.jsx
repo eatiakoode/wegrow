@@ -21,7 +21,7 @@ const SidebarMenu = () => {
     { id: 2, name: "State List", route: "/cmswegrow/my-state" }
   ];
   const myCity = [
-    { id: 1, name: "Add City", route: "/cmswegrow/add-cities" },
+    { id: 1, name: "Add City", route: "/cmswegrow/add-city" },
     { id: 2, name: "City List", route: "/cmswegrow/my-cities" }
   ];
  

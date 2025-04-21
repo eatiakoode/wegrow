@@ -1,10 +1,26 @@
 'use client'
 
 import Image from "next/image";
-import testimonials from "../../data/testimonial";
+// import testimonials from "../../data/testimonial";
 import Slider from "react-slick";
+import { getTestimonialTableData } from "../../api/frontend/testimonial";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const Testimonial = () => {
+  const [testimonials, setFindTestimonial] = useState([]);
+          const router = useRouter();
+        
+          const fetchFindTestimonial = async () => {
+            const data = await getTestimonialTableData();
+            console.log("data")
+            console.log(data)
+            setFindTestimonial(data);
+          };
+          useEffect(() => {
+            fetchFindTestimonial();
+          }, []); 
   const settings = {
     dots: true,
     arrow: false,
@@ -21,12 +37,12 @@ const Testimonial = () => {
           <div className="item" key={item.id}>
             <div className="testimonial_grid">
               <div className="thumb">
-                <Image width={95} height={95} src={item.img} alt="1.jpg" />
+                <Image width={95} height={95} src="/assets/images/testimonial/man.png" alt="1.jpg" />
               </div>
               <div className="details">
-                <h4>{item.name}</h4>
+                <h4>{item.title}</h4>
                 <p>{item.designation}</p>
-                <p className="mt25">{item.text}</p>
+                <p className="mt25">{item.description}</p>
               </div>
             </div>
           </div>

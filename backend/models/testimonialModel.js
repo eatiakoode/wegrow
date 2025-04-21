@@ -22,6 +22,12 @@ var testimonialSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    designation:{
+      type: String,
+      // required: true,
+      unique: true,
+      index: true,
+    },
     status: {
       type: Boolean,
       default: true,
