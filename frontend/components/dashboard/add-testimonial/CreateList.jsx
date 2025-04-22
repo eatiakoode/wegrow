@@ -42,7 +42,7 @@ const CreateList = () => {
     // console.log(formData)
         const data = await addTestimonialAPI(formData); // Use FormData here
         console.log(data);
-        router.push("/my-testimonial");
+        router.push("/cmswegrow/my-testimonial");
         alert(data.message);
     
         setTitle("");

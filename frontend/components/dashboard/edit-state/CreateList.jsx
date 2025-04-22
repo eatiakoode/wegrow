@@ -61,7 +61,7 @@ const CreateList = () => {
         };
         await updateStateAPI(id, updatedState);
         alert("State updated successfully!");
-        router.push("/my-state");
+        router.push("/cmswegrow/my-state");
       } catch (error) {
         alert("Failed to update State.");
         console.error(error);

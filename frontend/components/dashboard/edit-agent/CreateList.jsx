@@ -39,7 +39,7 @@ const CreateList = () => {
       try {
         await updateAgentAPI(id, agent);
         alert("Agent updated successfully!");
-        router.push("/my-agent");
+        router.push("/cmswegrow/my-agent");
       } catch (error) {
         alert("Failed to update Agent.");
         console.error(error);

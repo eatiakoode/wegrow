@@ -17,7 +17,7 @@ const index = () => {
           const data = await getFaqTableData();
           console.log("faqdata")
           console.log(data)
-          setFaqs(data);
+          setFaqs(data.data);
         };
         useEffect(() => {
             fetchFaqs();

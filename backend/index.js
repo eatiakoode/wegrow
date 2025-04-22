@@ -32,6 +32,7 @@ const propertytypeFrontendRouter = require("./routes/frontend/propertytypeFronte
 const propertyFrontendRouter = require("./routes/frontend/propertyFrontendRouter");
 const testimonialFrontendRouter = require("./routes/frontend/testimonialFrontendRouter");
 const blogFrontendRouter = require("./routes/frontend/blogRouter");
+const faqFrontendRouter = require("./routes/frontend/faqRouter");
 
 
 
@@ -82,6 +83,8 @@ app.use("/frontend/api/propertytype", propertytypeFrontendRouter);
 app.use("/frontend/api/property", propertyFrontendRouter);
 app.use("/frontend/api/testimonial", testimonialFrontendRouter);
 app.use("/frontend/api/blog", blogFrontendRouter);
+app.use("/frontend/api/faq", faqFrontendRouter);
+
 
 
 

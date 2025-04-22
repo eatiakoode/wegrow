@@ -207,7 +207,7 @@ const addPropertypage = async (e) => {
 
 
     const res = await addPropertypageAPI(payload);
-    router.push("/my-propertypage");
+    router.push("/cmswegrow/my-propertypage");
     // alert(res.message);
 
     // Reset fields and errors

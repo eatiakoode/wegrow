@@ -104,7 +104,7 @@ const CreateList = () => {
         };
         await updateLocationAPI(id, updatedLocation);
         alert("Location updated successfully!");
-        router.push("/my-location");
+        router.push("/cmswegrow/my-location");
       } catch (error) {
         alert("Failed to update Location.");
         console.error(error);

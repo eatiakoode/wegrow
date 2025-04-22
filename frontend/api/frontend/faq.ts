@@ -44,12 +44,12 @@
 
 
 
-  export const  getFaqByPropertyTableData = async (id: string) => {
+  export const  getFaqByPropertyIdData = async (id: string) => {
     // Fake delay
     await new Promise((resolve) => setTimeout(resolve, 1400));
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+`api/faq/bystate/${id}`); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+`api/faq/byproperty/${id}`); // Replace with actual API endpoint
       
       if (!response.ok) {
         throw new Error("Failed to fetch state");

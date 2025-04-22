@@ -39,7 +39,7 @@ const CreateList = () => {
       try {
         await updateAmenityAPI(id, amenity);
         alert("Amenity updated successfully!");
-        router.push("/my-amenities");
+        router.push("/cmswegrow/my-amenities");
       } catch (error) {
         alert("Failed to update Amenity.");
         console.error(error);

@@ -61,7 +61,7 @@ const CreateList = () => {
         };
         await updatePropertytypeAPI(id, updatedPropertytype);
         alert("Propertytype updated successfully!");
-        router.push("/my-propertytype");
+        router.push("/cmswegrow/my-propertytype");
       } catch (error) {
         alert("Failed to update Propertytype.");
         console.error(error);

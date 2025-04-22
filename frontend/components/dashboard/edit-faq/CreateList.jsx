@@ -64,7 +64,7 @@ const CreateList = () => {
           "propertyid":selectedProperty};
         await updateFaqAPI(id, formData);
         alert("Faq updated successfully!");
-        router.push("/my-faq");
+        router.push("/cmswegrow/my-faq");
       } catch (error) {
         alert("Failed to update Faq.");
         console.error(error);

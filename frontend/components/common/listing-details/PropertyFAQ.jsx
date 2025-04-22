@@ -1,9 +1,28 @@
-import Image from "next/image";
+import { getFaqByPropertyIdData } from "@/api/frontend/faq";
+import { useState, useEffect } from "react";
 
-const PropertyFAQ = ({property}) => {
+const PropertyFAQ = ({ property }) => {
+  const [faqs, setFaqs] = useState([]);
+
+  const fetchFaqs = async (id) => {
+    try {
+      const data = await getFaqByPropertyIdData(id);
+      console.log(" faq data")
+      console.log(data)
+      setFaqs(data.data);
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (property?._id) {
+      fetchFaqs(property._id);
+    }
+  }, [property?._id]);
   return (
     <div className="accordion" id="accordionExample">
-      {property.faq?.slice(37, 38).map((singleItem,index) => (
+      {faqs?.slice(0, 38).map((singleItem,index) => (
       <div className="card floor_plan">
         <div id={`heading${index}`}>
           <h2 className="mb-0">
@@ -15,10 +34,7 @@ const PropertyFAQ = ({property}) => {
               aria-expanded="false"
               aria-controls={`collapse${index}`}
             >
-              <ul className="mb0 d-flex align-items-cener flex-wrap">
-                <li className="d-inline-flex list-inline-item">First Floor</li>
-              
-              </ul>
+             {singleItem.title}
             </button>
           </h2>
         </div>
@@ -30,13 +46,7 @@ const PropertyFAQ = ({property}) => {
         >
           <div className="card-body text-center">
             
-            <p>
-              Plan description. Lorem ipsum dolor sit amet, consectetuer
-              adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-              laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim
-              veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
-              nisl ut aliquip ex ea commodo consequat.
-            </p>
+          {singleItem.description}
           </div>
         </div>
       </div>

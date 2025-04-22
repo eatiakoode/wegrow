@@ -56,7 +56,7 @@ const CreateList = () => {
         
         const data = await addFaqAPI(formData); // Use FormData here
         console.log(data);
-        router.push("/my-faq");
+        router.push("/cmswegrow/my-faq");
         alert(data.message);
     
         setTitle("");

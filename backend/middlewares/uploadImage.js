@@ -165,7 +165,7 @@ const sitePlanResize = async (req) => {
       const outputPath = path.join("public", "images", "propertyplan", filename);
 
       await sharp(file.path)
-        .resize(300, 300)
+        .resize(800, 420)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(outputPath);

@@ -60,7 +60,7 @@ const CreateList = () => {
         }
         await updateTestimonialAPI(id, formData);
         alert("Testimonial updated successfully!");
-        router.push("/my-testimonial");
+        router.push("/cmswegrow/my-testimonial");
       } catch (error) {
         alert("Failed to update Testimonial.");
         console.error(error);

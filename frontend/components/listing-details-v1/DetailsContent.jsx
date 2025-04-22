@@ -15,6 +15,8 @@ import PropertyFAQ from "../common/listing-details/PropertyFAQ";
 // import WalkScore from "../common/listing-details/WalkScore";
 import WhatsNearby from "../common/listing-details/WhatsNearby";
 
+import Image from "next/image";
+
 const DetailsContent = ({property}) => {
     return (
     <>
@@ -98,6 +100,25 @@ const DetailsContent = ({property}) => {
       {/* <div className="shop_single_tab_content style2 mt30">
         <PropertyVideo />
       </div> */}
+      <div className="application_statics mt30">
+      <h4 className="mb10">Site Plan</h4>
+        <div
+          className={`education_distance mb15`}
+        >
+        <Image
+                    width={343}
+                    height={220}
+                    className="img-whp w-100 h-100 cover"
+                    src={
+                      property.siteplanurl
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${property.siteplanurl}`
+                        : "/default-placeholder.jpg"
+                    }
+                    alt= {`${property.title}`}
+                    unoptimized // Optional: disables Next.js image optimization (useful if external images)
+                  />
+        </div>
+      </div>
       {/* End property-video  */}
 
       {/* <div className="walkscore_area mt30">

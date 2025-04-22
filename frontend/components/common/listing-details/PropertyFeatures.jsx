@@ -17,7 +17,7 @@ const PropertyFeatures = ({property}) => {
     <>
       {/* {property.amenityid?.map((item) => ( */}
         <div className="" >
-          <ul className="order_list list-inline-item col-sm-12 col-md-12 col-lg-12">
+          <ul className="order_list list-inline-item row">
             {property.amenityid?.map((val, i) => (
               <li className="col-sm-6 col-md-6 col-lg-4" key={i}>
                 <span className="flaticon-tick"></span>

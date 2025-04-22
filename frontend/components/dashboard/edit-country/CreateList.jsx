@@ -39,7 +39,7 @@ const CreateList = () => {
       try {
         await updateCountryAPI(id, country);
         alert("Country updated successfully!");
-        router.push("/my-country");
+        router.push("/cmswegrow/my-country");
       } catch (error) {
         alert("Failed to update Country.");
         console.error(error);
