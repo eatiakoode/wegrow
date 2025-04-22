@@ -3,6 +3,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getCityTableData } from "@/api/frontend/city";
+import { getCategoryTableData } from "@/api/frontend/category";
+import { getPropertytypeByCategoryTableData} from "@/api/frontend/propertytype";
+
 import {
   addFeatured,
   addStatusType,
@@ -27,6 +31,13 @@ import { v4 as uuidv4 } from "uuid";
 
 
 const FilteringItem = () => {
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [propertytypes, setPropertytypes] = useState([]);
+  const [selectedPropertytype, setSelectedPropertytype] = useState("");
+  
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
   const {
     keyword,
     location,
@@ -132,6 +143,11 @@ const FilteringItem = () => {
 
   const clearAllFilters = () => {
     setKeyword("");
+    setSelectedCity("");
+    setSelectedPropertytype("")
+    setSelectedCategory("")
+
+
     setLocation("");
     setStatus("");
     setPropertiesType("");
@@ -173,7 +189,59 @@ const FilteringItem = () => {
 
     setAdvanced(data);
   };
+useEffect(() => {
+      const fetchCities = async () => {
+        try {
+          const response = await getCityTableData();
+          console.log("response")
+          console.log(response)
+          setCities(response.data || []);
+        } catch (err) {
+          console.error("Error fetching Country:", err);
+        }
+      };
+  
+      fetchCities();
+      // const fetchPropertytypes = async () => {
+      //   try {
+      //     const value="67e67294759f85d6bf7a131a"
+      //     const response = await getPropertytypeByCategoryTableData(value);
+      //     console.log("responsepropertytypes")
+      //     console.log(response.data)
+          
+  
+      //     setPropertytypes(response.data || []);
+      //   } catch (err) {
+      //     console.error("Error fetching Country:", err);
+      //   }
+      // };
+  
+      // fetchPropertytypes();
 
+       const fetchCategories = async () => {
+            try {
+              const response = await getCategoryTableData();
+              console.log("response")
+              console.log(response)
+      
+              setCategories(response || []);
+            } catch (err) {
+              console.error("Error fetching Category:", err);
+            }
+          };
+      
+          fetchCategories();
+      }, []);
+      const handleCategoryChange = async (e) => {
+        const value = e.target.value;
+        setSelectedCategory(value);
+        try {
+          const res = await getPropertytypeByCategoryTableData(value);
+          setPropertytypes(res.data || []);
+        } catch (err) {
+          console.error("Error fetching property types:", err);
+        }
+      };
   return (
     <ul className="sasw_list mb0">
       <li className="search_area">
@@ -191,8 +259,72 @@ const FilteringItem = () => {
         </div>
       </li>
       {/* End li */}
+      <li>
+        <div className="search_option_two">
+          <div className="candidate_revew_select">
+          <select
+              id="categorySelect"
+              className="selectpicker form-select"
+              value={selectedCategory}
+              onChange={handleCategoryChange}
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Select Category --</option>
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div className="search_option_two">
+          <div className="candidate_revew_select">
+          <select
+              id="citySelect"
+              className="selectpicker w100 form-select show-tick"
+              value={selectedCity}
+              onChange={(e) => setSelectedCity(e.target.value)} 
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Select City --</option>
+              {cities.map((city) => (
+                <option key={city._id} value={city._id}>
+                  {city.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </li> 
+      <li>
+        <div className="search_option_two">
+          <div className="candidate_revew_select">
+          <select
+              id="citySelect"
+              className="selectpicker w100 form-select show-tick"
+              value={selectedPropertytype}
+              onChange={(e) => setSelectedPropertytype(e.target.value)} 
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Property Type --</option>
+              {propertytypes.map((propertytype) => (
+                <option key={propertytype._id} value={propertytype._id}>
+                  {propertytype.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </li> 
+      
 
-      <li className="search_area">
+      {/* <li className="search_area">
         <div className="form-group mb-3">
           <input
             type="search"
@@ -206,10 +338,10 @@ const FilteringItem = () => {
             <span className="flaticon-maps-and-flags"></span>
           </label>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div className="search_option_two">
           <div className="candidate_revew_select">
             <select
@@ -227,10 +359,10 @@ const FilteringItem = () => {
             </select>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div className="search_option_two">
           <div className="candidate_revew_select">
             <select
@@ -248,10 +380,10 @@ const FilteringItem = () => {
             </select>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div className="small_dropdown2">
           <div
             id="prncgs2"
@@ -271,10 +403,10 @@ const FilteringItem = () => {
             </div>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div className="search_option_two">
           <div className="candidate_revew_select">
             <select
@@ -292,10 +424,10 @@ const FilteringItem = () => {
             </select>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div className="search_option_two">
           <div className="candidate_revew_select">
             <select
@@ -313,10 +445,10 @@ const FilteringItem = () => {
             </select>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div className="search_option_two">
           <div className="candidate_revew_select">
             <select
@@ -331,10 +463,10 @@ const FilteringItem = () => {
             </select>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div className="search_option_two">
           <div className="candidate_revew_select">
             <select
@@ -354,10 +486,10 @@ const FilteringItem = () => {
             </select>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li className="min_area list-inline-item">
+      {/* <li className="min_area list-inline-item">
         <div className="form-group mb-4">
           <input
             type="number"
@@ -368,10 +500,10 @@ const FilteringItem = () => {
             onChange={(e) => setAreaMin(e.target.value)}
           />
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li className="max_area list-inline-item">
+      {/* <li className="max_area list-inline-item">
         <div className="form-group mb-4">
           <input
             type="number"
@@ -382,10 +514,10 @@ const FilteringItem = () => {
             onChange={(e) => setAreaMax(e.target.value)}
           />
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
-      <li>
+      {/* <li>
         <div id="accordion" className="panel-group">
           <div className="panel">
             <div className="panel-heading">
@@ -400,9 +532,10 @@ const FilteringItem = () => {
                 </a>
               </h4>
             </div>
+            */}
             {/* End .panel-heading */}
 
-            <div id="panelBodyRating" className="panel-collapse collapse">
+           {/*  <div id="panelBodyRating" className="panel-collapse collapse">
               <div className="panel-body row">
                 <div className="col-lg-12">
                   <ul className="ui_kit_checkbox selectable-list fn-400">
@@ -435,7 +568,7 @@ const FilteringItem = () => {
             </div>
           </div>
         </div>
-      </li>
+      </li> */}
       {/* End li */}
 
       <li>

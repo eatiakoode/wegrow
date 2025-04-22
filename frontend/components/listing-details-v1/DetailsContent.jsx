@@ -9,21 +9,23 @@ import PropertyDetails from "../common/listing-details/PropertyDetails";
 import PropertyFeatures from "../common/listing-details/PropertyFeatures";
 import PropertyItem from "../common/listing-details/PropertyItem";
 import PropertyLocation from "../common/listing-details/PropertyLocation";
-// import PropertyVideo from "../common/listing-details/PropertyVideo";
-import WalkScore from "../common/listing-details/WalkScore";
-// import WhatsNearby from "../common/listing-details/WhatsNearby";
+import PropertyFAQ from "../common/listing-details/PropertyFAQ";
 
-const DetailsContent = () => {
-  return (
+// import PropertyVideo from "../common/listing-details/PropertyVideo";
+// import WalkScore from "../common/listing-details/WalkScore";
+import WhatsNearby from "../common/listing-details/WhatsNearby";
+
+const DetailsContent = ({property}) => {
+    return (
     <>
       <div className="listing_single_description">
         <div className="lsd_list">
-          <PropertyItem />
+          <PropertyItem property={property}/>
         </div>
         {/* End .lsd_list */}
 
         <h4 className="mb30">Description</h4>
-        <PropertyDescriptions />
+        <PropertyDescriptions property={property}/>
       </div>
       {/* End .listing_single_description */}
 
@@ -32,19 +34,19 @@ const DetailsContent = () => {
           <div className="col-lg-12">
             <h4 className="mb15">Property Details</h4>
           </div>
-          <PropertyDetails />
+          <PropertyDetails property={property} />
         </div>
       </div>
       {/* End .additional_details */}
 
-      <div className="additional_details">
+      {/* <div className="additional_details">
         <div className="row">
           <div className="col-lg-12">
             <h4 className="mb15">Additional details</h4>
           </div>
           <AdditionalDetails />
         </div>
-      </div>
+      </div> */}
       {/* End .additional_details */}
 
       {/* <div className="property_attachment_area">
@@ -62,7 +64,7 @@ const DetailsContent = () => {
           </div>
           {/* End .col */}
 
-          <PropertyFeatures />
+          <PropertyFeatures property={property}/>
         </div>
       </div>
       {/* End .feature_area */}
@@ -71,15 +73,20 @@ const DetailsContent = () => {
         <h4 className="mb30">
           Location{" "}
           <small className="float-end">
-            1421 San Pedro St, Los Angeles, CA 90015
+          {property.cityid?.title}, {property.locationid?.title} {property.address}
           </small>
         </h4>
         <div className="property_video p0">
-          <PropertyLocation />
+          <PropertyLocation  property={property}/>
         </div>
       </div>
       {/* End .location_area */}
-
+      <div className="application_statics mt30">
+        <h4 className="mb30">FAQ</h4>
+        <div className="faq_according style2">
+          <PropertyFAQ property={property}/>
+        </div>
+      </div>
       {/* <div className="application_statics mt30">
         <h4 className="mb30">Floor plans</h4>
         <div className="faq_according style2">
@@ -93,15 +100,18 @@ const DetailsContent = () => {
       </div> */}
       {/* End property-video  */}
 
-      <div className="walkscore_area mt30">
+      {/* <div className="walkscore_area mt30">
         <WalkScore />
-      </div>
+      </div> */}
       {/* End walkscore_area */}
 
-      {/* <div className="whats_nearby mt30">
+      <div className="whats_nearby mt30">
         <h4 className="mb10">What&apos;s Nearby</h4>
-        <WhatsNearby />
-      </div> */}
+        <div
+          className={`education_distance mb15`}
+        >{property.nearby}</div>
+        {/* <WhatsNearby  property={property}/> */}
+      </div>
       {/* End what's nearby area */}
 
       {/* <div className="product_single_content">

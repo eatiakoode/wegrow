@@ -1,16 +1,18 @@
 import Image from "next/image";
 
-const PropertyLocation = () => {
+const PropertyLocation = ({property}) => {
   return (
     <>
       <div className="thumb">
         <div className="h400" id="map-canvas">
           <div className="gmap_canvas ">
-            <iframe
+          <div dangerouslySetInnerHTML={{ __html: property?.mapembedcode }} />
+
+            {/* <iframe
               title="map"
               className="gmap_iframe"
               src="https://www.google.com/maps/d/embed?mid=1tJl0-uRax4AKBfbh1eLPLX5WzOk&hl=en&ehbc=2E312F"
-            ></iframe>
+            ></iframe> */}
           </div>
         </div>
         <div className="overlay_icon">

@@ -2,7 +2,7 @@
 import Link from "next/link";
 // import blogs from "../../data/blogs";
 import Image from "next/image";
-import { getBlogTableData } from "../../api/frontend/blog";
+import { getBlogTableData } from "@/api/frontend/blog";
 import { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
@@ -87,7 +87,7 @@ const Blogs = () => {
               <div className="details">
                 <div className="tc_content">
                   <h4 className="mb15">
-                    <Link href={`/blog-details/${item._id}`}>{item.title}</Link>
+                    <Link href={`/blog-detail/${item._id}`}>{item.title}</Link>
                   </h4>
                   <ul className="bpg_meta mb10">
                     <li className="list-inline-item">
@@ -120,10 +120,10 @@ const Blogs = () => {
                       </a>
                     </li> */}
                     <li className="list-inline-item">
-                      <a href="#">{item.posterName}</a>
+                      <a  href={`/blog-detail/${item._id}`}>{item.posterName}</a>
                     </li>
                   </ul>
-                  <a className="fp_pdate float-end text-thm" href="#">
+                  <a className="fp_pdate float-end text-thm"  href={`/blog-detail/${item._id}`}>
                     Read More <span className="flaticon-next"></span>
                   </a>
                 </div>

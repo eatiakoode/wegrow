@@ -7,7 +7,7 @@ const getProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getProperty = await Property.findById(id);
+    const getProperty = await Property.findById(id).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid");
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",

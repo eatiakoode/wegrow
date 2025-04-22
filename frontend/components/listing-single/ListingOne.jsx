@@ -13,15 +13,16 @@ export default function ListingOne({property}) {
           <div className="col-lg-7 col-xl-8">
             <div className="single_property_title mt30-767">
               <h2>{property?.title}</h2>
-              <p>{property?.address}</p>
+              <p>{property.cityid?.title}, {property.locationid?.title} {property.address}</p>
             </div>
+           
           </div>
           <div className="col-lg-5 col-xl-4">
             <div className="single_property_social_share position-static transform-none">
               <div className="price float-start fn-400">
                 <h2>
-                  ${property?.price}
-                  <small>/mo</small>
+                  {property?.price}
+                  {/* <small>/mo</small> */}
                 </h2>
               </div>
 
@@ -32,11 +33,11 @@ export default function ListingOne({property}) {
                       <span className="flaticon-transfer-1"></span>
                     </a>
                   </li>
-                  <li className="list-inline-item">
+                  {/* <li className="list-inline-item">
                     <a href="#">
                       <span className="flaticon-heart"></span>
                     </a>
-                  </li>
+                  </li> */}
                   {/* <li className="list-inline-item">
                     <a href="#">
                       <span className="flaticon-share"></span>
@@ -60,20 +61,26 @@ export default function ListingOne({property}) {
             <div className="row">
               <div className="col-lg-12">
                 <div className="spls_style_two mb30-520">
-                  <Item
-                    original={property?.img}
-                    thumbnail={property?.img}
-                    width={752}
-                    height={450}
-                  >
+                <Item
+                      original={`${process.env.NEXT_PUBLIC_API_URL}${property?.featuredimageurl}`}
+                      thumbnail={`${process.env.NEXT_PUBLIC_API_URL}${property?.featuredimageurl}`}
+                      width={752}
+                      height={450}
+                    >
+
                     {({ ref, open }) => (
                       <div role="button" ref={ref} onClick={open}>
                         <Image
                           width={752}
                           height={450}
                           className="img-fluid w100 cover lds-1"
-                          src={property.img}
-                          alt="1.jpg"
+                          src={
+                            property.featuredimageurl
+                              ? `${process.env.NEXT_PUBLIC_API_URL}${property.featuredimageurl}`
+                              : "/default-placeholder.jpg"
+                          }
+                          alt= {`${property.title}`}
+                          unoptimized // Optional: disables Next.js image optimization (useful if external images)
                         />
                       </div>
                     )}
@@ -86,7 +93,7 @@ export default function ListingOne({property}) {
 
           <div className="col-sm-5 col-lg-4">
             <div className="row">
-              {property?.imgList?.map((val, i) => (
+              {property?.propertyimageurl?.map((val, i) => (
                 <div className="col-6" key={i}>
                   <div className="spls_style_two img-gallery-box mb24">
                     <Item
@@ -101,8 +108,14 @@ export default function ListingOne({property}) {
                             width={170}
                             height={133}
                             className="img-fluid w100 cover"
-                            src={val}
-                            alt="2.jpg"
+                            src={
+                              val
+                                ? `${process.env.NEXT_PUBLIC_API_URL}${val}`
+                                : "/default-placeholder.jpg"
+                            }
+                            alt= {`${property.title}`}
+                            unoptimized 
+                           
                           />
                         </div>
                       )}

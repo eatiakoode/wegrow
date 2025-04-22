@@ -13,7 +13,7 @@ const CallToAction = () => {
 
       <div className="col-lg-4">
         <div className="parner_reg_btn text-right tac-smd">
-          <Link href="/register" className="btn btn-thm2">
+          <Link href="/contact" className="btn btn-thm2">
             Visit Now
           </Link>
         </div>

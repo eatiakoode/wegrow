@@ -1,13 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addBlogAPI } from "../../../api/blog";
+
+import { getBlogcategoryTableData } from "../../../api/blogcategory";
 const CreateList = () => {
    const [title, setTitle] = useState("");
    const [description, setDescription] = useState("");
+   const [source, setSource] = useState("");
+   const [date, setDate] = useState("");
     const [error, setError] = useState("");
     const [logo, setLogo] = useState(null);
-
+    const [blogcategories, setBlogcategories] = useState([]);
+  const [selectedBlogcategory, setSelectedBlogcategory] = useState("");
+useEffect(() => {
+    
+      const fetchBlogcategories = async () => {
+            try {
+              const response = await getBlogcategoryTableData();
+              console.log("response")
+              console.log(response)
+      
+              setBlogcategories(response || []);
+            } catch (err) {
+              console.error("Error fetching Blogcategory:", err);
+            }
+          };
+      
+          fetchBlogcategories();
+    });
     // upload profile
     const uploadLogo = (e) => {
         setLogo(e.target.files[0]);
@@ -21,7 +42,9 @@ const CreateList = () => {
         setError("");
       }
     };
-  
+    const handleBlogcategoryChange = (e) => {
+      setSelectedBlogcategory(e.target.value);
+    };
     const addBlog = async (e) => {
       e.preventDefault();
     
@@ -36,6 +59,9 @@ const CreateList = () => {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
+        formData.append("source", source);
+        formData.append("date", date);
+        formData.append("blogcategory", selectedBlogcategory);
         if (logo) {
           formData.append("logo", logo);
         }
@@ -86,10 +112,44 @@ const CreateList = () => {
                 <p>*minimum 260px x 260px</p>
             </div>
             {/* End .col */}
+            <div className="col-lg-6 col-xl-6">
+          <div className="my_profile_setting_input ui_kit_select_search form-group">
+            <label htmlFor="BlogcategorySelect">Select Blog category</label>
+            <select
+              id="BlogcategorySelect"
+              className="selectpicker form-select"
+              value={selectedBlogcategory}
+              onChange={handleBlogcategoryChange}
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Select Blog category --</option>
+              {blogcategories.map((blogcategory) => (
+                <option key={blogcategory._id} value={blogcategory._id}>
+                  {blogcategory.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="blogTitle">Blog Title</label>
           <input type="text" className="form-control" id="blogTitle" value={title} onChange={handleTitleChange} />
+          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+        </div>
+      </div>
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="blogSource">Blog Source</label>
+          <input type="text" className="form-control" id="blogSource" value={source} onChange={(e) => setSource(e.target.value)} />
+          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+        </div>
+      </div>
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="blogDate">Blog Date</label>
+          <input type="date" className="form-control" id="blogDate" value={date} onChange={(e) => setDate(e.target.value)} />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
       </div>

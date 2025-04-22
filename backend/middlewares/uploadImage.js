@@ -73,12 +73,12 @@ const blogImgResize = async (req) => {
       const outputPath = path.join("public", "images", "blogs", filename);
 
       await sharp(file.path)
-        .resize(300, 300)
+        .resize(650, 400)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      fs.unlinkSync(file.path); // delete original uploaded file
+      // fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push(filename);
     })
@@ -138,7 +138,7 @@ const featuredImageResize = async (req) => {
       const outputPath = path.join("public", "images", "property", filename);
 
       await sharp(file.path)
-        .resize(300, 300)
+        .resize(750, 450)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(outputPath);
@@ -246,14 +246,14 @@ const cityImgResize = async (req) => {
       const outputPath = path.join("public", "images", "city", filename);
 
       await sharp(file.path)
-        .resize(300, 300)
+        .resize(755, 355)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      fs.unlinkSync(file.path); // delete original uploaded file
-console.log("filename")
-console.log(filename)
+      // fs.unlinkSync(file.path); // delete original uploaded file
+// console.log("filename")
+// console.log(filename)
 
       processedFilenames.push(filename);
     })

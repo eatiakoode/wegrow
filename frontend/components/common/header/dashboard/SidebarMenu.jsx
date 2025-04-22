@@ -51,8 +51,11 @@ const SidebarMenu = () => {
     { id: 2, name: "Property List", route: "/cmswegrow/my-properties" }
   ];
   const myBlog = [
-    { id: 1, name: "Add Blog", route: "/cmswegrow/add-blog" },
-    { id: 2, name: "Blog List", route: "/cmswegrow/my-blog" }
+    { id: 1, name: "Add Blog category", route: "/cmswegrow/add-blogcategory" },
+    { id: 2, name: "Blog category List", route: "/cmswegrow/my-blogcategory" },
+    { id: 3, name: "Add Blog", route: "/cmswegrow/add-blog" },
+    { id: 4, name: "Blog List", route: "/cmswegrow/my-blog" },
+    
   ];
   const myPropertypage = [
     { id: 1, name: "Add Property page", route: "/cmswegrow/add-propertypage" },

@@ -22,6 +22,15 @@ var blogSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
+    blogcategory:{
+      type: String,
+    },
+    source:{
+      type: String,
+    },
+    date:{
+      type: String,
+    },
     status: {
       type: Boolean,
       default: true,

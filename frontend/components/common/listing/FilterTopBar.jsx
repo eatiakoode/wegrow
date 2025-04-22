@@ -50,7 +50,7 @@ const FilterTopBar = () => {
       </div>
       {/* End .col */}
 
-      <div className="col-sm-12 col-md-8 col-lg-8 col-xl-7">
+      {/* <div className="col-sm-12 col-md-8 col-lg-8 col-xl-7">
         <div className="right_area text-end tac-xsd">
           <ul>
             <li className="list-inline-item">
@@ -79,7 +79,7 @@ const FilterTopBar = () => {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
       {/* End .col */}
     </>
   );

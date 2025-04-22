@@ -8,6 +8,8 @@ const createCity = asyncHandler(async (req, res) => {
     
     if(req.files){
       const processedImages  =await cityImgResize(req);
+      // console.log("processedImages")
+      // console.log(processedImages)
       if (processedImages.length > 0) {
         // ✅ Append logo filename to req.body
         req.body.citylogoimage = "public/images/city/"+processedImages[0];
@@ -22,7 +24,8 @@ const createCity = asyncHandler(async (req, res) => {
     //     }
     //   }
     // }
-   
+    // console.log("processedImages")
+    // console.log(processedImages)
 
     const newCity = await City.create(req.body);
     const message={
@@ -41,12 +44,16 @@ const updateCity = asyncHandler(async (req, res) => {
   try {
     if(req.files){
       const processedImages  =await cityImgResize(req);
+      // console.log("processedImages")
+      // console.log(processedImages)
       if (processedImages.length > 0) {
         // ✅ Append logo filename to req.body
         req.body.citylogoimage = "public/images/city/"+processedImages[0];
       }
     }
-    console.log(req.body.citylogoimage)
+    // console.log("req.body.citylogoimage")
+    // console.log(req.body.citylogoimage)
+
     const updatedCity = await City.findByIdAndUpdate(id, req.body, {
       new: true,
     });

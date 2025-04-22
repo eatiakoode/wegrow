@@ -1,21 +1,43 @@
+'use client'
 import Link from "next/link";
-import blogContent from "../../data/blogs";
+// import blogContent from "../../data/blogs";
 import Image from "next/image";
+import { getBlogTableData } from "@/api/frontend/blog";
+import { useState, useEffect } from "react";
+
+import { useRouter } from "next/navigation";
 
 const Blog = () => {
+   const router = useRouter();
+      const [blogs, setBlog] = useState([]);
+            
+      const fetchBlog = async () => {
+        const data = await getBlogTableData();
+        console.log("blogdata")
+        console.log(data)
+        setBlog(data);
+      };
+      useEffect(() => {
+        fetchBlog();
+      }, []); 
   return (
     <>
-      {blogContent.slice(6, 9).map((item) => (
-        <div className="for_blog feat_property" key={item.id}>
+      {blogs.slice(0, 3).map((item,index) => (
+        <div className="for_blog feat_property" key={item._id}>
           <div className="thumb">
-            <Link href={`/blog-details/${item.id}`}>
+            <Link href={`/blog-detail/${item._id}`}>
               <Image
                 width={731}
                 height={438}
                 priority
                 className="img-whp cover w-100"
-                src={item.img}
-                alt={item.img}
+                src={
+                  item.logoimage
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${item.logoimage}`
+                    : "/default-placeholder.jpg"
+                }
+                alt= {`${item.title}${index + 1}`}
+                unoptimized 
               />
             </Link>
             <div className="blog_tag">{item.postMeta}</div>
@@ -25,15 +47,29 @@ const Blog = () => {
           <div className="details">
             <div className="tc_content">
               <h4 className="mb15">
-                <Link href={`/blog-details/${item.id}`}>{item.title}</Link>
+                <Link href={`/blog-details/${item._id}`}>{item.title}</Link>
               </h4>
-              <p>{item.postDescriptions.slice(0, 285)}</p>
+              <ul className="bpg_meta mb10">
+                    <li className="list-inline-item">
+                      <a href="#">
+                        <i className="flaticon-calendar"></i>
+                      </a>
+                    </li>
+                    <li className="list-inline-item">
+                      <a href="#">{new Date(item.createdAt).toLocaleDateString('en-US', {
+    month: 'short',
+    day: '2-digit',
+    year: 'numeric',
+  })}</a>
+                    </li>
+                  </ul>
+                  <p>{item.description.slice(0, 65)}</p>
             </div>
             {/* End .tc_content */}
 
             <div className="fp_footer">
               <ul className="fp_meta float-start mb0">
-                <li className="list-inline-item">
+                {/* <li className="list-inline-item">
                   <a href="#">
                     <Image
                       width={40}
@@ -42,20 +78,20 @@ const Blog = () => {
                       alt={item.posterAvatar}
                     />
                   </a>
-                </li>
-                <li className="list-inline-item">
+                </li> */}
+                {/* <li className="list-inline-item">
                   <a href="#">{item.posterName}</a>
-                </li>
-                <li className="list-inline-item">
+                </li> */}
+                {/* <li className="list-inline-item">
                   <a href="#">
                     <span className="flaticon-calendar pr10"></span>{" "}
                     {item.postedDate}
                   </a>
-                </li>
+                </li> */}
               </ul>
-              <a className="fp_pdate float-end text-thm" href="#">
-                Read More <span className="flaticon-next"></span>
-              </a>
+              <a className="fp_pdate float-end text-thm"  href={`/blog-detail/${item._id}`}>
+                    Read More <span className="flaticon-next"></span>
+                  </a>
             </div>
             {/* End fb_footer */}
           </div>

@@ -1,3 +1,4 @@
+'use client'
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import Header from "../common/header/DefaultHeader";
@@ -5,8 +6,22 @@ import MobileMenu from "../common/header/MobileMenu";
 import PopupSignInUp from "../common/PopupSignInUp";
 import BreadCrumbBanner from "./BreadCrumbBanner";
 import FaqContent from "./FaqContent";
+import { getFaqTableData } from "@/api/frontend/faq";
+import { useState, useEffect } from "react";
 
 const index = () => {
+  const [faqs, setFaqs] = useState([]);
+        // const router = useRouter();
+      
+        const fetchFaqs = async () => {
+          const data = await getFaqTableData();
+          console.log("faqdata")
+          console.log(data)
+          setFaqs(data);
+        };
+        useEffect(() => {
+            fetchFaqs();
+          }, []); 
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -37,7 +52,7 @@ const index = () => {
             <div className="col-lg-10 offset-lg-1">
               <div className="faq_content">
                 <div className="faq_according">
-                  <FaqContent />
+                  <FaqContent faqs={faqs}/>
                 </div>
               </div>
             </div>

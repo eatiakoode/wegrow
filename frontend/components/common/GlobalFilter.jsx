@@ -50,7 +50,17 @@ const GlobalFilter = ({ className = "" }) => {
   const router = useRouter()
   // submit handler
   const submitHandler = () => {
-    router.push("/listing-grid-v1");
+    var link="?cat=residential"
+    if(addKeyword){
+      link +="&keyword="+addKeyword
+    }
+    if(selectedCity){
+      link +="&city="+selectedCity
+    }
+    if(selectedPropertytype){
+      link +="&propertytype="+selectedPropertytype
+    }
+    router.push("/property-list"+link);
   };
  
 

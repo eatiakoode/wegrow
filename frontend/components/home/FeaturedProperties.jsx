@@ -4,7 +4,7 @@ import Link from "next/link";
 import Slider from "react-slick";
 // import properties from "../../data/properties";
 import Image from "next/image";
-import { getPropertyFeatureData } from "../../api/frontend/property";
+import { getPropertyFeatureData } from "@/api/frontend/property";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 

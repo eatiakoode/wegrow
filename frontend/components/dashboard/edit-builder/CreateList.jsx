@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getBlogById, updateBlogAPI } from "../../../api/blog";
+import { getBuilderById, updateBuilderPI } from "../../../api/builder";
 
 
 const CreateList = () => {
   const params = useParams();  
     const id = params?.id;  
     const router = useRouter();
-    const [blog, setBlog] = useState({ title: "", status: false,description: "", });
+    const [builder, setBuilder] = useState({ title: "", status: false,description: "", });
     const [title, setTitle] = useState("");
     const [status, setStatus] = useState("");
     const [loading, setLoading] = useState(true);
@@ -22,9 +22,9 @@ const CreateList = () => {
   };
     useEffect(() => {
       if (!id) return;      
-      const fetchBlog = async () => {
+      const fetchBuilder = async () => {
         try {
-          const data = await getBlogById(id);
+          const data = await getBuilderById(id);
           console.log("data")
           console.log(data)
           console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
@@ -36,13 +36,13 @@ const CreateList = () => {
           setLogoImage(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
           }
         } catch (error) {
-          console.error("Error fetching Blog:", error);
+          console.error("Error fetching Builder:", error);
         } finally {
           setLoading(false);
         }
       };
   
-      fetchBlog();
+      fetchBuilder();
     }, [id]);
   
     const handleSubmit = async (e) => {
@@ -55,11 +55,11 @@ const CreateList = () => {
         if (logo) {
           formData.append("logo", logo);
         }
-        await updateBlogAPI(id, formData);
-        alert("Blog updated successfully!");
-        router.push("/my-blog");
+        await updateBuilderAPI(id, formData);
+        alert("Builder updated successfully!");
+        router.push("/cmswegrow/my-builder");
       } catch (error) {
-        alert("Failed to update Blog.");
+        alert("Failed to update Builder.");
         console.error(error);
       }
     };
@@ -104,11 +104,11 @@ const CreateList = () => {
             {/* End .col */}
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="BlogTitle">Blog Title</label>
+          <label htmlFor="BuilderTitle">Builder Title</label>
           <input
         type="text"
         className="form-control"
-        id="BlogTitle"
+        id="BuilderTitle"
         name="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -118,8 +118,8 @@ const CreateList = () => {
       {/* End .col */}
       <div className="col-lg-12">
           <div className="my_profile_setting_textarea form-group">
-            <label htmlFor="BlogDescription">Description</label>
-            <textarea id="BlogDescription" className="form-control" name="description" rows="7"  value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter Blog description"></textarea>
+            <label htmlFor="BuilderDescription">Description</label>
+            <textarea id="BuilderDescription" className="form-control" name="description" rows="7"  value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Enter Builder description"></textarea>
             {error.description && <span className="text-danger">{error.description}</span>}
           </div>
           

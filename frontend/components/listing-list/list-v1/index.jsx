@@ -53,20 +53,20 @@ const index = () => {
                 tabIndex="-1"
                 id="sidebarListing"
               >
-                <div className="offcanvas-header">
-                  <h5 className="offcanvas-title">Advanced Search</h5>
+                {/* <div className="offcanvas-header">
+                  <h5 className="offcanvas-title">Advanced Search </h5>
                   <button
                     type="button"
                     className="btn-close text-reset"
                     data-bs-dismiss="offcanvas"
                     aria-label="Close"
                   ></button>
-                </div>
+                </div> */}
                 {/* End .offcanvas-heade */}
 
-                <div className="offcanvas-body">
+                {/* <div className="offcanvas-body">
                   <SidebarListing />
-                </div>
+                </div> */}
               </div>
               {/* End mobile sidebar listing  */}
             </div>

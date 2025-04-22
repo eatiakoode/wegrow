@@ -214,8 +214,8 @@ const HeaderMenuContent = ({ float = "" }) => {
   // ];
 
   const property = [
-    { id: 1, name: "Residential", routerPath: "/listing-list-v1" },
-    { id: 2, name: "Commercial", routerPath: "/listing-list-v1" },
+    { id: 1, name: "Residential", routerPath: "/property-list?cat=residential" },
+    { id: 2, name: "Commercial", routerPath: "/property-list?cat=commercial" },
   ];
   
 

@@ -46,7 +46,7 @@ const ListingDynamicDetailsV1 = ({params}) => {
 
   return (
     <>
-      {/* <!-- Main Header Nav --> */}
+    {/* <!-- Main Header Nav --> */}
       <Header />
 
       {/* <!--  Mobile Menu --> */}
@@ -64,7 +64,7 @@ const ListingDynamicDetailsV1 = ({params}) => {
         <div className="container">
           <div className="row">
             <div className="col-md-12 col-lg-8">
-              <DetailsContent />
+              <DetailsContent property={property}/>
             </div>
             {/* End details content .col-lg-8 */}
 

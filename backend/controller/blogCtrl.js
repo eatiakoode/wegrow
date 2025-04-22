@@ -34,7 +34,7 @@ const updateBlog = asyncHandler(async (req, res) => {
         console.log(processedImages)
         if (processedImages.length > 0) {
           // ✅ Append logo filename to req.body
-          req.body.logoimage = "public/images/blog/"+processedImages[0];
+          req.body.logoimage = "public/images/blogs/"+processedImages[0];
         }
       }
 

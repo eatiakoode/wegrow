@@ -2,13 +2,28 @@
 'use client'
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLength } from "../../../features/properties/propertiesSlice";
-import properties from "../../../data/properties";
+// import properties from "../../../data/properties";
+import { getPropertyFeatureData } from "@/api/frontend/property";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 const FeaturedItem = () => {
+   const [properties, setProperties] = useState([]);
+        const router = useRouter();
+  const fetchProperties = async () => {
+    const filter ={
+      "keyword":keyword,
+      "city":cities,
+      "category":selectedCategory,
+      "propertytype":selectedPropertytype
+    };
+          const data = await getPropertyFeatureData(filter);
+          console.log(data)
+          setProperties(data);
+        };
   const {
     keyword,
     location,
@@ -230,6 +245,9 @@ const FeaturedItem = () => {
   useEffect(() => {
     dispatch(addLength(content.length));
   }, [dispatch, content]);
+  useEffect(() => {
+    fetchProperties();
+  }, []); 
   return (
     <>
       {/* {properties.slice(0, 9).map((item) => (

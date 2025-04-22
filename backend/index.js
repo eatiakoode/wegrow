@@ -19,7 +19,9 @@ const agentRouter = require("./routes/agentRouter");
 const propertyRouter = require("./routes/propertyRouter");
 const furnishingstatusRouter = require("./routes/furnishingstatusRouter");
 const constructionstatusRouter = require("./routes/constructionstatusRouter");
+const blogcategoryRouter = require("./routes/blogcategoryRoute");
 const blogRouter = require("./routes/blogRouter");
+
 const testimonialRouter = require("./routes/testimonialRouter");
 const propertypageRouter = require("./routes/propertypageRouter");
 const faqRouter = require("./routes/faqRouter");
@@ -68,6 +70,7 @@ app.use("/admin/api/agent", agentRouter);
 app.use("/admin/api/property", propertyRouter);
 app.use("/admin/api/furnishingstatus", furnishingstatusRouter);
 app.use("/admin/api/constructionstatus", constructionstatusRouter);
+app.use("/admin/api/blogcategory", blogcategoryRouter);
 app.use("/admin/api/blog", blogRouter);
 app.use("/admin/api/testimonial", testimonialRouter);
 app.use("/admin/api/propertypage", propertypageRouter);

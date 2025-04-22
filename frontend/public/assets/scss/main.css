@@ -5880,6 +5880,10 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   overflow: hidden;
   position: relative;
 }
+.properti_city .thumb img{
+  min-height: 350px!important;
+  min-width: 364px!important;
+}
 
 .properti_city .thumb img {
   -webkit-transition: all 0.6s ease;

@@ -66,6 +66,7 @@ const countPropertiesByCity = asyncHandler(async (req, res) => {
           _id: 0,
           cityId: "$_id",
           cityName: "$title",
+          citylogoimage:"$citylogoimage",
           propertyCount: { $size: "$properties" }
         }
       }

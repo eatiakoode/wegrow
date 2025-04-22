@@ -54,7 +54,8 @@ const Index = () => {
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
                 <h2>Find Properties in These Cities</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p>Location we Serve
+                </p>
               </div>
             </div>
           </div>
@@ -112,8 +113,8 @@ const Index = () => {
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
-                <h2>Our Blogs</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h2>News & Blogs</h2>
+                <p>All the Latest from the Real Estate World at Your Fingertips.</p>
               </div>
             </div>
           </div>

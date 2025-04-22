@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 
-const PropertyDescriptions = () => {
+const PropertyDescriptions = ({property}) => {
   const [click, setClick] = useState(true);
   const handleClick = () => setClick(!click);
 
   return (
     <>
-      <p className="mb25">
+   <p className="mb25">{property.description}</p> 
+      {/* <p className="mb25">
         Evans Tower very high demand corner junior one bedroom plus a large
         balcony boasting full open NYC views. You need to see the views to
         believe them. Mint condition with new hardwood floors. Lots of closets
@@ -22,7 +23,7 @@ const PropertyDescriptions = () => {
         apartments Southern and Eastern exposures allow for lovely natural light
         to fill every room. The master suite is surrounded by handcrafted
         milkwork and features incredible walk-in closet and storage space.
-      </p>
+      </p> */}
       <div className="collapse" id="collapseExample">
         <div className="card card-body">
           <p className="mt10 mb10">
