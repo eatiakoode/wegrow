@@ -9,17 +9,17 @@ import { useRouter } from "next/navigation";
 
 const Blog = () => {
    const router = useRouter();
-      const [blogs, setBlog] = useState([]);
-            
-      const fetchBlog = async () => {
-        const data = await getBlogTableData();
-        console.log("blogdata")
-        console.log(data)
-        setBlog(data);
-      };
-      useEffect(() => {
-        fetchBlog();
-      }, []); 
+    const [blogs, setBlog] = useState([]);
+          
+    const fetchBlog = async () => {
+      const data = await getBlogTableData();
+      console.log("blogdata")
+      console.log(data)
+      setBlog(data);
+    };
+    useEffect(() => {
+      fetchBlog();
+    }, []); 
   return (
     <>
       {blogs.slice(0, 3).map((item,index) => (

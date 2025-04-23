@@ -40,9 +40,9 @@ const index = () => {
 
               <div className="row">
                 <div className="col-lg-12">
-                  <div className="mbp_pagination mt20">
+                  {/* <div className="mbp_pagination mt20">
                     <Pagination />
-                  </div>
+                  </div> */}
                   {/* End .mbp_pagination */}
                 </div>
               </div>
