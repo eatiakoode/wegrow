@@ -41,7 +41,7 @@ const Blog = () => {
                   unoptimized 
                 />
               </Link>
-              <div className="blog_tag">{item.postMeta}</div>
+              <div className="blog_tag">{item.blogcategory?.title}</div>
             </div>
             {/* End .thumb */}
 

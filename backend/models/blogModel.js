@@ -23,7 +23,9 @@ var blogSchema = new mongoose.Schema(
       index: true,
     },
     blogcategory:{
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Blogcategory", 
+      required: true,
     },
     source:{
       type: String,

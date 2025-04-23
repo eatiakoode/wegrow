@@ -6,7 +6,7 @@ const getBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getaBlog = await Blog.findById(id);
+    const getaBlog = await Blog.findById(id).populate("blogcategory");
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
@@ -20,7 +20,7 @@ const getBlog = asyncHandler(async (req, res) => {
 });
 const getallBlog = asyncHandler(async (req, res) => {
   try {
-    const getallBlog = await Blog.find({"status":true});
+    const getallBlog = await Blog.find({"status":true}).populate("blogcategory");
     res.json(getallBlog);
   } catch (error) {
     throw new Error(error);

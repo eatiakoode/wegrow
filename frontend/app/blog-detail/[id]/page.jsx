@@ -78,7 +78,7 @@ useEffect(() => {
               <div className="main_blog_post_content">
                 <div className="mbp_thumb_post">
                   <div className="blog_sp_tag">
-                    <a href="#">{blog?.postMeta}</a>
+                    <a href="#">{blog.blogcategory?.title}</a>
                   </div>
                   <h3 className="blog_sp_title">{blog?.title}</h3>
                   <ul className="blog_sp_post_meta">
