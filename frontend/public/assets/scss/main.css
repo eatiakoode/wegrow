@@ -1135,7 +1135,7 @@ header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.add_
   box-shadow: 0px 1px 4px 0px rgba(163, 177, 138, 0.3);
 }
 header.header-nav.menu_style_home_one .ace-responsive-menu li.border_listing{
-  background-color:rgba(255, 255, 255, 1);
+  background-color:rgba(238, 238, 238, 1);
   border-radius: 100%;
   
 }
@@ -1146,17 +1146,17 @@ header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.bord
 header.header-nav.menu_style_home_one .ace-responsive-menu li.border_listing a {
   padding: 13px !important;
   line-height: normal;
-  width: 45px;
+  width: 50px;
   text-align: center;
-  height: 45px;
+  height: 50px;
   color: var(--color-primary);
 }
 header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.border_listing a {
   padding: 13px !important;
   line-height: normal;
-  width: 45px;
+  width: 50px;
   text-align: center;
-  height: 45px;
+  height: 50px;
   color: var(--color-primary);
 }
 header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.border_listing a:hover,
@@ -1579,7 +1579,7 @@ header.header-nav.menu_style_home_one.style2 .ace-responsive-menu li a {
   font-size: 16px;
   font-family: "Nunito";
   color: #484848;
-  line-height: 1.2;
+  line-height: 1.4;
 }
 
 header.header-nav.menu_style_home_one.style2 ul.ace-responsive-menu li.list_s {
@@ -10271,6 +10271,10 @@ ul.mc_parent_list ul.mc_child_list .membership_header h4 {
 .our_partner .contain{
   filter: grayscale(100%);
   transition: filter 0.3s ease;
+  border-radius: 8px;
+}
+.properti_city.our_partner .contain{
+  filter: grayscale(0%);
 }
 .our_partner .contain:hover, .our_partner .contain:focus{
   filter: grayscale(0%);
@@ -10306,6 +10310,9 @@ ul.mc_parent_list ul.mc_child_list .membership_header h4 {
   cursor: pointer;
   position: relative;
   display: block;
+}
+.apartments-listing .accordion-filter .accordion-item{
+  border-radius: 8px!important;
 }
 .apartments-listing .accordion-filter .accordion-header.active-header{
   background-color: var(--color-primary);

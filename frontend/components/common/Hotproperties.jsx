@@ -4,7 +4,13 @@ import Image from "next/image";
 import Slider from "react-slick";
 
 const Hotproperties = () => {
-  const HotpropertiesImages = ["1", "2", "3", "4"];
+  const HotpropertiesImages = [
+    { img: "1", price: "10.5 Cr*", title: "DLF The Dahlias" },
+    { img: "2", price: "8.2 Cr*", title: "M3M Golf Estate" },
+    { img: "3", price: "12 Cr*", title: "Trump Towers" },
+    { img: "4", price: "9.5 Cr*", title: "Central Park Sky Villas" },
+    { img: "5", price: "11 Cr*", title: "DLF Aralias" }
+  ];
 
   const settings = {
     dots: false,
@@ -39,16 +45,21 @@ const Hotproperties = () => {
 
   return (
     <Slider {...settings}>
-      {HotpropertiesImages.map((val, i) => (
+      {HotpropertiesImages.map((property, i) => (
         <div className="item" key={i}>
-          <div className="our_partner text-center">
+          <div className="properti_city our_partner text-center">
             <Image
               width={768}
               height={512}
               className="contain img-fluid"
-              src={`/assets/images/hotproperties/${val}.webp`}
-              alt={`${val} logo`}
+              src={`/assets/images/hotproperties/${property.img}.webp`}
+              alt={`${property.title} image`}
             />
+            <div class="overlay"><div class="details">
+              <h4>{property.price}</h4>
+              <p>{property.title}</p>
+            </div>
+            </div>
           </div>
         </div>
       ))}
