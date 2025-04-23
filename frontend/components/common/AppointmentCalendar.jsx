@@ -17,7 +17,7 @@ export default function AppointmentCalendar({ onDateChange }) {
       selected={startDate}
       onChange={handleChange}
       dateFormat="MMMM d, yyyy"
-      placeholderText="Select a date"
+      placeholderText="Choose a date for your meeting"
       minDate={new Date()} // disables past dates
       className="border p-2 rounded"
     />

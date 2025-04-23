@@ -368,10 +368,10 @@ const HeaderMenuContent = ({ float = "" }) => {
 
       <li className="last">
         <Link
-          href="/contact"
+          href="/"
           className={pathname === "/contact" ? "ui-active" : undefined}
         >
-          Contact
+          News & Insights
         </Link>
       </li>
       {/* End .dropitem */}

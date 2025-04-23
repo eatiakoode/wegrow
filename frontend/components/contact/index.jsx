@@ -30,9 +30,9 @@ const index = () => {
           <div className="row">
             <div className="col-lg-7 col-xl-8">
               <div className="form_grid">
-                <h4 className="mb5">Send Us An Email</h4>
+              <h4 className="mb5">Schedule a Meeting With Us</h4>
                 <p>
-                Have a question or need more details? Drop us a message and our property experts will get back to you shortly.
+                Looking to discuss a property or need expert guidance? Pick a date that works for you and book a one-on-one meeting with our real estate professionals.
                 </p>
                 <Form />
               </div>

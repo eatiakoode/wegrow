@@ -7,15 +7,6 @@ const locations = {
   "Find Properties in Dubai": [
     "Apartments for Rent in Dubai",
     "Apartments for Rent in Downtown Dubai",
-    "Apartments for Rent in Dubai Marina",
-    "Apartments for Rent in Jumeirah Village Circle (JVC)",
-    "Apartments for Rent in Business Bay",
-    "Apartments for Rent in Dubai Creek Harbour (The Lagoons)",
-    "Apartments For Rent In Deira",
-    "Apartments For Rent in Dubai Monthly",
-    "Apartments For Rent in Dubai Silicon Oasis",
-    "Apartments For Rent in Jumeirah Lake Towers (JLT)",
-    "Apartments For Rent in Bur Dubai",
     "Apartments For Rent in International City",
   ],
   "Find Properties in Gurgaon": [
