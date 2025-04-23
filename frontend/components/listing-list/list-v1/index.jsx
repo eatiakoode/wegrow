@@ -4,6 +4,7 @@ import Footer from "../../common/footer/Footer";
 import Header from "../../common/header/DefaultHeader";
 import MobileMenu from "../../common/header/MobileMenu";
 import FilterTopBar from "../../common/listing/FilterTopBar";
+import GridListButton from "../../common/listing/GridListButton";
 import ShowFilter from "../../common/listing/ShowFilter";
 import SidebarListing from "../../common/listing/SidebarListing";
 import PopupSignInUp from "../../common/PopupSignInUp";
@@ -32,7 +33,12 @@ const index = () => {
             {/* End .col */}
 
             <div className="col-lg-6 position-relative">
-              <div className="dn db-991 mt30 mb0 mobile-filter-menu">
+              <div className="listing_list_style mb20-xsd tal-991">
+                <GridListButton />
+              </div>
+              {/* End list grid */}
+
+              <div className="dn db-991 mt30 mb0">
                 <ShowFilter />
               </div>
               {/* ENd button for mobile sidebar show  */}
@@ -53,20 +59,20 @@ const index = () => {
                 tabIndex="-1"
                 id="sidebarListing"
               >
-                {/* <div className="offcanvas-header">
-                  <h5 className="offcanvas-title">Advanced Search </h5>
+                <div className="offcanvas-header">
+                  <h5 className="offcanvas-title">Advanced Search</h5>
                   <button
                     type="button"
                     className="btn-close text-reset"
                     data-bs-dismiss="offcanvas"
                     aria-label="Close"
                   ></button>
-                </div> */}
+                </div>
                 {/* End .offcanvas-heade */}
 
-                {/* <div className="offcanvas-body">
+                <div className="offcanvas-body">
                   <SidebarListing />
-                </div> */}
+                </div>
               </div>
               {/* End mobile sidebar listing  */}
             </div>
@@ -78,7 +84,6 @@ const index = () => {
                   <FilterTopBar />
                 </div>
               </div>
-              {/* End .row */}
               {/* End .row */}
 
               <div className="row">

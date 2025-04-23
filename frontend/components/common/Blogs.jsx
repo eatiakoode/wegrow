@@ -120,7 +120,7 @@ const Blogs = () => {
                       </a>
                     </li> */}
                     <li className="list-inline-item">
-                      <a  href={`/blog-detail/${item._id}`}>{item.posterName}</a>
+                      <a  href={`/blog-detail/${item._id}`}>{item.source}</a>
                     </li>
                   </ul>
                   <a className="fp_pdate float-end text-thm"  href={`/blog-detail/${item._id}`}>

@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
-import ListV1 from "@/components/listing-list/list-v1";
+import GridV1 from "@/components/listing-grid/grid-v1";
 
 export const metadata = {
-  title: 'Simple Listing – List V1 || Wegrow - Real Estate React Template',
+  title: 'Simple Listing – Grid V1 || Wegrow - Real Estate React Template',
   description:
     'Wegrow - Real Estate React Template',
 }
@@ -10,7 +10,7 @@ export const metadata = {
 const index = () => {
   return (
     <>
-      <ListV1 />
+      <GridV1 />
     </>
   );
 };

@@ -42,7 +42,7 @@ export async function getPropertyFeatureData(filter) {
     
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/property/list?featured=yes&limit=6"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/property/list?limit=10"); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }

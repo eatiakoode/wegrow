@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import BlogV1 from "@/components/blog-list-1";
+import BlogV2 from "@/components/blog-list-2";
 
 export const metadata = {
   title: 'Blog List 1 || Wegrow - Real Estate React Template',
@@ -10,7 +10,7 @@ export const metadata = {
 const index = () => {
   return (
     <>
-      <BlogV1 />
+      <BlogV2 />
     </>
   );
 };

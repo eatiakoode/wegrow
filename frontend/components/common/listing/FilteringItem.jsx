@@ -12,56 +12,65 @@ import {
   addStatusType,
 } from "../../../features/filter/filterSlice";
 import {
-  addAmenities,
-  addAreaMax,
-  addAreaMin,
-  addBathrooms,
-  addBedrooms,
-  addGarages,
+  // addAmenities,
+  // addAreaMax,
+  // addAreaMin,
+  // addBathrooms,
+  // addBedrooms,
+  // addGarages,
+  // addLocation,
+  // addPrice,
+  // addPropertyType,
+  // addStatus,
+  // addYearBuilt,
+  // resetAmenities,
   addKeyword,
-  addLocation,
-  addPrice,
-  addPropertyType,
-  addStatus,
-  addYearBuilt,
-  resetAmenities,
+  addCity,
+  addCategory,
+  addPropertytype,
 } from "../../../features/properties/propertiesSlice";
-import PricingRangeSlider from "../../common/PricingRangeSlider";
+// import PricingRangeSlider from "../../common/PricingRangeSlider";
 import { v4 as uuidv4 } from "uuid";
 
 
 const FilteringItem = () => {
   const [cities, setCities] = useState([]);
-  const [selectedCity, setSelectedCity] = useState("");
+  
   const [propertytypes, setPropertytypes] = useState([]);
-  const [selectedPropertytype, setSelectedPropertytype] = useState("");
   
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const {
     keyword,
-    location,
-    status,
-    propertyType,
-    bathrooms,
-    bedrooms,
-    garages,
-    yearBuilt,
-    area,
-    amenities,
+    city,
+    category,
+    propertytype,
+    // location,
+    // status,
+    // propertyType,
+    // bathrooms,
+    // bedrooms,
+    // garages,
+    // yearBuilt,
+    // area,
+    // amenities,
   } = useSelector((state) => state.properties);
 
   // input state
   const [getKeyword, setKeyword] = useState(keyword);
-  const [getLocation, setLocation] = useState(location);
-  const [getStatus, setStatus] = useState(status);
-  const [getPropertiesType, setPropertiesType] = useState(propertyType);
-  const [getBathroom, setBathroom] = useState(bathrooms);
-  const [getBedroom, setBedroom] = useState(bedrooms);
-  const [getGarages, setGarages] = useState(garages);
-  const [getBuiltYear, setBuiltYear] = useState(yearBuilt);
-  const [getAreaMin, setAreaMin] = useState(area.min);
-  const [getAreaMax, setAreaMax] = useState(area.max);
+  const [getCity, setCity] = useState(city);
+  
+  const [getPropertytype, setPropertytype] = useState(propertytype);
+  
+  const [getCategory, setCategory] = useState(category);
+  // const [getLocation, setLocation] = useState(location);
+  // const [getStatus, setStatus] = useState(status);
+  // const [getPropertiesType, setPropertiesType] = useState(propertyType);
+  // const [getBathroom, setBathroom] = useState(bathrooms);
+  // const [getBedroom, setBedroom] = useState(bedrooms);
+  // const [getGarages, setGarages] = useState(garages);
+  // const [getBuiltYear, setBuiltYear] = useState(yearBuilt);
+  // const [getAreaMin, setAreaMin] = useState(area.min);
+  // const [getAreaMax, setAreaMax] = useState(area.max);
 
   // advanced state
   const [getAdvanced, setAdvanced] = useState([
@@ -91,50 +100,62 @@ const FilteringItem = () => {
     dispath(addKeyword(getKeyword));
   }, [dispath, getKeyword]);
 
+  useEffect(() => {
+    // console.log("hbj")
+    dispath(addCity(getCity));
+  }, [dispath, getCity]);
+
+  useEffect(() => {
+    dispath(addCategory(getCategory));
+  }, [dispath, getCategory]);
+
+  useEffect(() => {
+    dispath(addPropertytype(getPropertytype));
+  }, [dispath, getPropertytype]);
   // location
-  useEffect(() => {
-    dispath(addLocation(getLocation));
-  }, [dispath, getLocation]);
+  // useEffect(() => {
+  //   dispath(addLocation(getLocation));
+  // }, [dispath, getLocation]);
 
-  // status
-  useEffect(() => {
-    dispath(addStatus(getStatus));
-  }, [dispath, getStatus]);
+  // // status
+  // useEffect(() => {
+  //   dispath(addStatus(getStatus));
+  // }, [dispath, getStatus]);
 
-  // properties type
-  useEffect(() => {
-    dispath(addPropertyType(getPropertiesType));
-  }, [dispath, getPropertiesType]);
+  // // properties type
+  // useEffect(() => {
+  //   dispath(addPropertyType(getPropertiesType));
+  // }, [dispath, getPropertiesType]);
 
-  // bathroom
-  useEffect(() => {
-    dispath(addBathrooms(getBathroom));
-  }, [dispath, getBathroom]);
+  // // bathroom
+  // useEffect(() => {
+  //   dispath(addBathrooms(getBathroom));
+  // }, [dispath, getBathroom]);
 
-  // bedroom
-  useEffect(() => {
-    dispath(addBedrooms(getBedroom));
-  }, [dispath, getBedroom]);
+  // // bedroom
+  // useEffect(() => {
+  //   dispath(addBedrooms(getBedroom));
+  // }, [dispath, getBedroom]);
 
-  // garages
-  useEffect(() => {
-    dispath(addGarages(getGarages));
-  }, [dispath, getGarages]);
+  // // garages
+  // useEffect(() => {
+  //   dispath(addGarages(getGarages));
+  // }, [dispath, getGarages]);
 
-  // built years
-  useEffect(() => {
-    dispath(addYearBuilt(getBuiltYear));
-  }, [dispath, getBuiltYear]);
+  // // built years
+  // useEffect(() => {
+  //   dispath(addYearBuilt(getBuiltYear));
+  // }, [dispath, getBuiltYear]);
 
-  // area min
-  useEffect(() => {
-    dispath(dispath(addAreaMin(getAreaMin)));
-  }, [dispath, getAreaMin]);
+  // // area min
+  // useEffect(() => {
+  //   dispath(dispath(addAreaMin(getAreaMin)));
+  // }, [dispath, getAreaMin]);
 
-  // area max
-  useEffect(() => {
-    dispath(dispath(addAreaMax(getAreaMax)));
-  }, [dispath, getAreaMax]);
+  // // area max
+  // useEffect(() => {
+  //   dispath(dispath(addAreaMax(getAreaMax)));
+  // }, [dispath, getAreaMax]);
 
   // clear filter
   const clearHandler = () => {
@@ -143,25 +164,25 @@ const FilteringItem = () => {
 
   const clearAllFilters = () => {
     setKeyword("");
-    setSelectedCity("");
-    setSelectedPropertytype("")
-    setSelectedCategory("")
+    setCity("");
+    setPropertytype("")
+    setCategory("")
 
 
-    setLocation("");
-    setStatus("");
-    setPropertiesType("");
-    dispath(addPrice({ min: 10000, max: 20000 }));
-    setBathroom("");
-    setBedroom("");
-    setBedroom("");
-    setGarages("");
-    setBuiltYear("");
-    setAreaMin("");
-    setAreaMax("");
-    dispath(resetAmenities());
-    dispath(addStatusType(""));
-    dispath(addFeatured(""));
+    // setLocation("");
+    // setStatus("");
+    // setPropertiesType("");
+    // dispath(addPrice({ min: 10000, max: 20000 }));
+    // setBathroom("");
+    // setBedroom("");
+    // setBedroom("");
+    // setGarages("");
+    // setBuiltYear("");
+    // setAreaMin("");
+    // setAreaMax("");
+    // dispath(resetAmenities());
+    // dispath(addStatusType(""));
+    // dispath(addFeatured(""));
     clearAdvanced();
   };
 
@@ -233,10 +254,12 @@ useEffect(() => {
           fetchCategories();
       }, []);
       const handleCategoryChange = async (e) => {
+        console.log("test property")
         const value = e.target.value;
-        setSelectedCategory(value);
+        setCategory(value);
         try {
           const res = await getPropertytypeByCategoryTableData(value);
+          console.log("test property")
           setPropertytypes(res.data || []);
         } catch (err) {
           console.error("Error fetching property types:", err);
@@ -265,15 +288,15 @@ useEffect(() => {
           <select
               id="categorySelect"
               className="selectpicker form-select"
-              value={selectedCategory}
+              value={category}
               onChange={handleCategoryChange}
               data-live-search="true"
               data-width="100%"
             >
               <option value="">-- Select Category --</option>
-              {categories.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.title}
+              {categories.map((categoryitem) => (
+                <option key={categoryitem._id} value={categoryitem._id}>
+                  {categoryitem.title}
                 </option>
               ))}
             </select>
@@ -286,15 +309,15 @@ useEffect(() => {
           <select
               id="citySelect"
               className="selectpicker w100 form-select show-tick"
-              value={selectedCity}
-              onChange={(e) => setSelectedCity(e.target.value)} 
+              value={city}
+              onChange={(e) => setCity(e.target.value)} 
               data-live-search="true"
               data-width="100%"
             >
               <option value="">-- Select City --</option>
-              {cities.map((city) => (
-                <option key={city._id} value={city._id}>
-                  {city.title}
+              {cities.map((cityitem) => (
+                <option key={cityitem._id} value={cityitem._id}>
+                  {cityitem.title}
                 </option>
               ))}
             </select>
@@ -307,15 +330,15 @@ useEffect(() => {
           <select
               id="citySelect"
               className="selectpicker w100 form-select show-tick"
-              value={selectedPropertytype}
-              onChange={(e) => setSelectedPropertytype(e.target.value)} 
+              value={propertytype}
+              onChange={(e) => setPropertytype(e.target.value)} 
               data-live-search="true"
               data-width="100%"
             >
               <option value="">-- Property Type --</option>
-              {propertytypes.map((propertytype) => (
-                <option key={propertytype._id} value={propertytype._id}>
-                  {propertytype.title}
+              {propertytypes.map((propertytypeitem) => (
+                <option key={propertytypeitem._id} value={propertytypeitem._id}>
+                  {propertytypeitem.title}
                 </option>
               ))}
             </select>
