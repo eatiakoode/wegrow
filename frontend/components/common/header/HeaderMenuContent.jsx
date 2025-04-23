@@ -388,10 +388,20 @@ const HeaderMenuContent = ({ float = "" }) => {
       </li> */}
       {/* End .dropitem */}
 
-      <li className={`list-inline-item add_listing ${float}`}>
+      <li className={`list-inline-item border_listing ${float}`}>
         <a href="tel:+917421922000">
           <span className="flaticon-telephone"></span>
-          <span className="dn-lg"> Call Us</span>
+        </a>
+      </li>
+      <li className={`list-inline-item add_listing ${float}`}>
+        <a href="javascript:void(0)">
+          <span className="dn-lg"> Sell your Property</span>
+        </a>
+      </li>
+      <li className={`list-inline-item add_listing ${float}`}>
+        <a href="/contact">
+          <span className="flaticon-calendar"></span>
+          <span className="dn-lg"> Setup a Meeting</span>
         </a>
       </li>
 

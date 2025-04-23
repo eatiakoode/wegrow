@@ -4,7 +4,7 @@ import BuyFilter from "./BuyFilter";
 const GlobalHeroFilter = ({ className = "" }) => {
   return (
     <div className={`apartments-listing ${className}`}>
-      <ul className="nav nav-pills" id="pills-tab" role="tablist">
+      {/* <ul className="nav nav-pills" id="pills-tab" role="tablist">
         <li className="nav-item">
           <a
             className="nav-link active"
@@ -19,7 +19,7 @@ const GlobalHeroFilter = ({ className = "" }) => {
           </a>
         </li>
 
-        {/* <li className="nav-item">
+        <li className="nav-item">
           <a
             className="nav-link"
             id="pills-sale-tab"
@@ -31,8 +31,8 @@ const GlobalHeroFilter = ({ className = "" }) => {
           >
             Sale
           </a>
-        </li> */}
-      </ul>
+        </li>
+      </ul> */}
       {/* End nav-pills */}
 
       <div className="tab-content" id="pills-tabContent">

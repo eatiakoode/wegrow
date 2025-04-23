@@ -11,9 +11,20 @@ export default function ListingOne({property}) {
       <Gallery>
         <div className="row mb30">
           <div className="col-lg-7 col-xl-8">
-            <div className="single_property_title mt30-767">
-              <h2>{property?.title}</h2>
-              <p>{property.cityid?.title}, {property.locationid?.title} {property.address}</p>
+            <div className="single_property_title d-flex justify-content-between align-items-center mt30-767">
+              <div>
+                <h2>{property?.title}</h2>
+                <p>{property.cityid?.title}, {property.locationid?.title} {property.address}</p>
+              </div>
+              <div>
+                <a href="tel:+917421922000" className="circle-shape text-dark d-inline-block me-2">
+                  <span className="flaticon-telephone"></span>
+                </a>
+                <a href="mailto:Info@wegrowinfraventures.com" class="circle-shape text-dark d-inline-block">
+                  <span class="flaticon-black-back-closed-envelope-shape"></span>
+                </a>
+              </div>
+                
             </div>
            
           </div>
@@ -24,6 +35,7 @@ export default function ListingOne({property}) {
                   {property?.price}
                   {/* <small>/mo</small> */}
                 </h2>
+                <p>Best value in the area!</p>
               </div>
 
               <div className="spss style2 mt20 text-end tal-400">

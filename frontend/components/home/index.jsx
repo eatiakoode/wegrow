@@ -6,6 +6,7 @@ import Partners from "../common/Partners";
 import Testimonial from "../common/Testimonial";
 import Blogs from "../common/Blogs";
 import ExploreMoreProperties from "../common/ExploreMoreProperties";
+import Hotproperties from "../common/Hotproperties";
 import FeaturedProperties from "./FeaturedProperties";
 import FindProperties from "./FindProperties";
 import Header from "./Header";
@@ -145,20 +146,28 @@ const Index = () => {
 
        <section className="start-partners bgc-f7 pt50 pb50">
             <div className="container">
-                <div className="row">
+                {/* <div className="row">
                   <div className="col-lg-6 offset-lg-3">
                     <div className="main-title text-center">
                       <h2>Explore new properties</h2>
                       <p>Discover the latest off-plan properties and be informed</p>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="row">
                     <div className="col-lg-6">
+                      <div className="main-title text-center">
+                        <h2>Explore new properties</h2>
+                        <p>Be the first to discover trending off-plan developments with exclusive previews, timely updates, and smart insights to guide your next move.</p>
+                      </div>
                       <ExploreMoreProperties />
                     </div>
                     <div className="col-lg-5 offset-lg-1 ml-auto">
-                      <ExploreMoreProperties />
+                      <div className="main-title text-center">
+                        <h2>Explore Hot Properties</h2>
+                        <p>Be the first to discover the most sought-after off-plan developments and stay ahead with the latest market trends.</p>
+                      </div>
+                      <Hotproperties />
                     </div>
                 </div>
             </div>

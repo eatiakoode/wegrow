@@ -1,6 +1,17 @@
+'use client'
+
+import { useState } from "react";
+import AppointmentCalendar from "../common/AppointmentCalendar";
+
 const Form = () => {
+  const [appointmentDate, setAppointmentDate] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+  };
   return (
-    <form className="contact_form" action="#">
+    <form className="contact_form" action="#" onSubmit={handleSubmit}>
       <div className="row">
         <div className="col-md-6">
           <div className="form-group">
@@ -57,28 +68,34 @@ const Form = () => {
           </div>
         </div>
         {/* End .col */}
-
-        <div className="col-sm-12">
+        <div className="col-md-6">
           <div className="form-group">
-            <textarea
-              id="form_message"
-              name="form_message"
-              className="form-control required"
-              rows="8"
-              required="required"
-              placeholder="Your Message"
-            ></textarea>
+            <AppointmentCalendar onDateChange={setAppointmentDate} />
+          </div>
+        </div>
+        <div className="col-md-6">
+            <div className="form-group">
+              <textarea
+                id="form_message"
+                name="form_message"
+                className="form-control required"
+                rows="1"
+                required="required"
+                placeholder="Your Message"
+              ></textarea>
+            </div>
           </div>
           {/* End .col */}
-
-          <div className="form-group mb0">
-            <button type="submit" className="btn btn-lg btn-thm">
-              Send Message
-            </button>
-          </div>
+          <div className="col-sm-12">
+            <div className="form-group mb0">
+              <button type="submit" className="btn btn-lg btn-thm">
+                Send Message
+              </button>
+            </div>
           {/* End button submit */}
         </div>
-      </div>
+        </div>
+      
     </form>
   );
 };
