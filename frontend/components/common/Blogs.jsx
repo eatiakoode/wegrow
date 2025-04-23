@@ -80,7 +80,7 @@ const Blogs = () => {
                     unoptimized // Optional: disables Next.js image optimization (useful if external images)
                   />
                 </Link>
-                {/* <div className="blog_tag">{item.postMeta}</div> */}
+                <div className="blog_tag">{item.blogcategory?.title}</div>
               </div>
               {/* End .thumb */}
 
