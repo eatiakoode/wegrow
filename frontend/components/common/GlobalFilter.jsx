@@ -18,6 +18,7 @@ const GlobalFilter = ({ className = "" }) => {
     const [selectedCity, setSelectedCity] = useState("");
     const [propertytypes, setPropertytypes] = useState([]);
     const [selectedPropertytype, setSelectedPropertytype] = useState("");
+    
     useEffect(() => {
       const fetchCities = async () => {
         try {
@@ -47,6 +48,7 @@ const GlobalFilter = ({ className = "" }) => {
   
       fetchPropertytypes();
       }, []);
+      
   const router = useRouter()
   // submit handler
   const submitHandler = () => {

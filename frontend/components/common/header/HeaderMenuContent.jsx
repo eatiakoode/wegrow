@@ -342,9 +342,9 @@ const HeaderMenuContent = ({ float = "" }) => {
 
       <li className="dropitem">
         <Link
-          href="/blog"
+          href="/blogs"
           className={
-            pathname?.split("/")[1] === "blog" ? "ui-active" : undefined
+            pathname?.split("/")[1] === "blogs" ? "ui-active" : undefined
           }
         >
           <span className="title">Blog</span>
@@ -357,7 +357,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         <Link
           href="/faq"
           className={
-            pathname?.split("/")[1] === "blog" ? "ui-active" : undefined
+            pathname?.split("/")[1] === "faq" ? "ui-active" : undefined
           }
         >
           <span className="title">Faq</span>
