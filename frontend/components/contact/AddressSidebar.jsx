@@ -5,27 +5,21 @@ const AddressSidebar = () => {
     <div className="contact_localtion">
       <h4>Contact Us</h4>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis
-        libero eleifend ornare. habitasse platea dictumst.
+      Whether you're ready to buy, just exploring options, or need expert advice, our team is here to help. Reach out today and take the next step toward your perfect property.
       </p>
       <div className="content_list">
         <h5>Address</h5>
         <p>
-          2301 Ravenswood Rd Madison, <br />
-          WI 53711
+        TOWER-2, DLF CORPORATE GREENS, 1205, Southern Peripheral Rd,
         </p>
       </div>
       <div className="content_list">
         <h5>Phone</h5>
-        <p>(315) 905-2321</p>
+        <p>+91 74219-22000</p>
       </div>
       <div className="content_list">
         <h5>Mail</h5>
-        <p>info@Wegrow.com</p>
-      </div>
-      <div className="content_list">
-        <h5>Skype</h5>
-        <p>Wegrow.com</p>
+        <p>Info@wegrowinfraventures.com</p>
       </div>
       <h5>Follow Us</h5>
       <ul className="contact_form_social_area">

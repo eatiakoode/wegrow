@@ -56,7 +56,7 @@ const BuyFilter = ({ className = "" }) => {
             {city}
           </p> */}
           <p
-              className={`accordion-header bg-light p-3 cursor-pointer ${
+              className={`accordion-header p-3 cursor-pointer ${
                 activeAccordion === city ? "active-header" : ""
               }`}
               onClick={() => toggleAccordion(city)}

@@ -25,18 +25,14 @@ const index = () => {
       <BreadCrumbBanner />
 
       {/* <!-- Our Contact --> */}
-      <section className="our-contact pb0 bgc-f7">
+      <section className="appointment-calendar our-contact pb0 bgc-f7">
         <div className="container">
           <div className="row">
             <div className="col-lg-7 col-xl-8">
               <div className="form_grid">
                 <h4 className="mb5">Send Us An Email</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                  gravida quis libero eleifend ornare. Maecenas mattis enim at
-                  arcu feugiat, sit amet blandit nisl iaculis. Donec lacus odio,
-                  malesuada eu libero sit amet, congue aliquam leo. In hac
-                  habitasse platea dictumst.
+                Have a question or need more details? Drop us a message and our property experts will get back to you shortly.
                 </p>
                 <Form />
               </div>

@@ -1101,8 +1101,8 @@ header.header-nav.menu_style_home_one ul.ace-responsive-menu li.add_listing {
   position: relative;
   text-align: center;
   vertical-align: middle;
-  /* width: 180px; */
-  width: 120px;
+  width: 180px;
+  /* width: 120px; */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1132,9 +1132,40 @@ header.header-nav.menu_style_home_one ul.ace-responsive-menu li.add_listing a {
 
 header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.add_listing {
   background-color: var(--color-primary);
-  box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+  box-shadow: 0px 1px 4px 0px rgba(163, 177, 138, 0.3);
 }
+header.header-nav.menu_style_home_one .ace-responsive-menu li.border_listing{
+  background-color:rgba(255, 255, 255, 1);
+  border-radius: 100%;
+  
+}
+header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.border_listing{
+  border:2px solid rgba(163, 177, 138, 0.3);
+  border-radius: 100%;
+}
+header.header-nav.menu_style_home_one .ace-responsive-menu li.border_listing a {
+  padding: 13px !important;
+  line-height: normal;
+  width: 45px;
+  text-align: center;
+  height: 45px;
+  color: var(--color-primary);
+}
+header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.border_listing a {
+  padding: 13px !important;
+  line-height: normal;
+  width: 45px;
+  text-align: center;
+  height: 45px;
+  color: var(--color-primary);
+}
+header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.border_listing a:hover,
+header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.border_listing a:focus{
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: 100%;
 
+}
 header.header-nav.menu_style_home_one.stricky-fixed .ace-responsive-menu li.add_listing a {
   color: #ffffff;
   line-height: 1;
@@ -10274,14 +10305,18 @@ ul.mc_parent_list ul.mc_child_list .membership_header h4 {
   font-size: 16px;
   cursor: pointer;
   position: relative;
-  display: inline-block;
+  display: block;
+}
+.apartments-listing .accordion-filter .accordion-header.active-header{
+  background-color: var(--color-primary);
+  color: #ffffff
 }
 
 .apartments-listing .accordion-filter .accordion-header:before {
   position: absolute;
   content: "";
-  left: 100%;
-  right: auto;
+  left: auto;
+  right: 20px;
   top: 42%;
   transform: translateY(-50%) rotate(-45deg);
   border-left: 1px solid var(--darkgrey-color);
@@ -10292,6 +10327,11 @@ ul.mc_parent_list ul.mc_child_list .membership_header h4 {
   -moz-transition: all 0.5s ease 0s;
   -ms-transition: all 0.5s ease 0s;
   transition: all 0.5s ease 0s;
+}
+
+.apartments-listing .accordion-filter .accordion-header.active-header:before{
+  border-left: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
 }
 .apartments-listing .accordion-filter .accordion-header.active-header:before{
   transform: translateY(-50%) rotate(-225deg);
@@ -15223,7 +15263,32 @@ legend span {
   margin-bottom: 25px;
   padding: 20px;
 }
+.appointment-calendar .form_grid .contact_form .react-datepicker button{background-color: transparent;box-shadow: none;}
 
+.appointment-calendar .form_grid .contact_form .react-datepicker .react-datepicker__navigation-icon--next::before {
+  transform: rotate(45deg);
+  left: 80px;
+  top: 0;
+}
+.appointment-calendar .form_grid .contact_form .react-datepicker .react-datepicker__navigation-icon--previous::before {
+  transform: rotate(225deg);
+  right: 80px;
+  top: 0;
+}
+.appointment-calendar .form_grid .contact_form .react-datepicker-wrapper{
+  display: block;
+}
+
+.appointment-calendar .form_grid .contact_form .react-datepicker-wrapper .react-datepicker__input-container input:focus-visible {
+  outline: none;
+  border: 1px solid #ebebeb; 
+  box-shadow: none;
+}
+
+.appointment-calendar .form_grid .contact_form .react-datepicker-wrapper input{
+  width:100%;
+  height: 58.46px;
+}
 .form_grid .contact_form button {
   border-radius: 8px;
   background-color: var(--color-primary);
