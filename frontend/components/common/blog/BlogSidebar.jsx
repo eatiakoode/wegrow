@@ -1,9 +1,35 @@
+'use client'
 import Categories from "./Categories";
 import FeaturedListings from "../listing/FeaturedListings";
 import SearchBox from "./SearchBox";
 import TagList from "./TagList";
+import { countPropertiesByType } from "@/api/frontend/propertytype";
+import { getPropertyFeatureData } from "@/api/frontend/property";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const BlogSidebar = () => {
+   const [propertytype, setPropertyType] = useState([]);
+          const router = useRouter();
+        
+          const fetchPropertyType = async () => {
+            const data = await countPropertiesByType();
+            console.log("data.data")
+            console.log(data)
+            setPropertyType(data.data);
+          };
+          const [properties, setProperties] = useState([]);
+    
+      const fetchProperties = async () => {
+        const data = await getPropertyFeatureData();
+        console.log(data)
+        setProperties(data);
+      };
+          useEffect(() => {
+            fetchPropertyType();
+            fetchProperties();
+          }, []); 
   return (
     <div className="blog-sidebar_widgets">
       {/* <div className="sidebar_search_widget">
@@ -16,14 +42,14 @@ const BlogSidebar = () => {
       <div className="terms_condition_widget">
         <h4 className="title">Categories Property</h4>
         <div className="widget_list">
-          <Categories />
+          <Categories propertytype={propertytype}/>
         </div>
       </div>
       {/* End .Categories widget */}
 
       <div className="sidebar_feature_listing">
         <h4 className="title">Featured Listings</h4>
-        <FeaturedListings />
+        <FeaturedListings properties={properties}/>
       </div>
       {/* End .sidebar_feature_listing */}
 

@@ -84,9 +84,47 @@ const countPropertiesByCity = asyncHandler(async (req, res) => {
   }
 
 });
+
+
+const getCityWithLocation = asyncHandler(async (req, res) => {
+  try {
+    const result = await City.aggregate([
+      {
+        $match: { status: true }, // Optional: only active cities
+      },
+      {
+        $lookup: {
+          from: "locations",           // collection name in MongoDB (pluralized lowercase)
+          localField: "_id",
+          foreignField: "cityid",
+          as: "locations",
+        },
+      },
+      {
+        $project: {
+          title: 1,
+          status: 1,
+          locations: 1,
+        },
+      },
+    ]);
+    // const getallState = await City.find({ stateid: stateid });
+    const message={
+      "status":"success",
+      "message":"Data City with location sucessfully",
+      "data":result
+    }
+    res.json(message);
+    // console.log(result);
+  } catch (error) {
+    console.error("Error counting properties by city:", error);
+  }
+
+});
 module.exports = {
   getCity,
   getallCity,
   getCityStateId,
-  countPropertiesByCity
+  countPropertiesByCity,
+  getCityWithLocation
 };

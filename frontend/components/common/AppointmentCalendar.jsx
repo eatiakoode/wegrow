@@ -16,9 +16,11 @@ export default function AppointmentCalendar({ onDateChange }) {
     <DatePicker
       selected={startDate}
       onChange={handleChange}
-      dateFormat="MMMM d, yyyy"
-      placeholderText="Choose a date for your meeting"
+      showTimeSelect
+      dateFormat="MMMM d, yyyy h:mm aa"
+      placeholderText="Choose a date and time for your meeting"
       minDate={new Date()} // disables past dates
+      timeIntervals={15} // disables past dates
       className="border p-2 rounded"
     />
   );

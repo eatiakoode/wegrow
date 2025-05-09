@@ -1,10 +1,10 @@
 'use client'
 
 import Image from "next/image";
-import featureProContent from "../../../data/properties";
+// import featureProContent from "../../../data/properties";
 import Slider from "react-slick";
 
-const FeatureProperties = () => {
+const FeatureProperties = ({properties}) => {
   const settings = {
     dots: true,
     arrows: false,
@@ -18,29 +18,32 @@ const FeatureProperties = () => {
   return (
     <>
       <Slider {...settings} arrows={false}>
-        {featureProContent.slice(0, 5).map((item) => (
-          <div className="item" key={item.id}>
+        {properties.slice(0, 5).map((item) => (
+          <div className="item" key={item._id}>
             <div className="feat_property home7">
               <div className="thumb">
                 <Image
                   width={300}
                   height={220}
                   className="img-whp w-100 h-100 cover"
-                  src={item.img}
-                  alt="properties identity"
+                  src={
+                    item.featuredimageurl
+                      ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
+                      : "/default-placeholder.jpg"
+                  }
+                  alt= {`${item.title}`}
+                  unoptimized
                 />
 
                 <div className="thmb_cntnt">
                   <ul className="tag mb0">
-                    {item.saleTag.map((val, i) => (
-                      <li className="list-inline-item" key={i}>
-                        <a href="#">{val}</a>
-                      </li>
-                    ))}
+                  <li className="list-inline-item" key="1">
+                  <a href="#">{item.categoryid?.title}</a>
+                </li>
                   </ul>
-                  <a className="fp_price" href="#">
-                    ${item.price}
-                    <small>/mo</small>
+                  <a className="fp_price"href={`/listing-details-v1/${item._id}`}>
+                    {item.price}
+                    
                   </a>
                   <h4 className="posr color-white">{item.title}</h4>
                 </div>

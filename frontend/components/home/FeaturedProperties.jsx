@@ -7,16 +7,42 @@ import Image from "next/image";
 import { getPropertyFeatureData } from "@/api/frontend/property";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-const FeaturedProperties = () => {
+import { useCompare } from "@/components/common/footer/CompareContext";
+const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
   const [properties, setProperties] = useState([]);
+  const { propertycompare, setPropertycompare } = useCompare();
+  // const [showBox, setShowBox] = useState(false);
+  // const [propertySelectedComp, setPropertySelectedComp] = useState([]);
+  // const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
+  //   if (typeof window !== "undefined") {
+  //     const stored = localStorage.getItem("propertycompare");
+  //     return stored ? JSON.parse(stored) : [];
+  //   }
+  //   return [];
+  // });
+  
       const router = useRouter();
     
       const fetchProperties = async () => {
         const data = await getPropertyFeatureData();
-        console.log(data)
+        // console.log(data)
         setProperties(data);
       };
+      const addCompareProperty = async (id) => {
+      
+        const isExist = propertycompare.includes(id);
+      
+        if (isExist) {
+          alert("Already added for compare");
+        } else if (propertycompare.length >= 3) {
+          alert("You have already selected 3 products");
+        } else {
+          setPropertycompare((old) => [...old, id]);
+          setShowBox(true);
+        }
+      };
+      
+      
   const settings = {
     dots: true,
     arrows: false,
@@ -43,7 +69,7 @@ const FeaturedProperties = () => {
   };
 
   let content = properties?.slice(0, 12)?.map((item, index) => (
-    <div className="item" key={item.id}>
+    <div className="item" key={item._id}>
       <div className="feat_property">
         <div className="thumb">
           <Image
@@ -55,7 +81,7 @@ const FeaturedProperties = () => {
                 ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
                 : "/default-placeholder.jpg"
             }
-            alt= {`${item.title}${index + 1}${item.featuredimageurl}`}
+            alt= {`${item.title}`}
             unoptimized // Optional: disables Next.js image optimization (useful if external images)
           />
           <div className="thmb_cntnt">
@@ -70,9 +96,13 @@ const FeaturedProperties = () => {
 
             <ul className="icon mb0">
               <li className="list-inline-item">
-                <a href="#">
-                  <span className="flaticon-transfer-1"></span>
-                </a>
+              <a href="#" onClick={(e) => {
+                e.preventDefault();
+                addCompareProperty(item._id);
+              }}>
+                <span className="flaticon-transfer-1"></span>
+              </a>
+
               </li>
               {/* <li className="list-inline-item">
                 <a href="#">
@@ -160,6 +190,27 @@ const FeaturedProperties = () => {
   useEffect(() => {
     fetchProperties();
   }, []); 
+  useEffect(() => {
+    const stored = localStorage.getItem('propertycompare');
+   
+    if (stored) {
+      setPropertySelectedComp(JSON.parse(stored));
+    }
+   
+  }, []);
+  
+  // useEffect(() => {
+  //   localStorage.setItem("propertycompare", JSON.stringify(propertySelectedComp));
+    
+   
+  // }, [propertySelectedComp]);
+  useEffect(() => {
+    if (Array.isArray(propertycompare)) {
+      localStorage.setItem("propertycompare", JSON.stringify(propertycompare));
+    }
+  }, [propertycompare]);
+  
+  
   return (
     <>
       <Slider {...settings} arrows={false}>

@@ -12,18 +12,6 @@ import {
   addStatusType,
 } from "../../../features/filter/filterSlice";
 import {
-  // addAmenities,
-  // addAreaMax,
-  // addAreaMin,
-  // addBathrooms,
-  // addBedrooms,
-  // addGarages,
-  // addLocation,
-  // addPrice,
-  // addPropertyType,
-  // addStatus,
-  // addYearBuilt,
-  // resetAmenities,
   addKeyword,
   addCity,
   addCategory,
@@ -112,51 +100,7 @@ const FilteringItem = () => {
   useEffect(() => {
     dispath(addPropertytype(getPropertytype));
   }, [dispath, getPropertytype]);
-  // location
-  // useEffect(() => {
-  //   dispath(addLocation(getLocation));
-  // }, [dispath, getLocation]);
-
-  // // status
-  // useEffect(() => {
-  //   dispath(addStatus(getStatus));
-  // }, [dispath, getStatus]);
-
-  // // properties type
-  // useEffect(() => {
-  //   dispath(addPropertyType(getPropertiesType));
-  // }, [dispath, getPropertiesType]);
-
-  // // bathroom
-  // useEffect(() => {
-  //   dispath(addBathrooms(getBathroom));
-  // }, [dispath, getBathroom]);
-
-  // // bedroom
-  // useEffect(() => {
-  //   dispath(addBedrooms(getBedroom));
-  // }, [dispath, getBedroom]);
-
-  // // garages
-  // useEffect(() => {
-  //   dispath(addGarages(getGarages));
-  // }, [dispath, getGarages]);
-
-  // // built years
-  // useEffect(() => {
-  //   dispath(addYearBuilt(getBuiltYear));
-  // }, [dispath, getBuiltYear]);
-
-  // // area min
-  // useEffect(() => {
-  //   dispath(dispath(addAreaMin(getAreaMin)));
-  // }, [dispath, getAreaMin]);
-
-  // // area max
-  // useEffect(() => {
-  //   dispath(dispath(addAreaMax(getAreaMax)));
-  // }, [dispath, getAreaMax]);
-
+  
   // clear filter
   const clearHandler = () => {
     clearAllFilters();
@@ -167,22 +111,6 @@ const FilteringItem = () => {
     setCity("");
     setPropertytype("")
     setCategory("")
-
-
-    // setLocation("");
-    // setStatus("");
-    // setPropertiesType("");
-    // dispath(addPrice({ min: 10000, max: 20000 }));
-    // setBathroom("");
-    // setBedroom("");
-    // setBedroom("");
-    // setGarages("");
-    // setBuiltYear("");
-    // setAreaMin("");
-    // setAreaMax("");
-    // dispath(resetAmenities());
-    // dispath(addStatusType(""));
-    // dispath(addFeatured(""));
     clearAdvanced();
   };
 
@@ -223,21 +151,6 @@ useEffect(() => {
       };
   
       fetchCities();
-      // const fetchPropertytypes = async () => {
-      //   try {
-      //     const value="67e67294759f85d6bf7a131a"
-      //     const response = await getPropertytypeByCategoryTableData(value);
-      //     console.log("responsepropertytypes")
-      //     console.log(response.data)
-          
-  
-      //     setPropertytypes(response.data || []);
-      //   } catch (err) {
-      //     console.error("Error fetching Country:", err);
-      //   }
-      // };
-  
-      // fetchPropertytypes();
 
        const fetchCategories = async () => {
             try {
@@ -255,6 +168,7 @@ useEffect(() => {
       }, []);
       const handleCategoryChange = async (e) => {
         console.log("test property")
+        alert("test")
         const value = e.target.value;
         setCategory(value);
         try {

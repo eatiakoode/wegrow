@@ -1,14 +1,53 @@
+'use client'
 import Categorie from "./Categorie";
 import FeaturedListings from "./FeaturedListings";
 import FeatureProperties from "./FeatureProperties";
 import FilteringItem from "./FilteringItem";
+import { countPropertiesByType } from "@/api/frontend/propertytype";
+import { getPropertyFeatureData } from "@/api/frontend/property";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const SidebarListing = () => {
+    const [propertytype, setPropertyType] = useState([]);
+
+    // chat
+    const [keyword, setKeyword] = useState("");
+const [city, setCity] = useState("");
+const [category, setCategory] = useState("");
+const [propertytypeFilter, setPropertyTypeFilter] = useState("");
+    // chat end
+    const router = useRouter();
+  
+    const fetchPropertyType = async () => {
+      const data = await countPropertiesByType();
+      console.log("data.data")
+      console.log(data)
+      setPropertyType(data.data);
+    };
+    const [properties, setProperties] = useState([]);
+
+const fetchProperties = async () => {
+  const data = await getPropertyFeatureData();
+  console.log(data)
+  setProperties(data);
+};
+    useEffect(() => {
+      fetchPropertyType();
+      fetchProperties();
+    }, []); 
     return (
         <div className="sidebar_listing_grid1">
             <div className="sidebar_listing_list">
                 <div className="sidebar_advanced_search_widget">
-                    <FilteringItem />
+                    {/* <FilteringItem /> */}
+                    <FilteringItem 
+  keyword={keyword} setKeyword={setKeyword}
+  city={city} setCity={setCity}
+  category={category} setCategory={setCategory}
+  propertytype={propertytypeFilter} setPropertyType={setPropertyTypeFilter}
+/>
+
                 </div>
             </div>
             {/* End .sidebar_listing_list */}
@@ -16,7 +55,7 @@ const SidebarListing = () => {
             <div className="terms_condition_widget">
                 <h4 className="title">Featured Properties</h4>
                 <div className="sidebar_feature_property_slider">
-                    <FeatureProperties />
+                    <FeatureProperties  properties={properties}/>
                 </div>
             </div>
             {/* End .Featured Properties */}
@@ -25,7 +64,7 @@ const SidebarListing = () => {
                 <h4 className="title">Categories Property</h4>
                 <div className="widget_list">
                     <ul className="list_details">
-                        <Categorie />
+                        <Categorie  propertytype={propertytype}/>
                     </ul>
                 </div>
             </div>
@@ -33,7 +72,7 @@ const SidebarListing = () => {
 
             <div className="sidebar_feature_listing">
                 <h4 className="title">Recently Viewed</h4>
-                <FeaturedListings />
+                <FeaturedListings  properties={properties}/>
             </div>
             {/* End .Recently Viewed */}
         </div>

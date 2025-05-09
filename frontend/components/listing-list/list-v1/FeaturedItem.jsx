@@ -20,7 +20,7 @@ const FeaturedItem = () => {
       "category":selectedCategory,
       "propertytype":selectedPropertytype
     };
-          const data = await getPropertyFeatureData(filter);
+          const data = await getPropertyFilterData(filter);
           console.log(data)
           setProperties(data);
         };

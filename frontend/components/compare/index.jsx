@@ -1,3 +1,4 @@
+'use client'
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
@@ -6,8 +7,33 @@ import MobileMenu from "../common/header/MobileMenu";
 import PopupSignInUp from "../common/PopupSignInUp";
 import BreadCrumbBanner from "./BreadCrumbBanner";
 import ComparePricing from "./ComparePricing";
+import { useState, useEffect } from "react";
 
 const index = () => {
+  const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
+      if (typeof window !== "undefined") {
+  
+        const stored = localStorage.getItem("propertycompare");
+        console.log("stored")
+        console.log(stored)
+        if (stored !== "undefined") {
+  
+        return stored ? JSON.parse(stored) : [];
+        }
+      }
+      return [];
+    });
+  
+    // const [showBox, setShowBox] = useState(propertySelectedComp.length > 0);
+    // const [showBox, setShowBox] = useState(false);
+    const [showBox, setShowBox] = useState(false);
+  
+  
+    // Sync localStorage
+    useEffect(() => {
+      localStorage.setItem("propertycompare", JSON.stringify(propertySelectedComp));
+      // setShowBox(propertySelectedComp.length > 0);
+    }, [propertySelectedComp]);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -47,11 +73,15 @@ const index = () => {
                       <li>Rooms</li>
                       <li>Garage</li>
                       <li>Year of build</li>
-                      <li>Laundry Room</li>
+                      {/* <li>Laundry Room</li> */}
                       <li>Status</li>
                     </ul>
                   </li>
-                  <ComparePricing />
+                  <ComparePricing 
+                // propertySelectedComp={propertySelectedComp}
+        setPropertySelectedComp={setPropertySelectedComp}
+        setShowBox={setShowBox}/>
+                 
                 </ul>
                 {/* End .mc_parent_list */}
               </div>
@@ -71,7 +101,10 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer 
+            // propertycompare={propertySelectedComp}
+        showBox={showBox}
+        setPropertycompare={setPropertySelectedComp}  />
           </div>
         </div>
       </section>
