@@ -1,57 +1,86 @@
+'use client'
 import Image from "next/image";
-import comparePricingContent from "../../data/comparePricing";
-
-const ComparePricing = () => {
+// import comparePricingContent from "../../data/comparePricing";
+import { useState, useEffect } from "react";
+import { getPropertyCompareData } from "@/api/frontend/property";
+import { useCompare } from "@/components/common/footer/CompareContext";
+// import Image from "next/image";
+const ComparePricing = ({ setPropertySelectedComp, setShowBox }) => {
+  const [properties, setProperties] = useState([]);
+  const { propertycompare, setPropertycompare } = useCompare();
+     const deleteCompareProperty = async (id) => {
+      setPropertycompare((old) =>
+          old.includes(id) ? old.filter(item => item !== id) : [...old, id]
+        );
+    };
+  useEffect(() => {
+      const fetchProperties = async () => {
+        if (Array.isArray(propertycompare) && propertycompare.length > 0) {
+          const propertycomparelist = propertycompare.join(",");
+          const data = await getPropertyCompareData(propertycomparelist);
+          setProperties(data);
+        } else {
+          setProperties([]); // clear if nothing to show
+        }
+      };
+    
+      fetchProperties();
+    }, [propertycompare]); 
   return (
     <>
-      {comparePricingContent.map((item) => (
-        <li className="list-inline-item" key={item.id}>
+      {properties.map((item) => (
+        <li className="list-inline-item"  key={item._id}>
           <ul className="mc_child_list two text-center">
             <li>
               <div className="membership_header">
                 <div className="thumb">
-                  <a href="#">
+                  <a href="#"  onClick={(e) => deleteCompareProperty(item._id)}>
                     <span className="flaticon-close"></span>
                   </a>
                   <Image
-                    width={260}
-                    height={180}
-                    className="img-fluid w100 h-100 cover"
-                    src={item.img}
-                    alt="1.jpg"
+                    width={200}
+                    height={80}
+                    className="img-whp cover"
+                    src={
+                      item.featuredimageurl
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
+                        : "/default-placeholder.jpg"
+                    }
+                    alt= {`${item.title}`}
+                    unoptimized 
                   />
                   <div className="price">
-                    ${item.price}
-                    <span className="mnth">/mo</span>
+                    {item.price}
+                    
                   </div>
                 </div>
                 <div className="details">
-                  <h4>{item.propertyName}</h4>
-                  <p>{item.propertyType}</p>
+                <a href={`/property-detail/${item._id}`}><h4>{item.title}</h4></a>
+                  <p>{item.propertytypeid?.title}</p>
                 </div>
               </div>
             </li>
             <li>
-              <a href="#">{item.city}</a>
+              <a href={`/property-detail/${item._id}`}>{item.city}</a>
             </li>
             <li>
-              <a href="#">{item.beds}</a>
+              <a href={`/property-detail/${item._id}`}>{item.bedrooms}</a>
             </li>
             <li>
-              <a href="#">{item.rooms}</a>
+              <a href={`/property-detail/${item._id}`}>{item.bathrooms}</a>
             </li>
             <li>
-              <a href="#">{item.garage}</a>
+              <a href={`/property-detail/${item._id}`}>{item.garages}</a>
             </li>
             <li>
-              <a href="#">{item.buildYear}</a>
+              <a href={`/property-detail/${item._id}`}>{item.yearbuild}</a>
             </li>
-            <li>
+            {/* <li>
               <a href="#">{item.laundryRoom}</a>
-            </li>
+            </li> */}
             <li>
-              <a className="btn pricing_btn" href="#">
-                {item.status}
+              <a className="btn pricing_btn" href={`/property-detail/${item._id}`}>
+              {item.furnishingstatus?.title}
               </a>
             </li>
           </ul>

@@ -96,7 +96,7 @@ const Blogs = () => {
                       </a>
                     </li>
                     <li className="list-inline-item">
-                      <a href="#">{new Date(item.createdAt).toLocaleDateString('en-US', {
+                      <a href="#">{new Date(item.date).toLocaleDateString('en-US', {
     month: 'short',
     day: '2-digit',
     year: 'numeric',

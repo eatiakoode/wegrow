@@ -3,7 +3,7 @@ const FaqContent = ({faqs}) => {
     <>
       <div className="accordion" id="accordionExample">
       {faqs?.slice(0, 38).map((singleItem,index) => (
-        <div className="card">
+        <div className="card" key={singleItem._id || index}>
           <div id="{`heading${index}`}">
             <button
               className="btn btn-link accordion-button collapsed"

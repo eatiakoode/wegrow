@@ -1,8 +1,60 @@
+'use client'
 import Link from "next/link";
 import Social from "./Social";
 import SubscribeForm from "./SubscribeForm";
+import { useState, useEffect } from "react";
+import { getPropertyCompareData } from "@/api/frontend/property";
+import Image from "next/image";
+import { useCompare } from "@/components/common/footer/CompareContext";
 
-const Footer = () => {
+const Footer = ({  setPropertycompare, showBox }) => {
+   const [properties, setProperties] = useState([]);
+   const { propertycompare } = useCompare();
+  //  const [propertycompare, setPropertycompare] = useState(() => {
+  //   if (typeof window !== "undefined") {
+  //     const stored = localStorage.getItem("propertycompare");
+  //     return stored ? JSON.parse(stored) : [];
+  //   }
+  //   return [];
+  // });
+  const deleteCompareProperty = async (id) => {
+    setPropertycompare((old) =>
+        old.includes(id) ? old.filter(item => item !== id) : [...old, id]
+      );
+  };
+  useEffect(() => {
+    const fetchProperties = async () => {
+      if (Array.isArray(propertycompare) && propertycompare.length > 0) {
+        const propertycomparelist = propertycompare.join(",");
+        const data = await getPropertyCompareData(propertycomparelist);
+        setProperties(data);
+      } else {
+        setProperties([]); // clear if nothing to show
+      }
+    };
+  
+    fetchProperties();
+  }, [propertycompare]); // ← add this dependency
+  
+  // useEffect( () => {
+  //     if (propertycompare) {
+  //       if (Array.isArray(propertycompare) && propertycompare.length > 0) {       
+  //       const fetchProperties = async () => {
+  //         const propertycomparelist = propertycompare.join(",");
+  //               const data = await getPropertyCompareData(propertycomparelist);
+  //               setProperties(data);
+  //             };
+  //             fetchProperties();
+  //         }
+  //     }      
+  //   }, []);
+    // useEffect(() => {
+    //   localStorage.setItem("propertycompare", JSON.stringify(propertycompare));
+    // }, [propertycompare]);
+    useEffect(() => {
+      localStorage.setItem("propertycompare", JSON.stringify(propertycompare));
+    }, [propertycompare]);
+    
   return (
     <>
       <div className="col-sm-6 col-md-6 col-lg-3 col-xl-3 pr0 pl0">
@@ -73,6 +125,40 @@ const Footer = () => {
           <SubscribeForm />
         </div>
       </div>
+
+      <div className={`compare_section row ${showBox ? 'd-block' : 'd-none'}`}>
+
+      {properties.map((item, index) => (
+        <div className="item col-lg-3" key={item._id}>
+         <a href="#" onClick={(e) => {
+            e.preventDefault();
+            deleteCompareProperty(item._id);
+          }}>
+            <span className="flaticon-close"></span>
+          </a>
+
+          <Image
+                      width={343}
+                      height={220}
+                      className="img-whp w-100 h-100 cover"
+                      src={
+                        item.featuredimageurl
+                          ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
+                          : "/default-placeholder.jpg"
+                      }
+                      alt= {`${item.title}`}
+                      unoptimized // Optional: disables Next.js image optimization (useful if external images)
+                    />
+            <Link href={`/property-detail/${item._id}`} className="fp_price">
+              {item.price}
+            </Link>
+            <p className="text-thm">{item.propertytypeid?.title}</p>
+
+        </div>
+      ))}
+     
+      </div>
+      <div className="countcompare"><Link href={`/compare`} className="countcomparelink"> Compare ({propertycompare?.length || 0})</Link></div>
     </>
   );
 };

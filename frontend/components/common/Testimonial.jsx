@@ -6,11 +6,11 @@ import Slider from "react-slick";
 import { getTestimonialTableData } from "../../api/frontend/testimonial";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 const Testimonial = () => {
   const [testimonials, setFindTestimonial] = useState([]);
-          const router = useRouter();
+          // const router = useRouter();
         
           const fetchFindTestimonial = async () => {
             const data = await getTestimonialTableData();
@@ -34,7 +34,7 @@ const Testimonial = () => {
     <>
       <Slider {...settings} arrows={false}>
         {testimonials.slice(0, 5).map((item) => (
-          <div className="item" key={item.id}>
+          <div className="item" key={item._id}>
             <div className="testimonial_grid">
               <div className="thumb">
                 <Image width={95} height={95} src="/assets/images/testimonial/man.png" alt="1.jpg" />

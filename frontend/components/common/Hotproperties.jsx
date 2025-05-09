@@ -3,14 +3,29 @@
 import Image from "next/image";
 import Slider from "react-slick";
 
+import { getPropertyHotData } from "@/api/frontend/property";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+
 const Hotproperties = () => {
-  const HotpropertiesImages = [
-    { img: "1", price: "10.5 Cr*", title: "DLF The Dahlias" },
-    { img: "2", price: "8.2 Cr*", title: "M3M Golf Estate" },
-    { img: "3", price: "12 Cr*", title: "Trump Towers" },
-    { img: "4", price: "9.5 Cr*", title: "Central Park Sky Villas" },
-    { img: "5", price: "11 Cr*", title: "DLF Aralias" }
-  ];
+  const [properties, setProperties] = useState([]);
+  const router = useRouter();
+
+  const fetchProperties = async () => {
+    const data = await getPropertyHotData();
+    console.log("data getPropertyFeatureData")
+    console.log(data)
+    setProperties(data);
+  };
+  // const HotpropertiesImages = [
+  //   { img: "1", price: "10.5 Cr*", title: "DLF The Dahlias" },
+  //   { img: "2", price: "8.2 Cr*", title: "M3M Golf Estate" },
+  //   { img: "3", price: "12 Cr*", title: "Trump Towers" },
+  //   { img: "4", price: "9.5 Cr*", title: "Central Park Sky Villas" },
+  //   { img: "5", price: "11 Cr*", title: "DLF Aralias" }
+  // ];
 
   const settings = {
     dots: false,
@@ -42,20 +57,28 @@ const Hotproperties = () => {
       }
     ]
   };
+  useEffect(() => {
+    fetchProperties();
+  }, []);
 
   return (
     <Slider {...settings}>
-      {HotpropertiesImages.map((property, i) => (
+      {properties.map((property, i) => (
         <div className="item" key={i}>
           <div className="properti_city our_partner text-center">
             <Image
               width={768}
               height={512}
               className="contain img-fluid"
-              src={`/assets/images/hotproperties/${property.img}.webp`}
-              alt={`${property.title} image`}
+              src={
+                property.featuredimageurl
+                  ? `${process.env.NEXT_PUBLIC_API_URL}${property.featuredimageurl}`
+                  : "/default-placeholder.jpg"
+              }
+              alt= {`${property.title}`}
+              unoptimized
             />
-            <div class="overlay"><div class="details">
+            <div className="overlay"><div className="details">
               <h4>{property.price}</h4>
               <p>{property.title}</p>
             </div>

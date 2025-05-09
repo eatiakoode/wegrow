@@ -188,6 +188,12 @@ var propertySchema = new mongoose.Schema(
       // unique: true,
       // index: true,
     },
+    hotproperty: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
     propertyid: {
       type: String,
       // required: true,

@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { useEffect,useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addLength } from "../../../features/properties/propertiesSlice";
+import { addLength,addKeyword,addCity } from "../../../features/properties/propertiesSlice";
 // import properties from "../../../data/properties";
 import { getPropertyFilterData } from "@/api/frontend/property";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,8 @@ import Image from "next/image";
 
 const FeaturedItem = () => {
   const [properties, setProperties] = useState([]);
+  const [propertytypeFilter, setPropertyTypeFilter] = useState("");
+
           const router = useRouter();
     const fetchProperties = async () => {
       // console.log("cityHandler")
@@ -26,9 +28,9 @@ const FeaturedItem = () => {
         "keyword":keyword,
         "city":city,
         "category":category,
-        "propertytype":propertytype
+        "propertytype": propertytypeFilter,
       };
-      console.log("test")
+      console.log("test filter")
       console.log(filter)
             const data = await getPropertyFilterData(filter);
             // console.log("prperty data")
@@ -56,6 +58,8 @@ const FeaturedItem = () => {
   );
 
   const dispatch = useDispatch();
+  console.log("test");
+  console.log(addCity);
 
   // keyword filter
   const keywordHandler = (item) =>
@@ -179,7 +183,7 @@ const FeaturedItem = () => {
         className={`${
           isGridOrList ? "col-12 feature-list" : "col-md-6 col-lg-6"
         } `}
-        key={item.id}
+        key={item._id}
       >
         <div
           className={`feat_property home7 style4 ${
@@ -302,9 +306,13 @@ const FeaturedItem = () => {
   useEffect(() => {
     dispatch(addLength(content.length));
   }, [dispatch, content]);
+  // useEffect(() => {
+  //   fetchProperties();
+  // }, []);
   useEffect(() => {
     fetchProperties();
-  }, []);
+  }, [keyword, city, category, propertytypeFilter]);
+  
 
   return <>{content}</>;
 };

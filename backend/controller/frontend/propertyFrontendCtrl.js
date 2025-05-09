@@ -2,6 +2,7 @@ const Property = require("../../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../../utils/validateMongodbId");
 const mongoose = require("mongoose");
+const { ObjectId } = require("mongodb");
 
 const getProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -24,8 +25,11 @@ const getallPropertyList = asyncHandler(async (req, res) => {
     let query = {};
     // let query ={"status":true}
     query["status"] =true;
-    if(req.query.featured){
+    if(req.query.featured=="yes"){
       query["featuredproperty"] = req.query.featured;      
+    }
+    if(req.query.hot=="yes"){
+      query["hotproperty"] = req.query.hot;      
     }
     let limit=100;
     let skip=1;
@@ -40,7 +44,24 @@ const getallPropertyList = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const getallPropertyIdList = asyncHandler(async (req, res) => {
+  try {
+  
+    const prolist = req.query.prolist;
+    const idArray = prolist.split(",");
+
+    const objectIds = idArray.map(id => new ObjectId(id)); // FIXED here
+
+    const getallProperty = await Property.find({
+      _id: { $in: objectIds }
+    }).populate("cityid").populate("propertytypeid").populate("furnishingstatus").lean();
+    res.json(getallProperty);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   getProperty,
   getallPropertyList,
+  getallPropertyIdList
 };

@@ -31,12 +31,12 @@ const PropertyDetails = ({property}) => {
         <ul className="list-inline-item">
           <li>
             <p>
-              Bedrooms : <span>{property.bathrooms}</span>
+              Bedrooms : <span>{property.bedrooms}</span>
             </p>
           </li>
           <li>
             <p>
-              Bathrooms : <span>{property.bedrooms}</span>
+              Bathrooms : <span>{property.bathrooms}</span>
             </p>
           </li>
           <li>

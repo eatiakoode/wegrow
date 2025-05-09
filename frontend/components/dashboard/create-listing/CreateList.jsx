@@ -63,6 +63,9 @@ const [constructionstatus, setConstructionstatus] = useState([]);
   const [featuredproperties, setFeaturedProperties] = useState([]);
   const [selectedFeaturedProperty, setSelectedFeaturedProperty] = useState(""); 
 
+  const [hotproperties, setHotProperties] = useState([]);
+  const [selectedHotProperty, setSelectedHotProperty] = useState(""); 
+
   const [reraapproved, setReraApproved] = useState([]);
   const [selectedReraApproved, setSelectedReraApproved] = useState("");
   
@@ -252,6 +255,7 @@ const addProperty = async (e) => {
     // { key: "selectedAmenity", value: selectedAmenity, name: "Amenity" },
     { key: "selectedReraApproved", value: selectedReraApproved, name: "RERA Approved" },
     { key: "selectedFeaturedProperty", value: selectedFeaturedProperty, name: "Featured Property" },
+    { key: "selectedHotProperty", value: selectedHotProperty, name: "Hot Property" },
   ];
 
   requiredFields.forEach(field => {
@@ -285,6 +289,7 @@ const addProperty = async (e) => {
       amenityid: selectedAmenity,
       reraapproved: selectedReraApproved,
       featuredproperty: selectedFeaturedProperty,
+      hotproperty: selectedHotProperty,
       propertyid, areasize, sizeprefix,
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
@@ -484,7 +489,27 @@ const addProperty = async (e) => {
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
-      {error.selectedFeaturedProperty && <span className="text-danger">{error.selectedFeaturedProperty}</span>}
+      {error.selectedHotProperty && <span className="text-danger">{error.selectedHotProperty}</span>}
+        </div>
+      </div>
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input ui_kit_select_search form-group">
+          <label>Hot Property</label>
+          <select
+        className="selectpicker form-select"
+        data-live-search="true"
+        data-width="100%"
+        value={selectedHotProperty}
+        onChange={(e) =>
+          setSelectedHotProperty(e.target.value)
+        }
+       
+      >
+        <option value="">-- Select Hot Property--</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+      {error.selectedHotProperty && <span className="text-danger">{error.selectedHotProperty}</span>}
         </div>
       </div>
 

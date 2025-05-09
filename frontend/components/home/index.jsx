@@ -1,3 +1,4 @@
+'use client'
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
@@ -13,8 +14,33 @@ import Header from "./Header";
 import Hero from "./Hero";
 import WhyChoose from "../common/WhyChoose";
 import PopupSignInUp from "../common/PopupSignInUp";
+import { useState, useEffect } from "react";
 
 const Index = () => {
+  const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
+    if (typeof window !== "undefined") {
+
+      const stored = localStorage.getItem("propertycompare");
+      console.log("stored")
+      console.log(stored)
+      if (stored !== "undefined") {
+
+      return stored ? JSON.parse(stored) : [];
+      }
+    }
+    return [];
+  });
+
+  // const [showBox, setShowBox] = useState(propertySelectedComp.length > 0);
+  // const [showBox, setShowBox] = useState(false);
+  const [showBox, setShowBox] = useState(false);
+
+
+  // Sync localStorage
+  useEffect(() => {
+    localStorage.setItem("propertycompare", JSON.stringify(propertySelectedComp));
+    // setShowBox(propertySelectedComp.length > 0);
+  }, [propertySelectedComp]);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -41,7 +67,10 @@ const Index = () => {
             </div>
             <div className="col-lg-12">
               <div className="feature_property_slider gutter-x15">
-                <FeaturedProperties />
+                <FeaturedProperties 
+                // propertySelectedComp={propertySelectedComp}
+        setPropertySelectedComp={setPropertySelectedComp}
+        setShowBox={setShowBox}/>
               </div>
             </div>
           </div>
@@ -186,7 +215,10 @@ const Index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+            <Footer 
+            // propertycompare={propertySelectedComp}
+        showBox={showBox}
+        setPropertycompare={setPropertySelectedComp}  />
           </div>
         </div>
       </section>

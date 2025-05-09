@@ -82,7 +82,7 @@ useEffect(() => {
                   </div>
                   <h3 className="blog_sp_title">{blog?.title}</h3>
                   <ul className="blog_sp_post_meta">
-                    <li className="list-inline-item">
+                    {/* <li className="list-inline-item">
                       <a href="#">
                         <Image
                           width={40}
@@ -92,15 +92,15 @@ useEffect(() => {
                           alt="pposter1.png"
                         />
                       </a>
-                    </li>
+                    </li> */}
                     <li className="list-inline-item">
-                      <a href="#">Ali Tufan</a>
+                      <a href={`/blog-detail/${blog._id}`}>{blog.source}</a>
                     </li>
                     <li className="list-inline-item">
                       <span className="flaticon-calendar"></span>
                     </li>
                     <li className="list-inline-item">
-                      <a href="#">{new Date(blog.createdAt).toLocaleDateString('en-US', {
+                      <a href="#">{new Date(blog.date).toLocaleDateString('en-US', {
     month: 'short',
     day: '2-digit',
     year: 'numeric',

@@ -26,6 +26,7 @@ const testimonialRouter = require("./routes/testimonialRouter");
 const propertypageRouter = require("./routes/propertypageRouter");
 const faqRouter = require("./routes/faqRouter");
 
+
 // Frontend API route
 const cityFrontendRoute = require("./routes/frontend/cityFrontendRoute");
 const propertytypeFrontendRouter = require("./routes/frontend/propertytypeFrontendRouter");
@@ -33,11 +34,7 @@ const propertyFrontendRouter = require("./routes/frontend/propertyFrontendRouter
 const testimonialFrontendRouter = require("./routes/frontend/testimonialFrontendRouter");
 const blogFrontendRouter = require("./routes/frontend/blogRouter");
 const faqFrontendRouter = require("./routes/frontend/faqRouter");
-
-
-
-
-
+const enqRouter = require("./routes/frontend/enqRoute");
 
 
 const cookieParser = require("cookie-parser");
@@ -84,7 +81,7 @@ app.use("/frontend/api/property", propertyFrontendRouter);
 app.use("/frontend/api/testimonial", testimonialFrontendRouter);
 app.use("/frontend/api/blog", blogFrontendRouter);
 app.use("/frontend/api/faq", faqFrontendRouter);
-
+app.use("/frontend/api/enquiry", enqRouter);
 
 
 

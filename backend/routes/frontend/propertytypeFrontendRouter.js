@@ -3,11 +3,13 @@ const {
   getPropertytype,
   getallPropertytype,
   getPropertytypeCategoryId,
-} = require("../../controller/propertytypeCtrl.js");
+  countPropertiesByType
+} = require("../../controller/frontend/propertytypeCtrl.js");
 const router = express.Router();
 
 router.get("/byid/:id", getPropertytype);
 router.get("/", getallPropertytype);
 router.get("/bycategory/:categoryid", getPropertytypeCategoryId);
+router.get("/listwithpropertcount", countPropertiesByType);
 
 module.exports = router;

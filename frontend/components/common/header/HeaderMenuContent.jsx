@@ -394,7 +394,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         </a>
       </li>
       <li className={`list-inline-item add_listing ${float}`}>
-        <a href="javascript:void(0)">
+        <a href="#">
           <span className="dn-lg"> Sell your Property</span>
         </a>
       </li>

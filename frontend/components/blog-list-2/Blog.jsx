@@ -26,7 +26,7 @@ const Blog = () => {
         <div className="col-lg-6" key={item.id}>
           <div className="for_blog feat_property">
             <div className="thumb">
-              <Link href={`/blog-details/${item.id}`}>
+              <Link href={`/blog-details/${item._id}`}>
                 <Image
                   width={343}
                   height={220}
