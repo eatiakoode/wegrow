@@ -5216,7 +5216,9 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   height: 25px;
   line-height: 25px;
   text-align: center;
-  width: 75px;
+  width: auto;
+  padding: 0 5px;
+  text-transform: capitalize;
 }
 
 .feat_property.home8 ul.tag {
