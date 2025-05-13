@@ -30,7 +30,7 @@ const getBlogSlug = asyncHandler(async (req, res) => {
   const { slug } = req.params;
   // validateMongoDbId(id);
   try {
-    const getaBlog = await Blog.findOne(slug).populate("blogcategory");
+    const getaBlog = await Blog.findOne({slug:slug}).populate("blogcategory");
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",

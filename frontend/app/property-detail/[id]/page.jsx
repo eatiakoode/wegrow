@@ -15,7 +15,7 @@ export async function generateMetadata({ params }) {
 
     return {
       title: blog.metatitle? blog.metatitle : blog.title || 'Property Details | Wegrow',
-      description: blog.metadescription?.slice(0, 200) ? blog.metadescription : blog.description|| 'Read more on Wegrow blog.',
+      description: blog.metadescription?.slice(0, 200) ? blog.metadescription : blog.description?.slice(0, 200) || 'Read more on Wegrow blog.',
       // openGraph: {
       //   title: blog.title,
       //   description: blog.description?.slice(0, 150),
