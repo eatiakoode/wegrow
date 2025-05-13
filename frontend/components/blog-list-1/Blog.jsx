@@ -25,7 +25,7 @@ const Blog = () => {
       {blogs.slice(0, 3).map((item,index) => (
         <div className="for_blog feat_property" key={item._id}>
           <div className="thumb">
-            <Link href={`/blog-detail/${item._id}`}>
+            <Link href={`/blog-details/${item.slug}`}>
               <Image
                 width={731}
                 height={438}
@@ -47,7 +47,7 @@ const Blog = () => {
           <div className="details">
             <div className="tc_content">
               <h4 className="mb15">
-                <Link href={`/blog-details/${item._id}`}>{item.title}</Link>
+                <Link href={`/blog-details/${item.slug}`}>{item.title}</Link>
               </h4>
               <ul className="bpg_meta mb10">
                     <li className="list-inline-item">

@@ -1,7 +1,7 @@
-const Categorie = ({propertytype}) => {
+const Categorie = ({propertytypesidebar}) => {
   return (
     <>
-      {propertytype.map((item) => (
+      {propertytypesidebar.map((item) => (
         <li key={item.typeId}>
           <a href="#">
             <i className="fa fa-caret-right mr10"></i>

@@ -1,11 +1,32 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { getCategoryTableData } from "@/api/frontend/category";
+import { useState } from "react";
+import { useEffect } from "react";
 
 
 const HeaderMenuContent = ({ float = "" }) => {
   const pathname = usePathname();
+  const [categories, setCategories] = useState([]);
+  
+  const fetchCategories = async () => {
+    try {
+      const response = await getCategoryTableData();
+      console.log("response")
+      console.log(response)
 
+      setCategories(response || []);
+    } catch (err) {
+      console.error("Error fetching Category:", err);
+    }
+  };
+
+  // ();
+useEffect(() => {
+        fetchCategories();
+      
+    }, []);
   const home = [
     {
       id: 1,
@@ -213,10 +234,10 @@ const HeaderMenuContent = ({ float = "" }) => {
   //   },
   // ];
 
-  const property = [
-    { id: 1, name: "Residential", routerPath: "/property-list?cat=residential" },
-    { id: 2, name: "Commercial", routerPath: "/property-list?cat=commercial" },
-  ];
+  // const property = [
+  //   { id: 1, name: "Residential", routerPath: "/property-list?cat=residential" },
+  //   { id: 2, name: "Commercial", routerPath: "/property-list?cat=commercial" },
+  // ];
   
 
   const blog = [
@@ -297,7 +318,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         <a
           href="#"
           className={
-            property.some((item) => item.routerPath?.split("/")[1] === pathname?.split("/")[1])
+            categories.some((item) => item.routerPath?.split("/")[1] === pathname?.split("/")[1])
               ? "ui-active"
               : undefined
           }
@@ -306,17 +327,17 @@ const HeaderMenuContent = ({ float = "" }) => {
           <span className="arrow"></span>
         </a>
         <ul className="sub-menu">
-          {property.map((item) => (
-            <li key={item.id}>
+          {categories.map((item) => (
+            <li key={item._id}>
               <Link
-                href={item.routerPath}
-                className={
-                  pathname?.split("/")[1] === item.routerPath?.split("/")[1]
-                    ? "ui-active"
-                    : undefined
-                }
-              >
-                {item.name}
+                  href={`/property-list?cat=${item._id}`}
+                  className={
+                    pathname?.split("/")[1] === item.routerPath?.split("/")[1]
+                      ? "ui-active"
+                      : undefined
+                  }
+                >
+                {item.title}
               </Link>
             </li>
           ))}
@@ -394,7 +415,7 @@ const HeaderMenuContent = ({ float = "" }) => {
         </a>
       </li>
       <li className={`list-inline-item add_listing ${float}`}>
-        <a href="#">
+        <a href="/sell-your-property">
           <span className="dn-lg"> Sell your Property</span>
         </a>
       </li>

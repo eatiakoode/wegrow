@@ -9,12 +9,27 @@ import { addLength,addKeyword,addCity } from "../../../features/properties/prope
 import { getPropertyFilterData } from "@/api/frontend/property";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useCompare } from "@/components/common/footer/CompareContext";
 
-const FeaturedItem = () => {
+const FeaturedItem = ({ setPropertySelectedComp, setShowBox,setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype ,propertyList,setPropertyList,setTotalCount,pageSize,currentPage}) => {
   const [properties, setProperties] = useState([]);
-  const [propertytypeFilter, setPropertyTypeFilter] = useState("");
+  // const [propertytypeFilter, setPropertyTypeFilter] = useState("");
+  const { propertycompare, setPropertycompare } = useCompare();
 
           const router = useRouter();
+          const addCompareProperty = async (id) => {
+      
+            const isExist = propertycompare.includes(id);
+          
+            if (isExist) {
+              alert("Already added for compare");
+            } else if (propertycompare.length >= 3) {
+              alert("You have already selected 3 products");
+            } else {
+              setPropertycompare((old) => [...old, id]);
+              setShowBox(true);
+            }
+          };
     const fetchProperties = async () => {
       // console.log("cityHandler")
       // console.log(cityHandler)
@@ -28,31 +43,37 @@ const FeaturedItem = () => {
         "keyword":keyword,
         "city":city,
         "category":category,
-        "propertytype": propertytypeFilter,
+        "propertytype": propertytype,
+        "limit":pageSize,
+        "page":currentPage
       };
-      console.log("test filter")
+      console.log(currentPage)
+      console.log("test filter dd eati")
       console.log(filter)
+
             const data = await getPropertyFilterData(filter);
             // console.log("prperty data")
             // console.log(data)
-            setProperties(data);
+            setProperties(data.items);
+            setPropertyList(data.items)
+            setTotalCount(data.totalCount)
           };
-  const {
-    keyword,
-    // location,
-    // status,
-    // propertyType,
-    // price,
-    // bathrooms,
-    // bedrooms,
-    // garages,
-    // yearBuilt,
-    // area,
-    // amenities,
-    city,
-    category,
-    propertytype
-  } = useSelector((state) => state.properties);
+  // const {
+  //   keyword,
+  //   // location,
+  //   // status,
+  //   // propertyType,
+  //   // price,
+  //   // bathrooms,
+  //   // bedrooms,
+  //   // garages,
+  //   // yearBuilt,
+  //   // area,
+  //   // amenities,
+  //   city,
+  //   category,
+  //   propertytype
+  // } = useSelector((state) => state.properties);
   const { statusType, featured, isGridOrList } = useSelector(
     (state) => state.filter
   );
@@ -219,9 +240,12 @@ const FeaturedItem = () => {
               </ul>
               <ul className="icon mb0">
                 <li className="list-inline-item">
-                  <a href="#">
-                    <span className="flaticon-transfer-1"></span>
-                  </a>
+                <a href="#" onClick={(e) => {
+                e.preventDefault();
+                addCompareProperty(item._id);
+              }}>
+                <span className="flaticon-transfer-1"></span>
+              </a>
                 </li>
                 {/* <li className="list-inline-item">
                   <a href="#">
@@ -230,7 +254,7 @@ const FeaturedItem = () => {
                 </li> */}
               </ul>
 
-              <Link href={`/property-detail/${item._id}`} className="fp_price">
+              <Link href={`/property-detail/${item.slug}`} className="fp_price">
               {item.price}
               {/* <small>/mo</small> */}
             </Link>
@@ -240,7 +264,7 @@ const FeaturedItem = () => {
             <div className="tc_content">
             <p className="text-thm">{item.propertytypeid?.title}</p>
             <h4>
-              <Link href={`/property-detail/${item._id}`} >{item.title}</Link>
+              <Link href={`/property-detail/${item.slug}`} >{item.title}</Link>
             </h4>
             <p>
               <span className="flaticon-placeholder"></span>
@@ -304,14 +328,14 @@ const FeaturedItem = () => {
 
   // add length of filter items
   useEffect(() => {
-    dispatch(addLength(content.length));
+    dispatch(addLength(content?.length));
   }, [dispatch, content]);
   // useEffect(() => {
   //   fetchProperties();
   // }, []);
   useEffect(() => {
     fetchProperties();
-  }, [keyword, city, category, propertytypeFilter]);
+  }, [keyword, city, category, propertytype,currentPage,setTotalCount]);
   
 
   return <>{content}</>;

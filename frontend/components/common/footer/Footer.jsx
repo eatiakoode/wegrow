@@ -139,22 +139,22 @@ const Footer = ({  setPropertycompare }) => {
                   <span className="flaticon-close"></span>
                 </a>
 
-                <Image
-                            width={343}
-                            height={220}
-                            className="img-whp w-100 h-100 cover"
-                            src={
-                              item.featuredimageurl
-                                ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
-                                : "/default-placeholder.jpg"
-                            }
-                            alt= {`${item.title}`}
-                            unoptimized // Optional: disables Next.js image optimization (useful if external images)
-                          />
-                  <Link href={`/property-detail/${item._id}`} className="fp_price">
-                    {item.price}
-                  </Link>
-                  <p className="text-thm">{item.propertytypeid?.title}</p>
+          <Image
+                      width={343}
+                      height={220}
+                      className="img-whp w-100 h-100 cover"
+                      src={
+                        item.featuredimageurl
+                          ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
+                          : "/default-placeholder.jpg"
+                      }
+                      alt= {`${item.title}`}
+                      unoptimized // Optional: disables Next.js image optimization (useful if external images)
+                    />
+            <Link href={`/property-detail/${item.slug}`} className="fp_price">
+              {item.price}
+            </Link>
+            <p className="text-thm">{item.propertytypeid?.title}</p>
 
               </div>
             ))}

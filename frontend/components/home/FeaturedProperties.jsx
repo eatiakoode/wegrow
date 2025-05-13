@@ -88,7 +88,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
             <ul className="tag mb0">
               {/* {item.saleTag.map((val, i) => ( */}
                 <li className="list-inline-item" key="1">
-                  <a href="#">{item.categoryid?.title}</a>
+                  <a href={`/property-detail/${item.slug}`}>{item.categoryid?.title}</a>
                 </li>
               {/* ))} */}
             </ul>
@@ -96,7 +96,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
 
             <ul className="icon mb0">
               <li className="list-inline-item">
-              <a href="#" onClick={(e) => {
+              <a href="" onClick={(e) => {
                 e.preventDefault();
                 addCompareProperty(item._id);
               }}>
@@ -112,7 +112,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
             </ul>
             {/* End .icon */}
 
-            <Link href={`/property-detail/${item._id}`} className="fp_price">
+            <Link href={`/property-detail/${item.slug}`} className="fp_price">
               {item.price}
               {/* <small>/mo</small> */}
             </Link>
@@ -124,7 +124,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
           <div className="tc_content">
             <p className="text-thm">{item.propertytypeid?.title}</p>
             <h4>
-              <Link href={`/property-detail/${item._id}`} >{item.title}</Link>
+              <Link href={`/property-detail/${item.slug}`} >{item.title}</Link>
             </h4>
             <p>
               <span className="flaticon-placeholder"></span>
@@ -144,7 +144,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
                   </a>
                 </li>
                 <li className="list-inline-item" key="3">
-                  <a href="#">
+                  <a href={`/property-detail/${item.slug}`}>
                   {item.sizeprefix}: {item.areasize}
                   </a>
                 </li>

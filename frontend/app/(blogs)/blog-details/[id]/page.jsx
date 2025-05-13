@@ -16,11 +16,11 @@ import PopupSignInUp from "@/components/common/PopupSignInUp";
 import blogs from "@/data/blogs";
 import Image from "next/image";
 
-export const metadata = {
-  title: 'Blog Details || Wegrow - Real Estate React Template',
-  description:
-    'Wegrow - Real Estate React Template',
-}
+// export const metadata = {
+//   title: 'Blog Details || Wegrow - Real Estate React Template',
+//   description:
+//     'Wegrow - Real Estate React Template',
+// }
 
 const BlogDetailsDynamic = ({params}) => {
   

@@ -2,8 +2,24 @@
 
 import { Gallery, Item } from "react-photoswipe-gallery";
 import Image from "next/image";
+import { useCompare } from "@/components/common/footer/CompareContext";
 
-export default function ListingOne({property}) {
+
+export default function ListingOne({property,setPropertySelectedComp, setShowBox }) {
+  const { propertycompare, setPropertycompare } = useCompare();
+  const addCompareProperty = async (id) => {
+      
+    const isExist = propertycompare.includes(id);
+  
+    if (isExist) {
+      alert("Already added for compare");
+    } else if (propertycompare.length >= 3) {
+      alert("You have already selected 3 products");
+    } else {
+      setPropertycompare((old) => [...old, id]);
+      setShowBox(true);
+    }
+  };
   return (
     
     <section className="listing-title-area mt85 md-mt0">
@@ -17,10 +33,10 @@ export default function ListingOne({property}) {
                 <p>{property.cityid?.title}, {property.locationid?.title} {property.address}</p>
               </div>
               <div>
-                <a href="tel:+917421922000" className="circle-shape text-dark d-inline-block me-2">
+                <a href={`tel:${property?.sellerphone}`} className="circle-shape text-dark d-inline-block me-2">
                   <span className="flaticon-telephone"></span>
                 </a>
-                <a href="mailto:Info@wegrowinfraventures.com" class="circle-shape text-dark d-inline-block">
+                <a href={`mailto:${property?.selleremail}`} class="circle-shape text-dark d-inline-block">
                   <span class="flaticon-black-back-closed-envelope-shape"></span>
                 </a>
               </div>
@@ -41,9 +57,12 @@ export default function ListingOne({property}) {
               <div className="spss style2 mt20 text-end tal-400">
                 <ul className="mb0">
                   <li className="list-inline-item">
-                    <a href="#">
-                      <span className="flaticon-transfer-1"></span>
-                    </a>
+                  <a href="#" onClick={(e) => {
+                e.preventDefault();
+                addCompareProperty(property._id);
+              }}>
+                <span className="flaticon-transfer-1"></span>
+              </a>
                   </li>
                   {/* <li className="list-inline-item">
                     <a href="#">

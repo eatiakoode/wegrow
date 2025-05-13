@@ -1,4 +1,5 @@
-import Pagination from "../../common/blog/Pagination";
+'use client'
+import Pagination from "@/components/common/blog/Pagination";
 import CopyrightFooter from "../../common/footer/CopyrightFooter";
 import Footer from "../../common/footer/Footer";
 import Header from "../../common/header/DefaultHeader";
@@ -10,8 +11,102 @@ import SidebarListing from "../../common/listing/SidebarListing";
 import PopupSignInUp from "../../common/PopupSignInUp";
 import BreadCrumb2 from "./BreadCrumb2";
 import FeaturedItem from "./FeaturedItem";
+import { getPropertytypeByCategoryTableData,getPropertytypeTableData } from "@/api/frontend/propertytype.ts";
+
+import { useState, useEffect } from "react";
+// import { useRouter } from 'next/router';
+// import { useRouter, useParams } from "next/navigation";
+import { useSearchParams } from 'next/navigation';
 
 const index = () => {
+  const searchParams = useSearchParams();
+  const cat = searchParams.get('cat'); 
+  const key = searchParams.get('keyword'); 
+  const cityget = searchParams.get('city'); 
+  const propertytypeget = searchParams.get('propertytype'); 
+  const [category, setCategory] = useState(cat);
+
+  const [keyword, setKeyword] = useState("");
+  const [city, setCity] = useState("");
+
+ 
+  const [propertytype, setPropertytype] = useState("");
+  const [propertytypes, setPropertytypes] = useState([]);
+  /*property paggination*/
+   const [propertyList, setPropertyList] = useState([]);
+const [totalCount, setTotalCount] = useState(0);
+const [currentPage, setCurrentPage] = useState(1);
+const pageSize = 4;
+
+   const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
+      if (typeof window !== "undefined") {
+  
+        const stored = localStorage.getItem("propertycompare");
+        console.log("stored")
+        console.log(stored)
+        if (stored !== "undefined") {
+  
+        return stored ? JSON.parse(stored) : [];
+        }
+      }
+      return [];
+    });
+  
+    const [showBox, setShowBox] = useState(false);
+    useEffect(  () => {
+      if (cat) {
+        setCategory(cat);
+        const fetchData = async () => {
+          try {
+            const res = await getPropertytypeByCategoryTableData(cat);
+            
+            setPropertytypes(res.data || []);
+          } catch (error) {
+            console.error("Error fetching property types:", error);
+          }
+        };
+    
+        fetchData();
+      } else {
+        const fetchData = async () => {
+          try {
+            const res = await getPropertytypeTableData();
+            setPropertytypes(res || []);
+          } catch (error) {
+            console.error("Error fetching property types:", error);
+          }
+        };
+    
+        fetchData();
+      }
+      if (key) {
+        setKeyword(key);
+      }
+      if (cityget) {
+        setCity(cityget);
+      }
+      if (propertytypeget) {
+        setPropertytype(propertytypeget);
+      }
+     
+      
+    }, [cat,key,cityget,propertytypeget]);
+
+    // useEffect(() => {
+    //   const fetchData = async () => {
+    //     try {
+    //       const res = await getPropertytypeTableData();
+    //       console.log("setPropertytypes index")
+    //       console.log(setPropertytypes)
+    //       setPropertytypes(res || []);
+    //     } catch (error) {
+    //       console.error("Error fetching property types:", error);
+    //     }
+    //   };
+  
+    //   fetchData();
+    
+    //       }, [setPropertytypes]);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -50,7 +145,10 @@ const index = () => {
           <div className="row">
             <div className="col-lg-4 col-xl-4">
               <div className="sidebar-listing-wrapper">
-                <SidebarListing />
+                <SidebarListing  keyword={keyword} setKeyword={setKeyword}
+  city={city} setCity={setCity}
+  category={category} setCategory={setCategory}
+  propertytype={propertytype} setPropertytype={setPropertytype} setPropertytypes={setPropertytypes} propertytypes={propertytypes}  />
               </div>
               {/* End SidebarListing */}
 
@@ -87,14 +185,24 @@ const index = () => {
               {/* End .row */}
 
               <div className="row">
-                <FeaturedItem />
+                <FeaturedItem  setPropertySelectedComp={setPropertySelectedComp}
+        setShowBox={setShowBox} keyword={keyword} setKeyword={setKeyword}
+        city={city} setCity={setCity}
+        category={category} setCategory={setCategory}
+        propertytype={propertytype} setPropertytype={setPropertytype}  propertyList={propertyList} setPropertyList={setPropertyList} setTotalCount={setTotalCount} pageSize={pageSize}  currentPage={currentPage}/>
               </div>
               {/* End .row */}
 
               <div className="row">
                 <div className="col-lg-12 mt20">
                   <div className="mbp_pagination">
-                    <Pagination />
+                  <Pagination
+                      totalCount={totalCount}
+                      pageSize={pageSize}
+                      currentPage={currentPage}
+                      onPageChange={(page) => setCurrentPage(page)}
+                    />
+
                   </div>
                 </div>
                 {/* End paginaion .col */}

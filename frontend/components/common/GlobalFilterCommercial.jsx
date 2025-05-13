@@ -7,8 +7,8 @@ import {
   // addLocation,
 } from "../../features/properties/propertiesSlice";
 // import PricingRangeSlider from "./PricingRangeSlider";
-import CheckBoxFilter from "./CheckBoxFilter";
-import GlobalSelectBox from "./GlobalSelectBox";
+// import CheckBoxFilter from "./CheckBoxFilter";
+// import GlobalSelectBox from "./GlobalSelectBox";
 import { useRouter } from "next/navigation";
 import { getCityTableData,getCityByStateTableData } from "./../../api/frontend/city";
 import { getPropertytypeByCategoryTableData} from "../../api/frontend/propertytype.ts";
@@ -18,6 +18,8 @@ const GlobalFilter = ({ className = "" }) => {
     const [selectedCity, setSelectedCity] = useState("");
     const [propertytypes, setPropertytypes] = useState([]);
     const [selectedPropertytype, setSelectedPropertytype] = useState("");
+    const [category, setCategory] = useState("67ea48d17cfa562fe8eaafd0");
+    const [keyword, setKeyword] = useState("");
     useEffect(() => {
       const fetchCities = async () => {
         try {
@@ -35,8 +37,8 @@ const GlobalFilter = ({ className = "" }) => {
       fetchCities();
       const fetchPropertytypes = async () => {
         try {
-          const value="67ea48d17cfa562fe8eaafd0"
-          const response = await getPropertytypeByCategoryTableData(value);
+          // const value="67ea48d17cfa562fe8eaafd0"
+          const response = await getPropertytypeByCategoryTableData(category);
           console.log("responsepropertytypes")
           console.log(response.data)
           
@@ -52,7 +54,15 @@ const GlobalFilter = ({ className = "" }) => {
   const router = useRouter()
   // submit handler
   const submitHandler = () => {
-    router.push("/listing-grid-v1");
+    const query = {
+      cat: category,
+      ...(keyword && { keyword }),
+      ...(selectedCity && { city: selectedCity }),
+      ...(selectedPropertytype && { propertytype: selectedPropertytype }),
+    };
+  
+    const queryString = new URLSearchParams(query).toString();
+    router.push(`/property-list?${queryString}`);
   };
 
   return (
@@ -64,7 +74,8 @@ const GlobalFilter = ({ className = "" }) => {
               type="text"
               className="form-control"
               placeholder="Find your dream place — start typing..."
-              onChange={(e) => dispatch(addKeyword(e.target.value))}
+              // onChange={(e) => dispatch(addKeyword(e.target.value))}
+              onChange={(e) => setKeyword(e.target.value)} 
             />
           </div>
         </li>

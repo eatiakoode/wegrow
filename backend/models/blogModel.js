@@ -10,16 +10,22 @@ var blogSchema = new mongoose.Schema(
       unique: true,
       index: true,
     },
-    description:{
+    slug: {
       type: String,
       required: true,
       unique: true,
       index: true,
     },
+    description:{
+      type: String,
+      required: true,
+      // unique: true,
+      index: true,
+    },
     logoimage:{
       type: String,
       // required: true,
-      unique: true,
+      // unique: true,
       index: true,
     },
     blogcategory:{

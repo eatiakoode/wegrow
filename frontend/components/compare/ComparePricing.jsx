@@ -55,31 +55,31 @@ const ComparePricing = ({ setPropertySelectedComp, setShowBox }) => {
                   </div>
                 </div>
                 <div className="details">
-                <a href={`/property-detail/${item._id}`}><h4>{item.title}</h4></a>
+                <a href={`/property-detail/${item.slug}`}><h4>{item.title}</h4></a>
                   <p>{item.propertytypeid?.title}</p>
                 </div>
               </div>
             </li>
             <li>
-              <a href={`/property-detail/${item._id}`}>{item.city}</a>
+              <a href={`/property-detail/${item.slug}`}>{item.city}</a>
             </li>
             <li>
-              <a href={`/property-detail/${item._id}`}>{item.bedrooms}</a>
+              <a href={`/property-detail/${item.slug}`}>{item.bedrooms}</a>
             </li>
             <li>
-              <a href={`/property-detail/${item._id}`}>{item.bathrooms}</a>
+              <a href={`/property-detail/${item.slug}`}>{item.bathrooms}</a>
             </li>
             <li>
-              <a href={`/property-detail/${item._id}`}>{item.garages}</a>
+              <a href={`/property-detail/${item.slug}`}>{item.garages}</a>
             </li>
             <li>
-              <a href={`/property-detail/${item._id}`}>{item.yearbuild}</a>
+              <a href={`/property-detail/${item.slug}`}>{item.yearbuild}</a>
             </li>
             {/* <li>
               <a href="#">{item.laundryRoom}</a>
             </li> */}
             <li>
-              <a className="btn pricing_btn" href={`/property-detail/${item._id}`}>
+              <a className="btn pricing_btn" href={`/property-detail/${item.slug}`}>
               {item.furnishingstatus?.title}
               </a>
             </li>

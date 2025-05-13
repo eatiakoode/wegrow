@@ -1,13 +1,13 @@
-const Enquiry = require("../../models/enqModel");
+const Enquiry = require("../../models/enqModelProperty.js");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../../utils/validateMongodbId");
+const { enqueryPropertyMail } = require("../../middlewares/enqueryMail");
 
-const { enqueryContactMail } = require("../../middlewares/enqueryMail");
 
 const createEnquiry = asyncHandler(async (req, res) => {
   try {
     const newEnquiry = await Enquiry.create(req.body);
-    const emailsend  =await enqueryContactMail(req, res);
+    const emailsend  =await enqueryPropertyMail(req, res);
     const message={
       "status":"success",
       "message":"Thank you for your message. It has been sent.",

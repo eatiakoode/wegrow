@@ -2,6 +2,7 @@ const Blog = require("../models/blogModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const { uploadPhoto, blogImgResize } = require("../middlewares/uploadImage");
+const slugify = require("slugify");
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
@@ -12,6 +13,7 @@ const createBlog = asyncHandler(async (req, res) => {
         req.body.logoimage = "public/images/blogs/"+processedImages[0];
       }
     }
+   req.body.slug  = slugify(req.body.slug.toLowerCase());
     const newBlog = await Blog.create(req.body);
     const message={
       "status":"success",
@@ -37,7 +39,7 @@ const updateBlog = asyncHandler(async (req, res) => {
           req.body.logoimage = "public/images/blogs/"+processedImages[0];
         }
       }
-
+      req.body.slug  = slugify(req.body.slug.toLowerCase());
     const updatedBlog = await Blog.findByIdAndUpdate(id, req.body, {
       new: true,
     });
