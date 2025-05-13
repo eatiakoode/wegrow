@@ -52,7 +52,7 @@ const BuyFilter = ({ className = "" }) => {
 
   const handleRedirect = (place) => {
     // Redirect with query or state as needed
-    router.push(`/property-list?cat=${(place)}`);
+    router.push(`/property-list?location=${(place)}`);
   };
 
   return (
@@ -84,7 +84,7 @@ const BuyFilter = ({ className = "" }) => {
                   <li
                     key={idx}
                     className="mb-2 cursor-pointer"
-                    onClick={() => handleRedirect(city._id)}
+                    onClick={() => handleRedirect(place._id)}
                     style={{ cursor: "pointer" }}
                   >
                  Property in {place.title}

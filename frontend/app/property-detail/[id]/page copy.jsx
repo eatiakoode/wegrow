@@ -87,7 +87,7 @@ const ListingDynamicDetailsV1 = ({params}) => {
             {/* End details content .col-lg-8 */}
 
             <div className="col-lg-4 col-xl-4">
-              <Sidebar property={property}/>
+              <Sidebar />
             </div>
             {/* End sidebar content .col-lg-4 */}
           </div>
@@ -99,10 +99,7 @@ const ListingDynamicDetailsV1 = ({params}) => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-          <Footer 
-            // propertycompare={propertySelectedComp}
-        showBox={showBox}
-        setPropertycompare={setPropertySelectedComp}  />
+            <Footer />
           </div>
         </div>
       </section>

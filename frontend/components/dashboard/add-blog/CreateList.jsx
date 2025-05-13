@@ -6,6 +6,7 @@ import { addBlogAPI } from "../../../api/blog";
 import { getBlogcategoryTableData } from "../../../api/blogcategory";
 const CreateList = () => {
    const [title, setTitle] = useState("");
+   const [slug, setSlug] = useState("");
    const [description, setDescription] = useState("");
    const [source, setSource] = useState("");
    const [date, setDate] = useState("");
@@ -42,6 +43,14 @@ useEffect(() => {
         setError("");
       }
     };
+    const handleSlugChange = (e) => {
+      setSlug(e.target.value);
+  
+      // ✅ Clear the error when user starts typing
+      if (e.target.value.trim() !== "") {
+        setError("");
+      }
+    };
     const handleBlogcategoryChange = (e) => {
       setSelectedBlogcategory(e.target.value);
     };
@@ -52,12 +61,17 @@ useEffect(() => {
         setError("Title is required");
         return;
       }
+      if (!slug.trim()) {
+        setError("Slug is required");
+        return;
+      }
     
       setError("");
     
       try {
         const formData = new FormData();
         formData.append("title", title);
+        formData.append("slug", slug);
         formData.append("description", description);
         formData.append("source", source);
         formData.append("date", date);
@@ -74,6 +88,7 @@ useEffect(() => {
     
         setTitle("");
         setDescription("");
+        setSlug("");
         setLogo(null);
       } catch (error) {
         setError(error.message);
@@ -136,6 +151,13 @@ useEffect(() => {
         <div className="my_profile_setting_input form-group">
           <label htmlFor="blogTitle">Blog Title</label>
           <input type="text" className="form-control" id="blogTitle" value={title} onChange={handleTitleChange} />
+          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+        </div>
+      </div>
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="blogSlug">Blog Slug</label>
+          <input type="text" className="form-control" id="blogSlug" value={slug} onChange={handleSlugChange} />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
       </div>

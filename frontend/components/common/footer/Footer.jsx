@@ -149,7 +149,7 @@ const Footer = ({  setPropertycompare, showBox }) => {
                       alt= {`${item.title}`}
                       unoptimized // Optional: disables Next.js image optimization (useful if external images)
                     />
-            <Link href={`/property-detail/${item._id}`} className="fp_price">
+            <Link href={`/property-detail/${item.slug}`} className="fp_price">
               {item.price}
             </Link>
             <p className="text-thm">{item.propertytypeid?.title}</p>

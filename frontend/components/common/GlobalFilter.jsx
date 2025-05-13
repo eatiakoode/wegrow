@@ -9,15 +9,21 @@ import {
 import CheckBoxFilter from "./CheckBoxFilter";
 import GlobalSelectBox from "./GlobalSelectBox";
 import { useRouter } from "next/navigation";
+// import { useDispatch, useSelector } from "react-redux";
 
 import { getCityTableData,getCityByStateTableData } from "./../../api/frontend/city";
 import { getPropertytypeByCategoryTableData} from "../../api/frontend/propertytype.ts";
 
 const GlobalFilter = ({ className = "" }) => {
+  // const dispatch = useDispatch();
+  
   const [cities, setCities] = useState([]);
     const [selectedCity, setSelectedCity] = useState("");
     const [propertytypes, setPropertytypes] = useState([]);
     const [selectedPropertytype, setSelectedPropertytype] = useState("");
+    const [category, setCategory] = useState("67e67294759f85d6bf7a131a");
+    const [keyword, setKeyword] = useState("");
+    
     
     useEffect(() => {
       const fetchCities = async () => {
@@ -34,8 +40,8 @@ const GlobalFilter = ({ className = "" }) => {
       fetchCities();
       const fetchPropertytypes = async () => {
         try {
-          const value="67e67294759f85d6bf7a131a"
-          const response = await getPropertytypeByCategoryTableData(value);
+          // const value="67e67294759f85d6bf7a131a"
+          const response = await getPropertytypeByCategoryTableData(category);
           console.log("responsepropertytypes")
           console.log(response.data)
           
@@ -51,19 +57,31 @@ const GlobalFilter = ({ className = "" }) => {
       
   const router = useRouter()
   // submit handler
+  // const submitHandler = () => {
+  //   var link="?cat="+category
+  //   if(addKeyword){
+  //     link +="&keyword="+addKeyword
+  //   }
+  //   if(selectedCity){
+  //     link +="&city="+selectedCity
+  //   }
+  //   if(selectedPropertytype){
+  //     link +="&propertytype="+selectedPropertytype
+  //   }
+  //   router.push("/property-list"+link);
+  // };
   const submitHandler = () => {
-    var link="?cat=residential"
-    if(addKeyword){
-      link +="&keyword="+addKeyword
-    }
-    if(selectedCity){
-      link +="&city="+selectedCity
-    }
-    if(selectedPropertytype){
-      link +="&propertytype="+selectedPropertytype
-    }
-    router.push("/property-list"+link);
+    const query = {
+      cat: category,
+      ...(keyword && { keyword }),
+      ...(selectedCity && { city: selectedCity }),
+      ...(selectedPropertytype && { propertytype: selectedPropertytype }),
+    };
+  
+    const queryString = new URLSearchParams(query).toString();
+    router.push(`/property-list?${queryString}`);
   };
+  
  
 
   return (
@@ -74,8 +92,9 @@ const GlobalFilter = ({ className = "" }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Find your dream home — start typing..."
-              onChange={(e) => dispatch(addKeyword(e.target.value))}
+              placeholder="Find your dream home e — start typing..."
+              // onChange={(e) => dispatch(addKeyword(e.target.value))}
+              onChange={(e) => setKeyword(e.target.value)} 
             />
           </div>
         </li>

@@ -3,6 +3,7 @@ const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const { featuredImageResize,sitePlanResize,propertySelectedImgsResize } = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const createProperty = asyncHandler(async (req, res) => {
   try {
@@ -47,6 +48,7 @@ const createProperty = asyncHandler(async (req, res) => {
     }
     console.log("req.body")
     console.log(req.body)
+    req.body.slug  = slugify(req.body.slug.toLowerCase());
 
     const newProperty = await Property.create(req.body);
     //res.json(newProperty);
@@ -104,6 +106,7 @@ const updateProperty = asyncHandler(async (req, res) => {
         .split(",")
         .map((id) => new mongoose.Types.ObjectId(id.trim()));
     }
+    req.body.slug  = slugify(req.body.slug.toLowerCase());
     const updatedProperty = await Property.findByIdAndUpdate(id, req.body, {
       new: true,
     });

@@ -56,10 +56,27 @@ export async function getPropertyFeatureData() {
   export async function getPropertyFilterData(filter) {
     // Fake delay
     await new Promise((resolve) => setTimeout(resolve, 1400));
+    console.log("filter")
+    console.log(filter)
+    let querystring=""
+    if(filter.category){
+      querystring +="&category="+filter.category
+    }
+    if(filter.keyword){
+      querystring +="&keyword="+filter.keyword
+    }
+    if(filter.city){
+      querystring +="&city="+filter.city
+    }
     
-  
+    if(filter.propertytype){
+      querystring +="&propertytype="+filter.propertytype
+    }
+    if(filter.location){
+      querystring +="&location="+filter.location
+    }
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/property/list?limit=10"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/property/filterlist?limit="+filter.limit+"&skip="+filter.page+querystring); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -87,3 +104,23 @@ export async function getPropertyFeatureData() {
       return []; // Return an empty array in case of an error
     }
   }
+
+  export const getPropertyBySlug = async (slug: string) => {
+    // const token = localStorage.getItem("token"); // 🔹 Retrieve token
+  
+    const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+`api/property/slug/${slug}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+      // body: JSON.stringify({ id }),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to get Property");
+    }
+  
+    return response.json();
+  };

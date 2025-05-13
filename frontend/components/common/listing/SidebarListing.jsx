@@ -8,22 +8,16 @@ import { getPropertyFeatureData } from "@/api/frontend/property";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-const SidebarListing = () => {
-    const [propertytype, setPropertyType] = useState([]);
-
-    // chat
-    const [keyword, setKeyword] = useState("");
-const [city, setCity] = useState("");
-const [category, setCategory] = useState("");
-const [propertytypeFilter, setPropertyTypeFilter] = useState("");
-    // chat end
+const SidebarListing = ({ setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype,setPropertytypes,propertytypes }) => {
+   
+    const [propertytypesidebar, setPropertyTypeSidebar] = useState([]);
     const router = useRouter();
   
     const fetchPropertyType = async () => {
       const data = await countPropertiesByType();
       console.log("data.data")
       console.log(data)
-      setPropertyType(data.data);
+      setPropertyTypeSidebar(data.data);
     };
     const [properties, setProperties] = useState([]);
 
@@ -45,7 +39,7 @@ const fetchProperties = async () => {
   keyword={keyword} setKeyword={setKeyword}
   city={city} setCity={setCity}
   category={category} setCategory={setCategory}
-  propertytype={propertytypeFilter} setPropertyType={setPropertyTypeFilter}
+  propertytype={propertytype} setPropertytype={setPropertytype} setPropertytypes={setPropertytypes} propertytypes={propertytypes}
 />
 
                 </div>
@@ -64,7 +58,7 @@ const fetchProperties = async () => {
                 <h4 className="title">Categories Property</h4>
                 <div className="widget_list">
                     <ul className="list_details">
-                        <Categorie  propertytype={propertytype}/>
+                        <Categorie  propertytypesidebar={propertytypesidebar}/>
                     </ul>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import ListingCreator from "../common/listing/ListingCreator";
 // import FeaturedListings from "../common/listing/FeaturedListings";
 // import FeatureProperties from "../common/listing/FeatureProperties";
 
-const Sidebar = () => {
+const Sidebar = ({property}) => {
   const sidebarRef = useRef(null);
   const [isSticky, setIsSticky] = useState(false);
 
@@ -35,7 +35,7 @@ const Sidebar = () => {
             <h4 className="mb25">Request a Quote</h4>
             <ListingCreator />
           </div>
-          <ContactWithAgent />
+          <ContactWithAgent property={property}/>
         </div>
       </div>
 

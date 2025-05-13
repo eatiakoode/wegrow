@@ -1,54 +1,131 @@
-const ContactWithAgent = () => {
+'use client'
+
+import { useState } from "react";
+
+import { addPropertyEnquiryAPI } from "@/api/frontend/propertyenquiry";
+
+const ContactWithAgent = ({property}) => {
+  // const [appointmentDate, setAppointmentDate] = useState(null);
+  const [error, setError] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  // const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [successmsg, setSuccessmsg] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = {};
+    const requiredFields = [
+      { key: "name", value: name, name: "Name" },
+      { key: "email", value: email, name: "Email" },
+      { key: "phone", value: phone, name: "Phone" },
+      // { key: "subject", value: subject, name: "Subject" },
+      // { key: "appointmentDate", value: appointmentDate, name: "Appointment Date" },
+      { key: "message", value: message, name: "Message" },
+      
+    ];
+  
+    requiredFields.forEach(field => {
+      if (!field.value || (typeof field.value === "string" && !field.value.trim())) {
+        console.log("field.name"+field.name)
+        newErrors[field.key] = `${field.name} is required`;
+      }
+    });
+    if (Object.keys(newErrors).length > 0) {
+      console.log("test")
+      return setError(newErrors);
+    }
+    try {
+      // console.log(propertySelectedImgs)
+      const payload = {
+        name, email, phone, message,
+        propertyid:property._id
+        // date:appointmentDate
+      };
+      console.log(payload)
+      console.log("payload")
+      const res = await addPropertyEnquiryAPI(payload);
+      if(res.success){
+        setSuccessmsg(res.message)
+        setName("")
+        setEmail("")
+        setPhone("")
+        // setSubject("")
+        setMessage("")
+      }
+
+      setError({});
+    // (Reset other fields here if needed)
+  } catch (err) {
+    setError({ general: err.message || "Something went wrong" });
+  }
+  };
   return (
-    <form action="#">
+    <form action="#" onSubmit={handleSubmit}>
       <ul className="sasw_list mb0">
         <li className="search_area">
           <div className="form-group mb-3">
             <input
-              type="text"
+              id="form_name"
+              name="form_name"
               className="form-control"
-              placeholder="Your Name"
-              required
+              // required="required"
+              type="text"
+              placeholder="Name"
+              value={name} onChange={(e) => setName(e.target.value)}
             />
+            {error.name && <span className="text-danger">{error.name}</span>}
           </div>
         </li>
         {/* End li */}
         <li className="search_area">
           <div className="form-group mb-3">
-            <input
-              type="number"
-              className="form-control"
+          <input
+              id="form_phone"
+              name="form_phone"
+              className="form-control required phone"
+              // required="required"
+              type="phone"
               placeholder="Phone"
-              required
+              value={phone} onChange={(e) => setPhone(e.target.value)}
             />
+            {error.phone && <span className="text-danger">{error.phone}</span>}
           </div>
         </li>{" "}
         {/* End li */}
         <li className="search_area">
           <div className="form-group mb-3">
-            <input
+          <input
+              id="form_email"
+              name="form_email"
+              className="form-control required email"
+              // required="required"
               type="email"
-              className="form-control"
               placeholder="Email"
-              required
+              value={email} onChange={(e) => setEmail(e.target.value)}
             />
+            {error.email && <span className="text-danger">{error.email}</span>}
           </div>
         </li>{" "}
         {/* End li */}
         <li className="search_area">
           <div className="form-group mb-3">
-            <textarea
-              id="form_message"
-              name="form_message"
-              className="form-control "
-              rows="5"
-              required
-              placeholder="Your Message"
-            ></textarea>
+          <textarea
+                id="form_message"
+                name="form_message"
+                className="form-control required"
+                rows="4"
+                // required="required"
+                placeholder="Your Message"
+                value={message} onChange={(e) => setMessage(e.target.value)}
+              ></textarea>
+              {error.message && <span className="text-danger">{error.message}</span>}
           </div>
         </li>{" "}
         {/* End li */}
         <li>
+        {successmsg && <span className="text-success">{successmsg}</span>}
           <div className="search_option_button">
             <button type="submit" className="btn btn-block btn-thm w-100">
               Request

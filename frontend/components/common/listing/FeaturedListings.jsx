@@ -24,9 +24,9 @@ const FeaturedListings = ({properties}) => {
 
           <div className="media-body">
             <h5 className="mt-0 post_title">
-              <Link href={`/property-detail/${item._id}`}>{item.title}</Link>
+              <Link href={`/property-detail/${item.slug}`}>{item.title}</Link>
             </h5>
-            <Link href={`/property-detail/${item._id}`}>
+            <Link href={`/property-detail/${item.slug}`}>
               {item.price}
               
             </Link>

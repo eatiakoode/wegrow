@@ -2,8 +2,24 @@
 
 import { Gallery, Item } from "react-photoswipe-gallery";
 import Image from "next/image";
+import { useCompare } from "@/components/common/footer/CompareContext";
 
-export default function ListingOne({property}) {
+
+export default function ListingOne({property,setPropertySelectedComp, setShowBox }) {
+  const { propertycompare, setPropertycompare } = useCompare();
+  const addCompareProperty = async (id) => {
+      
+    const isExist = propertycompare.includes(id);
+  
+    if (isExist) {
+      alert("Already added for compare");
+    } else if (propertycompare.length >= 3) {
+      alert("You have already selected 3 products");
+    } else {
+      setPropertycompare((old) => [...old, id]);
+      setShowBox(true);
+    }
+  };
   return (
     
     <section className="listing-title-area mt85 md-mt0">
@@ -41,9 +57,12 @@ export default function ListingOne({property}) {
               <div className="spss style2 mt20 text-end tal-400">
                 <ul className="mb0">
                   <li className="list-inline-item">
-                    <a href="#">
-                      <span className="flaticon-transfer-1"></span>
-                    </a>
+                  <a href="#" onClick={(e) => {
+                e.preventDefault();
+                addCompareProperty(property._id);
+              }}>
+                <span className="flaticon-transfer-1"></span>
+              </a>
                   </li>
                   {/* <li className="list-inline-item">
                     <a href="#">

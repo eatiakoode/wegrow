@@ -1,55 +1,52 @@
 'use client'
 
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect,useState } from "react";
+// import {  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCityTableData } from "@/api/frontend/city";
 import { getCategoryTableData } from "@/api/frontend/category";
 import { getPropertytypeByCategoryTableData} from "@/api/frontend/propertytype";
 
 import {
-  addFeatured,
-  addStatusType,
-} from "../../../features/filter/filterSlice";
-import {
   addKeyword,
   addCity,
   addCategory,
   addPropertytype,
 } from "../../../features/properties/propertiesSlice";
-// import PricingRangeSlider from "../../common/PricingRangeSlider";
 import { v4 as uuidv4 } from "uuid";
 
 
-const FilteringItem = () => {
+const FilteringItem = ({ setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype,setPropertytypes,propertytypes }) => {
+
+ 
   const [cities, setCities] = useState([]);
   
-  const [propertytypes, setPropertytypes] = useState([]);
+  
   
   const [categories, setCategories] = useState([]);
-  const {
-    keyword,
-    city,
-    category,
-    propertytype,
-    // location,
-    // status,
-    // propertyType,
-    // bathrooms,
-    // bedrooms,
-    // garages,
-    // yearBuilt,
-    // area,
-    // amenities,
-  } = useSelector((state) => state.properties);
+  // const {
+  //   keyword,
+  //   city,
+  //   category,
+  //   propertytype,
+  //   // location,
+  //   // status,
+  //   // propertyType,
+  //   // bathrooms,
+  //   // bedrooms,
+  //   // garages,
+  //   // yearBuilt,
+  //   // area,
+  //   // amenities,
+  // } = useSelector((state) => state.properties);
 
   // input state
-  const [getKeyword, setKeyword] = useState(keyword);
-  const [getCity, setCity] = useState(city);
+  const [getKeyword, setGetKeyword] = useState(keyword);
+  const [getCity, setGetCity] = useState(city);
   
-  const [getPropertytype, setPropertytype] = useState(propertytype);
+  const [getPropertytype, setGetPropertytype] = useState(propertytype);
   
-  const [getCategory, setCategory] = useState(category);
+  const [getCategory, setGetCategory] = useState(category);
   // const [getLocation, setLocation] = useState(location);
   // const [getStatus, setStatus] = useState(status);
   // const [getPropertiesType, setPropertiesType] = useState(propertyType);
@@ -167,8 +164,7 @@ useEffect(() => {
           fetchCategories();
       }, []);
       const handleCategoryChange = async (e) => {
-        console.log("test property")
-        alert("test")
+        
         const value = e.target.value;
         setCategory(value);
         try {
@@ -179,17 +175,28 @@ useEffect(() => {
           console.error("Error fetching property types:", err);
         }
       };
+      // useEffect(() => {
+      //   setPropertytypes(propertytypes);
+      // }, [propertytypes,setPropertytypes]); 
   return (
     <ul className="sasw_list mb0">
       <li className="search_area">
         <div className="form-group mb-3">
-          <input
+          {/* <input
             type="text"
             className="form-control"
             placeholder="keyword"
             value={getKeyword}
             onChange={(e) => setKeyword(e.target.value)}
-          />
+          /> */}
+          <input
+        type="text"
+        className="form-control"
+        id="keywordSelect"
+        name="keyword"
+        value={keyword}
+        onChange={(e) => setKeyword(e.target.value)}
+      />
           <label>
             <span className="flaticon-magnifying-glass"></span>
           </label>
@@ -217,6 +224,28 @@ useEffect(() => {
           </div>
         </div>
       </li>
+      
+      <li>
+        <div className="search_option_two">
+          <div className="candidate_revew_select">
+          <select
+              id="propertytypeSelect"
+              className="selectpicker w100 form-select show-tick"
+              value={propertytype}
+              onChange={(e) => setPropertytype(e.target.value)} 
+              data-live-search="true"
+              data-width="100%"
+            >
+              <option value="">-- Property Type --</option>
+              {propertytypes?.map((propertytypeitem) => (
+                <option key={propertytypeitem._id} value={propertytypeitem._id}>
+                  {propertytypeitem.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </li> 
       <li>
         <div className="search_option_two">
           <div className="candidate_revew_select">
@@ -232,27 +261,6 @@ useEffect(() => {
               {cities.map((cityitem) => (
                 <option key={cityitem._id} value={cityitem._id}>
                   {cityitem.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </li> 
-      <li>
-        <div className="search_option_two">
-          <div className="candidate_revew_select">
-          <select
-              id="citySelect"
-              className="selectpicker w100 form-select show-tick"
-              value={propertytype}
-              onChange={(e) => setPropertytype(e.target.value)} 
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Property Type --</option>
-              {propertytypes.map((propertytypeitem) => (
-                <option key={propertytypeitem._id} value={propertytypeitem._id}>
-                  {propertytypeitem.title}
                 </option>
               ))}
             </select>

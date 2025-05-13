@@ -35,6 +35,10 @@ const testimonialFrontendRouter = require("./routes/frontend/testimonialFrontend
 const blogFrontendRouter = require("./routes/frontend/blogRouter");
 const faqFrontendRouter = require("./routes/frontend/faqRouter");
 const enqRouter = require("./routes/frontend/enqRoute");
+const enqPropertyRouter = require("./routes/frontend/enqPropertyRouter");
+
+
+
 
 
 const cookieParser = require("cookie-parser");
@@ -82,10 +86,7 @@ app.use("/frontend/api/testimonial", testimonialFrontendRouter);
 app.use("/frontend/api/blog", blogFrontendRouter);
 app.use("/frontend/api/faq", faqFrontendRouter);
 app.use("/frontend/api/enquiry", enqRouter);
-
-
-
-
+app.use("/frontend/api/propertyenquiry", enqPropertyRouter);
 
 
 const path = require("path");

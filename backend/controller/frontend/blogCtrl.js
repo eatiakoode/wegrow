@@ -26,7 +26,24 @@ const getallBlog = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const getBlogSlug = asyncHandler(async (req, res) => {
+  const { slug } = req.params;
+  // validateMongoDbId(id);
+  try {
+    const getaBlog = await Blog.findOne(slug).populate("blogcategory");
+    const message={
+      "status":"success",
+      "message":"Data deleted sucessfully",
+      "data":getaBlog
+    }
+    res.json(message);
+   //res.json(getaBlog);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   getBlog,
   getallBlog,
+  getBlogSlug
 };
