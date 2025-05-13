@@ -194,6 +194,7 @@ useEffect(() => {
         className="form-control"
         id="keywordSelect"
         name="keyword"
+        placeholder="Search Your Properties"
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
       />
