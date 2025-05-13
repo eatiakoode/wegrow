@@ -66,7 +66,7 @@ const Blogs = () => {
           </div> */}
           <div className="for_blog feat_property">
               <div className="thumb">
-                <Link href={`/blog-details/${item._id}`}>
+                <Link href={`/blog-detail/${item.slug}`}>
                   <Image
                     width={343}
                     height={220}
@@ -87,7 +87,7 @@ const Blogs = () => {
               <div className="details">
                 <div className="tc_content">
                   <h4 className="mb15">
-                    <Link href={`/blog-detail/${item._id}`}>{item.title}</Link>
+                    <Link href={`/blog-detail/${item.slug}`}>{item.title}</Link>
                   </h4>
                   <ul className="bpg_meta mb10">
                     <li className="list-inline-item">
@@ -120,10 +120,10 @@ const Blogs = () => {
                       </a>
                     </li> */}
                     <li className="list-inline-item">
-                      <a  href={`/blog-detail/${item._id}`}>{item.source}</a>
+                      <a  href={`/blog-detail/${item.slug}`}>{item.source}</a>
                     </li>
                   </ul>
-                  <a className="fp_pdate float-end text-thm"  href={`/blog-detail/${item._id}`}>
+                  <a className="fp_pdate float-end text-thm"  href={`/blog-detail/${item.slug}`}>
                     Read More <span className="flaticon-next"></span>
                   </a>
                 </div>

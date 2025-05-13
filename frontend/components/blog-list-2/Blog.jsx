@@ -26,7 +26,7 @@ const Blog = () => {
         <div className="col-lg-6" key={item.id}>
           <div className="for_blog feat_property">
             <div className="thumb">
-              <Link href={`/blog-details/${item._id}`}>
+              <Link href={`/blog-details/${item.slug}`}>
                 <Image
                   width={343}
                   height={220}
@@ -48,7 +48,7 @@ const Blog = () => {
             <div className="details">
               <div className="tc_content">
                 <h4 className="mb15">
-                <Link href={`/blog-details/${item._id}`}>{item.title}</Link>
+                <Link href={`/blog-details/${item.slug}`}>{item.title}</Link>
                 </h4>
                 <ul className="bpg_meta mb10">
                   <li className="list-inline-item">

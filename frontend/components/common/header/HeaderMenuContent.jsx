@@ -415,7 +415,7 @@ useEffect(() => {
         </a>
       </li>
       <li className={`list-inline-item add_listing ${float}`}>
-        <a href="#">
+        <a href="/sell-your-property">
           <span className="dn-lg"> Sell your Property</span>
         </a>
       </li>

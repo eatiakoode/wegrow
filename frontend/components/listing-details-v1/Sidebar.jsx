@@ -33,7 +33,7 @@ const Sidebar = ({property}) => {
         <div className="sidebar_advanced_search_widget">
           <div className="sl_creator">
             <h4 className="mb25">Request a Quote</h4>
-            <ListingCreator />
+            <ListingCreator property={property} />
           </div>
           <ContactWithAgent property={property}/>
         </div>

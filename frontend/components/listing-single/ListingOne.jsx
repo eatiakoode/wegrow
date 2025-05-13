@@ -33,10 +33,10 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
                 <p>{property.cityid?.title}, {property.locationid?.title} {property.address}</p>
               </div>
               <div>
-                <a href="tel:+917421922000" className="circle-shape text-dark d-inline-block me-2">
+                <a href={`tel:${property?.sellerphone}`} className="circle-shape text-dark d-inline-block me-2">
                   <span className="flaticon-telephone"></span>
                 </a>
-                <a href="mailto:Info@wegrowinfraventures.com" class="circle-shape text-dark d-inline-block">
+                <a href={`mailto:${property?.selleremail}`} class="circle-shape text-dark d-inline-block">
                   <span class="flaticon-black-back-closed-envelope-shape"></span>
                 </a>
               </div>

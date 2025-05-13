@@ -16,8 +16,8 @@ const Hero = () => {
       <div className="mouse_scroll">
         <a href="#feature-property">
           <div className="icon">
-            <h4>Scroll Down</h4>
-            <p>to discover more</p>
+            {/* <h4>Scroll Down</h4>
+            <p>to discover more</p> */}
           </div>
           <div className="thumb">
             <Image

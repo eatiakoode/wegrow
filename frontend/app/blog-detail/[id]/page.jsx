@@ -94,7 +94,7 @@ useEffect(() => {
                       </a>
                     </li> */}
                     <li className="list-inline-item">
-                      <a href={`/blog-detail/${blog._id}`}>{blog.source}</a>
+                      <a href={`/blog-detail/${blog.slug}`}>{blog.source}</a>
                     </li>
                     <li className="list-inline-item">
                       <span className="flaticon-calendar"></span>
