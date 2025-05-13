@@ -14,10 +14,10 @@ const index = () => {
         // const router = useRouter();
       
         const fetchFaqs = async () => {
-          const data = await getFaqTableData();
+          const result = await getFaqTableData();
           console.log("faqdata")
           console.log(data)
-          setFaqs(data.data);
+          setFaqs(result.data);
         };
         useEffect(() => {
             fetchFaqs();

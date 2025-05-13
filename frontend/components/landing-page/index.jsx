@@ -1,18 +1,40 @@
+'use client'
+
 import Image from "next/image";
+import { useEffect, useState } from 'react';
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import Header from "../common/headerland/DefaultHeader";
 import MobileMenu from "../common/headerland/MobileMenu";
+import LandFeaturedProperties from "./LandFeaturedProperties";
+import Amenities from "./Amenities";
 import Partners from "../common/Partners";
+import Blogs from "../common/Blogs";
 import PopupSignInUp from "../common/PopupSignInUp";
-import WhyChoose from "../common/WhyChoose";
+// import WhyChoose from "../common/WhyChoose";
+import FaqContent from "./FaqContent";
+import { getFaqTableData } from "@/api/frontend/faq";
 import Testimonial from "../common/Testimonial";
 import BreadCrumbBanner from "./BreadCrumbBanner";
 // import Team from "./Team";
 // import OurMission from "./OurMission";
 
 const index = () => {
+  const [faqs, setFaqs] = useState([]);
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const data = await getFaqTableData();
+        setFaqs(data.data);
+      } catch (error) {
+        console.error('Failed to fetch FAQs:', error);
+      }
+    };
+
+    fetchFaqs();
+  }, []);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -26,117 +48,178 @@ const index = () => {
 
       {/* <!-- Inner Page Breadcrumb --> */}
       <BreadCrumbBanner />
-
+      {/* <section id="about">...</section>
+      <section id="property">...</section>
+      <section id="residential">...</section>
+      <section id="commercial">...</section>
+      <section id="blogs">...</section>
+      <section id="faq">...</section>
+      <section id="news">...</section>
+      <section id="contact">...</section> */}
+      
       {/* <!-- About Text Content --> */}
-      <section className="about-section">
+      <section id="about" className="para-land aboutland about-section scroll-mt-80px border-btm">
         <div className="container">
           <div className="row">
             <div className="col-lg-7 col-xl-6">
               <div className="main-title text-left">
                 {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
                 <h2 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h2> */}
+                <h3 className="mt0">About Us</h3>
                 <h2 className="mt0 color-main">Our Mission is to Help You Find Your Dream Home</h2>
                 {/* <h2 className="mt0">From the Founders' Desk</h2> */}
-                At FindHouse, we believe your home is more than just a place—it's where your story begins. Whether you're buying, renting, or investing, our mission is to connect you with the perfect property that fits your lifestyle, goals, and future.
-
-                From modern city apartments to spacious family homes and luxurious retreats, we offer a curated selection of listings backed by trusted real estate professionals who guide you every step of the way.
-
-                Start exploring today and experience a seamless, stress-free journey to your next home. Your dream property is just a click away.
-                
+                <p>At FindHouse, we believe your home is more than just a place—it's where your story begins. Whether you're buying, renting, or investing, our mission is to connect you with the perfect property that fits your lifestyle, goals, and future.
+                </p>
+                <p>From modern city apartments to spacious family homes and luxurious retreats, we offer a curated selection of listings backed by trusted real estate professionals who guide you every step of the way.</p>
+                <p>Start exploring today and experience a seamless, stress-free journey to your next home. Your dream property is just a click away.</p>
               </div>
             </div>
-          </div>
-          {/* End .row */}
-
-          <div className="row">
-            <div className="col-lg-7 col-xl-6">
-                <div className="about_content">
-                  <h2 className="mt0 color-main">About Ankit Goyat</h2>
-                  <h4 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h4>
-                  <p>
-                  At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
-                  </p>
-                  <p>
-                  At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
-                  </p>
-                  <p>
-                  At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
-                  </p>
-                  <p>
-                  At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
-                  </p>
-
-                  {/* <ul className="ab_counting">
-                    {missionContent.map((item) => (
-                      <li className="list-inline-item" key={item.id}>
-                        <div className="about_counting">
-                          <div className="icon">
-                            <span className={`${item.icon}`}></span>
-                          </div>
-                          <div className="details">
-                            <h3>{item.number}</h3>
-                            <p>{item.meta}</p>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul> */}
-                  {/* End .ab_counting */}
-                </div>
-              </div>
-              <div className="col-lg-5 col-xl-5 offset-xl-1 ms-auto">
-                <div className="about_thumb">
-                  <Image
-                    width={461}
-                    height={750}
+             <div className="col-lg-5 col-xl-6">
+              <div className="main-title text-left">
+               <Image
+                    width={768}
+                    height={512}
                     priority
                     className="w100 cover"
-                    src="/assets/images/about/head.webp"
-                    alt="1.jpg"
+                    src="/assets/images/hotproperties/1.webp"
+                    alt="image" class="img-fluid"
                   />
-                  {/* <PopupVideo /> */}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+          {/* End .row */}
+
+         <section id="amenities" className="amenityland property-city scroll-mt-80px border-btm">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6 offset-lg-3">
+                  <div className="main-title text-center">
+                    <h2>Amenities</h2>
+                    <p>Facilities You Don’t Want To Miss Out On</p>
+                  </div>
                 </div>
               </div>
-          </div>
-          {/* End .row */}
+              {/* End .row */}
 
-          <div className="row mt80">
-            <div className="col-lg-6 offset-lg-3">
-              <div className="main-title text-center">
-                <h2>Why Choose Us</h2>
-                <p>We provide full service at every step.</p>
+              <div className="row">
+                <Amenities />
+              </div>
+              {/* End .row */}
+            </div>
+          </section>
+
+          <section id="gallery" className="feature-property-home6 scroll-mt-80px">
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="main-title mb40">
+                      <h2>Gallery</h2>
+                      {/* <p>
+                        Handpicked properties by our team.{" "}
+                        <a className="float-end" href="#">
+                          View All <span className="flaticon-next"></span>
+                        </a>
+                      </p> */}
+                    </div>
+                  </div>
+                  {/* End .col */}
+                </div>
+                {/* End .row */}
+              </div>
+              {/* End .container */}
+
+              <div className="feature_property_home6_slider ">
+                <div className="container ml--xxl-0">
+                  <div className="gutter-x15">
+                    <LandFeaturedProperties />
+                  </div>
+                </div>
+              </div>
+          </section>
+          {/* <!-- Our Blog --> */}
+          <section id="blogs" className="our-blog scroll-mt-80px">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6 offset-lg-3">
+                  <div className="main-title text-center">
+                    <h2>News & Blogs</h2>
+                    <p>All the Latest from the Real Estate World at Your Fingertips.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <Blogs />
               </div>
             </div>
-          </div>
+          </section>
           {/* End .row */}
 
-          <div className="row">
-            <WhyChoose />
-          </div>
-          {/* End .row */}
-        </div>
-      </section>
+          {/* <!-- Our Testimonials --> */}
+          <section className="our-testimonial home5">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6 offset-lg-3">
+                  <div className="main-title text-center mb20">
+                    <h2 className="color-white">Testimonials</h2>
+                    <p className="color-white">Here could be a nice sub title</p>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-6 offset-lg-3">
+                  <div className="testimonial_grid_slider style2 gutter-x15">
+                    <Testimonial />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* <section id="why-chose" className="whychose_us bgc-f7 pb30">
+            <div className="container">
+              <div className="row mt80">
+                <div className="col-lg-6 offset-lg-3">
+                  <div className="main-title text-center">
+                    <h2>Why Choose Us</h2>
+                    <p>We provide full service at every step.</p>
+                  </div>
+                </div>
+              </div>
+             
 
-      {/* <!-- Our Testimonials --> */}
-      <section className="our-testimonial home5">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6 offset-lg-3">
-              <div className="main-title text-center mb20">
-                <h2 className="color-white">Testimonials</h2>
-                <p className="color-white">Here could be a nice sub title</p>
+              <div className="row">
+                <WhyChoose />
               </div>
+              
             </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-6 offset-lg-3">
-              <div className="testimonial_grid_slider style2 gutter-x15">
-                <Testimonial />
+          </section> */}
+          <section className="our-faq bgc-f7">
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6 offset-lg-3">
+                  <div className="main-title text-center">
+                    <h2 className="mt0">Frequently Asked Questions</h2>
+                  </div>
+                </div>
               </div>
+              {/* End .row */}
+
+              <div className="row">
+                <div className="col-lg-10 offset-lg-1">
+                  <div className="faq_content">
+                    <div className="faq_according">
+                      <FaqContent faqs={faqs}/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* End .row */}
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+       
+
+      
 
       {/* <!-- Our Partners --> */}
       <section id="our-partners" className="our-partners">

@@ -15,17 +15,12 @@ const Hero = () => {
 
       <div className="mouse_scroll">
         <a href="#feature-property">
-          <div className="icon">
+          {/* <div className="icon">
             <h4>Scroll Down</h4>
             <p>to discover more</p>
-          </div>
+          </div> */}
           <div className="thumb">
-            <Image
-              width={21}
-              height={35}
-              src="/assets/images/resource/mouse.png"
-              alt="mouse.png"
-            />
+            <i class="flaticon-download-arrow"></i>
           </div>
         </a>
       </div>
