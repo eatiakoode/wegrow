@@ -19859,26 +19859,10 @@ button.gm-ui-hover-effect:focus {
     top: auto;
     right: 20px;
     left: auto;
-    z-index: 1;
+    z-index: 9;
     width: 600px;
     max-width: 100%;
-    padding-bottom: 90px;
-}
-.compare_section{
-  display: flex;
-}
-.countcompare{
-    position: relative;
-    bottom: -70px;
-    background-color: #000000;
-    display: inline-block;
-    padding: 10px;
-    border-radius: 10px;
-    float: right;
-
-}
-.countcompare a{
-    color: #ffffff;
+    padding-bottom: 70px;
 }
 .compare_section{
   background-color: #ffffff;
@@ -19887,7 +19871,30 @@ button.gm-ui-hover-effect:focus {
   bottom: -50px;
   border-radius: 10px;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.09);
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
 }
 .compare_section>.item{
   height: fit-content;
 }
+.compare_section.d-flex {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.countcompare{
+    position: relative;
+    bottom: -50px;
+    background-color: #000000;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    float: right;
+    margin-right: -12px;
+}
+.countcompare a{
+    color: #ffffff;
+}
+

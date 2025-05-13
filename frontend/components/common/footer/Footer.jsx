@@ -128,6 +128,11 @@ const Footer = ({  setPropertycompare }) => {
       </div>
       <div className="compare_properties"
       >
+        <div
+    className="compare_wrapper"
+    onMouseEnter={() => setShowBox(true)}
+    onMouseLeave={() => setShowBox(false)}
+  >
             <div className={`compare_section row ${showBox ? 'd-flex' : 'd-none'}`}>
 
             {properties.map((item, index) => (
@@ -161,9 +166,8 @@ const Footer = ({  setPropertycompare }) => {
           
             </div>
             <div className="countcompare"
-            onMouseEnter={() => setShowBox(true)}
-      onMouseLeave={() => setShowBox(false)}
             ><Link href={`/compare`} className="countcomparelink"> Compare ({propertycompare?.length || 0})</Link></div>
+      </div>
       </div>
     </>
   );
