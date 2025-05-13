@@ -23,7 +23,7 @@ const Header = () => {
     >
       <div className="container-fluid p0">
         {/* Logo */}
-        <a className="navbar_brand float-start dn-smd" href="#home">
+        <a className="navbar_brand float-start dn-smd" href="javascript:void(0)">
           <Image
             width={170}
             height={65}
@@ -48,13 +48,18 @@ const Header = () => {
             data-menu-style="horizontal"
           >
             <li className="dropitem">
-              <a href="#home" className="ui-active">
+              <a href="#homein" className="ui-active scroll-mt-80px">
                 <span className="title">Home</span>
               </a>
             </li>
             <li className="dropitem">
               <a href="#about">
                 <span className="title">About Us</span>
+              </a>
+            </li>
+            <li className="last">
+              <a href="#amenities">
+                <span className="title">Amenities</span>
               </a>
             </li>
             <li className="dropitem">
@@ -86,11 +91,6 @@ const Header = () => {
                 <span className="title">Faq</span>
               </a>
             </li>
-            <li className="last">
-              <a href="#news">
-                News &amp; Insights
-              </a>
-            </li>
             <li className="list-inline-item border_listing">
               <a href="tel:+917421922000">
                 <span className="flaticon-telephone"></span>
@@ -103,7 +103,7 @@ const Header = () => {
             </li>
             <li className="list-inline-item add_listing">
               <a href="#contact">
-                <span className="flaticon-calendar"></span>
+                <span className="flaticon-calendar pe-1"></span>
                 <span className="dn-lg">Setup a Meeting</span>
               </a>
             </li>

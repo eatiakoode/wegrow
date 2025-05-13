@@ -421,7 +421,7 @@ useEffect(() => {
       </li>
       <li className={`list-inline-item add_listing ${float}`}>
         <a href="/contact">
-          <span className="flaticon-calendar"></span>
+          <span className="flaticon-calendar pe-1"></span>
           <span className="dn-lg"> Setup a Meeting</span>
         </a>
       </li>

@@ -7,9 +7,10 @@ import { getPropertyCompareData } from "@/api/frontend/property";
 import Image from "next/image";
 import { useCompare } from "@/components/common/footer/CompareContext";
 
-const Footer = ({  setPropertycompare, showBox }) => {
+const Footer = ({  setPropertycompare }) => {
    const [properties, setProperties] = useState([]);
    const { propertycompare } = useCompare();
+   const [showBox, setShowBox] = useState(false);
   //  const [propertycompare, setPropertycompare] = useState(() => {
   //   if (typeof window !== "undefined") {
   //     const stored = localStorage.getItem("propertycompare");
@@ -125,17 +126,18 @@ const Footer = ({  setPropertycompare, showBox }) => {
           <SubscribeForm />
         </div>
       </div>
+      <div className="compare_properties"
+      >
+            <div className={`compare_section row ${showBox ? 'd-flex' : 'd-none'}`}>
 
-      <div className={`compare_section row ${showBox ? 'd-block' : 'd-none'}`}>
-
-      {properties.map((item, index) => (
-        <div className="item col-lg-3" key={item._id}>
-         <a href="#" onClick={(e) => {
-            e.preventDefault();
-            deleteCompareProperty(item._id);
-          }}>
-            <span className="flaticon-close"></span>
-          </a>
+            {properties.map((item, index) => (
+              <div className="item col-4" key={item._id}>
+              <a href="#" onClick={(e) => {
+                  e.preventDefault();
+                  deleteCompareProperty(item._id);
+                }}>
+                  <span className="flaticon-close"></span>
+                </a>
 
           <Image
                       width={343}
@@ -154,11 +156,15 @@ const Footer = ({  setPropertycompare, showBox }) => {
             </Link>
             <p className="text-thm">{item.propertytypeid?.title}</p>
 
-        </div>
-      ))}
-     
+              </div>
+            ))}
+          
+            </div>
+            <div className="countcompare"
+            onMouseEnter={() => setShowBox(true)}
+      onMouseLeave={() => setShowBox(false)}
+            ><Link href={`/compare`} className="countcomparelink"> Compare ({propertycompare?.length || 0})</Link></div>
       </div>
-      <div className="countcompare"><Link href={`/compare`} className="countcomparelink"> Compare ({propertycompare?.length || 0})</Link></div>
     </>
   );
 };
