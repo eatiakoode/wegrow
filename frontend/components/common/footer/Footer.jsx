@@ -7,10 +7,12 @@ import { getPropertyCompareData } from "@/api/frontend/property";
 import Image from "next/image";
 import { useCompare } from "@/components/common/footer/CompareContext";
 
-const Footer = ({  setPropertycompare }) => {
+const Footer = ({  setPropertycomparec,showBox,setShowBox }) => {
    const [properties, setProperties] = useState([]);
-   const { propertycompare } = useCompare();
-   const [showBox, setShowBox] = useState(false);
+  //  const { propertycompare } = useCompare();
+  const { propertycompare, setPropertycompare } = useCompare();
+
+  //  const [showBox, setShowBox] = useState(false);
   //  const [propertycompare, setPropertycompare] = useState(() => {
   //   if (typeof window !== "undefined") {
   //     const stored = localStorage.getItem("propertycompare");
@@ -134,7 +136,11 @@ const Footer = ({  setPropertycompare }) => {
     onMouseLeave={() => setShowBox(false)}
   >
             <div className={`compare_section row ${showBox ? 'd-flex' : 'd-none'}`}>
-
+            {properties.length !== 0 ? (
+              ""
+            ) : (
+              <span className="text-danger">Add for compare</span>
+            )}
             {properties.map((item, index) => (
               <div className="item col-4" key={item._id}>
               <a href="#" onClick={(e) => {
@@ -159,13 +165,13 @@ const Footer = ({  setPropertycompare }) => {
             <Link href={`/property-detail/${item.slug}`} className="fp_price">
               {item.price}
             </Link>
-            <p className="text-thm">{item.propertytypeid?.title}</p>
+            <p className="text-thm">{item.title}</p>
 
               </div>
             ))}
           
             </div>
-            <div className="countcompare"
+            <div className={`countcompare ${properties.length>0 ? 'd-flex' : 'd-none'}`}
             ><Link href={`/compare`} className="countcomparelink"> Compare ({propertycompare?.length || 0})</Link></div>
       </div>
       </div>

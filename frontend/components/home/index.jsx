@@ -218,7 +218,7 @@ const Index = () => {
             <Footer 
             // propertycompare={propertySelectedComp}
         showBox={showBox}
-        setPropertycompare={setPropertySelectedComp}  />
+        setPropertycompare={setPropertySelectedComp}  setShowBox={setShowBox}/>
           </div>
         </div>
       </section>
