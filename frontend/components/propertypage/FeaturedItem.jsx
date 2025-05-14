@@ -38,24 +38,24 @@ const FeaturedItem = () => {
   // };
 
   // status handler
-  const statusHandler = (item) =>
-    item.type.toLowerCase().includes(status.toLowerCase());
+  // const statusHandler = (item) =>
+  //   item.type.toLowerCase().includes(status.toLowerCase());
 
   // properties handler
-  const propertiesHandler = (item) =>
-    item.type.toLowerCase().includes(propertyType.toLowerCase());
+  // const propertiesHandler = (item) =>
+  //   item.type.toLowerCase().includes(propertyType.toLowerCase());
 
-  // price handler
-  const priceHandler = (item) =>
-    item.price < price?.max && item.price > price?.min;
+  // // price handler
+  // const priceHandler = (item) =>
+  //   item.price < price?.max && item.price > price?.min;
 
-  // bathroom handler
-  const bathroomHandler = (item) => {
-    if (bathrooms !== "") {
-      return item.itemDetails[1].number == bathrooms;
-    }
-    return true;
-  };
+  // // bathroom handler
+  // const bathroomHandler = (item) => {
+  //   if (bathrooms !== "") {
+  //     return item.itemDetails[1].number == bathrooms;
+  //   }
+  //   return true;
+  // };
 
   // bedroom handler
   const bedroomHandler = (item) => {
@@ -124,18 +124,18 @@ const FeaturedItem = () => {
   let content = properties
     ?.slice(30, 36)
     ?.filter(keywordHandler)
-    ?.filter(locationHandler)
-    ?.filter(statusHandler)
-    ?.filter(propertiesHandler)
-    ?.filter(priceHandler)
-    ?.filter(bathroomHandler)
-    ?.filter(bedroomHandler)
-    ?.filter(garagesHandler)
-    ?.filter(builtYearsHandler)
-    ?.filter(areaHandler)
-    ?.filter(advanceHandler)
-    ?.sort(statusTypeHandler)
-    ?.filter(featuredHandler)
+    // ?.filter(locationHandler)
+    // ?.filter(statusHandler)
+    // ?.filter(propertiesHandler)
+    // ?.filter(priceHandler)
+    // ?.filter(bathroomHandler)
+    // ?.filter(bedroomHandler)
+    // ?.filter(garagesHandler)
+    // ?.filter(builtYearsHandler)
+    // ?.filter(areaHandler)
+    // ?.filter(advanceHandler)
+    // ?.sort(statusTypeHandler)
+    // ?.filter(featuredHandler)
     .map((item) => (
       <div className="col-md-6 col-lg-6" key={item.id}>
         <div className="properti_city home6">
