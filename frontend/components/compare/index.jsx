@@ -54,8 +54,8 @@ const index = () => {
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
-                <h2>Compare Listings</h2>
-                <p>We provide full service at every step</p>
+                <h2>Compare Properties</h2>
+                <p>Comprehensive support at every stage of your journey</p>
               </div>
             </div>
           </div>
@@ -67,21 +67,21 @@ const index = () => {
                     <ul className="mc_child_list one">
                       <li>
                         <div className="membership_header dn"></div>
-                      </li>
+                      </li>                      
                       <li>City</li>
+                      <li>Size</li>
                       <li>Beds</li>
-                      <li>Rooms</li>
-                      <li>Garage</li>
+                      <li>Parking</li>
                       <li>Year of build</li>
+                      <li>Amenities</li>
                       {/* <li>Laundry Room</li> */}
                       <li>Status</li>
                     </ul>
                   </li>
                   <ComparePricing 
                 // propertySelectedComp={propertySelectedComp}
-        setPropertySelectedComp={setPropertySelectedComp}
-        setShowBox={setShowBox}/>
-                 
+                    setPropertySelectedComp={setPropertySelectedComp}
+                    setShowBox={setShowBox}/>
                 </ul>
                 {/* End .mc_parent_list */}
               </div>
@@ -104,7 +104,7 @@ const index = () => {
           <Footer 
             // propertycompare={propertySelectedComp}
         showBox={showBox}
-        setPropertycompare={setPropertySelectedComp}  />
+        setPropertycompare={setPropertySelectedComp} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

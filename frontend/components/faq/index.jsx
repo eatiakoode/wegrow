@@ -10,6 +10,7 @@ import { getFaqTableData } from "@/api/frontend/faq";
 import { useState, useEffect } from "react";
 
 const index = () => {
+  const [showBox, setShowBox] = useState(false);
   const [faqs, setFaqs] = useState([]);
         // const router = useRouter();
       
@@ -65,7 +66,7 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

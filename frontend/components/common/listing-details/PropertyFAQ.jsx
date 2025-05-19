@@ -2,25 +2,25 @@
 import { getFaqByPropertyIdData } from "@/api/frontend/faq";
 import { useState, useEffect } from "react";
 
-const PropertyFAQ = ({ property }) => {
-  const [faqs, setFaqs] = useState([]);
+const PropertyFAQ = ({ faqs }) => {
+  // const [faqs, setFaqs] = useState([]);
 
-  const fetchFaqs = async (id) => {
-    try {
-      const data = await getFaqByPropertyIdData(id);
-      console.log(" faq data")
-      console.log(data)
-      setFaqs(data.data);
-    } catch (error) {
-      console.error("Error fetching FAQs:", error);
-    }
-  };
+  // const fetchFaqs = async (id) => {
+  //   try {
+  //     const data = await getFaqByPropertyIdData(id);
+  //     console.log(" faq data")
+  //     console.log(data)
+  //     setFaqs(data.data);
+  //   } catch (error) {
+  //     console.error("Error fetching FAQs:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (property?._id) {
-      fetchFaqs(property._id);
-    }
-  }, [property?._id]);
+  // useEffect(() => {
+  //   if (property?._id) {
+  //     fetchFaqs(property._id);
+  //   }
+  // }, [property?._id]);
   return (
     <div className="accordion" id="accordionExample">
       {faqs?.slice(0, 38).map((singleItem,index) => (

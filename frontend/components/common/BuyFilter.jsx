@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { getCityWithLocation} from "@/api/frontend/city";
+import { getCityWithPropertyPage} from "@/api/frontend/city";
 
 const locations = {
   "Find Properties in Dubai": [
@@ -32,7 +32,7 @@ const BuyFilter = ({ className = "" }) => {
    useEffect(() => {
         const fetchCities = async () => {
           try {
-            const response = await getCityWithLocation();
+            const response = await getCityWithPropertyPage();
             // console.log("responsecitylocation")
             // console.log(response)
             setCities(response.data || []);
@@ -52,7 +52,7 @@ const BuyFilter = ({ className = "" }) => {
 
   const handleRedirect = (place) => {
     // Redirect with query or state as needed
-    router.push(`/property-list?location=${(place)}`);
+    router.push(`/propertypage/${(place)}`);
   };
 
   return (
@@ -80,14 +80,14 @@ const BuyFilter = ({ className = "" }) => {
           {activeAccordion === city._id && (
             <div className="accordion-body p-3">
               <ul className="list-unstyled">
-                {city.locations.map((place, idx) => (
+                {city.propertypages.map((place, idx) => (
                   <li
                     key={idx}
                     className="mb-2 cursor-pointer"
-                    onClick={() => handleRedirect(place._id)}
+                    onClick={() => handleRedirect(place.slug)}
                     style={{ cursor: "pointer" }}
                   >
-                 Property in {place.title}
+                  {place.title}
                   </li>
                 ))}
               </ul>

@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import findProperties from "../../data/findProperties";
+// import findProperties from "../../data/findProperties";
 import Image from "next/image";
 import { countPropertiesByCity } from "../../api/frontend/city";
 

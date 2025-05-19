@@ -56,6 +56,7 @@ const [selectedBuilder, setSelectedBuilder] = useState("");
 const [amenities, setAmenities] = useState([]);
 const [selectedAmenity, setSelectedAmenity] = useState("");
 const [status, setStatus] = useState("");
+const [adminapprove, setAdminApprove] = useState("");
 
 
 const [constructionstatus, setConstructionstatus] = useState([]);
@@ -187,6 +188,7 @@ useEffect(() => {
             setMetaDescription(data.data.metadescription)
 
             setStatus(data.data.status)
+            setAdminApprove(data.data.admin_approve)
 
 
             
@@ -386,7 +388,8 @@ const updateProperty = async (e) => {
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
       nearby, sellername, selleremail, sellerphone, 
-      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status
+      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status,
+      admin_approve:adminapprove
     };
     
     
@@ -1110,20 +1113,36 @@ const updateProperty = async (e) => {
           
         </div>
         <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Status</label>
-          <select
-  className="selectpicker form-select"
-  data-live-search="true"
-  data-width="100%"
-  value={status ? "active" : "deactive"}
-  onChange={(e) => setStatus(e.target.value === "active")}
->
-        <option value="active">Active</option>
-        <option value="deactive">Deactive</option>
-      </select>
+          <div className="my_profile_setting_input ui_kit_select_search form-group">
+            <label>Status</label>
+            <select
+                className="selectpicker form-select"
+                data-live-search="true"
+                data-width="100%"
+                value={status ? "active" : "deactive"}
+                onChange={(e) => setStatus(e.target.value === "active")}
+              >
+              <option value="active">Active</option>
+              <option value="deactive">Deactive</option>
+            </select>
+          </div>
         </div>
-      </div>
+      {/* End .col */}
+      <div className="col-lg-6 col-xl-6">
+          <div className="my_profile_setting_input ui_kit_select_search form-group">
+            <label>Approve property for sale by user</label>
+            <select
+                className="selectpicker form-select"
+                data-live-search="true"
+                data-width="100%"
+                value={adminapprove ? "active" : "deactive"}
+                onChange={(e) => setAdminApprove(e.target.value === "active")}
+              >
+              <option value="active">Active</option>
+              <option value="deactive">Deactive</option>
+            </select>
+          </div>
+        </div>
       {/* End .col */}
 
       {/* End .col */}

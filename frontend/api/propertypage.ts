@@ -122,6 +122,7 @@ const token =userData.token
 
     // const token =process.env.NEXT_PUBLIC_TOKEN;
     const userData = JSON.parse(localStorage.getItem("user"));
+    console.log("userData.name");
 console.log(userData.name);
 // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 // // console.log("token")
@@ -134,10 +135,12 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/propertypage/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(propertypage),
+      // body: JSON.stringify(propertypage),
+      body: propertypage,
+
     });
   
     if (!response.status) {

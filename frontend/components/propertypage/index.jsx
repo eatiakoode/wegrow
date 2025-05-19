@@ -1,4 +1,7 @@
+'use client'
 
+// import Image from "next/image";
+import { useEffect, useState } from 'react';
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
@@ -8,9 +11,67 @@ import PopupSignInUp from "../common/PopupSignInUp";
 import BreadCrumbBanner from "./BreadCrumbBanner";
 import FeaturedItem from "./FeaturedItem";
 
+import { getPropertyPageBySlug } from "@/api/frontend/propertypage";
+
+import { getPropertyListbyPropertypage } from "@/api/frontend/property";
+
 import Image from "next/image";
 
-const index = () => {
+const ListingDynamicDetailsproperty = ({params}) => {
+  // alert("test")
+  const [showBox, setShowBox] = useState(false);
+  const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
+    if (typeof window !== "undefined") {
+
+      const stored = localStorage.getItem("propertycompare");
+      console.log("stored")
+      console.log(stored)
+      if (stored !== "undefined") {
+
+      return stored ? JSON.parse(stored) : [];
+      }
+    }
+    return [];
+  });
+  
+    
+    const id = params.id;
+     const [propertypage, setPropertyPage] = useState("");
+     const [properties, setProperties] = useState("");
+    // const blog = blogs.find((item) => item.id == id) ||  blogs[0]
+  
+  useEffect(() => {
+    // alert(id)   
+        if (!id) return;  
+         
+        const fetchPropertyPage = async () => {
+          try {
+            const data = await getPropertyPageBySlug(id);
+            console.log("PropertyPage data")
+            console.log(data)
+            setPropertyPage(data.data)
+           
+          } catch (error) {
+            console.error("Error fetching PropertyPage:", error);
+          } finally {
+            // setLoading(false);
+          }
+        };
+    
+        fetchPropertyPage();
+        const fetchData = async () => {
+          try {
+            const res = await getPropertyListbyPropertypage(id);
+console.log("res")
+console.log(res)
+            setProperties(res || []);
+          } catch (error) {
+            console.error("Error fetching property types:", error);
+          }
+        };
+    
+        fetchData();
+      }, [id]);
   
   return (
     <>
@@ -24,44 +85,39 @@ const index = () => {
       <PopupSignInUp />
 
       {/* <!-- Inner Page Breadcrumb --> */}
-      <BreadCrumbBanner />
+      <BreadCrumbBanner propertypage={propertypage} />
 
       {/* <!-- About Text Content --> */}
-      <section id="about" className="para-land aboutland about-section scroll-mt-80px border-btm">
-             <div className="container">
+      <section id="about" className="para-land aboutland about-section scroll-mt-80px border-btm pb0 bgc-f7">
+             <div className="container contact_localtion">
                <div className="row">
-                 <div className="col-lg-7 col-xl-6">
+                 <div className="col-lg-12 col-xl-12">
                    <div className="main-title text-left">
                      {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
                      <h2 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h2> */}
-                     <h3 className="mt0">About Us</h3>
-                     <h2 className="mt0 color-main">Our Mission is to Help You Find Your Dream Home</h2>
-                     {/* <h2 className="mt0">From the Founders' Desk</h2> */}
-                     <p>At FindHouse, we believe your home is more than just a place—it's where your story begins. Whether you're buying, renting, or investing, our mission is to connect you with the perfect property that fits your lifestyle, goals, and future.
-                     </p>
-                     <p>From modern city apartments to spacious family homes and luxurious retreats, we offer a curated selection of listings backed by trusted real estate professionals who guide you every step of the way.</p>
-                     <p>Start exploring today and experience a seamless, stress-free journey to your next home. Your dream property is just a click away.</p>
-                   </div>
+                    <div dangerouslySetInnerHTML={{ __html: propertypage?.description }} />
+                    
+                    </div>
                  </div>
-                  <div className="col-lg-5 col-xl-6">
-                   <div className="main-title text-left">
-                    <Image
-                         width={768}
-                         height={512}
-                         priority
-                         className="w100 cover"
-                         src="/assets/images/hotproperties/1.webp"
-                         alt="image" class="img-fluid"
-                       />
-                   </div>
-                 </div>
+                  
                </div>
              </div>
            </section>
                {/* End .row */}
-               <div className="row">
-                <FeaturedItem/>
+               <section id="feature-property" className="feature-property bgc-f7">
+        <div className="container">
+          <div className="row">
+                    <div className="col-lg-6 offset-lg-3">
+              <div className="main-title text-center mb40">
+                <h2>Featured Properties</h2>
+                <p>Handpicked properties by our team.</p>
               </div>
+            </div>
+                <FeaturedItem setPropertySelectedComp={setPropertySelectedComp}
+        setShowBox={setShowBox} properties={properties}/>
+                    </div>
+                  </div>
+                </section>
 
      
 
@@ -76,7 +132,7 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>
@@ -91,4 +147,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default ListingDynamicDetailsproperty;

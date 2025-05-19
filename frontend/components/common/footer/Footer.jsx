@@ -7,7 +7,7 @@ import { getPropertyCompareData } from "@/api/frontend/property";
 import Image from "next/image";
 import { useCompare } from "@/components/common/footer/CompareContext";
 
-const Footer = ({  setPropertycomparec,showBox,setShowBox }) => {
+const Footer = ({  showBox,setShowBox }) => {
    const [properties, setProperties] = useState([]);
   //  const { propertycompare } = useCompare();
   const { propertycompare, setPropertycompare } = useCompare();

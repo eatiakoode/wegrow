@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useCompare } from "@/components/common/footer/CompareContext";
 
-const FeaturedItem = ({ setPropertySelectedComp, setShowBox,setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype ,propertyList,setPropertyList,setTotalCount,pageSize,currentPage}) => {
+const FeaturedItem = ({ setPropertySelectedComp, setShowBox,setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype ,propertyList,setPropertyList,setTotalCount,pageSize,currentPage,totalCount}) => {
   const [properties, setProperties] = useState([]);
   // const [propertytypeFilter, setPropertyTypeFilter] = useState("");
   const { propertycompare, setPropertycompare } = useCompare();
@@ -328,7 +328,7 @@ const FeaturedItem = ({ setPropertySelectedComp, setShowBox,setKeyword, setCity,
 
   // add length of filter items
   useEffect(() => {
-    dispatch(addLength(content?.length));
+    dispatch(addLength(totalCount));
   }, [dispatch, content]);
   // useEffect(() => {
   //   fetchProperties();

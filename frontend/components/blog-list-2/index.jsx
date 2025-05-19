@@ -1,3 +1,5 @@
+"use client"; 
+import { useEffect, useState } from "react";
 import BlogSidebar from "../common/blog/BlogSidebar";
 import Pagination from "../common/blog/Pagination";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
@@ -9,6 +11,7 @@ import BreadCrumbBlog from "./BreadCrumbBlog";
 import Blog from "./Blog";
 
 const index = () => {
+  const [showBox, setShowBox] = useState(false);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -64,7 +67,7 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

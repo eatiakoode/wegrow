@@ -55,7 +55,7 @@ const fetchProperties = async () => {
             {/* End .Featured Properties */}
 
             <div className="terms_condition_widget">
-                <h4 className="title">Categories Property</h4>
+                <h4 className="title">Property Type</h4>
                 <div className="widget_list">
                     <ul className="list_details">
                         <Categorie  propertytypesidebar={propertytypesidebar}/>

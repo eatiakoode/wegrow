@@ -61,14 +61,18 @@ const ComparePricing = ({ setPropertySelectedComp, setShowBox }) => {
               </div>
             </li>
             <li>
-              <a href={`/property-detail/${item.slug}`}>{item.city}</a>
+              <a href={`/property-detail/${item.slug}`}>{item.cityid?.title}</a>
+            </li>
+            <li>
+            {item.areasize} {item.sizeprefix}
             </li>
             <li>
               <a href={`/property-detail/${item.slug}`}>{item.bedrooms}</a>
             </li>
-            <li>
+           
+            {/* <li>
               <a href={`/property-detail/${item.slug}`}>{item.bathrooms}</a>
-            </li>
+            </li> */}
             <li>
               <a href={`/property-detail/${item.slug}`}>{item.garages}</a>
             </li>
@@ -78,6 +82,11 @@ const ComparePricing = ({ setPropertySelectedComp, setShowBox }) => {
             {/* <li>
               <a href="#">{item.laundryRoom}</a>
             </li> */}
+             <li  >
+            {item.amenityid?.map((val, i) => (
+                <span  key={i}>{val?.title}, </span>
+            ))}
+            </li>
             <li>
               <a className="btn pricing_btn" href={`/property-detail/${item.slug}`}>
               {item.furnishingstatus?.title}

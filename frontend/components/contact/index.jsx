@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
@@ -10,6 +13,8 @@ import BreadCrumbBanner from "./BreadCrumbBanner";
 import Form from "./Form";
 
 const index = () => {
+  const [showBox, setShowBox] = useState(false);
+  
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -84,7 +89,7 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

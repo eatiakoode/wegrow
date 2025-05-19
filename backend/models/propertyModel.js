@@ -241,6 +241,10 @@ var propertySchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    admin_approve: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,

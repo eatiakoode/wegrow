@@ -36,8 +36,8 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
                 <a href={`tel:${property?.sellerphone}`} className="circle-shape text-dark d-inline-block me-2">
                   <span className="flaticon-telephone"></span>
                 </a>
-                <a href={`mailto:${property?.selleremail}`} class="circle-shape text-dark d-inline-block">
-                  <span class="flaticon-black-back-closed-envelope-shape"></span>
+                <a href={`mailto:${property?.selleremail}`} className="circle-shape text-dark d-inline-block">
+                  <span className="flaticon-black-back-closed-envelope-shape"></span>
                 </a>
               </div>
                 
