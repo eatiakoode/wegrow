@@ -13,14 +13,18 @@ import { getAmenityTableData } from "../../../api/amenity";
 import { getBuilderTableData } from "../../../api/builder";
 import { getConstructionstatusTableData } from "../../../api/constructionstatus";
 import { getFurnishingstatusTableData } from "../../../api/furnishingstatus";
-import { getPropertyById, updatePropertyAPI } from "../../../api/property";
+
+import { deletePropertyImagesAPI } from "@/api/propertyimages";
+import { deletePropertyAPI, getPropertyById, updatePropertyAPI } from "../../../api/property";
 
 import selectedFiles from "../../../utils/selectedFiles";
 import Image from "next/image";
 
 
 
-const CreateList = () => {
+const CreateList = ({property}) => {
+  // console.log("property")
+  // console.log(property)
   const router = useRouter();
   const params = useParams();  
       const id = params?.id; 
@@ -56,6 +60,7 @@ const [selectedBuilder, setSelectedBuilder] = useState("");
 const [amenities, setAmenities] = useState([]);
 const [selectedAmenity, setSelectedAmenity] = useState("");
 const [status, setStatus] = useState("");
+const [adminapprove, setAdminApprove] = useState("");
 
 
 const [constructionstatus, setConstructionstatus] = useState([]);
@@ -137,76 +142,105 @@ const [constructionstatus, setConstructionstatus] = useState([]);
       const deleted = propertySelectedImgs?.filter((file) => file.name !== name);
       setPropertySelectedImgs(deleted);
     };
+
+    const deleteImageGet = async (_id) => {
+      const isConfirmed = window.confirm("Are you sure you want to delete this image?");
+      if (!isConfirmed) return;
+      
+      // const deletePropertyImages = async (id) => {
+        // const isConfirmed = window.confirm("Are you sure you want to delete this Blog?");
+        // if (!isConfirmed) return;
+    
+        try {
+          // alert("test")
+          const data = await deletePropertyImagesAPI(_id); // 🔹 Call the API function
+          // alert("test")
+          const deleted = propertySelectedImgsget?.filter((file) => file._id !== _id);
+          setPropertySelectedImgsGet(deleted);
+          //setTitle(""); // ✅ Reset input after success
+        } catch (error) {
+          alert("Failed to delete property Image.");
+          //setError(error.message); // ❌ Show error if request fails
+        }
+      // };
+      // deletePropertyImages(id)
+    };
   
 // --- Fetch Initial Data ---
 useEffect(() => {
-   if (!id) return;      
+   if (!id) return;  
+   
         const fetchProperty = async () => {
+          // alert("ttt")    
           try {
-            const data = await getPropertyById(id);
-            // console.log("data")
-            // console.log(data)
+            // const data = await getPropertyById(id);
+            console.log("data")
+            console.log(property)
             // console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
             // setBuilder({ title: data.data.title, status: data.data.status, description: data.data.description });
-            setTitle(data.data.title)
-            setSlug(data.data.slug)
-            setDescription(data.data.description)
-            setPrice(data.data.price)
-            setAddress(data.data.address)
-            setSelectedCountry(data.data.countryid)
-            setSelectedState(data.data.stateid)
-            setSelectedCity(data.data.cityid)
-            setSelectedLocation(data.data.locationid)
-            setSelectedCategory(data.data.categoryid)
-            setSelectedPropertytype(data.data.propertytypeid)
-            setSelectedBuilder(data.data.builderid)
-            setSelectedAmenity(data.data.amenityid)
-            setSelectedConstructionstatus(data.data.constructionstatus)
-            setSelectedFurnishingstatus(data.data.furnishingstatus)
-            setSelectedFeaturedProperty(data.data.featuredproperty)
-            setSelectedHotProperty(data.data.hotproperty)
-            setSelectedReraApproved(data.data.reraapproved)
-            setPropertyid(data.data.propertyid)
-            setAreasize(data.data.areasize)
-            setSizePrefix(data.data.sizeprefix)
-            setBedRooms(data.data.bedrooms)
-            setBathRooms(data.data.bathrooms)
-            setGarages(data.data.garages)
-            setGaragesSize(data.data.garagessize)
-            setYearBuild(data.data.yearbuild)
-            setMapEmbedCode(data.data.mapembedcode)
-            setVideoEmbedCode(data.data.videoembedcode)
-            setNearBy(data.data.nearby)
-            setSellerName(data.data.sellername)
-            setSellerEmail(data.data.selleremail)
-            setSellerPhone(data.data.sellerphone)
+            setTitle(property.title)
+            setSlug(property.slug)
+            setDescription(property.description)
+            setPrice(property.price)
+            setAddress(property.address)
+            setSelectedCountry(property.countryid)
+            setSelectedState(property.stateid)
+            setSelectedCity(property.cityid)
+            setSelectedLocation(property.locationid)
+            setSelectedCategory(property.categoryid)
+            setSelectedPropertytype(property.propertytypeid)
+            setSelectedBuilder(property.builderid)
+            setSelectedAmenity(property.amenityid)
+            setSelectedConstructionstatus(property.constructionstatus)
+            setSelectedFurnishingstatus(property.furnishingstatus)
+            setSelectedFeaturedProperty(property.featuredproperty)
+            setSelectedHotProperty(property.hotproperty)
+            setSelectedReraApproved(property.reraapproved)
+            setPropertyid(property.propertyid)
+            setAreasize(property.areasize)
+            setSizePrefix(property.sizeprefix)
+            setBedRooms(property.bedrooms)
+            setBathRooms(property.bathrooms)
+            setGarages(property.garages)
+            setGaragesSize(property.garagessize)
+            setYearBuild(property.yearbuild)
+            setMapEmbedCode(property.mapembedcode)
+            setVideoEmbedCode(property.videoembedcode)
+            setNearBy(property.nearby)
+            setSellerName(property.sellername)
+            setSellerEmail(property.selleremail)
+            setSellerPhone(property.sellerphone)
 
-            setZipCode(data.data.zipcode)
-            setReraNumber(data.data.reranumber)
-            setMetatitle(data.data.metatitle)
-            setMetaDescription(data.data.metadescription)
+            setZipCode(property.zipcode)
+            setReraNumber(property.reranumber)
+            setMetatitle(property.metatitle)
+            setMetaDescription(property.metadescription)
 
-            setStatus(data.data.status)
+            setStatus(property.status)
+            setAdminApprove(property.admin_approve)
 
 
             
-            if(data.data.featuredimageurl) {
-              setFeaturedImageGet(process.env.NEXT_PUBLIC_API_URL+data.data.featuredimageurl)
+            if(property.featuredimageurl) {
+              setFeaturedImageGet(process.env.NEXT_PUBLIC_API_URL+property.featuredimageurl)
             }
-            if(data.data.siteplanurl) {
-              setSitePlanGet(process.env.NEXT_PUBLIC_API_URL+data.data.siteplanurl)
+            if(property.siteplanurl) {
+              setSitePlanGet(process.env.NEXT_PUBLIC_API_URL+property.siteplanurl)
             }
             
-            setPropertySelectedImgsGet(data.data.propertyimageurl)
-            
-            const statesRes = await getStateByCountryTableData(data.data.countryid);
+            // setPropertySelectedImgsGet(data.data.propertyimageurl)
+            setPropertySelectedImgsGet(property.images)
+
+
+            // alert(property.countryid)
+            const statesRes = await getStateByCountryTableData(property.countryid);
             setStates(statesRes.data || []);
-            const cityRes = await getCityByStateTableData(data.data.stateid);
+            const cityRes = await getCityByStateTableData(property.stateid);
             setCities(cityRes.data || []);
-            const locationRes = await getLocationByCityTableData(data.data.cityid);
+            const locationRes = await getLocationByCityTableData(property.cityid);
             setLocations(locationRes.data || []);
 
-            const propertytypeRes = await getPropertytypeByCategoryTableData(data.data.categoryid);
+            const propertytypeRes = await getPropertytypeByCategoryTableData(property.categoryid);
             setPropertytypes(propertytypeRes.data || []);
             
           } catch (error) {
@@ -241,7 +275,7 @@ useEffect(() => {
     }
   };
   fetchData();
-}, [id]);
+}, [id,property]);
 
 // --- Handlers ---
 
@@ -386,7 +420,8 @@ const updateProperty = async (e) => {
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
       nearby, sellername, selleremail, sellerphone, 
-      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status
+      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status,
+      admin_approve:adminapprove
     };
     
     
@@ -886,7 +921,7 @@ const updateProperty = async (e) => {
         className="form-check-input"
         id={`customCheck_${amenity._id}`}
         value={amenity._id}
-        checked={selectedAmenity.includes(amenity._id)}
+        checked={selectedAmenity?.includes(amenity._id)}
         onChange={handleAmenityChange}
       />
       <label
@@ -1006,7 +1041,7 @@ const updateProperty = async (e) => {
             </div>
             <div className="col-lg-12">
                     <ul className="mb-0">
-                      {propertySelectedImgsget.length > 0
+                      {propertySelectedImgsget?.length > 0
                         ? propertySelectedImgsget?.map((item, index) => (
                             <li key={index} className="list-inline-item">
                               <div className="portfolio_item">
@@ -1015,11 +1050,11 @@ const updateProperty = async (e) => {
                                   height={200}
                                   className="img-fluid cover"
                                   src={
-                                    item
-                                      ? `${process.env.NEXT_PUBLIC_API_URL}${item}`
+                                    item.image
+                                      ? `${process.env.NEXT_PUBLIC_API_URL}${item.image}`
                                       : "/default-placeholder.jpg"
                                   }
-                                  alt= {`${item.title}${index + 1}${item}`}
+                                  alt= {`${item.title}${item._id}`}
                                   unoptimized
                                 />
                                 <div
@@ -1029,7 +1064,7 @@ const updateProperty = async (e) => {
                                   title="Delete"
                                   data-original-title="Delete"
                                 >
-                                  <a onClick={() => deleteImage(item.name)}>
+                                  <a onClick={() => deleteImageGet(item._id)}>
                                     <span className="flaticon-garbage"></span>
                                   </a>
                                 </div>
@@ -1110,20 +1145,36 @@ const updateProperty = async (e) => {
           
         </div>
         <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Status</label>
-          <select
-  className="selectpicker form-select"
-  data-live-search="true"
-  data-width="100%"
-  value={status ? "active" : "deactive"}
-  onChange={(e) => setStatus(e.target.value === "active")}
->
-        <option value="active">Active</option>
-        <option value="deactive">Deactive</option>
-      </select>
+          <div className="my_profile_setting_input ui_kit_select_search form-group">
+            <label>Status</label>
+            <select
+                className="selectpicker form-select"
+                data-live-search="true"
+                data-width="100%"
+                value={status ? "active" : "deactive"}
+                onChange={(e) => setStatus(e.target.value === "active")}
+              >
+              <option value="active">Active</option>
+              <option value="deactive">Deactive</option>
+            </select>
+          </div>
         </div>
-      </div>
+      {/* End .col */}
+      <div className="col-lg-6 col-xl-6">
+          <div className="my_profile_setting_input ui_kit_select_search form-group">
+            <label>Approve property for sale by user</label>
+            <select
+                className="selectpicker form-select"
+                data-live-search="true"
+                data-width="100%"
+                value={adminapprove ? "active" : "deactive"}
+                onChange={(e) => setAdminApprove(e.target.value === "active")}
+              >
+              <option value="active">Active</option>
+              <option value="deactive">Deactive</option>
+            </select>
+          </div>
+        </div>
       {/* End .col */}
 
       {/* End .col */}

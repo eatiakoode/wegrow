@@ -16,28 +16,40 @@ import ListingOne from "@/components/listing-single/ListingOne";
 
 import { getPropertyBySlug } from "@/api/frontend/property";
 
-const ListingDynamicDetailsV1 = ({params}) => {
+const ListingDynamicDetailsV12 = ({params}) => {
  
   const id = params.id;
   // const property = properties?.find((item) => item.id == id) || properties[0]
   const [property, setProperty] = useState([]);
   const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
-    if (typeof window !== "undefined") {
+    // if (typeof window !== "undefined") {
 
-      const stored = localStorage.getItem("propertycompare");
-      console.log("stored")
-      console.log(stored)
-      if (stored !== "undefined") {
+    //   const stored = localStorage.getItem("propertycompare");
+    //   console.log("stored")
+    //   console.log(stored)
+    //   if (stored !== "undefined") {
 
-      return stored ? JSON.parse(stored) : [];
-      }
-    }
-    return [];
+    //   return stored ? JSON.parse(stored) : [];
+    //   }
+    // }
+    // return [];
   });
 
   // const [showBox, setShowBox] = useState(propertySelectedComp.length > 0);
   // const [showBox, setShowBox] = useState(false);
   const [showBox, setShowBox] = useState(false);
+  const [faqs, setFaqs] = useState([]);
+
+  const fetchFaqs = async (id) => {
+    try {
+      const data = await getFaqByPropertyIdData(id);
+      console.log(" faq data")
+      console.log(data)
+      setFaqs(data.data);
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+    }
+  };
 
   useEffect(() => {
      if (!id) return;      
@@ -58,6 +70,7 @@ const ListingDynamicDetailsV1 = ({params}) => {
           };
       
           fetchProperty();
+          fetchFaqs(id)
        
   }, [id]);
 
@@ -82,7 +95,7 @@ const ListingDynamicDetailsV1 = ({params}) => {
         <div className="container">
           <div className="row">
             <div className="col-md-12 col-lg-8">
-              <DetailsContent property={property}/>
+              <DetailsContent property={property} faqs={faqs}/>
             </div>
             {/* End details content .col-lg-8 */}
 
@@ -101,8 +114,9 @@ const ListingDynamicDetailsV1 = ({params}) => {
           <div className="row">
           <Footer 
             // propertycompare={propertySelectedComp}
+            // setPropertySelectedComp={setPropertySelectedComp} 
         showBox={showBox}
-        setPropertycompare={setPropertySelectedComp}  />
+        setShowBox={setShowBox } />
           </div>
         </div>
       </section>
@@ -117,4 +131,4 @@ const ListingDynamicDetailsV1 = ({params}) => {
   );
 };
 
-export default ListingDynamicDetailsV1;
+export default ListingDynamicDetailsV12;

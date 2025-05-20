@@ -1,3 +1,5 @@
+"use client"; 
+import { useEffect, useState } from "react";
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
@@ -12,6 +14,7 @@ import Team from "./Team";
 import OurMission from "./OurMission";
 
 const index = () => {
+  const [showBox, setShowBox] = useState(false);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -134,7 +137,7 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

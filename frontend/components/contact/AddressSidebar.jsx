@@ -10,7 +10,8 @@ const AddressSidebar = () => {
       <div className="content_list">
         <h5>Address</h5>
         <p>
-        TOWER-2, DLF CORPORATE GREENS, 1205, Southern Peripheral Rd,
+        1205, DLF Corporate Greens
+        Sector 74A, Southern Peripheral Road, Gurgaon 122004
         </p>
       </div>
       <div className="content_list">

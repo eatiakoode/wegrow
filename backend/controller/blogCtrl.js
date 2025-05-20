@@ -6,6 +6,8 @@ const slugify = require("slugify");
 
 const createBlog = asyncHandler(async (req, res) => {
   try {
+    // console.log("req.body")
+    // console.log(req.body)
     if(req.files){
       const processedImages  =await blogImgResize(req);
       if (processedImages.length > 0) {
@@ -29,6 +31,8 @@ const updateBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
+    // console.log("req.body")
+    // console.log(req.body)
     
     if(req.files){
         const processedImages  =await blogImgResize(req);

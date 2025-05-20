@@ -3,7 +3,7 @@
 // import ReviewBox from "../blog-details/ReviewBox";
 import AdditionalDetails from "../common/listing-details/AdditionalDetails";
 // import Attachments from "../common/listing-details/Attachments";
-// import FloorPlans from "../common/listing-details/FloorPlans";
+import FloorPlans from "../common/listing-details/FloorPlans";
 import PropertyDescriptions from "../common/listing-details/PropertyDescriptions";
 import PropertyDetails from "../common/listing-details/PropertyDetails";
 import PropertyFeatures from "../common/listing-details/PropertyFeatures";
@@ -17,7 +17,7 @@ import WhatsNearby from "../common/listing-details/WhatsNearby";
 
 import Image from "next/image";
 
-const DetailsContent = ({property}) => {
+const DetailsContent = ({property,faqs}) => {
     return (
     <>
       <div className="listing_single_description">
@@ -62,7 +62,7 @@ const DetailsContent = ({property}) => {
       <div className="application_statics mt30">
         <div className="row">
           <div className="col-lg-12">
-            <h4 className="mb10">Features</h4>
+            <h4 className="mb10">Amenities</h4>
           </div>
           {/* End .col */}
 
@@ -83,19 +83,26 @@ const DetailsContent = ({property}) => {
         </div>
       </div>
       {/* End .location_area */}
+      {faqs.length > 0 && (
       <div className="application_statics mt30">
         <h4 className="mb30">FAQ</h4>
         <div className="faq_according style2">
-          <PropertyFAQ property={property}/>
+          <PropertyFAQ faqs={faqs}/>
         </div>
       </div>
-      {/* <div className="application_statics mt30">
+      )}
+      <div className="application_statics mt30">
         <h4 className="mb30">Floor plans</h4>
         <div className="faq_according style2">
-          <FloorPlans />
+          <FloorPlans property={property}/>
         </div>
-      </div> */}
+      </div>
       {/* End .floor_plane */}
+
+      <div className="shop_single_tab_content style2 mt30">
+      <h4 className="mb30"> Property video</h4>
+      <div dangerouslySetInnerHTML={{ __html: property?.videoembedcode }} />
+      </div>
 
       {/* <div className="shop_single_tab_content style2 mt30">
         <PropertyVideo />
@@ -130,7 +137,7 @@ const DetailsContent = ({property}) => {
         <h4 className="mb10">What&apos;s Nearby</h4>
         <div
           className={`education_distance mb15`}
-        >{property.nearby}</div>
+        ><div dangerouslySetInnerHTML={{ __html: property?.nearby }} /></div>
         {/* <WhatsNearby  property={property}/> */}
       </div>
       {/* End what's nearby area */}

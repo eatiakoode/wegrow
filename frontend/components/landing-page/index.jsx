@@ -25,6 +25,7 @@ import BannerSection from "./BannerSection";
 
 const index = () => {
   const [faqs, setFaqs] = useState([]);
+  const [showBox, setShowBox] = useState(false);
 
   useEffect(() => {
     const fetchFaqs = async () => {
@@ -428,7 +429,7 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

@@ -218,6 +218,7 @@ const handleAddressChange = (e) => {
 };
 // --- Submit ---
 const updatePropertypage = async (e) => {
+  // alert("sdbn ")
   e.preventDefault();
   const newErrors = {};
 
@@ -246,7 +247,7 @@ const updatePropertypage = async (e) => {
   });
 
   if (Object.keys(newErrors).length > 0) {
-    console.log("test")
+    // console.log("test")
     return setError(newErrors);
   }
 

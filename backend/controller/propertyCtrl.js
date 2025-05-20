@@ -4,18 +4,20 @@ const validateMongoDbId = require("../utils/validateMongodbId");
 const { featuredImageResize,sitePlanResize,propertySelectedImgsResize } = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 const slugify = require("slugify");
+const Propertyimage = require("../models/propertyimagesModel");
 
 const createProperty = asyncHandler(async (req, res) => {
   try {
     if (req.files && Object.keys(req.files).length > 0) {
-      
+      var propertySelectedImgs  =[]
       if (req.files && req.files.propertySelectedImgs && req.files.propertySelectedImgs.length > 0  && Object.keys(req.files.propertySelectedImgs).length > 0 && Array.isArray(req.files.propertySelectedImgs)) {
         console.log("no propertySelectedImgs")
-        const propertySelectedImgs  = await propertySelectedImgsResize(req);
+         propertySelectedImgs  = await propertySelectedImgsResize(req);
         if (propertySelectedImgs.length > 0) {
           // ✅ Append logo filename to req.body
           // console.log("Property Images:", propertySelectedImgs);
           req.body.propertyimageurl = propertySelectedImgs;
+          
         }
       }
      
@@ -36,7 +38,7 @@ const createProperty = asyncHandler(async (req, res) => {
 
         if (processedImagesplan.length > 0) {
           // ✅ Append logo filename to req.body
-          req.body.siteplanurl = "public/images/propertyplan/"+processedImagesplan[0];
+          req.body.siteplanurl = "public/images/siteplan/"+processedImagesplan[0];
         }
       }
     }
@@ -51,6 +53,20 @@ const createProperty = asyncHandler(async (req, res) => {
     req.body.slug  = slugify(req.body.slug.toLowerCase());
 
     const newProperty = await Property.create(req.body);
+    if (propertySelectedImgs.length > 0) {
+      // ✅ Append logo filename to req.body
+      // console.log("Property Images:", propertySelectedImgs);
+      // req.body.propertyimageurl = propertySelectedImgs;
+      for(var i=0;i<propertySelectedImgs.length;i++){
+        var propertyimage={
+          "image":propertySelectedImgs[i],
+          "propertyid":newProperty._id,
+          "title":newProperty.title
+        }
+        const newProperty = await Propertyimage.create(propertyimage);
+
+      }
+    }
     //res.json(newProperty);
     const message={
       "status":"success",
@@ -69,10 +85,10 @@ const updateProperty = asyncHandler(async (req, res) => {
    
 
     if (req.files && Object.keys(req.files).length > 0) {
-      
+      var  propertySelectedImgs  =[]
       if (req.files && req.files.propertySelectedImgs && req.files.propertySelectedImgs.length > 0  && Object.keys(req.files.propertySelectedImgs).length > 0 && Array.isArray(req.files.propertySelectedImgs)) {
         console.log("no propertySelectedImgs")
-        const propertySelectedImgs  = await propertySelectedImgsResize(req);
+         propertySelectedImgs  = await propertySelectedImgsResize(req);
         if (propertySelectedImgs.length > 0) {
           // ✅ Append logo filename to req.body
           // console.log("Property Images:", propertySelectedImgs);
@@ -97,7 +113,7 @@ const updateProperty = asyncHandler(async (req, res) => {
 
         if (processedImagesplan.length > 0) {
           // ✅ Append logo filename to req.body
-          req.body.siteplanurl = "public/images/propertyplan/"+processedImagesplan[0];
+          req.body.siteplanurl = "public/images/siteplan/"+processedImagesplan[0];
         }
       }
     }
@@ -107,9 +123,44 @@ const updateProperty = asyncHandler(async (req, res) => {
         .map((id) => new mongoose.Types.ObjectId(id.trim()));
     }
     req.body.slug  = slugify(req.body.slug.toLowerCase());
+    req.body.admin_approve = true;
+    // const getProperty = await Property.findById(id);
+    // if (getProperty.propertyimageurl?.length > 0) {
+    //   // ✅ Append logo filename to req.body
+    //   // console.log("Property Images:", propertySelectedImgs);
+    //   // req.body.propertyimageurl = propertySelectedImgs;
+    //   for(var i=0;i<getProperty.propertyimageurl?.length;i++){
+    //     var propertyimage={
+    //       "image":getProperty.propertyimageurl[i],
+    //       "propertyid":id,
+    //       "title":getProperty.title
+    //     }
+    //     const newProperty = await Propertyimage.create(propertyimage);
+
+    //   }
+    // }
+    // req.body.propertyimageurl=[];
+
     const updatedProperty = await Property.findByIdAndUpdate(id, req.body, {
       new: true,
     });
+    
+    if (propertySelectedImgs?.length > 0) {
+      // ✅ Append logo filename to req.body
+      // console.log("Property Images:", propertySelectedImgs);
+      // req.body.propertyimageurl = propertySelectedImgs;
+      for(var i=0;i<propertySelectedImgs?.length;i++){
+        var propertyimage={
+          "image":propertySelectedImgs[i],
+          "propertyid":id,
+          "title":req.body.title
+        }
+        const newProperty = await Propertyimage.create(propertyimage);
+
+      }
+    }
+    
+   
     const message={
       "status":"success",
       "message":"Data updated sucessfully",
@@ -141,10 +192,10 @@ const getProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getProperty = await Property.findById(id);
+    const getProperty = await Property.findById(id).populate('images').populate("floorplan");
     const message={
       "status":"success",
-      "message":"Data deleted sucessfully",
+      "message":"Data deleted sucessfully ii",
       "data":getProperty
     }
     res.json(message);

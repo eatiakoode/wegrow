@@ -27,6 +27,7 @@ import { getBlogBySlug } from "@/api/frontend/blog";
 // }
 
 const ListingDynamicDetailsV1 = ({params}) => {
+  const [showBox, setShowBox] = useState(false);
 
   
   const id = params.id;
@@ -136,8 +137,8 @@ useEffect(() => {
                   </div>
 
                   <div className="details">
-                 
-                    {blog?.description}
+                  <div dangerouslySetInnerHTML={{ __html: blog?.description }} />
+
                   </div>
                  
                 </div>
@@ -163,7 +164,7 @@ useEffect(() => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

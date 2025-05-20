@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 
 const index = () => {
+  
   const searchParams = useSearchParams();
   const cat = searchParams.get('cat'); 
   const key = searchParams.get('keyword'); 
@@ -189,7 +190,7 @@ const pageSize = 4;
         setShowBox={setShowBox} keyword={keyword} setKeyword={setKeyword}
         city={city} setCity={setCity}
         category={category} setCategory={setCategory}
-        propertytype={propertytype} setPropertytype={setPropertytype}  propertyList={propertyList} setPropertyList={setPropertyList} setTotalCount={setTotalCount} pageSize={pageSize}  currentPage={currentPage}/>
+        propertytype={propertytype} setPropertytype={setPropertytype}  propertyList={propertyList} setPropertyList={setPropertyList} setTotalCount={setTotalCount} pageSize={pageSize}  currentPage={currentPage} totalCount={totalCount}/>
               </div>
               {/* End .row */}
 
@@ -219,7 +220,7 @@ const pageSize = 4;
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

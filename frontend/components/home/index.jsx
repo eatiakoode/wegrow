@@ -31,9 +31,9 @@ const Index = () => {
     return [];
   });
 
-  // const [showBox, setShowBox] = useState(propertySelectedComp.length > 0);
+  const [showBox, setShowBox] = useState(propertySelectedComp.length > 0);
   // const [showBox, setShowBox] = useState(false);
-  const [showBox, setShowBox] = useState(false);
+  // const [showBox, setShowBox] = useState(false);
 
 
   // Sync localStorage

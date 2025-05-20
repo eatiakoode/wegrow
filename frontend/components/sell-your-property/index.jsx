@@ -21,10 +21,11 @@ import { getAmenityTableData } from "@/api/amenity";
 import { getBuilderTableData } from "@/api/builder";
 import { getConstructionstatusTableData } from "@/api/constructionstatus";
 import { getFurnishingstatusTableData } from "@/api/furnishingstatus";
-import { addPropertyAPI } from "@/api/property";
+import { addPropertyAPI } from "@/api/frontend/property";
 
 
 const index = () => {
+  const [showBox, setShowBox] = useState(false);
   const router = useRouter();
     // --- State Hooks ---
   const [title, setTitle] = useState("");
@@ -316,8 +317,8 @@ const index = () => {
   
   
       const res = await addPropertyAPI(formData);
-      router.push("/cmswegrow/my-properties");
-      // alert(res.message);
+      // router.push("/cmswegrow/my-properties");
+      alert(res.message);
   
       // Reset fields and errors
       setError({});
@@ -1039,7 +1040,7 @@ const index = () => {
       <section className="footer_one">
         <div className="container">
           <div className="row">
-            <Footer />
+          <Footer showBox={showBox} setShowBox={setShowBox} />
           </div>
         </div>
       </section>

@@ -7,7 +7,7 @@ const FeaturedListings = ({properties}) => {
     <>
       {properties.slice(0, 3).map((item) => (
         <div className="media d-flex" key={item._id}>
-          <Link href={`/listing-details-v1/${item._id}`}>
+          <Link href={`/property-detail/${item.slug}`}>
             <Image
               width={102}
               height={80}

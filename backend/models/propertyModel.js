@@ -1,4 +1,6 @@
 const mongoose = require("mongoose"); // Erase if already required
+const Propertyimage = require("../models/propertyimagesModel");
+const Propertyfloor = require("../models/propertyfloorModel");
 
 // Declare the Schema of the Mongo model
 var propertySchema = new mongoose.Schema(
@@ -241,11 +243,35 @@ var propertySchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    admin_approve: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     timestamps: true,
   }
 );
 
+propertySchema.virtual('images', {
+  ref: 'Propertyimage', // Make sure this matches the model name for your images schema
+  localField: '_id',
+  foreignField: 'propertyid',
+});
+
+propertySchema.set('toObject', { virtuals: true });
+propertySchema.set('toJSON', { virtuals: true });
+
+
+propertySchema.virtual('floorplan', {
+  ref: 'Propertyfloor', // Make sure this matches the model name for your images schema
+  localField: '_id',
+  foreignField: 'propertyid',
+});
+
+propertySchema.set('toObject', { virtuals: true });
+propertySchema.set('toJSON', { virtuals: true });
 //Export the model
 module.exports = mongoose.model("Property", propertySchema);
+
+
