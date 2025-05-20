@@ -63,6 +63,11 @@ const Header = () => {
               </a>
             </li>
             <li className="dropitem">
+              <a href="#floorplans">
+                <span className="title">Floor Plans</span>
+              </a>
+            </li>
+            <li className="dropitem">
               <a href="#gallery">
                 <span className="title">Gallery</span>
               </a>
@@ -82,8 +87,8 @@ const Header = () => {
               </ul>
             </li> */}
             <li className="dropitem">
-              <a href="#blogs">
-                <span className="title">Blog</span>
+              <a href="#newsinsights">
+                <span className="title">News & Insights</span>
               </a>
             </li>
             <li className="dropitem">
