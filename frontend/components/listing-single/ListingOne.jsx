@@ -124,12 +124,12 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
 
           <div className="col-sm-5 col-lg-4">
             <div className="row">
-              {property?.propertyimageurl?.map((val, i) => (
-                <div className="col-6" key={i}>
+              {property?.images?.map((val, index) => (
+                <div className="col-6" key={index}>
                   <div className="spls_style_two img-gallery-box mb24">
                     <Item
-                      original={val}
-                      thumbnail={val}
+                      original={val.image}
+                      thumbnail={val.image}
                       width={752}
                       height={450}
                     >
@@ -140,8 +140,8 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
                             height={133}
                             className="img-fluid w100 cover"
                             src={
-                              val
-                                ? `${process.env.NEXT_PUBLIC_API_URL}${val}`
+                              val.image
+                                ? `${process.env.NEXT_PUBLIC_API_URL}${val.image}`
                                 : "/default-placeholder.jpg"
                             }
                             alt= {`${property.title}`}

@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 import Header from "../../common/header/dashboard/Header";
 import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
 import MobileMenu from "../../common/header/MobileMenu";
@@ -7,8 +11,51 @@ import DetailedInfo from "./DetailedInfo";
 import FloorPlans from "./FloorPlans";
 import LocationField from "./LocationField";
 import PropertyMediaUploader from "./PropertyMediaUploader";
+import { deletePropertyAPI, getPropertyById, updatePropertyAPI } from "../../../api/property";
 
 const index = () => {
+  const params = useParams();  
+      const id = params?.id; 
+  const [inputs, setInputs] = useState([]);
+  // const [getinputs, setGetInputs] = useState([]);
+  const [property, setProperty] = useState([]);
+  const [planimage, setPlanImage] = useState(null);
+  
+  const handleAddInput = () => {
+    setInputs([
+      ...inputs,
+      {
+        id: Date.now(),
+        title: '',
+        bedrooms: '',
+        price: '',
+        areasize: '',
+        planimage: null,
+        description: ''
+      }
+    ]);
+  };
+    
+      // const handleInputChange = (index, event) => {
+      //   const newInputs = [...inputs];
+      //   newInputs[index].value = event.target.value;
+      //   setInputs(newInputs);
+      // };
+      useEffect(() => {
+        const fetchProperty = async () => {
+          try {
+            const data = await getPropertyById(id);
+            // alert("ttest")
+            setProperty(data.data)
+            // setGetInputs()
+
+          } catch (error) {
+            alert("Failed to update Blog.");
+            console.error(error);
+          }
+        }
+        fetchProperty();
+      }, [id,setProperty]);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -67,7 +114,7 @@ const index = () => {
                         <h3 className="mb30">Create Listing</h3>
                       </div>
 
-                      <CreateList />
+                      <CreateList property={property}/>
                     </div>
                   </div>
                   {/* <div className="my_dashboard_review mt30">
@@ -94,9 +141,9 @@ const index = () => {
                   <div className="my_dashboard_review mt30">
                     <div className="col-lg-12">
                       <h3 className="mb30">Floor Plans</h3>
-                      <button className="btn admore_btn mb30">Add More</button>
+                      <button className="btn admore_btn mb30" onClick={handleAddInput} >Add More</button>
                     </div>
-                    <FloorPlans />
+                    <FloorPlans property={property} inputs={inputs} setInputs={setInputs} setPlanImage={setPlanImage} planimage={planimage}/>
                   </div>
                 </div>
                 {/* End .col */}

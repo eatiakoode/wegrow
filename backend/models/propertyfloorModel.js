@@ -6,35 +6,35 @@ var propertyfloorSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
-      unique: true,
+      // required: true,
+      // unique: true,
       index: true,
     },
     bedroom: {
       type: String,
-      required: true,      
+      // required: true,      
     },
-    bathroom: {
-      type: String,
-      required: true,      
-    },
+    // bathroom: {
+    //   type: String,
+    //   required: true,      
+    // },
     price: {
       type: String,
-      required: true,      
+      // required: true,      
     },
     areasize: {
       type: String,
-      required: true,      
+      // required: true,      
     },
-    image: {
+    planimageurl: {
       type: String,
-      required: true,      
+      // required: true,      
     },
     description:{
       type: String,
-      required: true,
-      unique: true,
-      index: true,
+      // required: true,
+      // unique: true,
+      // index: true,
     },
     propertyid: {
          type: mongoose.Schema.Types.ObjectId,

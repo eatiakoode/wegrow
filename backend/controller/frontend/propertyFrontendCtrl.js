@@ -129,7 +129,7 @@ const getPropertySlug = asyncHandler(async (req, res) => {
   const { slug } = req.params;
   // validateMongoDbId(slug);
   try {
-    const getProperty = await Property.findOne({ slug: slug }).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid");
+    const getProperty = await Property.findOne({ slug: slug }).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid").populate('images').populate("floorplan");
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",

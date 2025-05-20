@@ -17,6 +17,8 @@ const propertytypeRouter = require("./routes/propertytypeRoute");
 const builderRouter = require("./routes/builderRouter");
 const agentRouter = require("./routes/agentRouter");
 const propertyRouter = require("./routes/propertyRouter");
+const propertyImagesRouter = require("./routes/propertyImagesRouter");
+const propertyPlanRouter = require("./routes/propertyPlanRouter");
 const furnishingstatusRouter = require("./routes/furnishingstatusRouter");
 const constructionstatusRouter = require("./routes/constructionstatusRouter");
 const blogcategoryRouter = require("./routes/blogcategoryRoute");
@@ -79,6 +81,8 @@ app.use("/admin/api/blog", blogRouter);
 app.use("/admin/api/testimonial", testimonialRouter);
 app.use("/admin/api/propertypage", propertypageRouter);
 app.use("/admin/api/faq", faqRouter);
+app.use("/admin/api/propertyimages", propertyImagesRouter);
+app.use("/admin/api/propertyplan", propertyPlanRouter);
 
 // Frontend API
 app.use("/frontend/api/city", cityFrontendRoute);

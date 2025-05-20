@@ -1,95 +1,303 @@
-const FloorPlans = () => {
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import Image from "next/image";
+import { deletePropertyplanAPI, addPropertyPlanAPI } from "@/api/propertyplan";
+
+
+const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
+  const router = useRouter();
+  const [PropertyPlanInputGet, setPropertyPlanInputGet] = useState([]);
+  const handleInputChange = (index, field, value) => {
+    const updated = [...inputs];
+    updated[index][field] = value;
+    setInputs(updated);
+  };
+
+  const handleRemoveInput = (idToRemove) => {
+    setInputs(inputs.filter((input) => input.id !== idToRemove));
+  };
+   const handleRemoveInputGet = async (_id) => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this plan?");
+        if (!isConfirmed) return;
+          try {
+            // alert("test")
+            const data = await deletePropertyplanAPI(_id); // 🔹 Call the API function
+            // alert("test")
+            const deleted = PropertyPlanInputGet?.filter((file) => file._id !== _id);
+            setPropertyPlanInputGet(deleted);
+            //setTitle(""); // ✅ Reset input after success
+          } catch (error) {
+            alert("Failed to delete property Image.");
+            
+          }
+      };
+  const uploadPlanImage = (index, file) => {
+    const updatedInputs = [...inputs];
+    updatedInputs[index].planimage = file;
+    setInputs(updatedInputs);
+  };
+
+  const updatePropertyFloorPlan = async (e) => {
+    e.preventDefault();
+    console.log('Submitting:', inputs);
+    const formData = new FormData();
+    formData.append('propertyId', property?.id);
+    
+  
+    // Append all other fields from inputs (assuming single input for now)
+    inputs.forEach((input, index) => {
+      formData.append(`floorPlans[${index}][title]`, input.title);
+      formData.append(`floorPlans[${index}][bedroom]`, input.bedroom);
+      formData.append(`floorPlans[${index}][price]`, input.price);
+      formData.append(`floorPlans[${index}][areasize]`, input.areasize);
+      formData.append(`floorPlans[${index}][description]`, input.description);
+      if (input.planimage) {
+        formData.append(`floorPlans[${index}][planimage]`, input.planimage);
+      }
+      // formData.append('planimage', input.planimage);
+
+    });
+    // console.log('Submitting:', formData);
+    // Example: Send to API
+    try {
+      const res = await addPropertyPlanAPI(formData);
+      if (property?.id) {
+        // alert("test")
+        router.push(`/cmswegrow/edit-property/${property.id}`);
+        setInputs([])
+        // router.push(`/cmswegrow/edit-property/${property.id}`);
+      }
+      
+      // const res = await fetch('/api/submit-floorplans', {
+      //   method: 'POST',
+      //   // headers: { 'Content-Type': 'application/json' },
+      //   body: formData,
+      // });
+
+      // const data = await res.json();
+      // console.log('Response:', data);
+    } catch (err) {
+      console.error('Error:', err);
+    }
+  };
+  useEffect(() => {
+    setPropertyPlanInputGet(property.floorplan);
+}, [property]);
   return (
+    <form onSubmit={updatePropertyFloorPlan}>
     <div className="row">
-      <div className="col-xl-12">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="planDsecription">Plan Description</label>
-          <input type="text" className="form-control" id="planDsecription" />
-        </div>
-      </div>
+   
       {/* End .col */}
+      {PropertyPlanInputGet?.map((input, index) => (
+       <div className="row " key={input._id} >
+        <div className="col-xl-12">
+        <div className="my_profile_setting_input">
+          <button onClick={() => handleRemoveInputGet(input._id)} className="btn btn2 float-end">Remove</button>
+          </div>
+          </div>
+       <div className="col-xl-4">
+         <div className="my_profile_setting_input form-group">
+           <label htmlFor="planTitle">Plan Description {index + 1}</label>
+           <input type="text" className="form-control" id="planTitle" value={input.title}
+           onChange={(e) =>
+             handleInputChange(index, 'title', e.target.value)
+           }/>
+         </div>
+       </div>
+       <div className="col-xl-4">
+         <div className="my_profile_setting_input form-group">
+           <label htmlFor="planBedrooms">Plan Bedrooms {index + 1}</label>
+           <input type="text" className="form-control" id="planBedrooms" value={input.bedroom}
+           onChange={(e) =>
+             handleInputChange(index, 'bedroom', e.target.value)
+           } />
+         </div>
+       </div>
+       {/* End .col */}
+       <div className="col-xl-4">
+         <div className="my_profile_setting_input form-group">
+           <label htmlFor="planPrice">Plan Price {index + 1}</label>
+           <input type="text" className="form-control" id="planPrice" value={input.price}
+           onChange={(e) =>
+             handleInputChange(index, 'price', e.target.value)
+           } />
+         </div>
+       </div>
+        {/* End .col */}
 
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="planBedrooms">Plan Bedrooms</label>
-          <input type="text" className="form-control" id="planBedrooms" />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="planBathrooms">Plan Bathrooms</label>
-          <input type="text" className="form-control" id="planBathrooms" />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="planPrice">Plan Price</label>
-          <input type="text" className="form-control" id="planPrice" />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="planPostfix">Price Postfix</label>
-          <input type="text" className="form-control" id="planPostfix" />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="planSize">Plan Size</label>
-          <input type="text" className="form-control" id="planSize" />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label>Plan Image</label>
-          <div className="avatar-upload">
-            <div className="avatar-edit">
-              <input
-                className="btn btn-thm"
-                type="file"
-                id="imageUpload"
-                accept=".png, .jpg, .jpeg"
-              />
-              <label htmlFor="imageUpload"></label>
-            </div>
-            <div className="avatar-preview">
-              <div id="imagePreview"></div>
+       <div className="col-xl-4">
+         <div className="my_profile_setting_input form-group">
+           <label htmlFor="planSize">Plan Size</label>
+           <input type="text" className="form-control" id="planSize" value={input.areasize}
+           onChange={(e) =>
+             handleInputChange(index, 'areasize', e.target.value)
+           } />
+         </div>
+       </div>
+       {/* End .col */}
+       <div className="col-lg-4 col-xl-4">
+     <div className="my_profile_setting_input form-group">
+       
+     <div htmlFor="planimage">Plan Image</div>
+             <div className="wrap-custom-file height-150">
+           
+                 <input
+                     type="file"
+                     id={`planimage-${index}`}
+                     accept="image/png, image/gif, image/jpeg"
+                     onChange={(e) => uploadPlanImage(index, e.target.files[0])}
+                 />
+                 <label
+                 style={
+                  input.planimageurl                          
+                  ? { backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}${input.planimageurl})` }
+                    : inputs[index]?.planimage
+                    ? { backgroundImage: `url(${URL.createObjectURL(inputs[index]?.planimage)})` }
+                    : undefined
+                }
+                    //  style={
+                    //    inputs[index]?.planimage
+                    //      ? {
+                    //          backgroundImage: `url(${URL.createObjectURL(inputs[index].planimage)})`,
+                    //        }
+                    //      : undefined
+                    //  }
+                    //  htmlFor={`planimage-${index}`}
+                   >
+                     <span>
+                         <i className="flaticon-download"></i> Upload plan image{" "}
+                     </span>
+                 </label>
+             </div>
+             <p>*minimum 260px x 260px</p>
+         </div>
+     
+   </div>
+     {/* End .col */}
+     <div className="col-xl-4">
+       <div className="my_profile_setting_textarea mt30-991">
+         <label htmlFor="planDescription">Plan Description</label>
+         <textarea
+           className="form-control"
+           id="planDescription"
+           rows="4" value={input.description}
+           onChange={(e) =>
+             handleInputChange(index, 'description', e.target.value)
+           }
+         ></textarea>
+       </div>
+     </div>
+   
+     </div>
+      ))}
+      {inputs.map((input, index) => (
+        <div className="row" key={input.id} >
+           <div className="col-xl-12">
+           <div className="my_profile_setting_input">
+          <button onClick={() => handleRemoveInput(input.id)} className="btn btn2 float-end">Remove</button>
+          </div>
+          </div>
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor="planTitle">Plan Description {index + 1}</label>
+              <input type="text" className="form-control" id="planTitle" value={input.title}
+              onChange={(e) =>
+                handleInputChange(index, 'title', e.target.value)
+              }/>
             </div>
           </div>
-        </div>
-      </div>
-      {/* End .col */}
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor="planBedrooms">Plan Bedrooms {index + 1}</label>
+              <input type="text" className="form-control" id="planBedrooms" value={input.bedroom}
+              onChange={(e) =>
+                handleInputChange(index, 'bedroom', e.target.value)
+              } />
+            </div>
+          </div>
+          {/* End .col */}
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor="planPrice">Plan Price {index + 1}</label>
+              <input type="text" className="form-control" id="planPrice" value={input.price}
+              onChange={(e) =>
+                handleInputChange(index, 'price', e.target.value)
+              } />
+            </div>
+          </div>
+           {/* End .col */}
 
-      <div className="col-xl-12">
-        <div className="my_profile_setting_textarea mt30-991">
-          <label htmlFor="planDescription">Plan Description</label>
-          <textarea
-            className="form-control"
-            id="planDescription"
-            rows="7"
-          ></textarea>
-        </div>
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor="planSize">Plan Size</label>
+              <input type="text" className="form-control" id="planSize" value={input.areasize}
+              onChange={(e) =>
+                handleInputChange(index, 'areasize', e.target.value)
+              } />
+            </div>
+          </div>
+          {/* End .col */}
+          <div className="col-lg-4 col-xl-4">
+        <div className="my_profile_setting_input form-group">
+          
+        <div htmlFor="planimage">Plan Image</div>
+                <div className="wrap-custom-file height-150">
+              
+                    <input
+                        type="file"
+                        id={`planimage-${index}`}
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={(e) => uploadPlanImage(index, e.target.files[0])}
+                    />
+                    <label
+                        style={
+                          inputs[index]?.planimage
+                            ? {
+                                backgroundImage: `url(${URL.createObjectURL(inputs[index].planimage)})`,
+                              }
+                            : undefined
+                        }
+                        htmlFor={`planimage-${index}`}
+                      >
+                        <span>
+                            <i className="flaticon-download"></i> Upload plan image{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
+        
       </div>
-      {/* End .col */}
+        {/* End .col */}
+        <div className="col-xl-4">
+          <div className="my_profile_setting_textarea mt30-991">
+            <label htmlFor="planDescription">Plan Description</label>
+            <textarea
+              className="form-control"
+              id="planDescription"
+              rows="4" value={input.description}
+              onChange={(e) =>
+                handleInputChange(index, 'description', e.target.value)
+              }
+            ></textarea>
+          </div>
+        </div>
+        
+        </div>
+        
+      ))}
 
       <div className="col-xl-12">
         <div className="my_profile_setting_input">
-          <button className="btn btn1 float-start">Back</button>
-          <button className="btn btn2 float-end">Next</button>
+          {/* <button className="btn btn1 float-start">Back</button> */}
+          <button className="btn btn2 float-end" type="submit"  disabled={!inputs.length}>Submit Plan</button>
         </div>
       </div>
       {/* End .col */}
     </div>
+    </form>
   );
 };
 
