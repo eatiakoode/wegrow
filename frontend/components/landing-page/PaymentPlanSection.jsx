@@ -40,6 +40,18 @@ const PaymentPlanSection = () => {
           </div>
         </div>
 
+        {!unlocked && (
+            <div className="view-all text-center my-4">
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowModal(true)}
+              >
+                View Payment Plans
+              </button>
+            </div>
+          )}
+
+
         <div className="row">
           {plans.map((plan, index) => (
             <div className="col-lg-4" key={index}>

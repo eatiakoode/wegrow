@@ -23,7 +23,7 @@ const Header = () => {
     >
       <div className="container-fluid p0">
         {/* Logo */}
-        <a className="navbar_brand float-start dn-smd" href="javascript:void(0)">
+        <a className="navbar_brand float-start dn-smd" href="/">
           <Image
             width={170}
             height={65}
@@ -101,7 +101,7 @@ const Header = () => {
                 <span className="flaticon-telephone"></span>
               </a>
             </li>
-            <li className="list-inline-item add_listing">
+            {/* <li className="list-inline-item add_listing">
               <a href="javascript:void(0)">
                 <span className="dn-lg">Sell your Property</span>
               </a>
@@ -111,7 +111,7 @@ const Header = () => {
                 <span className="flaticon-calendar pe-1"></span>
                 <span className="dn-lg">Setup a Meeting</span>
               </a>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>

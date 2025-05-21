@@ -1,11 +1,13 @@
 'use client'
+import Image from 'next/image';
+import Link from "next/link";
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import MobileMenu from "../common/header/MobileMenu";
 import Partners from "../common/Partners";
 import Testimonial from "../common/Testimonial";
-import Blogs from "../common/Blogs";
+// import Blogs from "../common/Blogs";
 import ExploreMoreProperties from "../common/ExploreMoreProperties";
 import Hotproperties from "../common/Hotproperties";
 import FeaturedProperties from "./FeaturedProperties";
@@ -138,7 +140,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Our Blog --> */}
-      <section className="our-blog bgc-f7 pb30">
+      {/* <section className="our-blog bgc-f7 pb30">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
@@ -152,7 +154,90 @@ const Index = () => {
             <Blogs />
           </div>
         </div>
+      </section> */}
+      {/* <!-- Our News & Insights --> */}
+          <section id="newsinsights" className="news-insights about-section scroll-mt-80px border-btm">
+              <div className="container">
+                <div class="main-title text-center">
+                  <h2>Market Knowledge</h2>
+                  <p>Uncover key information to guide your property investments</p>
+                </div>
+                <div className="row">
+                        <div className="col-lg-4">
+                          <Link href="/news-and-insights/market-trends" className="property-block_one style-two">
+                              <div className="property-block_one-inner">
+                                <div className="thumb">
+                                  <Image
+                                    width={768}
+                                    height={512}
+                                    className="img-fluid"
+                                    src="/assets/images/news-insights/price-trends.svg"
+                                    alt="image"
+                                    />
+                                </div>
+                                <div className="property-block_one-content wow fadeInUp animated">
+                                  <div className="property-block_one-location">Market Trends</div>
+                                  <h4 className="property-block_one-heading">Stay updated with property rates and pricing trends in top locations
+                                    </h4>
+                                  {/* <ul className="property-block_one-info">
+                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
+                                  </ul> */}
+                                </div>
+                              </div>
+                            </Link>
+                        </div>
+                        <div className="col-lg-4">
+                          <Link href="/news-and-insights/city-insights" className="property-block_one style-two">
+                              <div className="property-block_one-inner">
+                                <div className="thumb">
+                                  <Image
+                                    width={768}
+                                    height={512}
+                                    className="img-fluid"
+                                    src="/assets/images/news-insights/city-insights.svg"
+                                    alt="image"
+                                    />
+                                </div>
+                                <div className="property-block_one-content wow fadeInUp animated">
+                                  <div className="property-block_one-location">City Highlights</div>
+                                  <h4 className="property-block_one-heading">Gain insights into leading cities before you invest
+                                    </h4>
+                                  {/* <ul className="property-block_one-info">
+                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
+                                  </ul> */}
+                                </div>
+                              </div>
+                            </Link>
+                        </div>
+                        <div className="col-lg-4">
+                          <Link href="/blogs" className="property-block_one style-two">
+                              <div className="property-block_one-inner">
+                                <div className="thumb">
+                                  <Image
+                                    width={768}
+                                    height={512}
+                                    className="img-fluid"
+                                    src="/assets/images/news-insights/housing-research.svg"
+                                    alt="image"
+                                    />
+                                </div>
+                                <div className="property-block_one-content wow fadeInUp animated">
+                                  <div className="property-block_one-location">Real Estate Reports</div>
+                                  <h4 className="property-block_one-heading">Explore detailed research on India’s residential property market
+                                    </h4>
+                                  {/* <ul className="property-block_one-info">
+                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
+                                  </ul> */}
+                                </div>
+                              </div>
+                            </Link>
+                        </div>
+                </div>
+                {/* End .row */}
+
+              </div>
       </section>
+          {/* End .row */}
 
       {/* <!-- Our Partners --> */}
       <section id="our-partners" className="our-partners">

@@ -55,4 +55,32 @@ module.exports = [
     number: "89",
     column: "col-lg-4 col-xl-4",
   },
+  {
+    id: 9,
+    img: "/assets/images/property/yoga.svg",
+    name: "Yoga Area",
+    number: "89",
+    column: "col-lg-4 col-xl-4",
+  },
+  {
+    id: 10,
+    img: "/assets/images/property/reception.svg",
+    name: "Reception Area",
+    number: "89",
+    column: "col-lg-4 col-xl-4",
+  },
+  {
+    id: 11,
+    img: "/assets/images/property/fire-extinguisher.svg",
+    name: "Fire Extinguisher",
+    number: "89",
+    column: "col-lg-4 col-xl-4",
+  },
+  {
+    id: 12,
+    img: "/assets/images/property/oxygen-duct.svg",
+    name: "Oxygen Duct",
+    number: "89",
+    column: "col-lg-4 col-xl-4",
+  },
 ];

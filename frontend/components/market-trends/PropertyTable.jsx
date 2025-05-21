@@ -96,7 +96,7 @@ const PropertyTable = () => {
                 </button>
               </td>
               <td className="px-4 py-3">
-                <button className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700">
+                <button className="properties-btn">
                   See {item.properties} Properties
                 </button>
               </td>
