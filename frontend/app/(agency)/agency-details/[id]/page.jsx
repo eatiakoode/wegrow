@@ -132,7 +132,7 @@ const AgencyDetailsDynamic = ({params}) => {
       </section>
 
       {/* <!-- Our Footer Bottom Area --> */}
-      <section className="footer_middle_area pt40 pb40">
+      <section className="footer_middle_area pt10 pb10">
         <div className="container">
           <CopyrightFooter />
         </div>

@@ -11,7 +11,6 @@ const Footer = ({  showBox,setShowBox }) => {
    const [properties, setProperties] = useState([]);
   //  const { propertycompare } = useCompare();
   const { propertycompare, setPropertycompare } = useCompare();
-  
 
   //  const [showBox, setShowBox] = useState(false);
   //  const [propertycompare, setPropertycompare] = useState(() => {
@@ -85,19 +84,22 @@ const Footer = ({  showBox,setShowBox }) => {
           <h4>Quick Links</h4>
           <ul className="list-unstyled">
             <li>
-              <Link href="/">Home</Link>
+              <Link href="#homein">Home</Link>
             </li>
             <li>
-              <Link href="/about-us">About Us</Link>
+              <Link href="#about">About Us</Link>
             </li>
             <li>
-              <Link href="/blogs">Blog</Link>
+              <Link href="#amenities">Amenities</Link>
             </li>
             <li>
-              <Link href="/faq">FAQs</Link>
+              <Link href="#floorplans">Floor Plans</Link>
             </li>
             <li>
-              <Link href="/news-and-insights">News & Insights</Link>
+              <Link href="#gallery">Gallery</Link>
+            </li>
+            <li>
+              <Link href="#faq">FAQs</Link>
             </li>
           </ul>
         </div>

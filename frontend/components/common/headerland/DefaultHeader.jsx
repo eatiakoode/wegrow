@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import Modal from "@/components/landing-page/UnlockModal.jsx"; // we'll create this next
 
 const Header = () => {
   const [navbar, setNavbar] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const changeBackground = () => {
     setNavbar(window.scrollY >= 95);
@@ -48,73 +51,67 @@ const Header = () => {
             data-menu-style="horizontal"
           >
             <li className="dropitem">
-              <a href="#homein" className="ui-active scroll-mt-80px">
+              <Link href="#homein" className="ui-active scroll-mt-80px">
                 <span className="title">Home</span>
-              </a>
+              </Link>
             </li>
             <li className="dropitem">
-              <a href="#about">
+              <Link href="#about">
                 <span className="title">About Us</span>
-              </a>
+              </Link>
             </li>
             <li className="last">
-              <a href="#amenities">
+              <Link href="#amenities">
                 <span className="title">Amenities</span>
-              </a>
+              </Link>
             </li>
             <li className="dropitem">
-              <a href="#floorplans">
+              <Link href="#floorplans">
                 <span className="title">Floor Plans</span>
-              </a>
+              </Link>
             </li>
             <li className="dropitem">
-              <a href="#gallery">
+              <Link href="#gallery">
                 <span className="title">Gallery</span>
-              </a>
+              </Link>
             </li>
             {/* <li className="dropitem">
-              <a href="#property">
+              <link href="#property">
                 <span className="title">Property</span>
                 <span className="arrow"></span>
-              </a>
+              </link>
               <ul className="sub-menu">
                 <li>
-                  <a href="#residential">Residential</a>
+                  <link href="#residential">Residential</link>
                 </li>
                 <li>
-                  <a href="#commercial">Commercial</a>
+                  <link href="#commercial">Commercial</link>
                 </li>
               </ul>
             </li> */}
             <li className="dropitem">
-              <a href="#newsinsights">
-                <span className="title">News & Insights</span>
-              </a>
-            </li>
-            <li className="dropitem">
-              <a href="#faq">
+              <Link href="#faq">
                 <span className="title">Faq</span>
-              </a>
+              </Link>
             </li>
             <li className="list-inline-item border_listing">
-              <a href="tel:+917421922000">
+              <Link href="tel:+917421922000">
                 <span className="flaticon-telephone"></span>
-              </a>
+              </Link>
             </li>
-            {/* <li className="list-inline-item add_listing">
-              <a href="javascript:void(0)">
-                <span className="dn-lg">Sell your Property</span>
-              </a>
-            </li>
-            <li className="list-inline-item add_listing">
-              <a href="#contact">
-                <span className="flaticon-calendar pe-1"></span>
-                <span className="dn-lg">Setup a Meeting</span>
-              </a>
-            </li> */}
+            <button
+                className="list-inline-item get_in_touch"
+                onClick={() => setShowModal(true)}
+              >
+                <span className="flaticon-user pe-1"></span>
+                <span className="dn-lg">Get in Touch</span>
+              </button>
+
           </ul>
         </nav>
       </div>
+      {/* Modal with form */}
+        {showModal && <Modal onClose={() => setShowModal(false)}/>}
     </header>
   );
 };

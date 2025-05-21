@@ -1125,6 +1125,20 @@ header.header-nav.menu_style_home_one ul.ace-responsive-menu li.add_listing {
 .aboutland .main-title{padding-left: 20px;}
 .aboutland .story-two_check{padding-left: 20px;}
 .amenityland .row:last-child{justify-content: center;}
+header .get_in_touch{
+    padding: 0.5rem 1.5rem;
+    background-color: var(--color-primary);
+    box-shadow: 0px 1px 4px 0px rgba(163, 177, 138, 0.3);
+    border: none;
+    color: var(--white-color);
+    border-radius: 50px;
+    border:2px solid transparent
+}
+header .get_in_touch:hover, header .get_in_touch:focus{
+          background-color: #fff !important;
+          border-color: var(--color-primary);
+          color: var(--black-color);
+         }
 section.aboutland{
   padding:60px 0px 90px 0px;
 }
@@ -7831,7 +7845,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 
 .testimonial_grid_slider.style2.owl-carousel.owl-theme .owl-dots .owl-dot.active span,
 .testimonial_grid_slider.style2.owl-carousel.owl-theme .owl-dots .owl-dot:hover span {
-  background-color: #24324a !important;
+  background-color: #2c2c2c !important;
   border: 5px solid #dedede;
 }
 
@@ -8618,7 +8632,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 }
 
 .footer_social_widget li a {
-  color: #8a99b3;
+  color: #b7b7b7;
   font-size: 16px;
   font-family: "FontAwesome";
   line-height: 1.2;
@@ -8642,17 +8656,22 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 
 .footer_mailchimp_form {
   position: relative;
+  z-index: 10
 }
 
 .footer_mailchimp_form .col-auto input.form-control {
-  background-color: #354765;
-  border: 1px solid #354765;
+  background-color: rgba(255, 255, 255, 0.3);
+  -o-box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.5);
+  /* border: 1px solid #354765; */
   border-radius: 25px;
   color: #ffffff;
   height: 50px;
   padding-left: 30px;
   width: 195px;
+  border:2px solid rgba(255,255,255,0.5)
 }
+
 
 .home3 .footer_mailchimp_form .col-auto input.form-control {
   background-color: #e8eef2;
@@ -8688,12 +8707,16 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_mailchimp_form .col-auto input.form-control::placeholder,
 .footer_mailchimp_form .col-auto input.form-control:-ms-input-placeholder,
 .footer_mailchimp_form .col-auto input.form-control::-ms-input-placeholder {
-  color: #8a99b3;
+  color: #b7b7b7;
 }
 
 .footer_mailchimp_form .col-auto button {
-  background-color: #354765;
-  border: 1px solid #354765;
+  /* background-color: #354765;
+  border: 1px solid #354765; */
+  background-color: rgba(255, 255, 255, 0.3);
+  -o-box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 1px 4px 0px rgba(255, 255, 255, 0.5);
+  border:2px solid rgba(255,255,255,0.5);
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -8702,6 +8725,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_mailchimp_form .col-auto button:hover {
   background-color: var(--color-primary);
   border-color: var(--color-primary);
+  color: var(--white-color);
 }
 
 .footer_mailchimp_form.home3 .col-auto button {
@@ -8757,11 +8781,30 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 }
 
 .footer_one {
-  background-color: #24324a;
+  background-color: #2c2c2c;
+  position: relative;
+}
+
+  .footer_one:before {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    background-image: url(../images/building-footer.png);
+    top: auto;
+    left: 0;
+    right: 0;
+    top: auto;
+    opacity: 0.04;
+    height: 250px;
+    background-size: cover;
+}
+.footer_one .row{
+  position: relative;
 }
 
 .footer_middle_area {
-  background-color: #1d293e;
+  /* background-color: #1d293e; */
+  background-color: #2c2c2c;
 }
 
 .footer_bottom_area {
@@ -8771,7 +8814,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .copyright-widget p {
   font-size: 14px;
   font-family: "Nunito";
-  color: #8a99b3;
+  color: #b7b7b7;
   line-height: 2.143;
   margin-bottom: 0;
 }
@@ -8840,9 +8883,9 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_about_widget p {
   font-size: 14px;
   font-family: "Nunito";
-  color: #8a99b3;
+  color: #b7b7b7;
   line-height: 2.143;
-  margin-bottom: 0;
+  margin-top: 5px;
 }
 
 .home5 .footer_about_widget p,
@@ -8922,7 +8965,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_contact_widget li a {
   font-size: 14px;
   font-family: "Nunito";
-  color: #8a99b3;
+  color: #b7b7b7;
   line-height: 2.429;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
@@ -9038,7 +9081,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_menu_widget ul li a {
   font-size: 14px;
   font-family: "Nunito";
-  color: #8a99b3;
+  color: #b7b7b7;
   line-height: 2.143;
 }
 
@@ -11600,7 +11643,7 @@ a.btn.btn_error {
 }
 
 .ui_kit_table .table th {
-  background-color: #24324a;
+  background-color: #2c2c2c;
   border-bottom: transparent;
   color: #ffffff;
   font-weight: normal;
@@ -15037,7 +15080,7 @@ legend span {
 }
 
 .sidebar-menu li.header {
-  background-color: #24324a;
+  background-color: #2c2c2c;
   color: #ffffff;
   font-family: "Nunito";
   font-size: 25px;

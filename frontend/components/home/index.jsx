@@ -309,7 +309,7 @@ const Index = () => {
       </section>
 
       {/* <!-- Our Footer Bottom Area --> */}
-      <section className="footer_middle_area pt40 pb40">
+      <section className="footer_middle_area pt20 pb20">
         <div className="container">
           <CopyrightFooter />
         </div>
