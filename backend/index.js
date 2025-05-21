@@ -28,6 +28,10 @@ const testimonialRouter = require("./routes/testimonialRouter");
 const propertypageRouter = require("./routes/propertypageRouter");
 const faqRouter = require("./routes/faqRouter");
 
+const landingpageRouter = require("./routes/landingpageRouter");
+const landingImagesRouter = require("./routes/landingImagesRouter");
+const landingPlanRouter = require("./routes/landingPlanRouter");
+const landingPaymentRouter = require("./routes/landingPaymentRouter");
 
 // Frontend API route
 const cityFrontendRoute = require("./routes/frontend/cityFrontendRoute");
@@ -83,6 +87,11 @@ app.use("/admin/api/propertypage", propertypageRouter);
 app.use("/admin/api/faq", faqRouter);
 app.use("/admin/api/propertyimages", propertyImagesRouter);
 app.use("/admin/api/propertyplan", propertyPlanRouter);
+
+app.use("/admin/api/landingpage", landingpageRouter);
+app.use("/admin/api/landingimages", landingImagesRouter);
+app.use("/admin/api/landingplan", landingPlanRouter);
+app.use("/admin/api/landingpayment", landingPaymentRouter);
 
 // Frontend API
 app.use("/frontend/api/city", cityFrontendRoute);

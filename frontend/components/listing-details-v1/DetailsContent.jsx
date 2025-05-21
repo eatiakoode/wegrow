@@ -91,22 +91,27 @@ const DetailsContent = ({property,faqs}) => {
         </div>
       </div>
       )}
+
+{property.floorplan?.length > 0 && (
       <div className="application_statics mt30">
         <h4 className="mb30">Floor plans</h4>
         <div className="faq_according style2">
           <FloorPlans property={property}/>
         </div>
       </div>
-      {/* End .floor_plane */}
-
+     
+    )}
+     {/* End .floor_plane */}
+     {property?.videoembedcode && (
       <div className="shop_single_tab_content style2 mt30">
       <h4 className="mb30"> Property video</h4>
       <div dangerouslySetInnerHTML={{ __html: property?.videoembedcode }} />
       </div>
-
+)}
       {/* <div className="shop_single_tab_content style2 mt30">
         <PropertyVideo />
       </div> */}
+      {property?.siteplanurl && (
       <div className="application_statics mt30">
       <h4 className="mb10">Site Plan</h4>
         <div
@@ -126,13 +131,14 @@ const DetailsContent = ({property,faqs}) => {
                   />
         </div>
       </div>
+      )}
       {/* End property-video  */}
 
       {/* <div className="walkscore_area mt30">
         <WalkScore />
       </div> */}
       {/* End walkscore_area */}
-
+      {property?.nearby && (
       <div className="whats_nearby mt30">
         <h4 className="mb10">What&apos;s Nearby</h4>
         <div
@@ -140,6 +146,7 @@ const DetailsContent = ({property,faqs}) => {
         ><div dangerouslySetInnerHTML={{ __html: property?.nearby }} /></div>
         {/* <WhatsNearby  property={property}/> */}
       </div>
+      )}
       {/* End what's nearby area */}
 
       {/* <div className="product_single_content">

@@ -1,4 +1,4 @@
-const Propertyplan = require("../models/propertyfloorModel");
+const Landingplan = require("../models/landingfloorModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const mongoose = require("mongoose");
@@ -6,23 +6,8 @@ const slugify = require("slugify");
 const { processFloorPlanImages,processFloorPlanImagesGet } = require("../middlewares/uploadImage");
 
 
-const createPropertyplan = asyncHandler(async (req, res) => {
+const createLandingplan = asyncHandler(async (req, res) => {
   try {
-    // console.log("req.body floor")
-    // console.log("BODY:", req.body);
-    console.log("FILES:", req.files);
-    // console.log(req.body.floorPlans)
-    // return false;
-    // req.body.slug  = slugify(req.body.slug.toLowerCase());
-    // if (req.files && req.files.featuredimage && Array.isArray(req.files.featuredimage) && req.files.featuredimage.length > 0 ) { 
-    //         console.log(req.files.featuredimage)
-    //         console.log("no featuredImageResize")
-    //         const processedImages  =await featuredImageResize(req);
-    //         if (processedImages.length > 0) {
-    //           // ✅ Append logo filename to req.body
-    //           req.body.featuredimageurl = "public/images/property/"+processedImages[0];
-    //         }
-    //       }
 
     for(var i=0;i<req.body.floorPlans?.length;i++){
 
@@ -34,7 +19,7 @@ const createPropertyplan = asyncHandler(async (req, res) => {
             "price":req.body.floorPlans[i].price,
             "areasize":req.body.floorPlans[i].areasize,
             "description":req.body.floorPlans[i].description,
-            "propertyid":req.body.propertyId
+            "landingid":req.body.landingId
         }
         // console.log("req.body.floorPlans[i]")
         // console.log(req.file.floorPlans[i])
@@ -44,7 +29,7 @@ const createPropertyplan = asyncHandler(async (req, res) => {
         //     const processedImages  =await PlanImageResize(req.file.floorPlans[i][planimage]);
         //     if (processedImages.length > 0) {
         //       // ✅ Append logo filename to req.body
-        //       plandata.planimageurl = "public/images/propertyplan/"+processedImages[0];
+        //       plandata.planimageurl = "public/images/landingplan/"+processedImages[0];
         //     }
         //   }
         const floorPlans = [];
@@ -85,7 +70,7 @@ const createPropertyplan = asyncHandler(async (req, res) => {
     }
         console.log("plandata plandata")
         console.log(plandata)
-        const newPropertyplan = await Propertyplan.create(plandata);
+        const newLandingplan = await Landingplan.create(plandata);
       }
     
       for(var i=0;i<req.body.floorPlansget?.length;i++){
@@ -95,7 +80,7 @@ const createPropertyplan = asyncHandler(async (req, res) => {
             "price":req.body.floorPlansget[i].price,
             "areasize":req.body.floorPlansget[i].areasize,
             "description":req.body.floorPlansget[i].description,
-            "propertyid":req.body.propertyId
+            "landingid":req.body.landingId
         }
        
 
@@ -136,86 +121,86 @@ const createPropertyplan = asyncHandler(async (req, res) => {
           }
         }
 
-        const updatedPropertyplan = await Propertyplan.findByIdAndUpdate(req.body.floorPlansget[i].planid, plandata, {
+        const updatedLandingplan = await Landingplan.findByIdAndUpdate(req.body.floorPlansget[i].planid, plandata, {
             new: true,
           });
     }
-    //res.json(newProperty);
+    //res.json(newLanding);
     const message={
       "status":"success",
       "message":"Data Add sucessfully",
-    //   "data":newPropertyplan
+    //   "data":newLandingplan
     }
     res.json(message);
   } catch (error) {
     throw new Error(error);
   }
 });
-const updatePropertyplan = asyncHandler(async (req, res) => {
+const updateLandingplan = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
     console.log("req.body")
     console.log(req.body)
     req.body.slug  = slugify(req.body.slug.toLowerCase());
-    const updatedPropertyplan = await Propertyplan.findByIdAndUpdate(id, req.body, {
+    const updatedLandingplan = await Landingplan.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     const message={
       "status":"success",
       "message":"Data updated sucessfully",
-      "data":updatedPropertyplan
+      "data":updatedLandingplan
     }
     res.json(message);
-    // res.json(updatedPropertypage);
+    // res.json(updatedLandingpage);
   } catch (error) {
     throw new Error(error);
   }
 });
-const deletePropertyplan = asyncHandler(async (req, res) => {
+const deleteLandingplan = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const deletedPropertyplan = await Propertyplan.findByIdAndDelete(id);
+    const deletedLandingplan = await Landingplan.findByIdAndDelete(id);
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
-      "data":deletedPropertyplan
+      "data":deletedLandingplan
     }
     res.json(message);
-    // res.json(deletedPropertypage);
+    // res.json(deletedLandingpage);
   } catch (error) {
     throw new Error(error);
   }
 });
-const getPropertyplan = asyncHandler(async (req, res) => {
+const getLandingplan = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getPropertyplan = await Propertyplan.findById(id);
+    const getLandingplan = await Landingplan.findById(id);
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
-      "data":getPropertyplan
+      "data":getLandingplan
     }
     res.json(message);
-    // res.json(getaPropertypage);
+    // res.json(getaLandingpage);
   } catch (error) {
     throw new Error(error);
   }
 });
-const getallPropertyplan = asyncHandler(async (req, res) => {
+const getallLandingplan = asyncHandler(async (req, res) => {
   try {
-    const getallPropertyplan = await Propertyplan.find().populate("cityid").populate("categoryid");
-    res.json(getallPropertyplan);
+    const getallLandingplan = await Landingplan.find().populate("cityid").populate("categoryid");
+    res.json(getallLandingplan);
   } catch (error) {
     throw new Error(error);
   }
 });
 module.exports = {
-createPropertyplan,
-  updatePropertyplan,
-  deletePropertyplan,
-  getPropertyplan,
-  getallPropertyplan,
+createLandingplan,
+  updateLandingplan,
+  deleteLandingplan,
+  getLandingplan,
+  getallLandingplan,
 };

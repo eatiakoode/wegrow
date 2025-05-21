@@ -1,20 +1,23 @@
 const mongoose = require("mongoose"); // Erase if already required
 
 // Declare the Schema of the Mongo model
-var amenitySchema = new mongoose.Schema(
+
+var propertyimagesSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       required: true,
-      unique: true,
       index: true,
     },
-    image:{
+    image: {
       type: String,
-      // required: true,
-      // unique: true,
-      // index: true,
+      required: true,      
     },
+    landingpageid: {
+         type: mongoose.Schema.Types.ObjectId,
+         ref: "Landingpage", 
+         required: true,
+       },
     status: {
       type: Boolean,
       default: true,
@@ -26,4 +29,4 @@ var amenitySchema = new mongoose.Schema(
 );
 
 //Export the model
-module.exports = mongoose.model("Amenity", amenitySchema);
+module.exports = mongoose.model("Propertyimage", propertyimagesSchema);
