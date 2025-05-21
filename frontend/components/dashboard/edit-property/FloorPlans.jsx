@@ -16,6 +16,7 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
     setInputs(updated);
   };
   const handleInputChangeGet = (index, field, value) => {
+    // alert("test")
     const updated = [...inputsget];
     updated[index][field] = value;
     setInputsget(updated);
@@ -45,8 +46,9 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
     setInputs(updatedInputs);
   };
   const uploadPlanImageGet = (index, file) => {
+    alert("yse")
     const updatedInputs = [...inputsget];
-    updatedInputs[index].planimage = file;
+    updatedInputs[index].planimageget = file;
     setInputsget(updatedInputs);
   };
 
@@ -78,8 +80,8 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
       formData.append(`floorPlansget[${index}][description]`, input.description);
       formData.append(`floorPlansget[${index}][planid]`, input.planid);
 
-      if (input.planimage) {
-        formData.append(`floorPlansget[${index}][planimage]`, input.planimage);
+      if (input.planimageget) {
+        formData.append(`floorPlansget[${index}][planimageget]`, input.planimageget);
       }
 
     });
@@ -108,6 +110,7 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
   };
   useEffect(() => {
     setPropertyPlanInputGet(property.floorplan);
+    setInputsget(property.floorplan);
 }, [property]);
   return (
     <form onSubmit={updatePropertyFloorPlan}>
@@ -165,12 +168,12 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
        <div className="col-lg-4 col-xl-4">
      <div className="my_profile_setting_input form-group">
        
-     <div htmlFor="planimage">Plan Image</div>
+     <div htmlFor="planimageget">Plan Image</div>
              <div className="wrap-custom-file height-150">
            
                  <input
                      type="file"
-                     id={`planimage-${index}`}
+                     id={`planimageget-${index}`}
                      accept="image/png, image/gif, image/jpeg"
                      onChange={(e) => uploadPlanImageGet(index, e.target.files[0])}
                  />
@@ -178,8 +181,8 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
                  style={
                   input.planimageurl                          
                   ? { backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}${input.planimageurl})` }
-                    : inputsget[index]?.planimage
-                    ? { backgroundImage: `url(${URL.createObjectURL(inputsget[index]?.planimage)})` }
+                    : inputsget[index]?.planimageget
+                    ? { backgroundImage: `url(${URL.createObjectURL(inputsget[index]?.planimageget)})` }
                     : undefined
                 }
                     //  style={
@@ -317,7 +320,7 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
       <div className="col-xl-12">
         <div className="my_profile_setting_input">
           {/* <button className="btn btn1 float-start">Back</button> */}
-          <button className="btn btn2 float-end" type="submit"  disabled={!inputs.length && !inputsget.length}>Submit Plan</button>
+          <button className="btn btn2 float-end" type="submit"  disabled={inputs?.length==0 && inputsget?.length==0}>Submit Plan</button>
         </div>
       </div>
       {/* End .col */}
