@@ -9,10 +9,16 @@ import { deletePropertyplanAPI, addPropertyPlanAPI } from "@/api/propertyplan";
 const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
   const router = useRouter();
   const [PropertyPlanInputGet, setPropertyPlanInputGet] = useState([]);
+  const [inputsget, setInputsget] = useState([]);
   const handleInputChange = (index, field, value) => {
     const updated = [...inputs];
     updated[index][field] = value;
     setInputs(updated);
+  };
+  const handleInputChangeGet = (index, field, value) => {
+    const updated = [...inputsget];
+    updated[index][field] = value;
+    setInputsget(updated);
   };
 
   const handleRemoveInput = (idToRemove) => {
@@ -38,6 +44,11 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
     updatedInputs[index].planimage = file;
     setInputs(updatedInputs);
   };
+  const uploadPlanImageGet = (index, file) => {
+    const updatedInputs = [...inputsget];
+    updatedInputs[index].planimage = file;
+    setInputsget(updatedInputs);
+  };
 
   const updatePropertyFloorPlan = async (e) => {
     e.preventDefault();
@@ -57,6 +68,19 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
         formData.append(`floorPlans[${index}][planimage]`, input.planimage);
       }
       // formData.append('planimage', input.planimage);
+
+    });
+    inputsget.forEach((input, index) => {
+      formData.append(`floorPlansget[${index}][title]`, input.title);
+      formData.append(`floorPlansget[${index}][bedroom]`, input.bedroom);
+      formData.append(`floorPlansget[${index}][price]`, input.price);
+      formData.append(`floorPlansget[${index}][areasize]`, input.areasize);
+      formData.append(`floorPlansget[${index}][description]`, input.description);
+      formData.append(`floorPlansget[${index}][planid]`, input.planid);
+
+      if (input.planimage) {
+        formData.append(`floorPlansget[${index}][planimage]`, input.planimage);
+      }
 
     });
     // console.log('Submitting:', formData);
@@ -97,31 +121,32 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
           <button onClick={() => handleRemoveInputGet(input._id)} className="btn btn2 float-end">Remove</button>
           </div>
           </div>
+          <input type="hidden" name={`planid-${index}`} value={input._id} />
        <div className="col-xl-4">
          <div className="my_profile_setting_input form-group">
-           <label htmlFor="planTitle">Plan Description {index + 1}</label>
-           <input type="text" className="form-control" id="planTitle" value={input.title}
+           <label htmlFor={`planTitle-${index}`}>Plan Description {index + 1}</label>
+           <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
            onChange={(e) =>
-             handleInputChange(index, 'title', e.target.value)
+            handleInputChangeGet(index, 'title', e.target.value)
            }/>
          </div>
        </div>
        <div className="col-xl-4">
          <div className="my_profile_setting_input form-group">
-           <label htmlFor="planBedrooms">Plan Bedrooms {index + 1}</label>
-           <input type="text" className="form-control" id="planBedrooms" value={input.bedroom}
+           <label htmlFor={`planBedrooms-${index}`}>Plan Bedrooms {index + 1}</label>
+           <input type="text" className="form-control" id={`planBedrooms-${index}`} value={input.bedroom}
            onChange={(e) =>
-             handleInputChange(index, 'bedroom', e.target.value)
+            handleInputChangeGet(index, 'bedroom', e.target.value)
            } />
          </div>
        </div>
        {/* End .col */}
        <div className="col-xl-4">
          <div className="my_profile_setting_input form-group">
-           <label htmlFor="planPrice">Plan Price {index + 1}</label>
-           <input type="text" className="form-control" id="planPrice" value={input.price}
+           <label htmlFor={`planPrice-${index}`}>Plan Price {index + 1}</label>
+           <input type="text" className="form-control" id={`planPrice-${index}`} value={input.price}
            onChange={(e) =>
-             handleInputChange(index, 'price', e.target.value)
+            handleInputChangeGet(index, 'price', e.target.value)
            } />
          </div>
        </div>
@@ -129,10 +154,10 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
 
        <div className="col-xl-4">
          <div className="my_profile_setting_input form-group">
-           <label htmlFor="planSize">Plan Size</label>
-           <input type="text" className="form-control" id="planSize" value={input.areasize}
+           <label htmlFor={`planSize-${index}`}>Plan Size</label>
+           <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
            onChange={(e) =>
-             handleInputChange(index, 'areasize', e.target.value)
+            handleInputChangeGet(index, 'areasize', e.target.value)
            } />
          </div>
        </div>
@@ -147,14 +172,14 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
                      type="file"
                      id={`planimage-${index}`}
                      accept="image/png, image/gif, image/jpeg"
-                     onChange={(e) => uploadPlanImage(index, e.target.files[0])}
+                     onChange={(e) => uploadPlanImageGet(index, e.target.files[0])}
                  />
                  <label
                  style={
                   input.planimageurl                          
                   ? { backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}${input.planimageurl})` }
-                    : inputs[index]?.planimage
-                    ? { backgroundImage: `url(${URL.createObjectURL(inputs[index]?.planimage)})` }
+                    : inputsget[index]?.planimage
+                    ? { backgroundImage: `url(${URL.createObjectURL(inputsget[index]?.planimage)})` }
                     : undefined
                 }
                     //  style={
@@ -178,13 +203,13 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
      {/* End .col */}
      <div className="col-xl-4">
        <div className="my_profile_setting_textarea mt30-991">
-         <label htmlFor="planDescription">Plan Description</label>
+         <label htmlFor={`planDescription-${index}`}>Plan Description</label>
          <textarea
            className="form-control"
-           id="planDescription"
+           id={`planDescription-${index}`}
            rows="4" value={input.description}
            onChange={(e) =>
-             handleInputChange(index, 'description', e.target.value)
+            handleInputChangeGet(index, 'description', e.target.value)
            }
          ></textarea>
        </div>
@@ -201,8 +226,8 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
           </div>
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor="planTitle">Plan Description {index + 1}</label>
-              <input type="text" className="form-control" id="planTitle" value={input.title}
+              <label htmlFor={`planTitle-${index}`}>Plan Description {index + 1}</label>
+              <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
               onChange={(e) =>
                 handleInputChange(index, 'title', e.target.value)
               }/>
@@ -210,8 +235,8 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
           </div>
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor="planBedrooms">Plan Bedrooms {index + 1}</label>
-              <input type="text" className="form-control" id="planBedrooms" value={input.bedroom}
+              <label htmlFor={`planBedrooms-${index}`}>Plan Bedrooms {index + 1}</label>
+              <input type="text" className="form-control" id={`planBedrooms-${index}`} value={input.bedroom}
               onChange={(e) =>
                 handleInputChange(index, 'bedroom', e.target.value)
               } />
@@ -220,8 +245,8 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
           {/* End .col */}
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor="planPrice">Plan Price {index + 1}</label>
-              <input type="text" className="form-control" id="planPrice" value={input.price}
+              <label htmlFor={`planPrice-${index}`}>Plan Price {index + 1}</label>
+              <input type="text" className="form-control" id={`planPrice-${index}`} value={input.price}
               onChange={(e) =>
                 handleInputChange(index, 'price', e.target.value)
               } />
@@ -231,8 +256,8 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
 
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor="planSize">Plan Size</label>
-              <input type="text" className="form-control" id="planSize" value={input.areasize}
+              <label htmlFor={`planSize-${index}`}>Plan Size</label>
+              <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
               onChange={(e) =>
                 handleInputChange(index, 'areasize', e.target.value)
               } />
@@ -273,10 +298,10 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
         {/* End .col */}
         <div className="col-xl-4">
           <div className="my_profile_setting_textarea mt30-991">
-            <label htmlFor="planDescription">Plan Description</label>
+            <label htmlFor={`planDescription-${index}`}>Plan Description</label>
             <textarea
               className="form-control"
-              id="planDescription"
+              id={`planDescription-${index}`}
               rows="4" value={input.description}
               onChange={(e) =>
                 handleInputChange(index, 'description', e.target.value)
@@ -292,7 +317,7 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
       <div className="col-xl-12">
         <div className="my_profile_setting_input">
           {/* <button className="btn btn1 float-start">Back</button> */}
-          <button className="btn btn2 float-end" type="submit"  disabled={!inputs.length}>Submit Plan</button>
+          <button className="btn btn2 float-end" type="submit"  disabled={!inputs.length && !inputsget.length}>Submit Plan</button>
         </div>
       </div>
       {/* End .col */}
