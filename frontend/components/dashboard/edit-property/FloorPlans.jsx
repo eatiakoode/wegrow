@@ -46,10 +46,13 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
     setInputs(updatedInputs);
   };
   const uploadPlanImageGet = (index, file) => {
-    alert("yse")
+    // alert("yse")
     const updatedInputs = [...inputsget];
     updatedInputs[index].planimageget = file;
+    updatedInputs[index].planimageurl = null;
+    
     setInputsget(updatedInputs);
+    
   };
 
   const updatePropertyFloorPlan = async (e) => {
@@ -78,7 +81,7 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
       formData.append(`floorPlansget[${index}][price]`, input.price);
       formData.append(`floorPlansget[${index}][areasize]`, input.areasize);
       formData.append(`floorPlansget[${index}][description]`, input.description);
-      formData.append(`floorPlansget[${index}][planid]`, input.planid);
+      formData.append(`floorPlansget[${index}][planid]`, input._id);
 
       if (input.planimageget) {
         formData.append(`floorPlansget[${index}][planimageget]`, input.planimageget);
@@ -171,13 +174,13 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
      <div htmlFor="planimageget">Plan Image</div>
              <div className="wrap-custom-file height-150">
            
-                 <input
+                 {/* <input
                      type="file"
                      id={`planimageget-${index}`}
                      accept="image/png, image/gif, image/jpeg"
                      onChange={(e) => uploadPlanImageGet(index, e.target.files[0])}
-                 />
-                 <label
+                 /> */}
+                 {/* <label
                  style={
                   input.planimageurl                          
                   ? { backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}${input.planimageurl})` }
@@ -192,12 +195,34 @@ const FloorPlans = ({inputs,setInputs,property,setPlanImage,planimage}) => {
                     //        }
                     //      : undefined
                     //  }
-                    //  htmlFor={`planimage-${index}`}
+                    htmlFor={`planimage-${index}`}
                    >
                      <span>
                          <i className="flaticon-download"></i> Upload plan image{" "}
                      </span>
-                 </label>
+                 </label> */}
+                 <input 
+                      type="file"
+                      id={`planimageget-${index}`}
+                      accept="image/png, image/gif, image/jpeg"
+                      onChange={(e) => uploadPlanImageGet(index, e.target.files[0])}
+                      style={{ display: 'none' }} // Hide the actual file input
+                    />
+                    <label
+                      htmlFor={`planimageget-${index}`} // This connects the label to the input
+                      style={
+                        input.planimageurl
+                          ? { backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}${input.planimageurl})` }
+                          : inputsget[index]?.planimageget
+                          ? { backgroundImage: `url(${URL.createObjectURL(inputsget[index]?.planimageget)})` }
+                          : undefined
+                      }
+                    >
+                      <span>
+                        <i className="flaticon-download"></i> Upload plan image{" "}
+                      </span>
+                    </label>
+
              </div>
              <p>*minimum 260px x 260px</p>
          </div>

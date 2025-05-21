@@ -1,4 +1,4 @@
-export const addAmenityAPI = async (title: string) => {
+export const addAmenityAPI = async (formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
     // const token =process.env.NEXT_PUBLIC_TOKEN;
@@ -16,10 +16,10 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/amenity", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ title }),
+      body: formData,
     });
   
     if (!response.status) {
@@ -135,10 +135,10 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/amenity/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(amenity),
+      body: amenity,
     });
   
     if (!response.status) {

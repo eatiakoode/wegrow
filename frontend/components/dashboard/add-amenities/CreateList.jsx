@@ -5,6 +5,7 @@ import { addAmenityAPI } from "../../../api/amenity";
 const CreateList = () => {
    const [title, setTitle] = useState("");
     const [error, setError] = useState("");
+    const [logo, setLogo] = useState(null);
   
     const handleTitleChange = (e) => {
       setTitle(e.target.value);
@@ -14,20 +15,23 @@ const CreateList = () => {
         setError("");
       }
     };
+
+    const uploadLogo = (e) => {
+      setLogo(e.target.files[0]);
+  };
   
     const addAmenity = async (e) => {
       
       e.preventDefault();
   
-      if (!title.trim()) {
-        setError("Title is required");
-        return;
+      const formData = new FormData();
+      formData.append("title", title);
+      if (logo) {
+        formData.append("logo", logo);
       }
-      // alert("testw")
-      setError("");
       
       try {
-        const data = await addAmenityAPI(title); // 🔹 Call the API function
+        const data = await addAmenityAPI(formData); // 🔹 Call the API function
         console.log(data);
         alert(data.message);
   
@@ -39,6 +43,33 @@ const CreateList = () => {
   return (
     <>
     <form onSubmit={addAmenity} className="row">
+    <div className="col-lg-12">
+                <div className="wrap-custom-file">
+                    <input
+                        type="file"
+                        id="image1"
+                        accept="image/png, image/gif, image/jpeg, image/svg+xml"
+                        onChange={uploadLogo}
+                    />
+                    <label
+                        style={
+                            logo !== null
+                                ? {
+                                      backgroundImage: `url(${URL.createObjectURL(
+                                          logo
+                                      )})`,
+                                  }
+                                : undefined
+                        }
+                        htmlFor="image1"
+                    >
+                        <span>
+                            <i className="flaticon-download"></i> Upload Photo{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="amenityTitle">Amenity Title</label>

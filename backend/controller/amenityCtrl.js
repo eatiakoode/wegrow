@@ -1,9 +1,17 @@
 const Amenity = require("../models/amenityModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
+const { uploadPhoto, amenityImgResize } = require("../middlewares/uploadImage");
 
 const createAmenity = asyncHandler(async (req, res) => {
   try {
+    if(req.files){
+      const processedImages  =await amenityImgResize(req);
+      if (processedImages.length > 0) {
+        // ✅ Append logo filename to req.body
+        req.body.image = "public/images/amenity/"+processedImages[0];
+      }
+    }
     const newAmenity = await Amenity.create(req.body);
     const message={
       "status":"success",
@@ -19,6 +27,13 @@ const updateAmenity = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
+    if(req.files){
+      const processedImages  =await amenityImgResize(req);
+      if (processedImages.length > 0) {
+        // ✅ Append logo filename to req.body
+        req.body.image = "public/images/amenity/"+processedImages[0];
+      }
+    }
     const updatedAmenity = await Amenity.findByIdAndUpdate(id, req.body, {
       new: true,
     });

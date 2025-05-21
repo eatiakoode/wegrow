@@ -2,11 +2,10 @@ const Propertyimages = require("../models/propertyimagesModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const mongoose = require("mongoose");
-const slugify = require("slugify");
 
 const createPropertyimages = asyncHandler(async (req, res) => {
   try {
-    req.body.slug  = slugify(req.body.slug.toLowerCase());
+    
      const newPropertyimages = await Propertyimages.create(req.body);
      console.log("req.body")
     console.log(req.body)
@@ -25,9 +24,7 @@ const updatePropertyimages = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    console.log("req.body")
-    console.log(req.body)
-    req.body.slug  = slugify(req.body.slug.toLowerCase());
+   
     const updatedPropertyimages = await Propertyimages.findByIdAndUpdate(id, req.body, {
       new: true,
     });
