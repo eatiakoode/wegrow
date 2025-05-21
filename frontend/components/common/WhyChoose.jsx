@@ -10,7 +10,7 @@ const WhyChoose = ({ style = "" }) => {
     {
       id: 2,
       icon: "flaticon-home-1",
-      title: "Wide Renge Of Properties",
+      title: "Wide Range Of Properties",
       descriptions: `Aliquam dictum elit vitae mauris facilisis at dictum urna
       dignissim donec vel lectus vel felis.`,
     },

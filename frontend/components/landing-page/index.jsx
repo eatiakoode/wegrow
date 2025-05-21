@@ -1,22 +1,25 @@
 'use client'
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from 'react';
 import CallToAction from "../common/CallToAction";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import Header from "../common/headerland/DefaultHeader";
 import MobileMenu from "../common/headerland/MobileMenu";
-import LandFeaturedProperties from "./LandFeaturedProperties";
+// import LandFeaturedProperties from "./LandFeaturedProperties";
+import FloorPlan from "./FloorPlan";
+import PaymentPlanSection from "./PaymentPlanSection";
+// import FloorPlanSection from "../components/landing-page/FloorPlanSection";
 import Amenities from "./Amenities";
 import Partners from "../common/Partners";
-import Blogs from "../common/Blogs";
 import PopupSignInUp from "../common/PopupSignInUp";
 // import WhyChoose from "../common/WhyChoose";
 import FaqContent from "./FaqContent";
 import { getFaqTableData } from "@/api/frontend/faq";
 import Testimonial from "../common/Testimonial";
-import BreadCrumbBanner from "./BreadCrumbBanner";
+import BannerSection from "./BannerSection";
 // import Team from "./Team";
 // import OurMission from "./OurMission";
 
@@ -48,20 +51,51 @@ const index = () => {
       <PopupSignInUp />
 
       {/* <!-- Inner Page Breadcrumb --> */}
-      <BreadCrumbBanner />
-      {/* <section id="about">...</section>
-      <section id="property">...</section>
-      <section id="residential">...</section>
-      <section id="commercial">...</section>
-      <section id="blogs">...</section>
-      <section id="faq">...</section>
-      <section id="news">...</section>
-      <section id="contact">...</section> */}
+      <BannerSection />
       
       {/* <!-- About Text Content --> */}
       <section id="about" className="para-land aboutland about-section scroll-mt-80px border-btm">
         <div className="container">
           <div className="row">
+            <div className="col-lg-5 col-xl-6">
+              {/* <div className="main-title text-left">
+               <Image
+                    width={768}
+                    height={512}
+                    priority
+                    className="w100 cover"
+                    src="/assets/images/hotproperties/1.webp"
+                    alt="image" className="img-fluid"
+                  />
+              </div> */}
+              <div className="main-title text-left pb-0">
+                <div
+                  className="story-two_image wow fadeInLeft"
+                  data-wow-delay="0ms"
+                  data-wow-duration="1500ms">
+                  <Image
+                    src="/assets/images/hotproperties/about.webp"
+                    alt="Story Image One"
+                    width={1200}
+                    height={1000}
+                    className="img-fluid w-full h-auto object-cover"
+                  />
+                </div>
+
+                <div
+                  className="story-two_image-two wow fadeInRight"
+                  data-wow-delay="0ms"
+                  data-wow-duration="1500ms">
+                  <Image
+                    src="/assets/images/hotproperties/about-in.webp"
+                    alt="Story Image Two"
+                    width={1200}
+                    height={1000}
+                    className="img-fluid w-full h-auto object-cover"
+                  />
+                </div>
+              </div>
+            </div>
             <div className="col-lg-7 col-xl-6">
               <div className="main-title text-left">
                 {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
@@ -73,25 +107,27 @@ const index = () => {
                 </p>
                 <p>From modern city apartments to spacious family homes and luxurious retreats, we offer a curated selection of listings backed by trusted real estate professionals who guide you every step of the way.</p>
                 <p>Start exploring today and experience a seamless, stress-free journey to your next home. Your dream property is just a click away.</p>
+                <div className="row clearfix">
+                <div className="column col-lg-6 col-md-6 col-sm-12">
+                  <div className="story-two_check"><i className="flaticon-tick"></i>11 Towers<br/>Up to 32 floors High</div>
+                </div>
+                <div className="column col-lg-6 col-md-6 col-sm-12">
+                  <div className="story-two_check"><i className="flaticon-tick"></i>3, 3.5, 4 and 4.5 Bedroom Luxury Residences</div>
+                </div>
+                
+
               </div>
-            </div>
-             <div className="col-lg-5 col-xl-6">
-              <div className="main-title text-left">
-               <Image
-                    width={768}
-                    height={512}
-                    priority
-                    className="w100 cover"
-                    src="/assets/images/hotproperties/1.webp"
-                    alt="image" class="img-fluid"
-                  />
               </div>
+              
             </div>
+             
           </div>
         </div>
       </section>
           {/* End .row */}
 
+        <PaymentPlanSection />
+          
          <section id="amenities" className="amenityland property-city scroll-mt-80px border-btm">
             <div className="container">
               <div className="row">
@@ -111,18 +147,16 @@ const index = () => {
             </div>
           </section>
 
-          <section id="gallery" className="feature-property-home6 scroll-mt-80px">
+          
+          <FloorPlan />
+                 
+          <section id="gallery" className="feature-property-home6 scroll-mt-80px border-btm">
               <div className="container">
                 <div className="row">
                   <div className="col-lg-12">
                     <div className="main-title mb40">
                       <h2>Gallery</h2>
-                      {/* <p>
-                        Handpicked properties by our team.{" "}
-                        <a className="float-end" href="#">
-                          View All <span className="flaticon-next"></span>
-                        </a>
-                      </p> */}
+                      
                     </div>
                   </div>
                   {/* End .col */}
@@ -133,28 +167,173 @@ const index = () => {
 
               <div className="feature_property_home6_slider ">
                 <div className="container ml--xxl-0">
-                  <div className="gutter-x15">
-                    <LandFeaturedProperties />
+                  <div className="row gutter-x15">
+                    {/* <LandFeaturedProperties />
+                     */}
+                     <div className="col-lg-4">
+                          <div className="properti_city home6">
+                            <div className="thumb">
+                              <Image
+                                width={768}
+                                height={512}
+                                className="img-fluid"
+                                src="/assets/images/hotproperties/1.webp"
+                                alt="image"
+                              />
+                            </div>
+                          </div>
+                      </div>
+                      <div className="col-lg-4">
+                        <div className="properti_city home6">
+                            <div className="thumb">
+                              <Image
+                                width={768}
+                                height={512}
+                                className="img-fluid"
+                                src="/assets/images/hotproperties/2.webp"
+                                alt="image"
+                              />
+                            </div>
+                          </div>
+                      </div>
+                      <div className="col-lg-4">
+                       <div className="properti_city home6">
+                            <div className="thumb">
+                              <Image
+                                width={768}
+                                height={512}
+                                className="img-fluid"
+                                src="/assets/images/hotproperties/3.webp"
+                                alt="image"
+                              />
+                            </div>
+                          </div>
+                      </div>
+                      <div className="col-lg-4">
+                       <div className="properti_city home6">
+                            <div className="thumb">
+                              <Image
+                                width={768}
+                                height={512}
+                                className="img-fluid"
+                                src="/assets/images/hotproperties/4.webp"
+                                alt="image"
+                              />
+                            </div>
+                          </div>
+                      </div>
+                      <div className="col-lg-4">
+                       <div className="properti_city home6">
+                            <div className="thumb">
+                              <Image
+                                width={768}
+                                height={512}
+                                className="img-fluid"
+                                src="/assets/images/hotproperties/5.webp"
+                                alt="image"
+                              />
+                            </div>
+                          </div>
+                      </div>
+                      <div className="col-lg-4">
+                       <div className="properti_city home6">
+                            <div className="thumb">
+                              <Image
+                                width={768}
+                                height={512}
+                                className="img-fluid"
+                                src="/assets/images/hotproperties/1.webp"
+                                alt="image"
+                              />
+                            </div>
+                          </div>
+                      </div>
                   </div>
                 </div>
               </div>
           </section>
-          {/* <!-- Our Blog --> */}
-          <section id="blogs" className="our-blog scroll-mt-80px">
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-6 offset-lg-3">
-                  <div className="main-title text-center">
-                    <h2>News & Blogs</h2>
-                    <p>All the Latest from the Real Estate World at Your Fingertips.</p>
-                  </div>
+          {/* <!-- Our News & Insights --> */}
+          <section id="newsinsights" className="news-insights about-section scroll-mt-80px border-btm">
+              <div className="container">
+                <div class="main-title text-center">
+                  <h2>Market Knowledge</h2>
+                  <p>Uncover key information to guide your property investments</p>
                 </div>
+                <div className="row">
+                        <div className="col-lg-4">
+                          <Link href="/news-and-insights/market-trends" className="property-block_one style-two">
+                              <div className="property-block_one-inner">
+                                <div className="thumb">
+                                  <Image
+                                    width={768}
+                                    height={512}
+                                    className="img-fluid"
+                                    src="/assets/images/news-insights/price-trends.svg"
+                                    alt="image"
+                                    />
+                                </div>
+                                <div className="property-block_one-content wow fadeInUp animated">
+                                  <div className="property-block_one-location">Market Trends</div>
+                                  <h4 className="property-block_one-heading">Stay updated with property rates and pricing trends in top locations
+                                    </h4>
+                                  {/* <ul className="property-block_one-info">
+                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
+                                  </ul> */}
+                                </div>
+                              </div>
+                            </Link>
+                        </div>
+                        <div className="col-lg-4">
+                          <Link href="/news-and-insights/city-insights" className="property-block_one style-two">
+                              <div className="property-block_one-inner">
+                                <div className="thumb">
+                                  <Image
+                                    width={768}
+                                    height={512}
+                                    className="img-fluid"
+                                    src="/assets/images/news-insights/city-insights.svg"
+                                    alt="image"
+                                    />
+                                </div>
+                                <div className="property-block_one-content wow fadeInUp animated">
+                                  <div className="property-block_one-location">City Highlights</div>
+                                  <h4 className="property-block_one-heading">Gain insights into leading cities before you invest
+                                    </h4>
+                                  {/* <ul className="property-block_one-info">
+                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
+                                  </ul> */}
+                                </div>
+                              </div>
+                            </Link>
+                        </div>
+                        <div className="col-lg-4">
+                          <Link href="/blogs" className="property-block_one style-two">
+                              <div className="property-block_one-inner">
+                                <div className="thumb">
+                                  <Image
+                                    width={768}
+                                    height={512}
+                                    className="img-fluid"
+                                    src="/assets/images/news-insights/housing-research.svg"
+                                    alt="image"
+                                    />
+                                </div>
+                                <div className="property-block_one-content wow fadeInUp animated">
+                                  <div className="property-block_one-location">Real Estate Reports</div>
+                                  <h4 className="property-block_one-heading">Explore detailed research on India’s residential property market
+                                    </h4>
+                                  {/* <ul className="property-block_one-info">
+                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
+                                  </ul> */}
+                                </div>
+                              </div>
+                            </Link>
+                        </div>
+                </div>
+                {/* End .row */}
+
               </div>
-              <div className="row">
-                <Blogs />
-              </div>
-            </div>
-          </section>
+      </section>
           {/* End .row */}
 
           {/* <!-- Our Testimonials --> */}
@@ -195,7 +374,7 @@ const index = () => {
               
             </div>
           </section> */}
-          <section className="our-faq bgc-f7">
+          <section className="our-faq scroll-mt-80px bgc-f7" id="faq">
             <div className="container">
               <div className="row">
                 <div className="col-lg-6 offset-lg-3">

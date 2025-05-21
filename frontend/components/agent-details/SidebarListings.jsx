@@ -4,6 +4,7 @@ import FeaturedListings from "../../components/common/listing/FeaturedListings";
 import FeatureProperties from "../../components/common/listing/FeatureProperties";
 
 const SidebarListings = () => {
+  
   return (
     <div className="sidebar_listing_grid1">
       <div className="sidebar_listing_list">
@@ -16,7 +17,7 @@ const SidebarListings = () => {
 
       <div className="terms_condition_widget style_two-pro">
         <h4 className="title">Featured Properties</h4>
-        <FeatureProperties />
+        {/* <FeatureProperties /> */}
       </div>
       {/* End Featured Properties widget */}
 
@@ -24,7 +25,7 @@ const SidebarListings = () => {
         <h4 className="title">Categories Property</h4>
         <div className="widget_list">
           <ul className="list_details">
-            <Categorie />
+            {/* <Categorie /> */}
           </ul>
         </div>
       </div>
@@ -32,7 +33,7 @@ const SidebarListings = () => {
 
       <div className="sidebar_feature_listing">
         <h4 className="title">Recently Viewed</h4>
-        <FeaturedListings />
+        {/* <FeaturedListings /> */}
       </div>
       {/* End Recently Viewed widget */}
     </div>
