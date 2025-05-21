@@ -389,7 +389,7 @@ useEffect(() => {
 
       <li className="last">
         <Link
-          href="/"
+          href="/news-and-insights"
           className={pathname === "/contact" ? "ui-active" : undefined}
         >
           News & Insights

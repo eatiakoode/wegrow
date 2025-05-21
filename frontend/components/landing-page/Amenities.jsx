@@ -5,7 +5,7 @@ import Image from "next/image";
 const LandAmenities = () => {
   return (
     <>
-      {landamenities.slice(0, 8).map((item) => (
+      {landamenities.slice(0, 12).map((item) => (
         <div className="col-sm-6 col-lg-2" key={item.id}>
           <div className="properti_city_home8 text-center d-block">
             <div className="thumb">
@@ -19,7 +19,7 @@ const LandAmenities = () => {
 
             <div className="details">
               <h4>{item.name}</h4>
-              <p>{item.number} Properties</p>
+              {/* <p>{item.number} Properties</p> */}
             </div>
           </div>
         </div>

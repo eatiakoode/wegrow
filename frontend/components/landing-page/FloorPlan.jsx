@@ -22,7 +22,16 @@ const FloorPlanSection = () => {
           </div>
         </div>
       </div>
-
+          {!floorPlanUnlocked && (
+            <div className="view-all text-center my-4">
+              <button
+                className="btn btn-primary"
+                onClick={() => setShowModal(true)}
+              >
+                View Floor Plans
+              </button>
+            </div>
+          )}
       <div className="feature_property_home6_slider">
         <div className="container ml--xxl-0">
           <div className="gutter-x15">
