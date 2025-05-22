@@ -2,7 +2,7 @@ const mongoose = require("mongoose"); // Erase if already required
 
 // Declare the Schema of the Mongo model
 
-var propertyimagesSchema = new mongoose.Schema(
+var landingimagesSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -29,4 +29,4 @@ var propertyimagesSchema = new mongoose.Schema(
 );
 
 //Export the model
-module.exports = mongoose.model("Propertyimage", propertyimagesSchema);
+module.exports = mongoose.model("Landingimage", landingimagesSchema);

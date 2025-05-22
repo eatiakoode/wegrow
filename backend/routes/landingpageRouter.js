@@ -1,5 +1,5 @@
 const express = require("express");
-const { uploadPhoto ,photoUploadMiddleware} = require("../middlewares/uploadImage");
+const { uploadPhoto ,photoUploadMiddleware1} = require("../middlewares/uploadImage");
 const {
   createLandingpage,
   updateLandingpage,
@@ -10,8 +10,8 @@ const {
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware.js");
 const router = express.Router();
 
-router.post("/", authMiddleware,  isAdmin, photoUploadMiddleware,createLandingpage);
-router.put("/:id", authMiddleware, isAdmin,photoUploadMiddleware, updateLandingpage);
+router.post("/", authMiddleware,  isAdmin, photoUploadMiddleware1,createLandingpage);
+router.put("/:id", authMiddleware, isAdmin,photoUploadMiddleware1, updateLandingpage);
 router.delete("/:id", authMiddleware, isAdmin, deleteLandingpage);
 router.get("/:id", getLandingpage);
 router.get("/", getallLandingpage);

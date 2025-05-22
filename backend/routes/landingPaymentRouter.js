@@ -6,7 +6,7 @@ const {
   deleteLandingpayment,
   getLandingpayment,
   getallLandingpayment,
-} = require("../controller/landingpaymentCtrl.js/index.js");
+} = require("../controller/landingpaymentCtrl");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware.js");
 const router = express.Router();
 

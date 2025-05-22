@@ -22,7 +22,7 @@ const FindProperties = () => {
         }, []); 
   return (
     <>
-      {findcities.slice(0, 4).map((item,index) => (
+      {findcities?.slice(0, 4).map((item,index) => (
        <div className={`${  index  === 1 ? 'col-lg-8 col-xl-8' : index  === 2  ? 'col-lg-8 col-xl-8 3' : 'col-lg-4 col-xl-4' }`}
        key={item.cityId}
      >
