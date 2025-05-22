@@ -478,6 +478,94 @@ const amenityImgResize = async (req) => {
 
   return processedFilenames;
 };
+const bannerImageResize = async (req) => {
+  // console.log("test1dd")
+  // console.log(req)
+  // if (!req.files.bannerimage || !Array.isArray(req.files.bannerimage)) return;
 
+  const processedFilenames = [];
+  console.log("test1dddddddd")
+  await Promise.all(
+    req.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "landing", filename);
 
-module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize ,cityImgResize,processFloorPlanImages,photoUploadMiddleware1,processFloorPlanImagesGet,amenityImgResize};
+      await sharp(file.path)
+        .resize(750, 450)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      // fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+const aboutImageResize = async (req) => {
+  console.log("test1dd")
+  console.log(req)
+  if (!req.files.aboutimage || !Array.isArray(req.files.aboutimage)) return;
+
+  const processedFilenames = [];
+
+  await Promise.all(
+    req.files.aboutimage.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "landing", filename);
+
+      await sharp(file.path)
+        .resize(750, 450)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      // fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+const gallerySelectedImgsResize = async (req) => {
+
+  // if (!req.files.gallerySelectedImgs || !Array.isArray(req.files.gallerySelectedImgs)) return;
+
+  const processedFilenames = [];
+  await Promise.all(
+    req.map(async (file) => {
+      
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "landing", filename);
+
+      await sharp(file.path)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      // fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push("public/images/landing/"+filename);
+    })
+  );
+
+  return processedFilenames;
+};
+const groupFilesByFieldname = (files) => {
+  const fileMap = {};
+  files.forEach(file => {
+    if (!fileMap[file.fieldname]) {
+      fileMap[file.fieldname] = [];
+    }
+    fileMap[file.fieldname].push(file);
+  });
+  return fileMap;
+};
+module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize ,cityImgResize,processFloorPlanImages,photoUploadMiddleware1,processFloorPlanImagesGet,amenityImgResize,bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname};

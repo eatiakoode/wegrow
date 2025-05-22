@@ -31,4 +31,4 @@ var landingpaymentSchema = new mongoose.Schema(
 );
 
 //Export the model
-module.exports = mongoose.model("landingpayment", landingpaymentSchema);
+module.exports = mongoose.model("Landingpayment", landingpaymentSchema);

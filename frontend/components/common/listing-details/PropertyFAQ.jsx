@@ -1,5 +1,5 @@
 "use client";
-import { getFaqByPropertyIdData } from "@/api/frontend/faq";
+
 import { useState, useEffect } from "react";
 
 const PropertyFAQ = ({ faqs }) => {

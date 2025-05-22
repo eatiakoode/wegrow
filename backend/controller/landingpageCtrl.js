@@ -1,44 +1,37 @@
 const Landingpage = require("../models/landingpageModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
-const { featuredImageResize,sitePlanResize,landingpageSelectedImgsResize } = require("../middlewares/uploadImage");
+const { bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname,processFloorPlanImages  } = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-// const Propertyimage = require("../models/propertyimagesModel");
+const Landingimage = require("../models/landingimagesModel");
+const Landingplan = require("../models/landingfloorModel");
+const Landingpayment = require("../models/landingpaymentModel");
+
+
 
 const createLandingpage = asyncHandler(async (req, res) => {
   try {
+    
     if (req.files && Object.keys(req.files).length > 0) {
-      var propertySelectedImgs  =[]
-      if (req.files && req.files.propertySelectedImgs && req.files.propertySelectedImgs.length > 0  && Object.keys(req.files.propertySelectedImgs).length > 0 && Array.isArray(req.files.propertySelectedImgs)) {
-        console.log("no propertySelectedImgs")
-         propertySelectedImgs  = await propertySelectedImgsResize(req);
-        if (propertySelectedImgs.length > 0) {
-          // ✅ Append logo filename to req.body
-          // console.log("Property Images:", propertySelectedImgs);
-          req.body.propertyimageurl = propertySelectedImgs;
-          
-        }
-      }
-     
-      if (req.files && req.files.featuredimage && Array.isArray(req.files.featuredimage) && req.files.featuredimage.length > 0 ) { 
-        console.log(req.files.featuredimage)
-        console.log("no featuredImageResize")
-        const processedImages  =await featuredImageResize(req);
-        if (processedImages.length > 0) {
-          // ✅ Append logo filename to req.body
-          req.body.featuredimageurl = "public/images/property/"+processedImages[0];
-        }
-      }
-      if (req.files && req.files.siteplan && Array.isArray(req.files.siteplan) && req.files.siteplan.length > 0 ) { 
-        
-        console.log(req.files.siteplan)
-        console.log("no siteplan")
-        const processedImagesplan  =await sitePlanResize(req);
+      
+      const filesByField = groupFilesByFieldname(req.files);
 
-        if (processedImagesplan.length > 0) {
-          // ✅ Append logo filename to req.body
-          req.body.siteplanurl = "public/images/siteplan/"+processedImagesplan[0];
+        if (filesByField.bannerimage && filesByField.bannerimage.length > 0) {
+         
+          const processedImages = await bannerImageResize(filesByField.bannerimage);
+         
+          if (processedImages.length > 0) {
+            req.body.bannerimage = "public/images/landing/" + processedImages[0];
+          }
+        }
+      
+      if (filesByField.aboutimage && filesByField.aboutimage.length > 0) {
+        
+        const processedImages = await bannerImageResize(filesByField.aboutimage);
+       
+        if (processedImages.length > 0) {
+          req.body.aboutimage = "public/images/landing/" + processedImages[0];
         }
       }
     }
@@ -48,24 +41,112 @@ const createLandingpage = asyncHandler(async (req, res) => {
         .split(",")
         .map((id) => new mongoose.Types.ObjectId(id.trim()));
     }
-    console.log("req.body")
-    console.log(req.body)
+   
+ 
+   
     req.body.slug  = slugify(req.body.slug.toLowerCase());
 
+    let faqs = req.body.faqs;
+
+    // If it's a string, parse it
+    if (typeof faqs === 'string') {
+      try {
+        faqs = JSON.parse(faqs);
+      } catch (e) {
+        return res.status(400).json({ error: "Invalid JSON in faqsfaqfaq" });
+      }
+    }
+
+    // Extract ObjectId values
+    const faqIds = faqs?.map(faq => faq.value);
+
+// Make sure they are valid ObjectIds
+const validFaqIds = faqIds?.filter(id => mongoose.Types.ObjectId.isValid(id));
+
+req.body.faqid  = validFaqIds;
     const newLandingpage = await Landingpage.create(req.body);
-    if (propertySelectedImgs.length > 0) {
+    if (gallerySelectedImgs?.length > 0) {
+      var gallerySelectedImgs  =[]
+            if (req.files && req.files.gallerySelectedImgs && req.files.gallerySelectedImgs.length > 0  && Object.keys(req.files.gallerySelectedImgs).length > 0 && Array.isArray(req.files.gallerySelectedImgs)) {
+             
+               gallerySelectedImgs  = await gallerySelectedImgsResize(req);
+              if (gallerySelectedImgs.length > 0) {
+                // ✅ Append logo filename to req.body
+                // console.log("Property Images:", gallerySelectedImgs);
+                req.body.propertyimageurl = gallerySelectedImgs;
+                
+              }
+            }
       // ✅ Append logo filename to req.body
-      // console.log("Landingpage Images:", propertySelectedImgs);
-      // req.body.propertyimageurl = propertySelectedImgs;
-      for(var i=0;i<propertySelectedImgs.length;i++){
+      // console.log("Landingpage Images:", gallerySelectedImgs);
+      // req.body.propertyimageurl = gallerySelectedImgs;
+      for(var i=0;i<gallerySelectedImgs.length;i++){
         var propertyimage={
-          "image":propertySelectedImgs[i],
+          "image":gallerySelectedImgs[i],
           "propertyid":newLandingpage._id,
           "title":newProperty.title
         }
-        const newLandingpage = await Propertyimage.create(propertyimage);
+        const newLandingpage = await Landingimage.create(propertyimage);
 
       }
+    }
+    for(var i=0;i<req.body.floorPlans?.length;i++){
+          
+      var plandata={
+          "title":req.body.floorPlans[i].title,
+          "areasize":req.body.floorPlans[i].areasize,
+          "landingpageid":newLandingpage._id
+      }
+    
+      const floorPlans = [];
+
+  // Parse text fields like floorPlans[0][title], etc.
+  Object.entries(req.body).forEach(([key, value]) => {
+    const match = key.match(/^floorPlans\[(\d+)]\[(\w+)]$/);
+    if (match) {
+      const [ , index, field ] = match;
+      if (!floorPlans[index]) floorPlans[index] = {};
+      floorPlans[index][field] = value;
+    }
+  });
+
+  // Parse uploaded files with fieldnames like floorPlans[0][planimage]
+  (req.files || []).forEach((file) => {
+    const match = file.fieldname.match(/^floorPlans\[(\d+)]\[planimage]$/);
+    if (match) {
+      const index = parseInt(match[1]);
+      if (!floorPlans[index]) floorPlans[index] = {};
+      floorPlans[index].planimage = file;
+    }
+  });
+  // Now process each floor plan image
+  for (let i = 0; i < floorPlans?.length; i++) {
+    const plan = floorPlans[i];
+
+    if (plan) {
+      console.log("Resizing image for floorPlan", i);
+
+      const processedImages = await processFloorPlanImages(plan); // assuming this accepts a single file
+      if (processedImages.length > 0) {
+          plandata.planimageurl = `${processedImages[0].url}`;
+      }
+    }
+  }
+      const newPropertyplan = await Landingplan.create(plandata);
+    }
+
+    for(var i=0;i<req.body.paymentPlans?.length;i++){
+
+     
+      var plandata={
+          "title":req.body.paymentPlans[i].title,
+          "areasize":req.body.paymentPlans[i].areasize,
+          "price":req.body.paymentPlans[i].price,
+          "landingpageid":newLandingpage._id
+      }
+    
+      
+      const newPropertyplan = await Landingpayment.create(plandata);
     }
     //res.json(newProperty);
     const message={
@@ -82,67 +163,141 @@ const updateLandingpage = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-   
+    console.log("req.body")
+    console.log(req.body)
+    console.log("req.files")
+    console.log(req.files)
 
     if (req.files && Object.keys(req.files).length > 0) {
-      var  propertySelectedImgs  =[]
-      if (req.files && req.files.propertySelectedImgs && req.files.propertySelectedImgs.length > 0  && Object.keys(req.files.propertySelectedImgs).length > 0 && Array.isArray(req.files.propertySelectedImgs)) {
-        console.log("no propertySelectedImgs")
-         propertySelectedImgs  = await propertySelectedImgsResize(req);
-        if (propertySelectedImgs.length > 0) {
-          // ✅ Append logo filename to req.body
-          // console.log("Landingpage Images:", propertySelectedImgs);
-          req.body.propertyimageurl = propertySelectedImgs;
-        }
-      }
-     
-      if (req.files && req.files.featuredimage && Array.isArray(req.files.featuredimage) && req.files.featuredimage.length > 0 ) { 
-        console.log(req.files.featuredimage)
-        console.log("no featuredImageResize")
-        const processedImages  =await featuredImageResize(req);
-        if (processedImages.length > 0) {
-          // ✅ Append logo filename to req.body
-          req.body.featuredimageurl = "public/images/property/"+processedImages[0];
-        }
-      }
-      if (req.files && req.files.siteplan && Array.isArray(req.files.siteplan) && req.files.siteplan.length > 0 ) { 
-        
-        console.log(req.files.siteplan)
-        console.log("no siteplan")
-        const processedImagesplan  =await sitePlanResize(req);
+      
+      const filesByField = groupFilesByFieldname(req.files);
 
-        if (processedImagesplan.length > 0) {
-          // ✅ Append logo filename to req.body
-          req.body.siteplanurl = "public/images/siteplan/"+processedImagesplan[0];
+        if (filesByField.bannerimage && filesByField.bannerimage.length > 0) {
+         
+          const processedImages = await bannerImageResize(filesByField.bannerimage);
+         
+          if (processedImages.length > 0) {
+            req.body.bannerimage = "public/images/landing/" + processedImages[0];
+          }
+        }
+      
+      if (filesByField.aboutimage && filesByField.aboutimage.length > 0) {
+        
+        const processedImages = await bannerImageResize(filesByField.aboutimage);
+       
+        if (processedImages.length > 0) {
+          req.body.aboutimage = "public/images/landing/" + processedImages[0];
         }
       }
     }
+
     if (req.body.amenityid && typeof req.body.amenityid === "string") {
       req.body.amenityid = req.body.amenityid
         .split(",")
         .map((id) => new mongoose.Types.ObjectId(id.trim()));
     }
-    req.body.slug  = slugify(req.body.slug.toLowerCase());
-    req.body.admin_approve = true;
    
+ 
+   
+    req.body.slug  = slugify(req.body.slug.toLowerCase());
 
+    let faqs = req.body.faqs;
+
+    // If it's a string, parse it
+    if (typeof faqs === 'string') {
+      try {
+        faqs = JSON.parse(faqs);
+      } catch (e) {
+        return res.status(400).json({ error: "Invalid JSON in faqsfaqfaq" });
+      }
+    }
+
+    // Extract ObjectId values
+    const faqIds = faqs?.map(faq => faq.value);
+
+// Make sure they are valid ObjectIds
+const validFaqIds = faqIds?.filter(id => mongoose.Types.ObjectId.isValid(id));
+
+req.body.faqid  = validFaqIds;
     const updatedLandingpage = await Landingpage.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     
-    if (propertySelectedImgs?.length > 0) {
-      // ✅ Append logo filename to req.body
-      // console.log("Property Images:", propertySelectedImgs);
-      // req.body.propertyimageurl = propertySelectedImgs;
-      for(var i=0;i<propertySelectedImgs?.length;i++){
-        var propertyimage={
-          "image":propertySelectedImgs[i],
-          "propertyid":id,
-          "title":req.body.title
-        }
-        const newProperty = await Propertyimage.create(propertyimage);
-
+    if (req.files.gallerySelectedImgs?.length > 0) {
+      console.log("test")
+      const filesByFields = groupFilesByFieldname(req.files);
+      var gallerySelectedImgsget  =[]
+      if (filesByFields.gallerySelectedImgs && filesByFields.gallerySelectedImgs.length > 0) {    
+        console.log("test2")         
+          gallerySelectedImgsget  = await gallerySelectedImgsResize(filesByFields.gallerySelectedImgs);
+          for(var i=0;i<gallerySelectedImgsget.length;i++){
+            console.log("test3")
+            var propertyimage={
+              "image":gallerySelectedImgsget[i],
+              "landingpageid":id,
+              "title":req.body.title
+            }
+            const newLandingpage = await Landingimage.create(propertyimage);    
+          }
       }
+    }
+    for(var i=0;i<req.body.floorPlans?.length;i++){
+          
+      var plandata={
+          "title":req.body.floorPlans[i].title,
+          "areasize":req.body.floorPlans[i].areasize,
+          "landingpageid":id
+      }
+    
+      const floorPlans = [];
+
+  // Parse text fields like floorPlans[0][title], etc.
+  Object.entries(req.body).forEach(([key, value]) => {
+    const match = key.match(/^floorPlans\[(\d+)]\[(\w+)]$/);
+    if (match) {
+      const [ , index, field ] = match;
+      if (!floorPlans[index]) floorPlans[index] = {};
+      floorPlans[index][field] = value;
+    }
+  });
+
+  // Parse uploaded files with fieldnames like floorPlans[0][planimage]
+  (req.files || []).forEach((file) => {
+    const match = file.fieldname.match(/^floorPlans\[(\d+)]\[planimage]$/);
+    if (match) {
+      const index = parseInt(match[1]);
+      if (!floorPlans[index]) floorPlans[index] = {};
+      floorPlans[index].planimage = file;
+    }
+  });
+  // Now process each floor plan image
+  for (let i = 0; i < floorPlans?.length; i++) {
+    const plan = floorPlans[i];
+
+    if (plan) {
+      console.log("Resizing image for floorPlan", i);
+
+      const processedImages = await processFloorPlanImages(plan); // assuming this accepts a single file
+      if (processedImages.length > 0) {
+          plandata.planimageurl = `${processedImages[0].url}`;
+      }
+    }
+  }
+      const newPropertyplan = await Landingplan.create(plandata);
+    }
+
+    for(var i=0;i<req.body.paymentPlans?.length;i++){
+
+     
+      var plandata={
+          "title":req.body.paymentPlans[i].title,
+          "areasize":req.body.paymentPlans[i].areasize,
+          "price":req.body.paymentPlans[i].price,
+          "landingpageid":id
+      }
+    
+      
+      const newPropertyplan = await Landingpayment.create(plandata);
     }
     
    
@@ -177,7 +332,7 @@ const getLandingpage = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getLandingpage = await Landingpage.findById(id).populate('images').populate("floorplan");
+    const getLandingpage = await Landingpage.findById(id).populate('paymentplan').populate("floorplan").populate("galleryimages");
     const message={
       "status":"success",
       "message":"Data deleted sucessfully ii",
@@ -191,7 +346,7 @@ const getLandingpage = asyncHandler(async (req, res) => {
 });
 const getallLandingpage = asyncHandler(async (req, res) => {
   try {
-    const getallLandingpage = await Landingpage.find().populate("cityid").populate("categoryid");
+    const getallLandingpage = await Landingpage.find();
     res.json(getallLandingpage);
   } catch (error) {
     throw new Error(error);

@@ -2,235 +2,138 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getCityByStateTableData } from "../../../api/city";
-
-import { getCountryTableData } from "../../../api/country";
-import { getStateByCountryTableData } from "../../../api/state";
-import { getLocationByCityTableData } from "../../../api/location";
-import { getCategoryTableData } from "../../../api/category";
-import { getPropertytypeByCategoryTableData} from "../../../api/propertytype";
 import { getAmenityTableData } from "../../../api/amenity";
-import { getBuilderTableData } from "../../../api/builder";
-import { getConstructionstatusTableData } from "../../../api/constructionstatus";
-import { getFurnishingstatusTableData } from "../../../api/furnishingstatus";
-import { addPropertyAPI } from "../../../api/property";
+import { addLandingpageAPI } from "../../../api/landingpage";
 import { MultiSelectInput } from 'multi-select-input';
+import { getFaqTableData } from "../../../api/faq";
 
 import selectedFiles from "../../../utils/selectedFiles";
 import Image from "next/image";
 
-
-
-// type SelectOption = {
-//   value: string;
-//   label: string;
-//   img?: string;
-//   subTitle?: string;
-// };
-// const options: SelectOption[] = [
-//   {
-//     value: '1',
-//     label: 'Option 1',
-//     img: 'https://via.placeholder.com/150',
-//     subTitle: 'Sub Title 1',
-//   },
-//   {
-//     value: '2',
-//     label: 'Option 2',
-//     img: 'https://via.placeholder.com/150',
-//     subTitle: 'Sub Title 2',
-//   },
-//   {
-//     value: '3',
-//     label: 'Option 3',
-//     img: 'https://via.placeholder.com/150',
-//     subTitle: 'Sub Title 3',
-//   },
-// ];
-const options = [
-  { label: "Apple", value: "apple" },
-  { label: "Banana", value: "banana" },
-];
-
 const CreateList = () => {
+  const [inputs, setInputs] = useState([]);
+  const handleAddInput = () => {
+    setInputs([
+      ...inputs,
+      {
+        id: Date.now(),
+        title: '',
+        areasize: '',
+        planimage: null
+      }
+    ]);
+  };
+  const handleInputChange = (index, field, value) => {
+    const updated = [...inputs];
+    updated[index][field] = value;
+    setInputs(updated);
+  };
+  const handleRemoveInput = (idToRemove) => {
+    setInputs(inputs.filter((input) => input.id !== idToRemove));
+  };
+  const uploadPlanImage = (index, file) => {
+    const updatedInputs = [...inputs];
+    updatedInputs[index].planimage = file;
+    setInputs(updatedInputs);
+  };
+
+  const [inputspayment, setInputspayment] = useState([]);
+  const handleAddInputpayment = () => {
+    setInputspayment([
+      ...inputspayment,
+      {
+        id: Date.now(),
+        title: '',
+        areasize: '',
+        price: ''
+      }
+    ]);
+  };
+  const handleInputChangepayment = (index, field, value) => {
+    const updated = [...inputspayment];
+    updated[index][field] = value;
+    setInputspayment(updated);
+  };
+  const handleRemoveInputpayment = (idToRemove) => {
+    setInputspayment(inputspayment.filter((input) => input.id !== idToRemove));
+  };
+ 
   const [value, setValue] = useState([]);
-  const [filteredOptions, setFilteredOptions] = useState(options);
+  const [options, setOptions] = useState([]);
+  const [filteredOptions, setFilteredOptions] = useState([]);
+
   const router = useRouter();
   const [error, setError] = useState("");
   // --- State Hooks ---
 const [title, setTitle] = useState("");
 const [slug, setSlug] = useState("");
+const [bannerimage, setBannerImage] = useState(null);
+  const [bannertitle , setBannerTitle] = useState([]);
+  const [bannerdescription, setBannerDescription] = useState([]);
 
-const [description, setDescription] = useState("");
-const [price, setPrice] = useState("");
-const [address, setAddress] = useState("");
+  const [aboutimage, setAboutImage] = useState(null);
+  const [abouttitle , setAboutTitle] = useState([]);
+  const [aboutdescription, setAboutDescription] = useState([]);
 
-
-const [countries, setCountries] = useState([]);
-const [selectedCountry, setSelectedCountry] = useState("");
-
-const [states, setStates] = useState([]);
-const [selectedState, setSelectedState] = useState("");
-
-const [cities, setCities] = useState([]);
-const [selectedCity, setSelectedCity] = useState("");
-
-const [locations, setLocations] = useState([]);
-const [selectedLocation, setSelectedLocation] = useState("");
-
-const [categories, setCategories] = useState([]);
-const [selectedCategory, setSelectedCategory] = useState("");
-
-const [propertytypes, setPropertytypes] = useState([]);
-const [selectedPropertytype, setSelectedPropertytype] = useState("");
-
-const [builders, setBuilders] = useState([]);
-const [selectedBuilder, setSelectedBuilder] = useState("");
-
-const [amenities, setAmenities] = useState([]);
+  const [amenities, setAmenities] = useState([]);
 const [selectedAmenity, setSelectedAmenity] = useState("");
 
-
-const [constructionstatus, setConstructionstatus] = useState([]);
-  const [selectedConstructionstatus, setSelectedConstructionstatus] = useState("");
-  const [furnishingstatus, setFurnishingstatus] = useState([]);
-  const [selectedFurnishingstatus, setSelectedFurnishingstatus] = useState("");
-
-  const [featuredproperties, setFeaturedProperties] = useState([]);
-  const [selectedFeaturedProperty, setSelectedFeaturedProperty] = useState(""); 
-
-  const [hotproperties, setHotProperties] = useState([]);
-  const [selectedHotProperty, setSelectedHotProperty] = useState(""); 
-
-  const [reraapproved, setReraApproved] = useState([]);
-  const [selectedReraApproved, setSelectedReraApproved] = useState("");
-  
-  const [propertyid , setPropertyid] = useState([]);
-  const [areasize, setAreasize] = useState([]);
-  const [sizeprefix, setSizePrefix] = useState([]);
-  const [bedrooms, setBedRooms] = useState([]);
-  const [bathrooms, setBathRooms] = useState([]);
-  const [garages, setGarages] = useState([]);
-  const [garagessize, setGaragesSize] = useState([]);
-  const [yearbuild, setYearBuild] = useState([]);
-  const [mapembedcode, setMapEmbedCode] = useState([]);
-  const [videoembedcode, setVideoEmbedCode] = useState([]);
-  const [nearby, setNearBy] = useState([]);
-  const [sellername, setSellerName] = useState([]);
-  const [selleremail, setSellerEmail] = useState([]);
-  const [sellerphone, setSellerPhone] = useState([]);
-
-  const [zipcode, setZipCode] = useState([]);
-  const [reranumber, setReraNumber] = useState([]);
+ 
 
   const [metatitle, setMetatitle] = useState([]);
   const [metadescription, setMetaDescription] = useState([]);
 
-  const [featuredimage, setFeaturedImage] = useState(null);
-  const [siteplan, setSitePlan] = useState(null);
 
   // upload profile
-  const uploadFeaturedImage = (e) => {
-      setFeaturedImage(e.target.files[0]);
+  const uploadBannerImage = (e) => {
+      setBannerImage(e.target.files[0]);
   };
-  const uploadSitePlan = (e) => {
-    // alert("test")
-      setSitePlan(e.target.files[0]);
-  };
-
-  const [propertySelectedImgs, setPropertySelectedImgs] = useState([]);
+  // upload profile
+  const uploadAboutImage = (e) => {
+    setAboutImage(e.target.files[0]);
+};
   
-    // multiple image select
-    const multipleImage = (e) => {
-      // checking is same file matched with old stored array
-      const isExist = propertySelectedImgs?.some((file1) =>
-        selectedFiles(e)?.some((file2) => file1.name === file2.name)
-      );
+    
+    
   
-      if (!isExist) {
-        setPropertySelectedImgs((old) => [...old, ...selectedFiles(e)]);
-      } else {
-        alert("You have selected one image already!");
-      }
-    };
-  
-    // delete image
-    const deleteImage = (name) => {
-      const deleted = propertySelectedImgs?.filter((file) => file.name !== name);
-      setPropertySelectedImgs(deleted);
-    };
-  
+    
 // --- Fetch Initial Data ---
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const [countryRes, constRes, furnRes, catRes, amenityRes, builderRes] = await Promise.all([
-        getCountryTableData(),
-        getConstructionstatusTableData(),
-        getFurnishingstatusTableData(),
-        getCategoryTableData(),
+      const [ amenityRes] = await Promise.all([
+        
         getAmenityTableData(),
-        getBuilderTableData(),
       ]);
 
-      setCountries(countryRes || []);
-      setConstructionstatus(constRes || []);
-      setFurnishingstatus(furnRes || []);
-      setCategories(catRes || []);
+      
       setAmenities(amenityRes || []);
-      setBuilders(builderRes || []);
     } catch (err) {
       console.error("Error loading initial data:", err);
     }
   };
   fetchData();
 }, []);
+useEffect(() => {
+  // Fetch data and set options
+  const fetchData = async () => {
+    try {
+      const data = await getFaqTableData(); // Make sure this returns the expected format
+      const mappedOptions = data.map((item) => ({
+        label: item.title,
+        value: item._id,
+      }));
+      setOptions(mappedOptions);
+      setFilteredOptions(mappedOptions); // Initialize filteredOptions
+    } catch (error) {
+      console.error("Failed to fetch FAQ data:", error);
+    }
+  };
 
+  fetchData();
+}, []);
 // --- Handlers ---
 
-const handleCountryChange = async (e) => {
-  const value = e.target.value;
-  setSelectedCountry(value);
-  try {
-    const res = await getStateByCountryTableData(value);
-    setStates(res.data || []);
-  } catch (err) {
-    console.error("Error fetching states:", err);
-  }
-};
-
-const handleStateChange = async (e) => {
-  const value = e.target.value;
-  setSelectedState(value);
-  try {
-    const res = await getCityByStateTableData(value);
-    setCities(res.data || []);
-  } catch (err) {
-    console.error("Error fetching cities:", err);
-  }
-};
-
-const handleCityChange = async (e) => {
-  const value = e.target.value;
-  setSelectedCity(value);
-  try {
-    const res = await getLocationByCityTableData(value);
-    setLocations(res.data || []);
-  } catch (err) {
-    console.error("Error fetching locations:", err);
-  }
-};
-
-const handleCategoryChange = async (e) => {
-  const value = e.target.value;
-  setSelectedCategory(value);
-  try {
-    const res = await getPropertytypeByCategoryTableData(value);
-    setPropertytypes(res.data || []);
-  } catch (err) {
-    console.error("Error fetching property types:", err);
-  }
-};
 
 const handleAmenityChange = (e) => {
   const { value, checked } = e.target;
@@ -244,54 +147,43 @@ const handleAmenityChange = (e) => {
   });
 };
 
-const handlePropertytypeChange = (e) => {
-  setSelectedPropertytype(e.target.value);
-};
-const handleBuilderChange = (e) => {
-  setSelectedBuilder(e.target.value);
-};
-const handleConstructionstatusChange = (e) => {
-  setSelectedConstructionstatus(e.target.value);
-};
-const handleFurnishingstatusChange = (e) => {
-  setSelectedFurnishingstatus(e.target.value);
-};
-const handleLocationChange = (e) => {
-  setSelectedLocation(e.target.value);
-};
-const handleAddressChange = (e) => {
-  setAddress(e.target.value);
-  if (e.target.value.trim() !== "") setError("");
-};
+ const [gallerySelectedImgs, setGallerySelectedImgs] = useState([]);
+  
+    // multiple image select
+    const multipleImage = (e) => {
+      // checking is same file matched with old stored array
+      const isExist = gallerySelectedImgs?.some((file1) =>
+        selectedFiles(e)?.some((file2) => file1.name === file2.name)
+      );
+  
+      if (!isExist) {
+        setGallerySelectedImgs((old) => [...old, ...selectedFiles(e)]);
+      } else {
+        alert("You have selected one image already!");
+      }
+    };
+  
+    // delete image
+    const deleteImage = (name) => {
+      const deleted = gallerySelectedImgs?.filter((file) => file.name !== name);
+      setGallerySelectedImgs(deleted);
+    };
 // --- Submit ---
-const addProperty = async (e) => {
+const addLanding = async (e) => {
  
   e.preventDefault();
   const newErrors = {};
-  console.log("propertySelectedImgs")
-  console.log(propertySelectedImgs)
   
-  console.log("siteplan")
-  console.log(siteplan)
   const requiredFields = [
     { key: "title", value: title, name: "Title" },
     { key: "slug", value: slug, name: "Slug" },
-    { key: "description", value: description, name: "Description" },
-    { key: "price", value: price, name: "Price" },
-    { key: "address", value: address, name: "Address" },
-    { key: "country", value: selectedCountry, name: "Country" },
-    { key: "state", value: selectedState, name: "State" },
-    { key: "city", value: selectedCity, name: "City" },
-    { key: "location", value: selectedLocation, name: "Location" },
-    { key: "selectedCategory", value: selectedCategory, name: "Category" },
-    { key: "selectedPropertytype", value: selectedPropertytype, name: "Property Type" },
-    { key: "selectedBuilder", value: selectedBuilder, name: "Builder" },
-    { key: "selectedConstructionstatus", value: selectedConstructionstatus, name: "Construction Status" },
-    { key: "selectedFurnishingstatus", value: selectedFurnishingstatus, name: "Furnishing Status" },
-    // { key: "selectedAmenity", value: selectedAmenity, name: "Amenity" },
-    { key: "selectedReraApproved", value: selectedReraApproved, name: "RERA Approved" },
-    { key: "selectedFeaturedProperty", value: selectedFeaturedProperty, name: "Featured Property" },
-    { key: "selectedHotProperty", value: selectedHotProperty, name: "Hot Property" },
+    { key: "bannertitle", value: bannertitle, name: "Banner title" },
+    { key: "bannerdescription", value: bannerdescription, name: "Banner Description" },
+    { key: "abouttitle", value: abouttitle, name: "About title" },
+    { key: "aboutdescription", value: aboutdescription, name: "About Description" },
+    { key: "metatitle", value: metatitle, name: "Meta Title" },
+    { key: "metadescription", value: metadescription, name: "Meta Description" },
+   
   ];
 
   requiredFields.forEach(field => {
@@ -305,50 +197,49 @@ const addProperty = async (e) => {
   });
 
   if (Object.keys(newErrors).length > 0) {
-    console.log("test")
+    // console.log("test")
     return setError(newErrors);
   }
 
   try {
-    console.log(propertySelectedImgs)
+    console.log("value dd")
+    console.log(value)
     const payload = {
-      title, slug, description, price, address,
-      countryid: selectedCountry,
-      stateid: selectedState,
-      cityid: selectedCity,
-      locationid: selectedLocation,
-      categoryid: selectedCategory,
-      propertytypeid: selectedPropertytype,
-      builderid: selectedBuilder,
-      constructionstatus: selectedConstructionstatus,
-      furnishingstatus: selectedFurnishingstatus,
+      title, slug, bannerimage,bannertitle, bannerdescription, aboutimage, abouttitle, aboutdescription,
       amenityid: selectedAmenity,
-      reraapproved: selectedReraApproved,
-      featuredproperty: selectedFeaturedProperty,
-      hotproperty: selectedHotProperty,
-      propertyid, areasize, sizeprefix,
-      bedrooms, bathrooms, garages, garagessize,
-      yearbuild, mapembedcode, videoembedcode,
-      nearby, sellername, selleremail, sellerphone, 
-      reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,propertySelectedImgs
+      faqs:JSON.stringify(value),
+      metatitle, metadescription,
+      gallerySelectedImgs
     };
     
     
     const formData = new FormData();
-    
+    gallerySelectedImgs.forEach((file) => {
+      formData.append("gallerySelectedImgs", file); // Repeat key name for each file
+    });
     // Loop over each key-value pair in the payload
     for (const key in payload) {
       if (payload[key] !== undefined && payload[key] !== null) {
         formData.append(key, payload[key]);
       }
     }
-    propertySelectedImgs.forEach((file) => {
-      formData.append("propertySelectedImgs", file); // Repeat key name for each file
+    inputs.forEach((input, index) => {
+      formData.append(`floorPlans[${index}][title]`, input.title);
+      formData.append(`floorPlans[${index}][areasize]`, input.areasize);
+      if (input.planimage) {
+        formData.append(`floorPlans[${index}][planimage]`, input.planimage);
+      }
+
+    });
+    inputspayment.forEach((input, index) => {
+      formData.append(`paymentPlans[${index}][title]`, input.title);
+      formData.append(`paymentPlans[${index}][areasize]`, input.areasize);
+      formData.append(`paymentPlans[${index}][price]`, input.price);
     });
 
 
-    const res = await addPropertyAPI(formData);
-    router.push("/cmswegrow/my-properties");
+    const res = await addLandingpageAPI(formData);
+    router.push("/cmswegrow/my-landing");
     // alert(res.message);
 
     // Reset fields and errors
@@ -363,7 +254,7 @@ const addProperty = async (e) => {
 
   return (
     <>
-    <form onSubmit={addProperty} className="row">
+    <form onSubmit={addLanding} className="row">
       <div className="col-lg-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="propertyTitle">Property Title</label>
@@ -386,29 +277,29 @@ const addProperty = async (e) => {
             <h3 className="mb30">Banner Section</h3>
           </div>
           <div className="col-lg-6">
-                     <div htmlFor="featuredimage">Banner Image</div>
+                     <div htmlFor="bannerimage">Banner Image</div>
                           <div className="wrap-custom-file">
                         
                               <input
                                   type="file"
-                                  id="featuredimage"
+                                  id="bannerimage"
                                   accept="image/png, image/gif, image/jpeg"
-                                  onChange={uploadFeaturedImage}
+                                  onChange={uploadBannerImage}
                               />
                               <label
                                   style={
-                                    featuredimage !== null
+                                    bannerimage !== null
                                           ? {
                                                 backgroundImage: `url(${URL.createObjectURL(
-                                                  featuredimage
+                                                  bannerimage
                                                 )})`,
                                             }
                                           : undefined
                                   }
-                                  htmlFor="featuredimage"
+                                  htmlFor="bannerimage"
                               >
                                   <span>
-                                      <i className="flaticon-download"></i> Upload featured image{" "}
+                                      <i className="flaticon-download"></i> Upload banner image{" "}
                                   </span>
                               </label>
                           </div>
@@ -417,25 +308,68 @@ const addProperty = async (e) => {
         
         <div className="col-lg-6">
           <div className="my_profile_setting_input form-group">
-            <label htmlFor="propertyTitle">About Title</label>
-            <input type="text" className="form-control"  id="propertyTitle" value={title} onChange={(e) => setTitle(e.target.value)}  placeholder="Enter property Title"/>
-            {error.title && <span className="text-danger">{error.title}</span>}
+            <label htmlFor="bannerTitle">Banner Title</label>
+            <input type="text" className="form-control"  id="bannerTitle" value={bannertitle} onChange={(e) => setBannerTitle(e.target.value)}  placeholder="Enter Banner Title"/>
+            {error.bannertitle && <span className="text-danger">{error.bannertitle}</span>}
 
           </div>
           <div className="my_profile_setting_textarea form-group">
-              <label htmlFor="propertyDescription">Description</label>
-              <textarea id="propertyDescription" className="form-control" rows="7"  value={description} onChange={(e) => setDescription(e.target.value)}  placeholder="Enter property description"></textarea>
-              {error.description && <span className="text-danger">{error.description}</span>}
+              <label htmlFor="bannerDescription">Banner Description</label>
+              <textarea id="bannerDescription" className="form-control" rows="7"  value={bannerdescription} onChange={(e) => setBannerDescription(e.target.value)}  placeholder="Enter banner description"></textarea>
+              {error.bannerdescription && <span className="text-danger">{error.bannerdescription}</span>}
             </div>
       </div>
+      </div>
+      <div className="row">
+          <div className="col-lg-12">
+            <h3 className="mb30">About Section</h3>
+          </div>
+          <div className="col-lg-6">
+                     <div htmlFor="bannerimage">About Image</div>
+                          <div className="wrap-custom-file">
+                        
+                              <input
+                                  type="file"
+                                  id="aboutimage"
+                                  accept="image/png, image/gif, image/jpeg"
+                                  onChange={uploadAboutImage}
+                              />
+                              <label
+                                  style={
+                                    aboutimage !== null
+                                          ? {
+                                                backgroundImage: `url(${URL.createObjectURL(
+                                                  aboutimage
+                                                )})`,
+                                            }
+                                          : undefined
+                                  }
+                                  htmlFor="aboutimage"
+                              >
+                                  <span>
+                                      <i className="flaticon-download"></i> Upload About image{" "}
+                                  </span>
+                              </label>
+                          </div>
+                          <p>*minimum 260px x 260px</p>
+                      </div>
+        
         <div className="col-lg-6">
           <div className="my_profile_setting_input form-group">
-            <label htmlFor="propertySlug">Property Slug</label>
-            <input type="text" className="form-control"  id="propertySlug" value={slug} onChange={(e) => setSlug(e.target.value)}  placeholder="Enter property slug"/>
-            {error.slug && <span className="text-danger">{error.slug}</span>}
+            <label htmlFor="aboutTitle">About Title</label>
+            <input type="text" className="form-control"  id="aboutTitle" value={abouttitle} onChange={(e) => setAboutTitle(e.target.value)}  placeholder="Enter About Title"/>
+            {error.abouttitle && <span className="text-danger">{error.abouttitle}</span>}
+
           </div>
-        </div>
-        </div>
+          <div className="my_profile_setting_textarea form-group">
+              <label htmlFor="aboutDescription">About Description</label>
+              <textarea id="aboutDescription" className="form-control" rows="7"  value={aboutdescription} onChange={(e) => setAboutDescription(e.target.value)}  placeholder="Enter about description"></textarea>
+              {error.aboutdescription && <span className="text-danger">{error.aboutdescription}</span>}
+            </div>
+      </div>
+      </div>
+        
+        
         <div className="col-xl-12">
         <h4 className="mb10">Amenities</h4>
       
@@ -474,592 +408,29 @@ const addProperty = async (e) => {
         <div className="my_profile_setting_input form-group">
           <label htmlFor="propertyPrice">FAQ</label>
           <MultiSelectInput
-        value={value}
-        setValue={setValue}
-        options={filteredOptions}
-        errorMessage={''}
-        loading={false}
-        onChange={(e) => {
-          setFilteedrOptions([...options]);
-          setFilteedrOptions((prev) => {
-            return prev.filter((option) => {
-              return option.label.toLowerCase().includes(e.target.value.toLowerCase());
-            });
-          });
-        }}
-        className='w-1/2'
-      />
+              value={value}
+              setValue={setValue}
+              options={filteredOptions}
+              errorMessage=""
+              loading={false}
+              onChange={(e) => {
+                const input = e.target?.title?.toLowerCase() || "";
+                const filtered = options.filter((option) =>
+                  option.label.toLowerCase().includes(input)
+                );
+                setFilteredOptions(filtered);
+              }}
+              className="w-1/2"
+            />
         </div>
       </div>
-      {/* End .col */}
-        <div className="col-lg-12">
-          <div className="my_profile_setting_textarea form-group">
-            <label htmlFor="propertyDescription">Description</label>
-            <textarea id="propertyDescription" className="form-control" rows="7"  value={description} onChange={(e) => setDescription(e.target.value)}  placeholder="Enter property description"></textarea>
-            {error.description && <span className="text-danger">{error.description}</span>}
-          </div>
-          
-        </div>
-        
-
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Category</label>
-          <select
-              id="categorySelect"
-              className="selectpicker form-select"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select Category --</option>
-              {categories.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.title}
-                </option>
-              ))}
-            </select>
-            {error.selectedCategory && <span className="text-danger">{error.selectedCategory}</span>}
-        </div>
-      </div>
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Property Type</label>
-          <select
-              id="propertytypeSelect"
-              className="selectpicker form-select"
-              value={selectedPropertytype}
-              onChange={handlePropertytypeChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select Property type --</option>
-              {propertytypes.map((propertytype) => (
-                <option key={propertytype._id} value={propertytype._id}>
-                  {propertytype.title}
-                </option>
-              ))}
-            </select>
-            {error.selectedPropertytype && <span className="text-danger">{error.selectedPropertytype}</span>}
-        </div>
-      </div>
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Builder</label>
-          <select
-              id="builderSelect"
-              className="selectpicker form-select"
-              value={selectedBuilder}
-              onChange={handleBuilderChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select Builder --</option>
-              {builders.map((builder) => (
-                <option key={builder._id} value={builder._id}>
-                  {builder.title}
-                </option>
-              ))}
-            </select>
-            {error.selectedBuilder && <span className="text-danger">{error.selectedBuilder}</span>}
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Construction status</label>
-          <select
-              id="constructionstatusSelect"
-              className="selectpicker form-select"
-              value={selectedConstructionstatus}
-              onChange={handleConstructionstatusChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select Construction status --</option>
-              {constructionstatus.map((constructionstatu) => (
-                <option key={constructionstatu._id} value={constructionstatu._id}>
-                  {constructionstatu.title}
-                </option>
-              ))}
-            </select>
-            {error.selectedConstructionstatus && <span className="text-danger">{error.selectedConstructionstatus}</span>}
-        </div>
-      </div>
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Furnishing status</label>
-          <select
-              id="furnishingstatusSelect"
-              className="selectpicker form-select"
-              value={selectedFurnishingstatus}
-              onChange={handleFurnishingstatusChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select furnishing status --</option>
-              {furnishingstatus.map((furnishingstatu) => (
-                <option key={furnishingstatu._id} value={furnishingstatu._id}>
-                  {furnishingstatu.title}
-                </option>
-              ))}
-            </select>
-            {error.selectedFurnishingstatus && <span className="text-danger">{error.selectedFurnishingstatus}</span>}
-        </div>
-      </div>
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Featured Property</label>
-          <select
-        className="selectpicker form-select"
-        data-live-search="true"
-        data-width="100%"
-        value={selectedFeaturedProperty}
-        onChange={(e) =>
-          setSelectedFeaturedProperty(e.target.value)
-        }
-       
-      >
-        <option value="">-- Select Featured Property--</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-      {error.selectedHotProperty && <span className="text-danger">{error.selectedHotProperty}</span>}
-        </div>
-      </div>
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Hot Property</label>
-          <select
-        className="selectpicker form-select"
-        data-live-search="true"
-        data-width="100%"
-        value={selectedHotProperty}
-        onChange={(e) =>
-          setSelectedHotProperty(e.target.value)
-        }
-       
-      >
-        <option value="">-- Select Hot Property--</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-      {error.selectedHotProperty && <span className="text-danger">{error.selectedHotProperty}</span>}
-        </div>
-      </div>
-
-      <div className="col-lg-6 col-xl-6">
-        <div className="my_profile_setting_input ui_kit_select_search form-group">
-          <label>Rera Approved</label>
-          <select
-        className="selectpicker form-select"
-        data-live-search="true"
-        data-width="100%"
-        value={selectedReraApproved}
-        onChange={(e) =>
-          setSelectedReraApproved(e.target.value)
-        }
-      >
-        <option value="">-- Select Rera Approved--</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-      {error.selectedReraApproved && <span className="text-danger">{error.selectedReraApproved}</span>}
-        </div>
-      </div>
-      
-      {/* End .col */}
-
-      <div className="col-lg-6">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="propertyReraNumber">Rera Number</label>
-         
-          <input type="text"
-              className="form-control"
-              id="propertyReraNumber"
-              value={reranumber}
-              onChange={(e) => setReraNumber(e.target.value)}/>
-        </div>
-      </div>
-
-      
-
-     
-      
-                    <div className="row">
-                      <div className="col-lg-12">
-                        <h3 className="mb30">Location</h3>
-                      </div>
-
-                      <div className="col-lg-6 col-xl-6">
-          <div className="my_profile_setting_input ui_kit_select_search form-group">
-            <label htmlFor="countrySelect">Select Country</label>
-            <select
-              id="countrySelect"
-              className="selectpicker form-select"
-              value={selectedCountry}
-              onChange={handleCountryChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select Country --</option>
-              {countries.map((country) => (
-                <option key={country._id} value={country._id}>
-                  {country.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="col-lg-6 col-xl-6">
-          <div className="my_profile_setting_input ui_kit_select_search form-group">
-            <label htmlFor="stateSelect">Select State</label>
-            <select
-              id="stateSelect"
-              className="selectpicker form-select"
-              value={selectedState}
-              onChange={handleStateChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select State --</option>
-              {states.map((state) => (
-                <option key={state._id} value={state._id}>
-                  {state.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="col-lg-6 col-xl-6">
-          <div className="my_profile_setting_input ui_kit_select_search form-group">
-            <label htmlFor="citySelect">Select City</label>
-            <select
-              id="citySelect"
-              className="selectpicker form-select"
-              value={selectedCity}
-              onChange={handleCityChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select City --</option>
-              {cities.map((city) => (
-                <option key={city._id} value={city._id}>
-                  {city.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="col-lg-6 col-xl-6">
-          <div className="my_profile_setting_input ui_kit_select_search form-group">
-            <label htmlFor="locationSelect">Select Location</label>
-            <select
-              id="locationSelect"
-              className="selectpicker form-select"
-              value={selectedLocation}
-              onChange={handleLocationChange}
-              data-live-search="true"
-              data-width="100%"
-            >
-              <option value="">-- Select Location --</option>
-              {locations.map((location) => (
-                <option key={location._id} value={location._id}>
-                  {location.title}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="col-lg-6">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="propertyZipcode">Zip Code</label>
-         
-          <input type="text"
-              className="form-control"
-              id="propertyZipcode"
-              value={zipcode}
-              onChange={(e) => setZipCode(e.target.value)}/>
-        </div>
-      </div>
-        <div className="col-lg-12">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="propertyzipcode">Address</label>
-         
-          <input type="text"
-              className="form-control"
-              id="propertyAddress"
-              value={address}
-              onChange={handleAddressChange}/>
-        </div>
-      </div>
-                    </div>
-                    <div className=" mt30 ">
-                    <div className="col-lg-12">
-                      <h3 className="mb30">Detailed Information</h3>
-                    </div>
-                    <div className="row">
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="propertyId">Property ID</label>
-          <input type="text"
-              className="form-control"
-              id="propertyId"
-              value={propertyid}
-              onChange={(e) => setPropertyid(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="propertyAreaSize">Area Size</label>
-          <input type="text"
-              className="form-control"
-              id="propertyAreaSize"
-              value={areasize}
-              onChange={(e) => setAreasize(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="sizePrefix">Size Prefix</label>
-          <input type="text"
-              className="form-control"
-              id="sizePrefix"
-              value={sizeprefix}
-              onChange={(e) => setSizePrefix(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
-
-     
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="bedRooms">Bedrooms</label>
-          <input type="text"
-              className="form-control"
-              id="bedRooms"
-              value={bedrooms}
-              onChange={(e) => setBedRooms(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="bathRooms">Bathrooms</label>
-          <input type="text"
-              className="form-control"
-              id="bathRooms"
-              value={bathrooms}
-              onChange={(e) => setBathRooms(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="garages">Garages</label>
-          <input type="text"
-              className="form-control"
-              id="garages"
-              value={garages}
-              onChange={(e) => setGarages(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="garagesSize">Garages Size</label>
-          <input type="text"
-              className="form-control"
-              id="garagesSize"
-              value={garagessize}
-              onChange={(e) => setGaragesSize(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="yearBuild">Year Built</label>
-          <input type="text"
-              className="form-control"
-              id="yearBuild"
-              value={yearbuild}
-              onChange={(e) => setYearBuild(e.target.value)} />
-        </div>
-      </div>
-      {/* End .col */}
       <div className="col-lg-12">
-        <div className="my_profile_setting_textarea">
-          <label htmlFor="mapEmbedCode">Map Embed code </label>
-          <textarea id="mapEmbedCode" className="form-control" rows="7"  value={mapembedcode} onChange={(e) => setMapEmbedCode(e.target.value)}  placeholder="Enter Map Embed code"></textarea>
-        </div>
-      </div>
-      {/* End .col */}
-      <div className="col-lg-12">
-        <div className="my_profile_setting_textarea">
-          <label htmlFor="videoEmbedCode">Video Embed code </label>
-          <textarea id="videoEmbedCode" className="form-control" rows="7"  value={videoembedcode} onChange={(e) => setVideoEmbedCode(e.target.value)}  placeholder="Enter Video Embed code"></textarea>
-        </div>
-      </div>
-      {/* End .col */}
-
-      <div className="col-lg-12">
-        <div className="my_profile_setting_textarea">
-          <label htmlFor="nearBy">Near By </label>
-          <textarea id="nearBy" className="form-control" rows="7"  value={nearby} onChange={(e) => setNearBy(e.target.value)}  placeholder="Enter Near By"></textarea>
-        </div>
-      </div>
-
-      <div className="col-xl-12">
-        <h4 className="mb10">Amenities</h4>
-      </div>
-      <div className="col-xxs-12 col-sm col-lg col-xl">
-        <ul className="ui_kit_checkbox selectable-list row">
-        {amenities.map((amenity, index) => (
-  <li key={amenity._id} className="col-xxs-6 col-sm col-lg col-xl">
-    <div className="form-check custom-checkbox">
-    <input
-        type="checkbox"
-        className="form-check-input"
-        id={`customCheck_${amenity._id}`}
-        value={amenity._id}
-        checked={selectedAmenity.includes(amenity._id)}
-        onChange={handleAmenityChange}
-      />
-      <label
-        className="form-check-label"
-        htmlFor={`customCheck_${amenity._id}`}
-      >
-        {amenity.title}
-      </label>
-    </div>
-  </li>
-))}
-
-          {/* End li */}
-
-          
-          {/* End li */}
-        </ul>
-      </div>
-      {/* End .col */}
-
-      <div className=" mt30 ">
-                    <div className="col-lg-12">
-                      <h3 className="mb30">Seller Information</h3>
-                    </div>
-                    <div className="row">
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="sellerName">Seller Name</label>
-          <input type="text"
-              className="form-control"
-              id="sellerName"
-              value={sellername}
-              onChange={(e) => setSellerName(e.target.value)} />
-        </div>
-      </div>
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="sellerEmail">Seller Email</label>
-          <input type="text"
-              className="form-control"
-              id="sellerEmail"
-              value={selleremail}
-              onChange={(e) => setSellerEmail(e.target.value)} />
-        </div>
-      </div>
-      <div className="col-lg-6 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          <label htmlFor="sellerPhone">Seller Phone Number</label>
-          <input type="text"
-              className="form-control"
-              id="sellerPhone"
-              value={sellerphone}
-              onChange={(e) => setSellerPhone(e.target.value)} />
-        </div>
-      </div>
-      </div>
-      </div>
-      <div className="row">
-        <div className="col-lg-12">
-          <h3 className="mb30">Property media</h3>
-        </div>
-        <div className="col-lg-6">
-        <div htmlFor="featuredimage">Featured Image</div>
-                <div className="wrap-custom-file">
-              
-                    <input
-                        type="file"
-                        id="featuredimage"
-                        accept="image/png, image/gif, image/jpeg"
-                        onChange={uploadFeaturedImage}
-                    />
-                    <label
-                        style={
-                          featuredimage !== null
-                                ? {
-                                      backgroundImage: `url(${URL.createObjectURL(
-                                        featuredimage
-                                      )})`,
-                                  }
-                                : undefined
-                        }
-                        htmlFor="featuredimage"
-                    >
-                        <span>
-                            <i className="flaticon-download"></i> Upload featured image{" "}
-                        </span>
-                    </label>
-                </div>
-                <p>*minimum 260px x 260px</p>
-            </div>
-            <div className="col-lg-6">
-        <div htmlFor="SitePlan">Site Plan</div>
-                <div className="wrap-custom-file">
-              
-                    <input
-                        type="file"
-                        id="SitePlan"
-                        accept="image/png, image/gif, image/jpeg"
-                        onChange={uploadSitePlan}
-                    />
-                  <label
-                        style={
-                          siteplan !== null
-                                ? {
-                                      backgroundImage: `url(${URL.createObjectURL(
-                                        siteplan
-                                      )})`,
-                                  }
-                                : undefined
-                        }
-                        htmlFor="SitePlan"
-                    >
-                        
-                        <span>
-                            <i className="flaticon-download"></i> Upload Site Plan{" "}
-                        </span>
-                    </label>
-                </div>
-                <p>*minimum 260px x 260px</p>
-            </div>
-            <div className="col-lg-12">
+            <h3 className="mb30">Gallery</h3>
+          </div>
+ <div className="col-lg-12">
                     <ul className="mb-0">
-                      {propertySelectedImgs.length > 0
-                        ? propertySelectedImgs?.map((item, index) => (
+                      {gallerySelectedImgs.length > 0
+                        ? gallerySelectedImgs?.map((item, index) => (
                             <li key={index} className="list-inline-item">
                               <div className="portfolio_item">
                                 <Image
@@ -1103,7 +474,133 @@ const addProperty = async (e) => {
         </div>
       </div>
       {/* End .col */}
+      <div className="my_dashboard_review mt30">
+        <div className="col-lg-12">
+          <h3 className="mb30">Floor Plans</h3>
+          <button className="btn admore_btn mb30" type="button" onClick={handleAddInput} >Add More</button>
+        </div>
+        {inputs.map((input, index) => (
+        <div className="row" key={input.id} >
+           <div className="col-xl-12">
+           <div className="my_profile_setting_input">
+          <button onClick={() => handleRemoveInput(input.id)} className="btn btn2 float-end">Remove</button>
+          </div>
+          </div>
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor={`planTitle-${index}`}>Plan Title {index + 1}</label>
+              <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
+              onChange={(e) =>
+                handleInputChange(index, 'title', e.target.value)
+              }/>
+            </div>
+          </div>
+         
+           {/* End .col */}
+
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor={`planSize-${index}`}>Plan Size</label>
+              <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
+              onChange={(e) =>
+                handleInputChange(index, 'areasize', e.target.value)
+              } />
+            </div>
+          </div>
+          {/* End .col */}
+          <div className="col-lg-4 col-xl-4">
+        <div className="my_profile_setting_input form-group">
+          
+        <div htmlFor="planimage">Plan Image</div>
+                <div className="wrap-custom-file height-150">
+              
+                    <input
+                        type="file"
+                        id={`planimage-${index}`}
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={(e) => uploadPlanImage(index, e.target.files[0])}
+                    />
+                    <label
+                        style={
+                          inputs[index]?.planimage
+                            ? {
+                                backgroundImage: `url(${URL.createObjectURL(inputs[index].planimage)})`,
+                              }
+                            : undefined
+                        }
+                        htmlFor={`planimage-${index}`}
+                      >
+                        <span>
+                            <i className="flaticon-download"></i> Upload plan image{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
+        
       </div>
+        {/* End .col */}        
+        </div>
+        
+      ))}
+       </div>
+      {/* End .col */}
+      <div className="my_dashboard_review mt30">
+        <div className="col-lg-12">
+          <h3 className="mb30">Payment Plans</h3>
+          <button className="btn admore_btn mb30" type="button" onClick={handleAddInputpayment} >Add More</button>
+        </div>
+        {inputspayment.map((input, index) => (
+        <div className="row" key={input.id} >
+           <div className="col-xl-12">
+           <div className="my_profile_setting_input">
+          <button onClick={() => handleRemoveInputpayment(input.id)} className="btn btn2 float-end">Remove</button>
+          </div>
+          </div>
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor={`planTitle-${index}`}>Plan Title {index + 1}</label>
+              <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
+              onChange={(e) =>
+                handleInputChangepayment(index, 'title', e.target.value)
+              }/>
+            </div>
+          </div>
+         
+           {/* End .col */}
+
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor={`planSize-${index}`}>Plan Size</label>
+              <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
+              onChange={(e) =>
+                handleInputChangepayment(index, 'areasize', e.target.value)
+              } />
+            </div>
+          </div>
+          {/* End .col */}
+          <div className="col-xl-4">
+         <div className="my_profile_setting_input form-group">
+           <label htmlFor={`planPrice-${index}`}>Plan Price {index + 1}</label>
+           <input type="text" className="form-control" id={`planPrice-${index}`} value={input.price}
+           onChange={(e) =>
+            handleInputChangepayment(index, 'price', e.target.value)
+           } />
+         </div>
+       </div>
+        {/* End .col */}      
+        </div>
+        
+      ))}
+       </div>
+       
+        
+
+      {/* End .col */}
+
+
+      
+      
       <div className=" mt30 ">
                     <div className="col-lg-12">
                       <h3 className="mb30">Meta Information</h3>
@@ -1118,6 +615,7 @@ const addProperty = async (e) => {
               id="propertyMetatitle"
               value={metatitle}
               onChange={(e) => setMetatitle(e.target.value)} />
+               {error.metatitle && <span className="text-danger">{error.metatitle}</span>}
         </div>
       </div>
       <div className="col-lg-12">
@@ -1133,8 +631,7 @@ const addProperty = async (e) => {
       {/* End .col */}
       </div>
       </div>
-      </div>
-                  </div>
+     
                   
       <div className="col-xl-12">
         <div className="my_profile_setting_input">

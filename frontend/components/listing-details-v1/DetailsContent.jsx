@@ -83,7 +83,7 @@ const DetailsContent = ({property,faqs}) => {
         </div>
       </div>
       {/* End .location_area */}
-      {faqs.length > 0 && (
+      {faqs?.length > 0 && (
       <div className="application_statics mt30">
         <h4 className="mb30">FAQ</h4>
         <div className="faq_according style2">
