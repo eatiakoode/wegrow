@@ -12,7 +12,7 @@ const UnlockModal = ({ onClose, onUnlock }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h4>Please fill details to unlock</h4>
+        <h4>Begin Your Dream Home Plan</h4>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

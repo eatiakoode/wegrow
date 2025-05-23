@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from 'react';
 import CallToAction from "../common/CallToAction";
-import CopyrightFooter from "../common/footer/CopyrightFooter";
-import Footer from "../common/footer/Footer";
+import CopyrightFooter from "../common/footerland/CopyrightFooter";
+import Footer from "../common/footerland/Footer";
 import Header from "../common/headerland/DefaultHeader";
 import MobileMenu from "../common/headerland/MobileMenu";
 // import LandFeaturedProperties from "./LandFeaturedProperties";
@@ -252,89 +252,6 @@ const index = () => {
                 </div>
               </div>
           </section>
-          {/* <!-- Our News & Insights --> */}
-          <section id="newsinsights" className="news-insights about-section scroll-mt-80px border-btm">
-              <div className="container">
-                <div class="main-title text-center">
-                  <h2>Market Knowledge</h2>
-                  <p>Uncover key information to guide your property investments</p>
-                </div>
-                <div className="row">
-                        <div className="col-lg-4">
-                          <Link href="/news-and-insights/market-trends" className="property-block_one style-two">
-                              <div className="property-block_one-inner">
-                                <div className="thumb">
-                                  <Image
-                                    width={768}
-                                    height={512}
-                                    className="img-fluid"
-                                    src="/assets/images/news-insights/price-trends.svg"
-                                    alt="image"
-                                    />
-                                </div>
-                                <div className="property-block_one-content wow fadeInUp animated">
-                                  <div className="property-block_one-location">Market Trends</div>
-                                  <h4 className="property-block_one-heading">Stay updated with property rates and pricing trends in top locations
-                                    </h4>
-                                  {/* <ul className="property-block_one-info">
-                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
-                                  </ul> */}
-                                </div>
-                              </div>
-                            </Link>
-                        </div>
-                        <div className="col-lg-4">
-                          <Link href="/news-and-insights/city-insights" className="property-block_one style-two">
-                              <div className="property-block_one-inner">
-                                <div className="thumb">
-                                  <Image
-                                    width={768}
-                                    height={512}
-                                    className="img-fluid"
-                                    src="/assets/images/news-insights/city-insights.svg"
-                                    alt="image"
-                                    />
-                                </div>
-                                <div className="property-block_one-content wow fadeInUp animated">
-                                  <div className="property-block_one-location">City Highlights</div>
-                                  <h4 className="property-block_one-heading">Gain insights into leading cities before you invest
-                                    </h4>
-                                  {/* <ul className="property-block_one-info">
-                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
-                                  </ul> */}
-                                </div>
-                              </div>
-                            </Link>
-                        </div>
-                        <div className="col-lg-4">
-                          <Link href="/blogs" className="property-block_one style-two">
-                              <div className="property-block_one-inner">
-                                <div className="thumb">
-                                  <Image
-                                    width={768}
-                                    height={512}
-                                    className="img-fluid"
-                                    src="/assets/images/news-insights/housing-research.svg"
-                                    alt="image"
-                                    />
-                                </div>
-                                <div className="property-block_one-content wow fadeInUp animated">
-                                  <div className="property-block_one-location">Real Estate Reports</div>
-                                  <h4 className="property-block_one-heading">Explore detailed research on India’s residential property market
-                                    </h4>
-                                  {/* <ul className="property-block_one-info">
-                                    <li><span>₹ 3.65 Cr* Onwards</span></li>
-                                  </ul> */}
-                                </div>
-                              </div>
-                            </Link>
-                        </div>
-                </div>
-                {/* End .row */}
-
-              </div>
-      </section>
-          {/* End .row */}
 
           {/* <!-- Our Testimonials --> */}
           <section className="our-testimonial home5">
@@ -356,24 +273,7 @@ const index = () => {
               </div>
             </div>
           </section>
-          {/* <section id="why-chose" className="whychose_us bgc-f7 pb30">
-            <div className="container">
-              <div className="row mt80">
-                <div className="col-lg-6 offset-lg-3">
-                  <div className="main-title text-center">
-                    <h2>Why Choose Us</h2>
-                    <p>We provide full service at every step.</p>
-                  </div>
-                </div>
-              </div>
-             
-
-              <div className="row">
-                <WhyChoose />
-              </div>
-              
-            </div>
-          </section> */}
+          
           <section className="our-faq scroll-mt-80px bgc-f7" id="faq">
             <div className="container">
               <div className="row">
@@ -435,7 +335,7 @@ const index = () => {
       </section>
 
       {/* <!-- Our Footer Bottom Area --> */}
-      <section className="footer_middle_area pt40 pb40">
+      <section className="footer_middle_area pt20 pb20">
         <div className="container">
           <CopyrightFooter />
         </div>
