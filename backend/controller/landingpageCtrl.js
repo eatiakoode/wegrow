@@ -1,7 +1,7 @@
 const Landingpage = require("../models/landingpageModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
-const { bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname,processFloorPlanImages  } = require("../middlewares/uploadImage");
+const { bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname,processFloorPlanImages,groupFilesByFieldname2,processLandingPlanGet,processLandingPlan} = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 const Landingimage = require("../models/landingimagesModel");
@@ -65,75 +65,69 @@ const validFaqIds = faqIds?.filter(id => mongoose.Types.ObjectId.isValid(id));
 
 req.body.faqid  = validFaqIds;
     const newLandingpage = await Landingpage.create(req.body);
-    if (gallerySelectedImgs?.length > 0) {
-      var gallerySelectedImgs  =[]
-            if (req.files && req.files.gallerySelectedImgs && req.files.gallerySelectedImgs.length > 0  && Object.keys(req.files.gallerySelectedImgs).length > 0 && Array.isArray(req.files.gallerySelectedImgs)) {
-             
-               gallerySelectedImgs  = await gallerySelectedImgsResize(req);
-              if (gallerySelectedImgs.length > 0) {
-                // ✅ Append logo filename to req.body
-                // console.log("Property Images:", gallerySelectedImgs);
-                req.body.propertyimageurl = gallerySelectedImgs;
-                
-              }
+    if (req.files && Object.keys(req.files).length > 0) {
+      const filesByFields = groupFilesByFieldname2(req.files);
+      var gallerySelectedImgsget  =[]
+      if (filesByFields.gallerySelectedImgs && filesByFields.gallerySelectedImgs.length > 0) {          
+          gallerySelectedImgsget  = await gallerySelectedImgsResize(filesByFields.gallerySelectedImgs);
+          for(var i=0;i<gallerySelectedImgsget.length;i++){
+            var propertyimage={
+              "image":gallerySelectedImgsget[i],
+              "landingpageid":newLandingpage._id,
+              "title":req.body.title
             }
-      // ✅ Append logo filename to req.body
-      // console.log("Landingpage Images:", gallerySelectedImgs);
-      // req.body.propertyimageurl = gallerySelectedImgs;
-      for(var i=0;i<gallerySelectedImgs.length;i++){
-        var propertyimage={
-          "image":gallerySelectedImgs[i],
-          "propertyid":newLandingpage._id,
-          "title":newProperty.title
-        }
-        const newLandingpage = await Landingimage.create(propertyimage);
-
+            const newLandimage = await Landingimage.create(propertyimage);    
+          }
       }
     }
-    for(var i=0;i<req.body.floorPlans?.length;i++){
-          
-      var plandata={
-          "title":req.body.floorPlans[i].title,
-          "areasize":req.body.floorPlans[i].areasize,
-          "landingpageid":newLandingpage._id
-      }
-    
-      const floorPlans = [];
+  
 
-  // Parse text fields like floorPlans[0][title], etc.
-  Object.entries(req.body).forEach(([key, value]) => {
-    const match = key.match(/^floorPlans\[(\d+)]\[(\w+)]$/);
-    if (match) {
-      const [ , index, field ] = match;
-      if (!floorPlans[index]) floorPlans[index] = {};
-      floorPlans[index][field] = value;
-    }
-  });
+  const floorPlansnew = [];
+if (req.files && Object.keys(req.files).length > 0) {
+// Parse text fields like floorPlansget[0][title], etc.
+Object.entries(req.body).forEach(([key, value]) => {
+  const match = key.match(/^floorPlans\[(\d+)]\[(\w+)]$/);
+  if (match) {
+    const [, index, field] = match;
+    if (!floorPlansnew[index]) floorPlansnew[index] = {};
+    floorPlansnew[index][field] = value;
+  }
+});
 
-  // Parse uploaded files with fieldnames like floorPlans[0][planimage]
-  (req.files || []).forEach((file) => {
-    const match = file.fieldname.match(/^floorPlans\[(\d+)]\[planimage]$/);
-    if (match) {
-      const index = parseInt(match[1]);
-      if (!floorPlans[index]) floorPlans[index] = {};
-      floorPlans[index].planimage = file;
-    }
-  });
-  // Now process each floor plan image
-  for (let i = 0; i < floorPlans?.length; i++) {
-    const plan = floorPlans[i];
+// Parse uploaded files with fieldnames like floorPlansget[0][planimageget]
+(req.files || []).forEach((file) => {
+  const match = file.fieldname.match(/^floorPlans\[(\d+)]\[planimage]$/);
+  if (match) {
+    const index = parseInt(match[1]);
+    if (!floorPlansnew[index]) floorPlansnew[index] = {};
+    floorPlansnew[index].floorPlansnew = file;
+  }
+});
+}
+// Now process each floor plan
+for (let i = 0; i < req.body.floorPlans?.length; i++) {
+  const plan = req.body.floorPlans[i];
+  const planimage = floorPlansnew[i];
+  if (plan) {
+    const plandata = {
+      title: plan.title,
+      areasize: plan.areasize,
+      landingpageid: newLandingpage._id,
+    };
 
-    if (plan) {
-      console.log("Resizing image for floorPlan", i);
-
-      const processedImages = await processFloorPlanImages(plan); // assuming this accepts a single file
-      if (processedImages.length > 0) {
-          plandata.planimageurl = `${processedImages[0].url}`;
-      }
+   
+if(planimage){
+    const processedImages = await processLandingPlan(planimage); // assumes it returns [{url: "..."}]
+    if (processedImages?.length > 0) {
+      plandata.planimageurl = processedImages[0].url;
     }
   }
-      const newPropertyplan = await Landingplan.create(plandata);
-    }
+    
+  const newPropertyplan = await Landingplan.create(plandata);
+
+    
+  }
+}
 
     for(var i=0;i<req.body.paymentPlans?.length;i++){
 
@@ -148,6 +142,7 @@ req.body.faqid  = validFaqIds;
       
       const newPropertyplan = await Landingpayment.create(plandata);
     }
+    
     //res.json(newProperty);
     const message={
       "status":"success",
@@ -163,10 +158,7 @@ const updateLandingpage = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    console.log("req.body")
-    console.log(req.body)
-    console.log("req.files")
-    console.log(req.files)
+    
 
     if (req.files && Object.keys(req.files).length > 0) {
       
@@ -223,15 +215,12 @@ req.body.faqid  = validFaqIds;
       new: true,
     });
     
-    if (req.files.gallerySelectedImgs?.length > 0) {
-      console.log("test")
-      const filesByFields = groupFilesByFieldname(req.files);
+    if (req.files && Object.keys(req.files).length > 0) {
+      const filesByFields = groupFilesByFieldname2(req.files);
       var gallerySelectedImgsget  =[]
-      if (filesByFields.gallerySelectedImgs && filesByFields.gallerySelectedImgs.length > 0) {    
-        console.log("test2")         
+      if (filesByFields.gallerySelectedImgs && filesByFields.gallerySelectedImgs.length > 0) {          
           gallerySelectedImgsget  = await gallerySelectedImgsResize(filesByFields.gallerySelectedImgs);
           for(var i=0;i<gallerySelectedImgsget.length;i++){
-            console.log("test3")
             var propertyimage={
               "image":gallerySelectedImgsget[i],
               "landingpageid":id,
@@ -241,50 +230,101 @@ req.body.faqid  = validFaqIds;
           }
       }
     }
-    for(var i=0;i<req.body.floorPlans?.length;i++){
-          
-      var plandata={
-          "title":req.body.floorPlans[i].title,
-          "areasize":req.body.floorPlans[i].areasize,
-          "landingpageid":id
-      }
-    
-      const floorPlans = [];
+  
+  const floorPlansnew = [];
+if (req.files && Object.keys(req.files).length > 0) {
+// Parse text fields like floorPlansget[0][title], etc.
+Object.entries(req.body).forEach(([key, value]) => {
+  const match = key.match(/^floorPlans\[(\d+)]\[(\w+)]$/);
+  if (match) {
+    const [, index, field] = match;
+    if (!floorPlansnew[index]) floorPlansnew[index] = {};
+    floorPlansnew[index][field] = value;
+  }
+});
 
-  // Parse text fields like floorPlans[0][title], etc.
-  Object.entries(req.body).forEach(([key, value]) => {
-    const match = key.match(/^floorPlans\[(\d+)]\[(\w+)]$/);
-    if (match) {
-      const [ , index, field ] = match;
-      if (!floorPlans[index]) floorPlans[index] = {};
-      floorPlans[index][field] = value;
-    }
-  });
+// Parse uploaded files with fieldnames like floorPlansget[0][planimageget]
+(req.files || []).forEach((file) => {
+  const match = file.fieldname.match(/^floorPlans\[(\d+)]\[planimage]$/);
+  if (match) {
+    const index = parseInt(match[1]);
+    if (!floorPlansnew[index]) floorPlansnew[index] = {};
+    floorPlansnew[index].floorPlansnew = file;
+  }
+});
+}
+// Now process each floor plan
+for (let i = 0; i < req.body.floorPlans?.length; i++) {
+  const plan = req.body.floorPlans[i];
+  const planimage = floorPlansnew[i];
+  if (plan) {
+    const plandata = {
+      title: plan.title,
+      areasize: plan.areasize,
+      landingpageid: id,
+    };
 
-  // Parse uploaded files with fieldnames like floorPlans[0][planimage]
-  (req.files || []).forEach((file) => {
-    const match = file.fieldname.match(/^floorPlans\[(\d+)]\[planimage]$/);
-    if (match) {
-      const index = parseInt(match[1]);
-      if (!floorPlans[index]) floorPlans[index] = {};
-      floorPlans[index].planimage = file;
-    }
-  });
-  // Now process each floor plan image
-  for (let i = 0; i < floorPlans?.length; i++) {
-    const plan = floorPlans[i];
-
-    if (plan) {
-      console.log("Resizing image for floorPlan", i);
-
-      const processedImages = await processFloorPlanImages(plan); // assuming this accepts a single file
-      if (processedImages.length > 0) {
-          plandata.planimageurl = `${processedImages[0].url}`;
-      }
+   
+if(planimage){
+    const processedImages = await processLandingPlan(planimage); // assumes it returns [{url: "..."}]
+    if (processedImages?.length > 0) {
+      plandata.planimageurl = processedImages[0].url;
     }
   }
-      const newPropertyplan = await Landingplan.create(plandata);
+    
+  const newPropertyplan = await Landingplan.create(plandata);
+
+    
+  }
+}
+const floorPlansgetnew = [];
+if (req.files && Object.keys(req.files)?.length > 0) {
+// Parse text fields like floorPlansget[0][title], etc.
+Object.entries(req.body).forEach(([key, value]) => {
+  const match = key.match(/^floorPlansget\[(\d+)]\[(\w+)]$/);
+  if (match) {
+    const [, index, field] = match;
+    if (!floorPlansgetnew[index]) floorPlansgetnew[index] = {};
+    floorPlansgetnew[index][field] = value;
+  }
+});
+
+// Parse uploaded files with fieldnames like floorPlansget[0][planimageget]
+(req.files || []).forEach((file) => {
+  const match = file.fieldname.match(/^floorPlansget\[(\d+)]\[planimageget]$/);
+  if (match) {
+    const index = parseInt(match[1]);
+    if (!floorPlansgetnew[index]) floorPlansgetnew[index] = {};
+    floorPlansgetnew[index].floorPlansgetnew = file;
+  }
+});
+}
+// Now process each floor plan
+for (let i = 0; i < req.body.floorPlansget?.length; i++) {
+  const plan = req.body.floorPlansget[i];
+  const planimage = floorPlansgetnew[i];
+  if (plan) {
+    const plandata = {
+      title: plan.title,
+      areasize: plan.areasize,
+      landingpageid: id,
+    };
+
+    
+if(planimage){
+    const processedImages = await processLandingPlanGet(planimage); // assumes it returns [{url: "..."}]
+    if (processedImages.length > 0) {
+      plandata.planimageurl = processedImages[0].url;
     }
+  }
+    
+    const updatedPropertyplan = await Landingplan.findByIdAndUpdate(plan.planid, plandata, {
+      new: true,
+    });
+
+    
+  }
+}
 
     for(var i=0;i<req.body.paymentPlans?.length;i++){
 
@@ -299,7 +339,21 @@ req.body.faqid  = validFaqIds;
       
       const newPropertyplan = await Landingpayment.create(plandata);
     }
+    for(var i=0;i<req.body.paymentPlansget?.length;i++){
+
+     
+      var plandata={
+          "title":req.body.paymentPlansget[i].title,
+          "areasize":req.body.paymentPlansget[i].areasize,
+          "price":req.body.paymentPlansget[i].price,
+          "landingpageid":id
+      }
     
+      
+      const newPropertyplan =await Landingpayment.findByIdAndUpdate(req.body.paymentPlansget[i].paymentid, plandata, {
+        new: true,
+      }); 
+    }
    
     const message={
       "status":"success",

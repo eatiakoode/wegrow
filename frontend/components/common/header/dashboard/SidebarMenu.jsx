@@ -70,6 +70,10 @@ const SidebarMenu = () => {
     { id: 1, name: "Add FAQ", route: "/cmswegrow/add-faq" },
     { id: 2, name: "FAQ List", route: "/cmswegrow/my-faq" }
   ];
+  const myLandingpage = [
+    { id: 1, name: "Add Landing page", route: "/cmswegrow/add-landing" },
+    { id: 2, name: "Landing page List", route: "/cmswegrow/my-landing" }
+  ];
   const reviews = [
     { id: 1, name: "My Reviews", route: "/cmswegrow/my-review" },
     { id: 2, name: "Visitor Reviews", route: "/cmswegrow/my-review" },
@@ -408,6 +412,28 @@ const SidebarMenu = () => {
               </ul>
             </li>
             {/* end Propertypage */}
+            {/* end Propertypage */}
+            <li
+              className={`treeview ${
+                isParentPageActive(myLandingpage, pathname) ? "active" : ""
+              }`}
+            >
+              <a data-bs-toggle="collapse" href="#my-myLandingpage">
+                <i className="flaticon-home"></i> <span>My Landing page</span>
+                <i className="fa fa-angle-down pull-right"></i>
+              </a>
+              <ul className="treeview-menu collapse" id="my-myLandingpage">
+                {myLandingpage.map((item) => (
+                  <li key={item.id}>
+                    <Link href={item.route}>
+                      <i className="fa fa-circle"></i> {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+
+            
 
             {/* <li
               className={`treeview ${

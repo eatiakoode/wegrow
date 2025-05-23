@@ -214,8 +214,8 @@ const addLanding = async (e) => {
     
     
     const formData = new FormData();
-    gallerySelectedImgs.forEach((file) => {
-      formData.append("gallerySelectedImgs", file); // Repeat key name for each file
+    gallerySelectedImgs.forEach((file,index) => {
+      formData.append(`gallerySelectedImgs[${index}]`, file); // Repeat key name for each file
     });
     // Loop over each key-value pair in the payload
     for (const key in payload) {
@@ -554,13 +554,14 @@ const addLanding = async (e) => {
         <div className="row" key={input.id} >
            <div className="col-xl-12">
            <div className="my_profile_setting_input">
-          <button onClick={() => handleRemoveInputpayment(input.id)} className="btn btn2 float-end">Remove</button>
+          <button onClick={() => handleRemoveInputpayment(input.id)} type="button" className="btn btn2 float-end">Remove</button>
+          <input type="hidden" name={`paymentid-${index}`} value={input._id} />
           </div>
           </div>
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor={`planTitle-${index}`}>Plan Title {index + 1}</label>
-              <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
+              <label htmlFor={`paymentTitle-${index}`}>Plan Title {index + 1}</label>
+              <input type="text" className="form-control" id={`paymentTitle-${index}`} value={input.title}
               onChange={(e) =>
                 handleInputChangepayment(index, 'title', e.target.value)
               }/>
@@ -571,8 +572,8 @@ const addLanding = async (e) => {
 
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor={`planSize-${index}`}>Plan Size</label>
-              <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
+              <label htmlFor={`paymentSize-${index}`}>Plan Size</label>
+              <input type="text" className="form-control" id={`paymentSize-${index}`} value={input.areasize}
               onChange={(e) =>
                 handleInputChangepayment(index, 'areasize', e.target.value)
               } />
@@ -581,8 +582,8 @@ const addLanding = async (e) => {
           {/* End .col */}
           <div className="col-xl-4">
          <div className="my_profile_setting_input form-group">
-           <label htmlFor={`planPrice-${index}`}>Plan Price {index + 1}</label>
-           <input type="text" className="form-control" id={`planPrice-${index}`} value={input.price}
+           <label htmlFor={`paymentPrice-${index}`}>Payment Price {index + 1}</label>
+           <input type="text" className="form-control" id={`paymentPrice-${index}`} value={input.price}
            onChange={(e) =>
             handleInputChangepayment(index, 'price', e.target.value)
            } />

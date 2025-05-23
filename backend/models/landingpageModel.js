@@ -1,6 +1,6 @@
 const mongoose = require("mongoose"); // Erase if already required
 const Landingpayment = require("../models/landingpaymentModel");
-const Landingplan = require("../models/landingfloorModel");
+const Landingfloor = require("../models/landingfloorModel");
 const Landingimage = require("../models/landingimagesModel");
 
 // Declare the Schema of the Mongo model

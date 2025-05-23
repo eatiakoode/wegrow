@@ -4,7 +4,7 @@ const mongoose = require("mongoose"); // Erase if already required
 
 var landingpaymentSchema = new mongoose.Schema(
   {
-    room: {
+    title: {
       type: String,
       index: true,
     },

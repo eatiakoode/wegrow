@@ -9,6 +9,13 @@ import { getFaqTableData } from "../../../api/faq";
 import selectedFiles from "../../../utils/selectedFiles";
 import Image from "next/image";
 import {  getLandingpageById,updateLandingpageAPI } from "../../../api/landingpage";
+import {  deleteLandingImagesAPI } from "../../../api/landingimage";
+import {  deletePropertyplanAPI } from "../../../api/landingplan";
+import {  deletePaymentplanAPI } from "../../../api/landingpayment";
+
+
+
+
 
 const CreateList = () => {
   const params = useParams();  
@@ -66,6 +73,43 @@ const CreateList = () => {
         
       }
   };
+  const handleRemoveInputpaymentget = async (_id) => {
+    const isConfirmed = window.confirm("Are you sure you want to delete this plan?");
+    if (!isConfirmed) return;
+      try {
+        // alert("test")
+        const data = await deletePaymentplanAPI(_id); // 🔹 Call the API function
+        // alert("test")
+        const deleted = landingPaymentInputGet?.filter((file) => file._id !== _id);
+        setLandingPaymentInputGet(deleted);
+        //setTitle(""); // ✅ Reset input after success
+      } catch (error) {
+        alert("Failed to delete property Image.");
+        
+      }
+  };
+  const deleteImageGet = async (_id) => {
+        const isConfirmed = window.confirm("Are you sure you want to delete this image?");
+        if (!isConfirmed) return;
+        
+        // const deletePropertyImages = async (id) => {
+          // const isConfirmed = window.confirm("Are you sure you want to delete this Blog?");
+          // if (!isConfirmed) return;
+      
+          try {
+            // alert("test")
+            const data = await deleteLandingImagesAPI(_id); // 🔹 Call the API function
+            // alert("test")
+            const deleted = gallerySelectedImgsget?.filter((file) => file._id !== _id);
+            setGallerySelectedImgsGet(deleted);
+            //setTitle(""); // ✅ Reset input after success
+          } catch (error) {
+            alert("Failed to delete property Image.");
+            //setError(error.message); // ❌ Show error if request fails
+          }
+        // };
+        // deletePropertyImages(id)
+      };
   const uploadPlanImage = (index, file) => {
     const updatedInputs = [...inputs];
     updatedInputs[index].planimage = file;
@@ -73,6 +117,8 @@ const CreateList = () => {
   };
 
   const [inputspayment, setInputspayment] = useState([]);
+  const [landingPaymentInputGet, setLandingPaymentInputGet] = useState([]);
+  const [inputspaymentget, setPaymentInputsget] = useState([]);
   const handleAddInputpayment = () => {
     setInputspayment([
       ...inputspayment,
@@ -89,6 +135,13 @@ const CreateList = () => {
     updated[index][field] = value;
     setInputspayment(updated);
   };
+  const handleInputChangepaymentget = (index, field, value) => {
+    // alert("test")
+    const updated = [...inputspaymentget];
+    updated[index][field] = value;
+    setPaymentInputsget(updated);
+  };
+  
   const handleRemoveInputpayment = (idToRemove) => {
     setInputspayment(inputspayment.filter((input) => input.id !== idToRemove));
   };
@@ -214,9 +267,11 @@ const selectedFaqObjects = options.filter(opt => faqIds.includes(opt.value));
             if(data.data.aboutimage) {
               setAboutImageGet(process.env.NEXT_PUBLIC_API_URL+data.data.aboutimage)
             }
-            setGallerySelectedImgs(data.data.images)
+            setGallerySelectedImgsGet(data.data.galleryimages)
             setLandingPlanInputGet(data.data.floorplan);
             setInputsget(data.data.floorplan);
+            setLandingPaymentInputGet(data.data.paymentplan);
+            setPaymentInputsget(data.data.paymentplan);
           } catch (error) {
             alert("Failed to update Blog.");
             console.error(error);
@@ -237,6 +292,8 @@ const handleAmenityChange = (e) => {
 };
 
  const [gallerySelectedImgs, setGallerySelectedImgs] = useState([]);
+ const [gallerySelectedImgsget, setGallerySelectedImgsGet] = useState([]);
+ 
   
     // multiple image select
     const multipleImage = (e) => {
@@ -322,15 +379,33 @@ const updateLanding = async (e) => {
       }
 
     });
+    inputsget.forEach((input, index) => {
+      formData.append(`floorPlansget[${index}][title]`, input.title);
+      formData.append(`floorPlansget[${index}][areasize]`, input.areasize);
+      formData.append(`floorPlansget[${index}][planid]`, input._id);
+      if (input.planimageget) {
+        formData.append(`floorPlansget[${index}][planimageget]`, input.planimageget);
+      }
+
+    });
     inputspayment.forEach((input, index) => {
       formData.append(`paymentPlans[${index}][title]`, input.title);
       formData.append(`paymentPlans[${index}][areasize]`, input.areasize);
       formData.append(`paymentPlans[${index}][price]`, input.price);
     });
 
+    inputspaymentget.forEach((input, index) => {
+      formData.append(`paymentPlansget[${index}][title]`, input.title);
+      formData.append(`paymentPlansget[${index}][areasize]`, input.areasize);
+      formData.append(`paymentPlansget[${index}][price]`, input.price);      
+      formData.append(`paymentPlansget[${index}][paymentid]`, input._id);
+    });
+
+    
+
 
     const res = await updateLandingpageAPI(id,formData);
-    // router.push("/cmswegrow/my-landing");
+    router.push("/cmswegrow/my-landing");
     // alert(res.message);
 
     // Reset fields and errors
@@ -516,6 +591,37 @@ const updateLanding = async (e) => {
           </div>
  <div className="col-lg-12">
                     <ul className="mb-0">
+                      {gallerySelectedImgsget?.length > 0
+                      ? gallerySelectedImgsget?.map((item, index) => (
+                          <li key={index} className="list-inline-item">
+                            <div className="portfolio_item">
+                              <Image
+                                width={200}
+                                height={200}
+                                className="img-fluid cover"
+                                src={
+                                  item.image
+                                    ? `${process.env.NEXT_PUBLIC_API_URL}${item.image}`
+                                    : "/default-placeholder.jpg"
+                                }
+                                alt= {`${item.title}${item._id}`}
+                                unoptimized
+                              />
+                              <div
+                                className="edu_stats_list"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Delete"
+                                data-original-title="Delete"
+                              >
+                                <a onClick={() => deleteImageGet(item._id)}>
+                                  <span className="flaticon-garbage"></span>
+                                </a>
+                              </div>
+                            </div>
+                          </li>
+                        ))
+                      : undefined}
                       {gallerySelectedImgs?.length > 0
                         ? gallerySelectedImgs?.map((item, index) => (
                             <li key={index} className="list-inline-item">
@@ -566,11 +672,76 @@ const updateLanding = async (e) => {
           <h3 className="mb30">Floor Plans</h3>
           <button className="btn admore_btn mb30" type="button" onClick={handleAddInput} >Add More</button>
         </div>
+        {landingPlanInputGet.map((input, index) => (
+        <div className="row" key={input.id} >
+           <div className="col-xl-12">
+           <div className="my_profile_setting_input">
+          <button onClick={() => handleRemoveInputGet(input._id)}  type="button" className="btn btn2 float-end">Remove</button>
+          <input type="hidden" name={`planid-${index}`} value={input._id} /> </div>
+          </div>
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor={`planTitle-${index}`}>Plan Title {index + 1}</label>
+              <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
+              onChange={(e) =>
+                handleInputChangeGet(index, 'title', e.target.value)
+              }/>
+            </div>
+          </div>
+         
+           {/* End .col */}
+
+          <div className="col-xl-4">
+            <div className="my_profile_setting_input form-group">
+              <label htmlFor={`planSize-${index}`}>Plan Size</label>
+              <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
+              onChange={(e) =>
+                handleInputChangeGet(index, 'areasize', e.target.value)
+              } />
+            </div>
+          </div>
+          {/* End .col */}
+          <div className="col-lg-4 col-xl-4">
+        <div className="my_profile_setting_input form-group">
+          
+        <div htmlFor="planimageget">Plan Image</div>
+                <div className="wrap-custom-file height-150">
+              
+                    <input
+                        type="file"
+                        id={`planimageget-${index}`}
+                        accept="image/png, image/gif, image/jpeg"
+                        onChange={(e) => uploadPlanImageGet(index, e.target.files[0])}
+                    />
+                    <label
+                       
+                        style={
+                          input.planimageurl
+                            ? { backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}${input.planimageurl})` }
+                            : inputsget[index]?.planimageget
+                            ? { backgroundImage: `url(${URL.createObjectURL(inputsget[index]?.planimageget)})` }
+                            : undefined
+                        }
+                        htmlFor={`planimageget-${index}`}
+                      >
+                        <span>
+                            <i className="flaticon-download"></i> Upload plan image{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
+        
+      </div>
+        {/* End .col */}        
+        </div>
+        
+      ))}
         {inputs.map((input, index) => (
         <div className="row" key={input.id} >
            <div className="col-xl-12">
            <div className="my_profile_setting_input">
-          <button onClick={() => handleRemoveInput(input.id)} className="btn btn2 float-end">Remove</button>
+          <button onClick={() => handleRemoveInput(input.id)} type="button"  className="btn btn2 float-end">Remove</button>
           </div>
           </div>
           <div className="col-xl-4">
@@ -630,19 +801,28 @@ const updateLanding = async (e) => {
         </div>
         
       ))}
-       {inputsget.map((input, index) => (
+      
+       </div>
+      {/* End .col */}
+      <div className="my_dashboard_review mt30">
+        <div className="col-lg-12">
+          <h3 className="mb30">Payment Plans</h3>
+          <button className="btn admore_btn mb30" type="button" onClick={handleAddInputpayment} >Add More</button>
+        </div>
+        
+       {landingPaymentInputGet.map((input, index) => (
         <div className="row" key={input.id} >
            <div className="col-xl-12">
            <div className="my_profile_setting_input">
-          <button onClick={() => handleRemoveInputGet(input._id)} className="btn btn2 float-end">Remove</button>
+          <button onClick={() => handleRemoveInputpaymentget(input._id)} type="button" className="btn btn2 float-end">Remove</button>
           </div>
           </div>
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor={`planTitle-${index}`}>Plan Title {index + 1}</label>
-              <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
+              <label htmlFor={`paymentTitle-${index}`}>Payment Title {index + 1}</label>
+              <input type="text" className="form-control" id={`paymentTitle-${index}`} value={input.title}
               onChange={(e) =>
-                handleInputChangeGet(index, 'title', e.target.value)
+                handleInputChangepaymentget(index, 'title', e.target.value)
               }/>
             </div>
           </div>
@@ -651,67 +831,39 @@ const updateLanding = async (e) => {
 
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor={`planSize-${index}`}>Plan Size</label>
-              <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
+              <label htmlFor={`paymentSize-${index}`}>Payment Size</label>
+              <input type="text" className="form-control" id={`paymentSize-${index}`} value={input.areasize}
               onChange={(e) =>
-                handleInputChangeGet(index, 'areasize', e.target.value)
+                handleInputChangepaymentget(index, 'areasize', e.target.value)
               } />
             </div>
           </div>
           {/* End .col */}
-          <div className="col-lg-4 col-xl-4">
-        <div className="my_profile_setting_input form-group">
-          
-        <div htmlFor="planimage">Plan Image</div>
-                <div className="wrap-custom-file height-150">
-              
-                    <input
-                        type="file"
-                        id={`planimage-${index}`}
-                        accept="image/png, image/gif, image/jpeg"
-                        onChange={(e) => uploadPlanImageGet(index, e.target.files[0])}
-                    />
-                    <label
-                        style={
-                          inputs[index]?.planimage
-                            ? {
-                                backgroundImage: `url(${URL.createObjectURL(inputs[index].planimage)})`,
-                              }
-                            : undefined
-                        }
-                        htmlFor={`planimage-${index}`}
-                      >
-                        <span>
-                            <i className="flaticon-download"></i> Upload plan image{" "}
-                        </span>
-                    </label>
-                </div>
-                <p>*minimum 260px x 260px</p>
-            </div>
-        
-      </div>
-        {/* End .col */}        
+          <div className="col-xl-4">
+         <div className="my_profile_setting_input form-group">
+           <label htmlFor={`paymentPrice-${index}`}>Payment Price {index + 1}</label>
+           <input type="text" className="form-control" id={`paymentPrice-${index}`} value={input.price}
+           onChange={(e) =>
+            handleInputChangepaymentget(index, 'price', e.target.value)
+           } />
+         </div>
+       </div>
+        {/* End .col */}      
         </div>
         
       ))}
-       </div>
-      {/* End .col */}
-      <div className="my_dashboard_review mt30">
-        <div className="col-lg-12">
-          <h3 className="mb30">Payment Plans</h3>
-          <button className="btn admore_btn mb30" type="button" onClick={handleAddInputpayment} >Add More</button>
-        </div>
-        {inputspayment.map((input, index) => (
+      {inputspayment.map((input, index) => (
         <div className="row" key={input.id} >
            <div className="col-xl-12">
            <div className="my_profile_setting_input">
-          <button onClick={() => handleRemoveInputpayment(input.id)} className="btn btn2 float-end">Remove</button>
+          <button onClick={() => handleRemoveInputpayment(input.id)} type="button" className="btn btn2 float-end">Remove</button>
+          <input type="hidden" name={`paymentid-${index}`} value={input._id} />
           </div>
           </div>
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor={`planTitle-${index}`}>Plan Title {index + 1}</label>
-              <input type="text" className="form-control" id={`planTitle-${index}`} value={input.title}
+              <label htmlFor={`paymentTitle-${index}`}>Plan Title {index + 1}</label>
+              <input type="text" className="form-control" id={`paymentTitle-${index}`} value={input.title}
               onChange={(e) =>
                 handleInputChangepayment(index, 'title', e.target.value)
               }/>
@@ -722,8 +874,8 @@ const updateLanding = async (e) => {
 
           <div className="col-xl-4">
             <div className="my_profile_setting_input form-group">
-              <label htmlFor={`planSize-${index}`}>Plan Size</label>
-              <input type="text" className="form-control" id={`planSize-${index}`} value={input.areasize}
+              <label htmlFor={`paymentSize-${index}`}>Plan Size</label>
+              <input type="text" className="form-control" id={`paymentSize-${index}`} value={input.areasize}
               onChange={(e) =>
                 handleInputChangepayment(index, 'areasize', e.target.value)
               } />
@@ -732,8 +884,8 @@ const updateLanding = async (e) => {
           {/* End .col */}
           <div className="col-xl-4">
          <div className="my_profile_setting_input form-group">
-           <label htmlFor={`planPrice-${index}`}>Plan Price {index + 1}</label>
-           <input type="text" className="form-control" id={`planPrice-${index}`} value={input.price}
+           <label htmlFor={`paymentPrice-${index}`}>Payment Price {index + 1}</label>
+           <input type="text" className="form-control" id={`paymentPrice-${index}`} value={input.price}
            onChange={(e) =>
             handleInputChangepayment(index, 'price', e.target.value)
            } />
@@ -743,7 +895,6 @@ const updateLanding = async (e) => {
         </div>
         
       ))}
-      
        </div>
        
         
