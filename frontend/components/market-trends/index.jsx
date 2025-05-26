@@ -9,6 +9,7 @@ import Header from "../common/header/DefaultHeader";
 import MobileMenu from "../common/header/MobileMenu";
 import Sidebar from "@/components/listing-details-v1/Sidebar";
 import TabDetailsContent from "@/components/market-trends/TabDetailsContent";
+import PriceCards from "@/components/market-trends/PriceCards";
 import Partners from "../common/Partners";
 import PopupSignInUp from "../common/PopupSignInUp";
 import BreadCrumb2 from "@/components/agent-details/BreadCrumb2";
@@ -39,28 +40,14 @@ const index = () => {
             <div className="col-md-12 col-lg-12">
               <div className="row">
                 <div className="col-lg-12">
-                  <div className="feat_property list agency">
-                    <div className="thumb w-100">
-                      <Image
-                        // width={100}
-                        // height={232}
-                        fill
-                        className="img-fluid"
-                        src="/assets/images/hotproperties/1.webp"
-                        alt="image"
-                      />
-                    </div>
-                    {/* End .thumb */}
-                  </div>
                   <div className="details">
-
-                      <div className="fp_footer">
-                        <h1>Property Rates in Gurugram, Haryana - 2025</h1>
+                      <div className="fp_footer text-center">
+                        <h1>Insights into India’s Real Estate Market and Property Rates</h1>
                       </div>
                       {/* End .fp_footer */}
                   </div>
                   {/* End .feat_property */}
-
+                  <PriceCards />
                   <div className="shop_single_tab_content style2 mt30">
                     <TabDetailsContent />
                   </div>

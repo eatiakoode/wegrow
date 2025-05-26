@@ -5,7 +5,7 @@ import Image from "next/image";
 const MobileMenu = () => {
   return (
     // <!-- Main Header Nav For Mobile -->
-    <div className="stylehome1 h0 mega-menu-wrapper">
+    <div className="mobile_header stylehome1 h0 mega-menu-wrapper">
       <div className="mobile-menu">
         <div className="header stylehome1">
           <div className="main_logo_home2 text-center">
@@ -21,9 +21,9 @@ const MobileMenu = () => {
           {/* main_logo_home2 */}
 
           <ul className="menu_bar_home2">
-            <li className="list-inline-item list_s">
-              <Link href="/login">
-                <span className="flaticon-user"></span>
+             <li className="list-inline-item border_listing">
+              <Link href="tel:+917421922000">
+                <span className="flaticon-telephone"></span>
               </Link>
             </li>
             <li

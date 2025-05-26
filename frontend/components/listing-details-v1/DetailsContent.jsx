@@ -103,7 +103,7 @@ const DetailsContent = ({property,faqs}) => {
     )}
      {/* End .floor_plane */}
      {property?.videoembedcode && (
-      <div className="shop_single_tab_content style2 mt30">
+      <div className="application_statics shop_single_tab_content style2 mt30">
       <h4 className="mb30"> Property video</h4>
       <div dangerouslySetInnerHTML={{ __html: property?.videoembedcode }} />
       </div>

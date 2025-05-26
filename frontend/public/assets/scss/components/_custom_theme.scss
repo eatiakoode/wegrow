@@ -340,7 +340,9 @@ $sidebar-color: #333;
     @media (max-width: 767px) {
         height: 400px;
     }
-
+    > div {
+        height: 100%;
+    }
     .location-finder {
         position: absolute;
         top: 50%;
@@ -402,7 +404,7 @@ header.header-nav.menu_style_home_one .ace-responsive-menu li.add_listing:hover 
         color: var(--color-primary) !important;
     }
 }
-.stricky-fixed {
+header.stricky-fixed {
     &.header-nav.menu_style_home_one a.navbar_brand {
         margin-top: 10px;
     }

@@ -74,14 +74,13 @@ const propertiesData = [
 const PropertyTable = () => {
   return (
     <div className="overflow-x-auto px-0 py-6">
-      <table className="min-w-full bg-white border rounded-lg shadow-md text-sm">
+      <table className="min-w-full bg-white border table-striped rounded-lg shadow-md text-sm">
         <thead className="bg-purple-100 text-left">
           <tr>
-            <th className="px-4 py-4">Locality</th>
-            <th className="px-4 py-4">Avg. Price / Sqft</th>
-            <th className="px-4 py-4">Price Range / Sqft</th>
-            <th className="px-4 py-4">Trend</th>
-            <th className="px-4 py-4">View Properties</th>
+            <th className="px-4 py-4">Area</th>
+            <th className="px-4 py-4">Typical Cost / Sqft</th>
+            <th className="px-4 py-4">Price Band / Sqft</th>
+            <th className="px-4 py-4">Explore Listings</th>
           </tr>
         </thead>
         <tbody>
@@ -90,11 +89,6 @@ const PropertyTable = () => {
               <td className="px-4 py-3">{item.locality}</td>
               <td className="px-4 py-3">{item.avgPrice}</td>
               <td className="px-4 py-3">{item.priceRange}</td>
-              <td className="px-4 py-3">
-                <button className="border border-purple-600 text-purple-600 px-3 py-1 rounded hover:bg-purple-100">
-                  See Trend
-                </button>
-              </td>
               <td className="px-4 py-3">
                 <button className="properties-btn">
                   See {item.properties} Properties
