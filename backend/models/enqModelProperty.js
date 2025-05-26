@@ -14,6 +14,10 @@ var enqSchemaProperty = new mongoose.Schema({
     type: String,
     required: true,
   },
+  budget: {
+    type: String,
+    required: true,
+  },
   propertyid:{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Property", 

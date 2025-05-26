@@ -150,6 +150,46 @@ const DetailsContent = ({property,faqs}) => {
       </div>
       )}
       {/* End what's nearby area */}
+      <div className="property_attachment_area mt30">
+    <h4 className="mb30">Property Brochure</h4>
+    <div className="iba_container style2">
+      <a
+        href="/assets/images/51_Property_Law.pdf"
+        download
+        className="icon_box_area style2 d-flex align-items-center"
+        style={{ textDecoration: 'none' }}
+      >
+        <div className="score">
+          <span className="flaticon-pdf text-thm fz30"></span>
+        </div>
+        <div className="details">
+          <h5 className="mb-0">
+            <span className="flaticon-download text-thm pr10"></span> Property Details Doc
+          </h5>
+        </div>
+      </a>
+    </div>
+  </div>
+  {/* <div className="property_attachment_area mt30">
+    <h4 className="mb30">Project Specifications</h4>
+    <div className="iba_container style2">
+      <h5>Floor & Counter</h5>
+      <div className="score">
+        <ul>
+          <li><span>Living/Dining</span><span> Imported Marble Flooring</span></li>
+          <li><span>Living/Dining</span><span> Imported Marble Flooring</span></li>
+        </ul>
+          
+        </div>
+        <h5>Floor & Counter</h5>
+      <div className="score">
+        <ul>
+          <li><div className="flaticon-pdf text-thm fz30">Living/Dining</div><div className="flaticon-pdf text-thm fz30"> Imported Marble Flooring</div></li>
+        </ul>
+          
+        </div>
+    </div>
+  </div> */}
       <div className="application_statics mt30">
         <h4 className="mb10">About Builder</h4>
       <div className="director-desk mt-0 pt-0">
