@@ -11,7 +11,7 @@ const getProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getProperty = await Property.findById(id).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid");
+    const getProperty = await Property.findById(id).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid").lean();
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
@@ -129,7 +129,7 @@ const getPropertySlug = asyncHandler(async (req, res) => {
   const { slug } = req.params;
   // validateMongoDbId(slug);
   try {
-    const getProperty = await Property.findOne({ slug: slug }).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid").populate('images').populate("floorplan");
+    const getProperty = await Property.findOne({ slug: slug }).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid").populate('images').populate("floorplan").lean();
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",

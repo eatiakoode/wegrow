@@ -8,12 +8,12 @@ import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
-const FloorFeaturedProperties = ({ unlocked, setShowModal }) => {
+const FloorFeaturedProperties = ({ unlocked, setShowModal,landingpage }) => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const slides = floorproperties.slice(0, 6).map((item) => ({
-    src: item.img,
+  const slides = landingpage?.floorplan?.slice(0, 6).map((item) => ({
+    src: item.planimageurl,
     alt: item.title,
   }));
   const settings = {
@@ -59,9 +59,10 @@ const FloorFeaturedProperties = ({ unlocked, setShowModal }) => {
 
   return (
     <>
-    <Slider {...settings}>
-      {floorproperties.slice(0, 6).map((item, idx) => (
-        <div className="item" key={item.id}>
+    {landingpage?.floorplan?.length > 0 ? (
+    <Slider key={landingpage.floorplan.length} {...settings}>
+      {landingpage?.floorplan?.slice(0, 6).map((item, idx) => (
+        <div className="item" key={idx}>
         <div
               className={`properti_city home6 ${!unlocked ? "blurred" : ""}`}
               onClick={() => {
@@ -79,14 +80,19 @@ const FloorFeaturedProperties = ({ unlocked, setShowModal }) => {
                 width={585}
                 height={416}
                 className="img-whp"
-                src={item.img}
-                alt={item.title}
+                src={
+                  item.planimageurl
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${item.planimageurl}`
+                    : "/assets/images/hotproperties/about-in.webp"
+                }
+                alt= {`${item.title}`}
+                unoptimized
               />
               {/* Optionally, you can put price as a tag or badge */}
               <div className="thmb_cntnt">
                 <ul className="tag mb0">
                   <li className="list-inline-item">
-                    <span className="badge bg-primary">{item.size}</span>
+                    <span className="badge bg-primary">{item.areasize}</span>
                   </li>
                 </ul>
               </div>
@@ -96,7 +102,7 @@ const FloorFeaturedProperties = ({ unlocked, setShowModal }) => {
             <div className="overlay">
               <div className="details">
                 <div className="fp_price">
-                  {item.type}
+                  {item.title}
                 </div>
                 {/* <h4>
                   <Link href={`/listing-details/${item.id}`}>
@@ -110,6 +116,9 @@ const FloorFeaturedProperties = ({ unlocked, setShowModal }) => {
         </div>
       ))}
     </Slider>
+    ) : (
+      <p>Loading floor plans...</p>
+    )}
      <Lightbox
         open={open}
         close={() => setOpen(false)}

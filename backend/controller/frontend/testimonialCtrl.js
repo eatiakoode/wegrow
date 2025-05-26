@@ -6,7 +6,7 @@ const getTestimonial = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getaTestimonial = await Testimonial.findById(id);
+    const getaTestimonial = await Testimonial.findById(id).lean();
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
@@ -20,7 +20,7 @@ const getTestimonial = asyncHandler(async (req, res) => {
 });
 const getallTestimonial = asyncHandler(async (req, res) => {
   try {
-    const getallTestimonial = await Testimonial.find({"status":true});
+    const getallTestimonial = await Testimonial.find({"status":true}).lean();
     res.json(getallTestimonial);
   } catch (error) {
     throw new Error(error);

@@ -2,7 +2,7 @@
 // import Image from 'next/image';
 import { useState } from 'react';
 
-export default function BannerSection() {
+export default function BannerSection({landingpage}) {
   const [form, setForm] = useState({ name: '', email: '', phone: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -30,14 +30,17 @@ export default function BannerSection() {
     <section className="banner-two" id="homein">
       <div
         className="banner-two_image"
-        style={{ backgroundImage: 'url(/assets/images/slide1.webp)' }}
+        // style={{ backgroundImage: 'url(/assets/images/slide1.webp)' }}
+        style={{ backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}${landingpage.bannerimage || '/assets/images/slide1.webp'})` }}
+
       ></div>
       <div className="container">
         <div className="banner-two_content">
           <div className="banner-two_content-inner">
-            <div className="banner-two_title">M3M Crown</div>
+            <div className="banner-two_title">{landingpage.bannertitle}</div>
             <h1 className="banner-two_heading">
-              Find Your <br /> <span>Perfect Home </span>Today
+            <div dangerouslySetInnerHTML={{ __html: landingpage?.bannerdescription }} />
+              
             </h1>
 
             <div className="banner-tabs">
@@ -115,17 +118,8 @@ export default function BannerSection() {
               </div>
 
               <div className="content-amenities">
-                <ul>
-                  <li>
-                    <i className="flaticon-tick me-2"></i>4.9/5 Rating by Customer
-                  </li>
-                  <li>
-                    <i className="flaticon-tick me-2"></i>500+ Customer Served
-                  </li>
-                  <li>
-                    <i className="flaticon-tick me-2"></i>Best Price Guaranteed
-                  </li>
-                </ul>
+              <div dangerouslySetInnerHTML={{ __html: landingpage?.bannerreview }} />
+                
               </div>
             </div>
           </div>

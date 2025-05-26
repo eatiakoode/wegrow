@@ -70,6 +70,7 @@ const [slug, setSlug] = useState("");
 const [bannerimage, setBannerImage] = useState(null);
   const [bannertitle , setBannerTitle] = useState([]);
   const [bannerdescription, setBannerDescription] = useState([]);
+  const [bannerreview, setBannerReview] = useState([]);
 
   const [aboutimage, setAboutImage] = useState(null);
   const [abouttitle , setAboutTitle] = useState([]);
@@ -179,6 +180,7 @@ const addLanding = async (e) => {
     { key: "slug", value: slug, name: "Slug" },
     { key: "bannertitle", value: bannertitle, name: "Banner title" },
     { key: "bannerdescription", value: bannerdescription, name: "Banner Description" },
+    { key: "bannerreview", value: bannerreview, name: "Banner Raview" },
     { key: "abouttitle", value: abouttitle, name: "About title" },
     { key: "aboutdescription", value: aboutdescription, name: "About Description" },
     { key: "metatitle", value: metatitle, name: "Meta Title" },
@@ -205,7 +207,7 @@ const addLanding = async (e) => {
     console.log("value dd")
     console.log(value)
     const payload = {
-      title, slug, bannerimage,bannertitle, bannerdescription, aboutimage, abouttitle, aboutdescription,
+      title, slug, bannerimage,bannertitle, bannerdescription,bannerreview, aboutimage, abouttitle, aboutdescription,
       amenityid: selectedAmenity,
       faqs:JSON.stringify(value),
       metatitle, metadescription,
@@ -319,6 +321,13 @@ const addLanding = async (e) => {
               {error.bannerdescription && <span className="text-danger">{error.bannerdescription}</span>}
             </div>
       </div>
+      <div className="col-lg-12">
+        <div className="my_profile_setting_textarea form-group">
+              <label htmlFor="bannerReview">Banner Raview</label>
+              <textarea id="bannerReview" className="form-control" rows="4"  value={bannerreview} onChange={(e) => setBannerReview(e.target.value)}  placeholder="Enter banner review"></textarea>
+              {error.bannerreview && <span className="text-danger">{error.bannerreview}</span>}
+            </div>
+            </div>
       </div>
       <div className="row">
           <div className="col-lg-12">
@@ -367,6 +376,8 @@ const addLanding = async (e) => {
               {error.aboutdescription && <span className="text-danger">{error.aboutdescription}</span>}
             </div>
       </div>
+     
+      
       </div>
         
         

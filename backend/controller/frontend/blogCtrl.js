@@ -6,7 +6,7 @@ const getBlog = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getaBlog = await Blog.findById(id).populate("blogcategory");
+    const getaBlog = await Blog.findById(id).populate("blogcategory").lean();
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
@@ -20,7 +20,7 @@ const getBlog = asyncHandler(async (req, res) => {
 });
 const getallBlog = asyncHandler(async (req, res) => {
   try {
-    const getallBlog = await Blog.find({"status":true}).populate("blogcategory");
+    const getallBlog = await Blog.find({"status":true}).populate("blogcategory").lean();
     res.json(getallBlog);
   } catch (error) {
     throw new Error(error);
@@ -30,7 +30,7 @@ const getBlogSlug = asyncHandler(async (req, res) => {
   const { slug } = req.params;
   // validateMongoDbId(id);
   try {
-    const getaBlog = await Blog.findOne({slug:slug}).populate("blogcategory");
+    const getaBlog = await Blog.findOne({slug:slug}).populate("blogcategory").lean();
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
