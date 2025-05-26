@@ -16937,7 +16937,19 @@ legend span {
 }
 .mobile-menu .header .border_listing a:after{display: none;}
 }
-
+.tick-check{
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background-color: var(--color-primary);
+    line-height: 80px;
+    color: var(--white-color);
+    font-weight: 700;
+    border-radius: 80px;
+}
+.flaticon-tick{
+  font-size: 24px;
+}
 .fz60 {
   font-size: 60px;
 }

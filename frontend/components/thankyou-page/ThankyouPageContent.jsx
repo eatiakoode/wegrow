@@ -1,21 +1,15 @@
 import Link from "next/link";
-import Form from "./Form";
-import Image from "next/image";
 
 const ErrorPageContent = () => {
   return (
     <div className="error_page footer_apps_widget">
-      <Image
-        width={266}
-        height={200}
-        className="img-fluid img-thumb contain"
-        src="/assets/images/resource/error.png"
-        alt="error.png"
-      />
-      <div className="erro_code">
-        <h1>Ohh! Page Not Found</h1>
+      <div className="tick-check">
+        <span class="flaticon-tick"></span>
       </div>
-      <p>We can’t seem to find the page you’re looking for</p>
+      <div className="erro_code">
+        <h1>Thank You! We've Received Your Submission.</h1>
+      </div>
+      <p>We appreciate you reaching out. Our team will get back to you shortly.</p>
 
       {/* <Form /> */}
       {/* End form */}
