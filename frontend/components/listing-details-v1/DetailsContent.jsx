@@ -2,6 +2,7 @@
 // import Ratings from "../blog-details/Ratings";
 // import ReviewBox from "../blog-details/ReviewBox";
 import AdditionalDetails from "../common/listing-details/AdditionalDetails";
+import { useState } from "react";
 // import Attachments from "../common/listing-details/Attachments";
 import FloorPlans from "../common/listing-details/FloorPlans";
 import PropertyDescriptions from "../common/listing-details/PropertyDescriptions";
@@ -18,6 +19,7 @@ import WhatsNearby from "../common/listing-details/WhatsNearby";
 import Image from "next/image";
 
 const DetailsContent = ({property,faqs}) => {
+  const [showFullBio, setShowFullBio] = useState(false);
     return (
     <>
       <div className="listing_single_description">
@@ -148,6 +150,60 @@ const DetailsContent = ({property,faqs}) => {
       </div>
       )}
       {/* End what's nearby area */}
+      <div className="application_statics mt30">
+        <h4 className="mb10">About Builder</h4>
+      <div className="director-desk mt-0 pt-0">
+                      {/* <div className="row">
+                        <div className="col-lg-8 offset-lg-2">
+                          <div className="main-title text-center">
+                            <h2 className="mt0 color-main">Who We Are</h2>
+                            <h2 className="mt0 mb0">Committed to Excellence</h2>
+                          </div>
+                        </div>
+                      </div> */}
+                      <div className="row">
+                        <div className="col-lg-4">
+                          <div className="who-we-are">
+                            <Image
+                                width={1600}
+                                height={1066}
+                                className="img-fluid rounded-2"
+                                src="/assets/images/about-us.webp"
+                                alt="image"
+                                />
+                          </div>
+                        </div>
+                        <div className="col-lg-8">
+                          <div className="who-we-are">
+                            <div className="main-title text-left mb-2">
+                              <h4>Neev Residency Pvt Ltd</h4>
+                              <p>Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</p>
+                            </div>
+                              <p>Neev Residency Pvt Ltd is aiming to provide a quality workmanship at a cost effective price and at the fastest pace. Their commitment to customer satisfaction is reflected in the uncompromising quality & punctuality ensured through systematic and methodological approach.</p>
+                              
+                              {showFullBio && (
+                                  <>
+                                    <p>
+                                      
+                                      Neev Residency Pvt Ltd believes in providing you with not only a home but also superior living through never-ending practices considering prudent lifestyle.
+                                    </p>
+                                    
+                                  </>
+                                )}
+                                <div className="view-all" style={{position:'static',transform:'none'}}>
+                                    <button
+                                      className="btn btn-primary"
+                                      onClick={() => setShowFullBio(!showFullBio)}
+                                    >
+                                      {showFullBio ? "Read Less" : "Read More"}
+                                    </button>
+                                </div>
+                                
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
 
       {/* <div className="product_single_content">
         <div className="mbp_pagination_comments mt30">
