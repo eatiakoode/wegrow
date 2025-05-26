@@ -18,7 +18,7 @@ const FeatureProperties = ({properties}) => {
   return (
     <>
       <Slider {...settings} arrows={false}>
-        {properties.slice(0, 5).map((item) => (
+        {properties?.slice(0, 5).map((item) => (
           <div className="item" key={item._id}>
             <div className="feat_property home7">
               <div className="thumb">

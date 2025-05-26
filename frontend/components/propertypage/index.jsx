@@ -88,8 +88,8 @@ console.log(res)
       <BreadCrumbBanner propertypage={propertypage} />
 
       {/* <!-- About Text Content --> */}
-      <section id="about" className="para-land aboutland about-section scroll-mt-80px border-btm pb0 bgc-f7">
-             <div className="container contact_localtion">
+      <section id="about" className="commited-to-excellence para-land aboutland about-section scroll-mt-80px border-btm pb0 bgc-f7">
+             <div className="container who-we-are">
                <div className="row">
                  <div className="col-lg-12 col-xl-12">
                    <div className="main-title text-left">

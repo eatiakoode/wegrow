@@ -10,6 +10,7 @@ const ContactWithAgent = ({property}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [budget, setBudget] = useState("");
   // const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [successmsg, setSuccessmsg] = useState("");
@@ -20,6 +21,7 @@ const ContactWithAgent = ({property}) => {
       { key: "name", value: name, name: "Name" },
       { key: "email", value: email, name: "Email" },
       { key: "phone", value: phone, name: "Phone" },
+      { key: "budget", value: budget, name: "Budget" },
       // { key: "subject", value: subject, name: "Subject" },
       // { key: "appointmentDate", value: appointmentDate, name: "Appointment Date" },
       { key: "message", value: message, name: "Message" },
@@ -39,7 +41,7 @@ const ContactWithAgent = ({property}) => {
     try {
       // console.log(propertySelectedImgs)
       const payload = {
-        name, email, phone, message,
+        name, email, phone, message, budget,
         propertyid:property._id
         // date:appointmentDate
       };
@@ -111,11 +113,29 @@ const ContactWithAgent = ({property}) => {
         {/* End li */}
         <li className="search_area">
           <div className="form-group mb-3">
+            <select
+              id="form_budget"
+              name="form_budget"
+              className="form-control"
+              value={budget}
+              onChange={(e) => setBudget(e.target.value)}>
+              <option value="">Select Budget</option>
+              <option value="1cr">1cr</option>
+              <option value="between 1cr and 5cr">Between 1cr and 5cr</option>
+              <option value="above 5cr">Above 5cr</option>
+              <span class="flaticon-download-1 fz12"></span>
+            </select>
+            {error.budget && <span className="text-danger">{error.budget}</span>}
+          </div>
+        </li>
+        {/* End li */}
+        <li className="search_area">
+          <div className="form-group mb-3">
           <textarea
                 id="form_message"
                 name="form_message"
                 className="form-control required"
-                rows="4"
+                rows="1"
                 // required="required"
                 placeholder="Your Message"
                 value={message} onChange={(e) => setMessage(e.target.value)}
@@ -124,6 +144,7 @@ const ContactWithAgent = ({property}) => {
           </div>
         </li>{" "}
         {/* End li */}
+
         <li>
         {successmsg && <span className="text-success">{successmsg}</span>}
           <div className="search_option_button">

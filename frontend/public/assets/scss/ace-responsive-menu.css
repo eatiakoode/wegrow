@@ -328,7 +328,10 @@ ul[data-menu-style="vertical"] li a:hover {
   }
   .ace-responsive-menu li a:hover {
     background: #272727 !important;
-  } /*
+  }
+  .mobile-menu-sidebar .ace-responsive-menu li a:hover {
+    background: transparent !important;
+  }  /*
     .ace-responsive-menu > li:first-child {
         border-top: 2px solid #FD5025;
     }*/

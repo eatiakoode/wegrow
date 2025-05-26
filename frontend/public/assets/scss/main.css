@@ -1312,6 +1312,7 @@ section.aboutland{
 
 .banner-two .default-form button:hover{
 	background-color:var(--color-primary);
+  border:none
 }
 
 .banner-tabs .tabs-content {
@@ -1491,6 +1492,11 @@ section.aboutland{
           padding: 6px 12px;
         }
 .mobile-menu-sidebar .ace-responsive-menu > li{padding: 0 20px;display: block;border-bottom:1px solid rgba(0,0,0,0.1)}
+.mobile-menu-sidebar .ace-responsive-menu > li:hover{
+  background-color: var(--color-primary);
+  color: var(--white-color);
+}
+.mobile-menu-sidebar .ace-responsive-menu > li:hover span{color:var(--white-color);}
 
 /*******************************news-insights*********************************/
 .text-center{
@@ -1547,12 +1553,77 @@ section.aboutland{
 .market-trends .table-striped tbody tr:hover {
   background-color: #f1f1f1; 
 }
+.market-trends .sidebar_info_list {
+    border-radius: 8px;
+    background: var(--white-color);
+    box-shadow: 0px 0px 60px 0px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(235, 235, 235, 1);
+    padding: 30px;
+}
 .price-card-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
 }
+.sl_creator .icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background-color: var(--color-primary);
+    line-height: 80px;
+    color: var(--white-color);
+    border-radius: 80px;
+}
+.sl_creator .icon a{
+  color: var(--white-color);
+}
+
+.sticky-sidebar {
+  position: sticky;
+  top: 82px;
+  z-index: 10;
+}
+/* partners.css */
+.slide-padding .card {
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 8px;
+  height: 100%;
+  margin: 0 10px;
+}
+
+.slide-padding .card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #222;
+}
+
+.slide-padding .card ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+.slide-padding .card li {
+  margin-bottom: 6px;
+}
+
+.slide-padding .slide-padding {
+  padding: 16px;
+}
+.slide-padding .toggle-btn{
+  background-color: transparent;
+  border:none;
+  text-align: left;
+  color: var(--color-primary);
+}
+.shadow-none{box-shadow: none;}
+
 
 @media (min-width: 768px) {
   .price-card-container {
@@ -7612,7 +7683,7 @@ header .get_in_touch span{
     border-radius: 20px;
     color: var(--white-color);
     width: 100%;
-    height: 250px;
+    height: auto;
     text-align: center;
     display: flex;
     justify-content: center;
@@ -14472,7 +14543,7 @@ legend span {
   position: relative;
 }
 
-.sasw_list .search_area input {
+.sasw_list .search_area input, .sasw_list .search_area select {
   background-color: #ffffff;
   border: 1px solid rgb(235, 235, 235);
   border-radius: 8px;
@@ -14483,6 +14554,17 @@ legend span {
   height: 52px;
   padding-left: 20px;
 }
+.sasw_list .search_area select{
+  position: relative;
+}
+.sasw_list .search_area select span{
+  position: absolute;
+  right:10px;
+  left:auto;
+  top:50%;
+  transform: translateY(-50%);
+}
+
 
 .sasw_list.style2 .search_area input.form-control::placeholder,
 .sasw_list.style2 .search_option_two .filter-option-inner-inner,
@@ -14499,6 +14581,8 @@ legend span {
   box-shadow: none;
   font-size: 14px;
   line-height: 2.2;
+  height:52px;
+  padding-left: 20px;
 }
 
 .sasw_list .min_area .form-control::placeholder,
@@ -14973,6 +15057,29 @@ legend span {
   .message_container .message_input form textarea.form-control {
     padding-right: 20px;
   }
+  .banner-two .default-form button {
+    position: static;
+    transform: none;
+    width: 100%;
+}
+.banner-two .default-form form{
+  padding-right:0px
+}
+.banner-two .default-form div[class*='col-']{
+  margin-bottom: 15px;
+}
+.content-amenities ul{
+  flex-direction: column;
+}
+.banner-two_content-inner{
+  padding-top: 80px;
+  padding-bottom: 0px;
+}
+.content-amenities .flaticon-tick{font-size: 16px;}
+section.aboutland h3{
+  padding-top: 50px;
+}
+.spl_partners .our_partner img{margin: 0 auto;}
 }
 .message_container .message_input form input.form-control::placeholder {
   font-size: 14px;
@@ -16936,6 +17043,7 @@ legend span {
   left:auto
 }
 .mobile-menu .header .border_listing a:after{display: none;}
+.get_in_touch{display: none;}
 }
 .tick-check{
     width: 80px;
@@ -16947,7 +17055,7 @@ legend span {
     font-weight: 700;
     border-radius: 80px;
 }
-.flaticon-tick{
+.tick-check .flaticon-tick{
   font-size: 24px;
 }
 .fz60 {

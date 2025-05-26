@@ -5,7 +5,7 @@ import Image from "next/image";
 const FeaturedListings = ({properties}) => {
   return (
     <>
-      {properties.slice(0, 3).map((item) => (
+      {properties?.slice(0, 3).map((item) => (
         <div className="media d-flex" key={item._id}>
           <Link href={`/property-detail/${item.slug}`}>
             <Image

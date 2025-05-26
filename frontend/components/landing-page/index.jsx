@@ -302,7 +302,7 @@ const index = () => {
       
 
       {/* <!-- Our Partners --> */}
-      <section id="our-partners" className="our-partners">
+      <section id="our-partners" className="spl_partners our-partners">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 offset-lg-3">

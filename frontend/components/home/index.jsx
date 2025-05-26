@@ -187,7 +187,7 @@ const Index = () => {
                             </Link>
                         </div>
                         <div className="col-lg-4">
-                          <Link href="/news-and-insights/city-insights" className="property-block_one style-two">
+                          <Link href="/news-and-insights/city-glimpse" className="property-block_one style-two">
                               <div className="property-block_one-inner">
                                 <div className="thumb">
                                   <Image
@@ -199,7 +199,7 @@ const Index = () => {
                                     />
                                 </div>
                                 <div className="property-block_one-content wow fadeInUp animated">
-                                  <div className="property-block_one-location">City Highlights</div>
+                                  <div className="property-block_one-location">City Glimpse</div>
                                   <h4 className="property-block_one-heading">Gain insights into leading cities before you invest
                                     </h4>
                                   {/* <ul className="property-block_one-info">

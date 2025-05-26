@@ -53,7 +53,7 @@ export default function BannerSection() {
                       <form onSubmit={handleSubmit}>
                         <input type="hidden" name="formname" value="Enquire Now" />
                         <div className="row clearfix bannerform">
-                          <div className="col-lg-4 col-md-4 col-sm-6 form-group">
+                          <div className="col-lg-4 col-md-4 col-sm-12 form-group">
                             <input
                               type="text"
                               name="name"
@@ -67,7 +67,7 @@ export default function BannerSection() {
                               </span>
                             )}
                           </div>
-                          <div className="col-lg-4 col-md-4 col-sm-6 form-group">
+                          <div className="col-lg-4 col-md-4 col-sm-12 form-group">
                             <input
                               type="text"
                               name="email"

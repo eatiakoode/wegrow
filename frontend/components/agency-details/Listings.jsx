@@ -5,7 +5,7 @@ import Image from "next/image";
 const Listings = () => {
   return (
     <>
-      {properties.slice(0, 3).map((item) => (
+      {properties?.slice(0, 3).map((item) => (
         <div className="col-lg-12" key={item.id}>
           <div className="feat_property list style2 hvr-bxshd bdrrn mb10 mt20">
             <div className="thumb">

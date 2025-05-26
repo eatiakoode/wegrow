@@ -62,7 +62,7 @@ const Footer = ({  showBox,setShowBox }) => {
     <>
       <div className="col-sm-6 col-md-6 col-lg-3 col-xl-3 pr0 pl0">
         <div className="footer_about_widget">
-          <Link href="/" className="navbar_brand dn-smd">
+          <Link href="/" className="navbar_brand">
               <Image
                 width={170}
                 height={75}
