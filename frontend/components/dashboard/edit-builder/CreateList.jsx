@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getBuilderById, updateBuilderPI } from "../../../api/builder";
+import { getBuilderById, updateBuilderAPI } from "../../../api/builder";
 
 
 const CreateList = () => {
@@ -19,6 +19,8 @@ const CreateList = () => {
     const [logoimage, setLogoImage] = useState(null);
     const uploadLogo = (e) => {
       setLogo(e.target.files[0]);
+      setLogoImage("")
+
   };
     useEffect(() => {
       if (!id) return;      
@@ -81,7 +83,7 @@ const CreateList = () => {
                     <input
                         type="file"
                         id="image1"
-                        accept="image/png, image/gif, image/jpeg"
+                        accept="image/png, image/gif, image/jpeg, image/svg+xml, image/svg, image/webp"
                         onChange={uploadLogo}
                     />
                    <label
