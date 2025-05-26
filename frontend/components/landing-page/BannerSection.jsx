@@ -85,7 +85,17 @@ export default function BannerSection({landingpage}) {
                     {/* <input type="hidden" name="landingpageid" value={landingpage._id} {...register('landingpageid')} /> */}
                         <div className="row clearfix bannerform">
                           <div className="col-lg-4 col-md-4 col-sm-6 form-group">
-                            <input
+                          <input
+                              type="text"
+                              placeholder="Full Name"
+                              // required
+                              // value={formData.name}
+                              // onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              {...register('name', { required: 'Name is required' })}
+                            />
+                            
+                            {errors.name && <p className="text-danger">{errors.name.message}</p>}
+                            {/* <input
                               type="text"
                               name="name"
                               placeholder="Full Name"
@@ -98,10 +108,6 @@ export default function BannerSection({landingpage}) {
                               </span>
                             )} */}
                           </div>
-<<<<<<< HEAD
-                          <div className="col-lg-4 col-md-4 col-sm-12 form-group">
-                            <input
-=======
                           <div className="col-lg-4 col-md-4 col-sm-6 form-group">
                           <input
                               type="email"
@@ -119,7 +125,6 @@ export default function BannerSection({landingpage}) {
                             />
                             {errors.email && <p className="text-danger">{errors.email.message}</p>}
                             {/* <input
->>>>>>> 39443de337afec44452bc838ec2c3b428781f934
                               type="text"
                               name="email"
                               placeholder="Email Address"

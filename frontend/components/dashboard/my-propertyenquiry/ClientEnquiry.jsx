@@ -15,94 +15,94 @@ const AuthorReview = () => {
         console.log(data)
         setEnquiryList(data);
       };
-  const reviewContent = [
-    {
-      id: 1,
-      img: "/assets/images/resource/review.png",
-      ratings: (
-        <>
-          {" "}
-          <ul>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-          </ul>
-        </>
-      ),
-      reviewOn: "Villa called Archangel",
-      text: `Beautiful home, very picturesque and close to everything in jtree! A
-      little warm for a hot weekend, but would love to come back during
-      the cooler seasons! Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium voluptates eum, velit recusandae,
-      ducimus earum aperiam commodi error officia optio aut et quae nam
-      nostrum!`,
-    },
-    {
-      id: 2,
-      img: "/assets/images/resource/review4.png",
-      ratings: (
-        <>
-          {" "}
-          <ul>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-            <li className="list-inline-item">
-              <a href="#">
-                <i className="fa fa-star"></i>
-              </a>
-            </li>
-          </ul>
-        </>
-      ),
-      reviewOn: "Sunset Studio",
-      text: `Beautiful home, very picturesque and close to everything in jtree! A
-      little warm for a hot weekend, but would love to come back during
-      the cooler seasons! Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Accusantium voluptates eum, velit recusandae,
-      ducimus earum aperiam commodi error officia optio aut et quae nam
-      nostrum!`,
-    },
-  ];
+  // const reviewContent = [
+  //   {
+  //     id: 1,
+  //     img: "/assets/images/resource/review.png",
+  //     ratings: (
+  //       <>
+  //         {" "}
+  //         <ul>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //         </ul>
+  //       </>
+  //     ),
+  //     reviewOn: "Villa called Archangel",
+  //     text: `Beautiful home, very picturesque and close to everything in jtree! A
+  //     little warm for a hot weekend, but would love to come back during
+  //     the cooler seasons! Lorem ipsum dolor sit amet, consectetur
+  //     adipisicing elit. Accusantium voluptates eum, velit recusandae,
+  //     ducimus earum aperiam commodi error officia optio aut et quae nam
+  //     nostrum!`,
+  //   },
+  //   {
+  //     id: 2,
+  //     img: "/assets/images/resource/review4.png",
+  //     ratings: (
+  //       <>
+  //         {" "}
+  //         <ul>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //           <li className="list-inline-item">
+  //             <a href="#">
+  //               <i className="fa fa-star"></i>
+  //             </a>
+  //           </li>
+  //         </ul>
+  //       </>
+  //     ),
+  //     reviewOn: "Sunset Studio",
+  //     text: `Beautiful home, very picturesque and close to everything in jtree! A
+  //     little warm for a hot weekend, but would love to come back during
+  //     the cooler seasons! Lorem ipsum dolor sit amet, consectetur
+  //     adipisicing elit. Accusantium voluptates eum, velit recusandae,
+  //     ducimus earum aperiam commodi error officia optio aut et quae nam
+  //     nostrum!`,
+  //   },
+  // ];
   useEffect(() => {
     fetchEnquiryData();
   }, []); 
