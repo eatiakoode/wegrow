@@ -95,7 +95,7 @@ console.log(res)
                    <div className="main-title text-left">
                      {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
                      <h2 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h2> */}
-                    <div dangerouslySetInnerHTML={{ __html: propertypage?.description }} />
+                   <p> <div dangerouslySetInnerHTML={{ __html: propertypage?.description }} /></p>
                     
                     </div>
                  </div>
@@ -105,18 +105,18 @@ console.log(res)
            </section>
                {/* End .row */}
                <section id="feature-property" className="feature-property bgc-f7">
-        <div className="container">
-          <div className="row">
-                    <div className="col-lg-6 offset-lg-3">
-              <div className="main-title text-center mb40">
-                <h2>Featured Properties</h2>
-                <p>Handpicked properties by our team.</p>
-              </div>
-            </div>
-                <FeaturedItem setPropertySelectedComp={setPropertySelectedComp}
-        setShowBox={setShowBox} properties={properties}/>
-                    </div>
-                  </div>
+                    <div className="container">
+                      <div className="row">
+                        <div className="col-lg-6 offset-lg-3">
+                          <div className="main-title text-center mb40">
+                            <h2>Featured Properties</h2>
+                            <p>Handpicked properties by our team.</p>
+                          </div>
+                        </div>
+                        <FeaturedItem setPropertySelectedComp={setPropertySelectedComp}
+                        setShowBox={setShowBox} properties={properties}/>
+                            </div>
+                      </div>
                 </section>
 
      

@@ -27,20 +27,14 @@ const OurMission = () => {
     <>
       <div className="col-lg-7 col-xl-6">
         <div className="about_content">
-          <h2 className="mt0 color-main">About Ankit Goyat</h2>
-          <h4 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h4>
+          <h2 className="mt0 color-main">About WeGrow Infraventures</h2>
+          <h4 className="mt0 mb0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h4>
           <p>
-          At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
+          <strong>WeGrow Infraventures Pvt Ltd</strong> was founded with the vision of becoming the leading real estate consultancy in Gurgaon and Delhi NCR, offering personalized and result-oriented solutions. From day one, our mission has been to understand the unique needs of our clients and provide property solutions that align with their expectations, budgets, and long-term goals. Whether it’s a first-time homebuyer seeking their dream home or an investor looking for profitable opportunities, we ensure a seamless experience.
           </p>
-          <p>
-          At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
-          </p>
-          <p>
-          At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
-          </p>
-          <p>
-          At WeGrow Infraventures Pvt Ltd, we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.
-          </p>
+          <p>Our team of experienced professionals combines in-depth market knowledge with a client-centric approach to deliver exceptional results. We prioritize trust, transparency, and long-term relationships built on mutual success.</p>
+          <p>With expertise in the Gurgaon and Delhi NCR markets, <strong>WeGrow Infraventures Pvt Ltd</strong> helps buyers and investors make informed decisions. Our consulting services are tailored to meet individual financial objectives, ensuring maximum value and transparency throughout the process. Whether you are new to real estate or a seasoned investor, we connect you with the right properties.</p>
+          <p>Our vision is to establish ourselves as the most trusted property consulting firm in the region, known for integrity and transparency. At <strong>WeGrow</strong>, we are committed to empowering our clients with expert guidance, delivering exceptional value, and fostering relationships that stand the test of time.</p>
 
           {/* <ul className="ab_counting">
             {missionContent.map((item) => (
@@ -62,7 +56,7 @@ const OurMission = () => {
       </div>
       {/* End .col */}
 
-      <div className="col-lg-5 col-xl-5 offset-xl-1 ms-auto">
+      {/* <div className="col-lg-5 col-xl-5 offset-xl-1 ms-auto">
         <div className="about_thumb">
           <Image
             width={461}
@@ -74,7 +68,7 @@ const OurMission = () => {
           />
           <PopupVideo />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

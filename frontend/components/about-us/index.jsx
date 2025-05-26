@@ -1,6 +1,6 @@
 "use client"; 
 import { useEffect, useState } from "react";
-import CallToAction from "../common/CallToAction";
+import TalktoExpert from "../common/TalktoExpert";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import Header from "../common/header/DefaultHeader";
@@ -10,11 +10,14 @@ import PopupSignInUp from "../common/PopupSignInUp";
 import WhyChoose from "../common/WhyChoose";
 import Testimonial from "../common/Testimonial";
 import BreadCrumbBanner from "./BreadCrumbBanner";
+import Link from "next/link";
+import Image from "next/image";
 import Team from "./Team";
 import OurMission from "./OurMission";
 
 const index = () => {
   const [showBox, setShowBox] = useState(false);
+  const [showFullBio, setShowFullBio] = useState(false);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -30,27 +33,50 @@ const index = () => {
       <BreadCrumbBanner />
 
       {/* <!-- About Text Content --> */}
-      <section className="about-section">
+      <section className="commited-to-excellence mt-0 pb-0">
         <div className="container">
           <div className="row">
             <div className="col-lg-8 offset-lg-2">
               <div className="main-title text-center">
-                {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
-                <h2 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h2> */}
+                <h2 className="mt0 color-main">Who We Are</h2>
+                <h2 className="mt0 mb0">Committed to Excellence</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2">
+              <div className="who-we-are flex-column">
+                  <p>At <strong>WeGrow Infraventures Pvt Ltd,</strong> we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.</p>
+                  <div className="view-all">
+                    <Link href="#team" class="btn btn-primary">
+                      <span className="title">Meet Our Team</span>
+                    </Link>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="about-wegrow mtop-80">
+        <div className="container">
+          {/* <div className="row">
+            <div className="col-lg-8 offset-lg-2">
+              <div className="main-title text-center">
                 <h2 className="mt0 color-main">Face of wegrow</h2>
                 <h2 className="mt0">From the Founders' Desk</h2>
                 
               </div>
             </div>
-          </div>
-          {/* End .row */}
+          </div> */}
 
           <div className="row">
             <OurMission />
           </div>
-          {/* End .row */}
-
-          <div className="row mt80">
+        </div>
+      </section>
+      <section className="about-section">
+        <div className="container">      
+          <div className="row mt0">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
                 <h2>Why Choose Us</h2>
@@ -58,19 +84,77 @@ const index = () => {
               </div>
             </div>
           </div>
-          {/* End .row */}
 
           <div className="row">
             <WhyChoose />
           </div>
-          {/* End .row */}
         </div>
       </section>
+       {/* <!-- End Text Content --> */}
 
       {/* <!-- Our Team --> */}
-      <section className="our-team bgc-f7">
+      
+      <section className="our-team bgc-f7 scroll-mt-80px" id="team">
         <div className="container">
-          <div className="row">
+          <div className="director-desk mt-0 pt-0">
+                {/* <div className="row">
+                  <div className="col-lg-8 offset-lg-2">
+                    <div className="main-title text-center">
+                      <h2 className="mt0 color-main">Who We Are</h2>
+                      <h2 className="mt0 mb0">Committed to Excellence</h2>
+                    </div>
+                  </div>
+                </div> */}
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className="who-we-are">
+                      <Image
+                          width={1600}
+                          height={1066}
+                          className="img-fluid rounded-2"
+                          src="/assets/images/about-us.webp"
+                          alt="image"
+                          />
+                    </div>
+                  </div>
+                  <div className="col-lg-8">
+                    <div className="who-we-are">
+                      <div className="main-title text-left mb-2">
+                        <h2>About Ankit Goyat</h2>
+                        <p>Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</p>
+                      </div>
+                        <p>Mr. Ankit Goyat, the Founder & Chairman of WeGrow Infraventures, has been a driving force in transforming the real estate landscape. With over 7 years of experience, he has built a reputation for delivering client-centric, high-value real estate solutions in both residential and commercial sectors.</p>
+                        <p>Under his visionary leadership, WeGrow Infraventures has redefined real estate consulting by integrating market</p>
+                        {showFullBio && (
+                            <>
+                              <p>
+                                
+                                His approach is not just about transactions but about fostering long-term relationships with clients, investors, and partners.
+                              </p>
+                              <p>
+                                Believing in “Transforming Spaces, Building Dreams,” Mr. Goyat ensures that every investment aligns with the client’s aspirations.
+                                His commitment to integrity, market insights, and strategic investment planning has positioned WeGrow Infraventures as a trusted name in the industry.
+                              </p>
+                              <p>
+                                With an unwavering focus on delivering value and wealth creation, he continues to guide clients toward profitable, future-ready real estate decisions,
+                                making a lasting impact in an ever-evolving market.
+                              </p>
+                            </>
+                          )}
+                          <div className="view-all" style={{position:'static',transform:'none'}}>
+                              <button
+                                className="btn btn-primary"
+                                onClick={() => setShowFullBio(!showFullBio)}
+                              >
+                                {showFullBio ? "Read Less" : "Read More"}
+                              </button>
+                          </div>
+                          
+                    </div>
+                  </div>
+                </div>
+            </div>
+          <div className="row mt-5">
             <div className="col-lg-6 offset-lg-3">
               <div className="main-title text-center">
                 <h2>Our Team</h2>
@@ -129,7 +213,7 @@ const index = () => {
       {/* <!-- Start Call to Action --> */}
       <section className="start-partners bgc-thm pt50 pb50">
         <div className="container">
-          <CallToAction />
+          <TalktoExpert />
         </div>
       </section>
 

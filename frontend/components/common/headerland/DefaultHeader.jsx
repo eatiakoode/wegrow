@@ -75,20 +75,7 @@ const Header = () => {
                 <span className="title">Gallery</span>
               </Link>
             </li>
-            {/* <li className="dropitem">
-              <link href="#property">
-                <span className="title">Property</span>
-                <span className="arrow"></span>
-              </link>
-              <ul className="sub-menu">
-                <li>
-                  <link href="#residential">Residential</link>
-                </li>
-                <li>
-                  <link href="#commercial">Commercial</link>
-                </li>
-              </ul>
-            </li> */}
+           
             <li className="dropitem">
               <Link href="#faq">
                 <span className="title">Faq</span>
