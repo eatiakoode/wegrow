@@ -78,6 +78,11 @@ const SidebarMenu = () => {
     { id: 1, name: "My Reviews", route: "/cmswegrow/my-review" },
     { id: 2, name: "Visitor Reviews", route: "/cmswegrow/my-review" },
   ];
+  const enquerylist = [
+    { id: 1, name: "My enquery list", route: "/cmswegrow/my-enquiry" },
+    { id: 2, name: "My property enquery list", route: "/cmswegrow/my-propertyenquiry" },
+    { id: 3, name: "My landing enquery list", route: "/cmswegrow/my-landingenquiry" },
+  ];
   const manageAccount = [
     {
       id: 1,
@@ -432,6 +437,26 @@ const SidebarMenu = () => {
                 ))}
               </ul>
             </li>
+            <li
+              className={`treeview ${
+                isParentPageActive(enquerylist, pathname) ? "active" : ""
+              }`}
+            >
+              <a data-bs-toggle="collapse" href="#my-enquerylist">
+                <i className="flaticon-home"></i> <span>My enquery</span>
+                <i className="fa fa-angle-down pull-right"></i>
+              </a>
+              <ul className="treeview-menu collapse" id="my-enquerylist">
+                {enquerylist.map((item) => (
+                  <li key={item.id}>
+                    <Link href={item.route}>
+                      <i className="fa fa-circle"></i> {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+            
 
             
 

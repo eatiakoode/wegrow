@@ -135,11 +135,11 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/propertypage/${id}`, {
       method: "PUT",
       headers: {
-        // "Content-Type": "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      // body: JSON.stringify(propertypage),
-      body: propertypage,
+      body: JSON.stringify(propertypage),
+      // body: propertypage,
 
     });
   

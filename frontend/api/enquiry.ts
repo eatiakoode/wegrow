@@ -14,7 +14,7 @@ const token =userData.token
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/agent", {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/enquiry", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,20 +25,20 @@ const token =userData.token
   
     if (!response.status) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to add Agent");
+      throw new Error(errorData.message || "Failed to add Enquiry");
     }
   
     return response.json();
   };
   
 
-  export async function getAgentTableData() {
+  export async function getEnquiryTableData() {
     // Fake delay
     await new Promise((resolve) => setTimeout(resolve, 1400));
     
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/agent"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/enquiry"); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -50,7 +50,7 @@ const token =userData.token
   }
 
 
-  export const deleteAgentAPI = async (id: string) => {
+  export const deleteEnquiryAPI = async (id: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
@@ -65,7 +65,7 @@ const token =userData.token
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/agent/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/enquiry/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const token =userData.token
   
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to delete Agent");
+      throw new Error(errorData.message || "Failed to delete Enquiry");
     }
   
     return response.json();
@@ -86,7 +86,7 @@ const token =userData.token
   
   
 
-  export const getAgentById = async (id: string) => {
+  export const getEnquiryById = async (id: string) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
 
@@ -101,7 +101,7 @@ const token =userData.token
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/agent/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/enquiry/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -112,14 +112,14 @@ const token =userData.token
   
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to get Agent");
+      throw new Error(errorData.message || "Failed to get Enquiry");
     }
   
     return response.json();
   };
 
 
-  export const updateAgentAPI = async (id,agent) => {
+  export const updateEnquiryAPI = async (id,enquiry) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
     // const token =process.env.NEXT_PUBLIC_TOKEN;
@@ -135,18 +135,18 @@ const token =userData.token
       throw new Error("User not authenticated!");
     }
   
-    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/agent/${id}`, {
+    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/enquiry/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(agent),
+      body: JSON.stringify(enquiry),
     });
   
     if (!response.status) {
       const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to add Agent");
+      throw new Error(errorData.message || "Failed to add Enquiry");
     }
   
     return response.json();

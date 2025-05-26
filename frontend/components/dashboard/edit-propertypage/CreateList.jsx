@@ -276,7 +276,7 @@ const updatePropertypage = async (e) => {
     }
 
 
-    const res = await updatePropertypageAPI(id,formData);
+    const res = await updatePropertypageAPI(id,payload);
     // alert(res.message);
     router.push("/cmswegrow/my-propertypage");
 

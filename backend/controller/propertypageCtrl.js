@@ -8,9 +8,6 @@ const createPropertypage = asyncHandler(async (req, res) => {
   try {
     req.body.slug  = slugify(req.body.slug.toLowerCase());
      const newPropertypage = await Propertypage.create(req.body);
-     console.log("req.body")
-    console.log(req.body)
-    //res.json(newProperty);
     const message={
       "status":"success",
       "message":"Data Add sucessfully",
@@ -25,8 +22,6 @@ const updatePropertypage = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    console.log("req.body")
-    console.log(req.body)
     req.body.slug  = slugify(req.body.slug.toLowerCase());
     const updatedPropertypage = await Propertypage.findByIdAndUpdate(id, req.body, {
       new: true,

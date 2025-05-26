@@ -8,26 +8,8 @@ const { processFloorPlanImages,processFloorPlanImagesGet } = require("../middlew
 
 const createPropertyplan = asyncHandler(async (req, res) => {
   try {
-    // console.log("req.body floor")
-    // console.log("BODY:", req.body);
-    console.log("FILES:", req.files);
-    // console.log(req.body.floorPlans)
-    // return false;
-    // req.body.slug  = slugify(req.body.slug.toLowerCase());
-    // if (req.files && req.files.featuredimage && Array.isArray(req.files.featuredimage) && req.files.featuredimage.length > 0 ) { 
-    //         console.log(req.files.featuredimage)
-    //         console.log("no featuredImageResize")
-    //         const processedImages  =await featuredImageResize(req);
-    //         if (processedImages.length > 0) {
-    //           // ✅ Append logo filename to req.body
-    //           req.body.featuredimageurl = "public/images/property/"+processedImages[0];
-    //         }
-    //       }
-
     for(var i=0;i<req.body.floorPlans?.length;i++){
-
-        console.log("req.body.floorPlans[i]")
-        console.log(req.body.floorPlans[i])
+      
         var plandata={
             "title":req.body.floorPlans[i].title,
             "bedroom":req.body.floorPlans[i].bedroom,
@@ -36,17 +18,6 @@ const createPropertyplan = asyncHandler(async (req, res) => {
             "description":req.body.floorPlans[i].description,
             "propertyid":req.body.propertyId
         }
-        // console.log("req.body.floorPlans[i]")
-        // console.log(req.file.floorPlans[i])
-        // if (req.files && req.files.floorPlans[i][planimage] && Array.isArray(req.files.floorPlans[i][planimage]) && req.files.floorPlans[i][planimage].length > 0 ) { 
-        //     // console.log(req.body.floorPlans[i].planimage)
-        //     console.log("no featuredImageResize")
-        //     const processedImages  =await PlanImageResize(req.file.floorPlans[i][planimage]);
-        //     if (processedImages.length > 0) {
-        //       // ✅ Append logo filename to req.body
-        //       plandata.planimageurl = "public/images/propertyplan/"+processedImages[0];
-        //     }
-        //   }
         const floorPlans = [];
 
     // Parse text fields like floorPlans[0][title], etc.
@@ -155,8 +126,6 @@ const updatePropertyplan = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    console.log("req.body")
-    console.log(req.body)
     req.body.slug  = slugify(req.body.slug.toLowerCase());
     const updatedPropertyplan = await Propertyplan.findByIdAndUpdate(id, req.body, {
       new: true,

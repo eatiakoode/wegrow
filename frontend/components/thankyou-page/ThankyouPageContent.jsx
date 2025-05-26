@@ -4,7 +4,7 @@ const ErrorPageContent = () => {
   return (
     <div className="error_page footer_apps_widget">
       <div className="tick-check">
-        <span class="flaticon-tick"></span>
+        <span className="flaticon-tick"></span>
       </div>
       <div className="erro_code">
         <h1>Thank You! We've Received Your Submission.</h1>

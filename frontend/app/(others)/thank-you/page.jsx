@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import ThankYou from "@/components/thankyou-page";
 
 export const metadata = {
-  title: '404 Not Found || Wegrow - Real Estate React Template',
+  title: 'Thank You || Wegrow - Real Estate React Template',
   description:
     'Wegrow - Real Estate React Template',
 }

@@ -2,13 +2,14 @@
 
 import { useForm } from 'react-hook-form';
 import { useState } from "react";
+import { useRouter, useParams } from "next/navigation";
 
 import { addLandingEnquiryAPI } from "@/api/frontend/landingenquiry";
 
 
 const UnlockModal = ({ onClose, onUnlock, landingpage}) => {
   const [formData, setFormData] = useState({ name: "", email: "" });
-
+const router = useRouter();
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   // Here you can do an API call if needed
@@ -26,7 +27,9 @@ const UnlockModal = ({ onClose, onUnlock, landingpage}) => {
     try {
       console.log('Form Data:', data);
       // Send data to backend here
+      data.landingpageid=landingpage._id
       const res = await addLandingEnquiryAPI(data);
+      router.push("/thank-you");
       onUnlock();
       reset();
     } catch (error) {
@@ -39,7 +42,7 @@ const UnlockModal = ({ onClose, onUnlock, landingpage}) => {
       <div className="modal-content">
         <h4>Begin Your Dream Home Plan</h4>
         <form onSubmit={handleSubmit(onSubmit)} >
-        <input type="hidden" name="landingpageid" value={landingpage._id} {...register('landingpageid')} />
+        {/* <input type="hidden" name="landingpageid" value={landingpage._id} {...register('landingpageid')} /> */}
           <input
             type="text"
             placeholder="Name"

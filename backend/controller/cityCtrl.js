@@ -51,9 +51,6 @@ const updateCity = asyncHandler(async (req, res) => {
         req.body.citylogoimage = "public/images/city/"+processedImages[0];
       }
     }
-    // console.log("req.body.citylogoimage")
-    // console.log(req.body.citylogoimage)
-
     const updatedCity = await City.findByIdAndUpdate(id, req.body, {
       new: true,
     });

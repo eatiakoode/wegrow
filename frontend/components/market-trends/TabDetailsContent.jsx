@@ -1,114 +1,160 @@
-import { useState } from "react";
-import PropertyTable from './PropertyTable';
-// Dummy components for demo
-
+import { useEffect, useState } from "react";
+import PropertyTable from "./PropertyTable";
+import { getCategoryTableData } from "@/api/frontend/category";
+import { getPropertytypeByCategoryTableData } from "@/api/frontend/propertytype";
 
 const TabDetailsContent = () => {
   const [mainTab, setMainTab] = useState("residential");
-  const [residentialTab, setResidentialTab] = useState("high");
-  const [commercialTab, setCommercialTab] = useState("retail");
+  const [residentialTab, setResidentialTab] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [propertyTypesMap, setPropertyTypesMap] = useState({});
+
+  // Fetch categories
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await getCategoryTableData();
+        setCategories(response || []);
+      } catch (err) {
+        console.error("Error fetching categories:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Fetch property types based on selected category
+  // useEffect(() => {
+  //   const selectedCategory = categories.find(
+  //     (category) => category.title.toLowerCase() === mainTab
+  //   );
+
+  //   if (selectedCategory && !propertyTypesMap[selectedCategory._id]) {
+  //     const fetchTypes = async () => {
+  //       try {
+  //         const response = await getPropertytypeByCategoryTableData(selectedCategory._id);
+  //         setPropertyTypesMap((prev) => ({
+  //           ...prev,
+  //           [selectedCategory._id]: response.data || [],
+  //         }));
+
+  //         if (!residentialTab && response.data?.length) {
+  //           setResidentialTab(response.data[0].title.toLowerCase());
+  //         }
+  //       } catch (err) {
+  //         console.error("Error fetching property types:", err);
+  //       }
+  //     };
+  //     fetchTypes();
+  //   }
+  // }, [mainTab, categories, propertyTypesMap, residentialTab]);
+
+  useEffect(() => {
+    const selectedCategory = categories.find(
+      (category) => category.title.toLowerCase() === mainTab
+    );
+  
+    if (selectedCategory) {
+      const fetchTypes = async () => {
+        try {
+          const response = await getPropertytypeByCategoryTableData(selectedCategory._id);
+          const propertyTypes = response.data || [];
+  
+          setPropertyTypesMap((prev) => ({
+            ...prev,
+            [selectedCategory._id]: propertyTypes,
+          }));
+  
+          // Always set the first property type as the active sub-tab
+          if (propertyTypes.length > 0) {
+            setResidentialTab(propertyTypes[0].title.toLowerCase());
+          }
+        } catch (err) {
+          console.error("Error fetching property types:", err);
+        }
+      };
+  
+      fetchTypes();
+    }
+  }, [mainTab, categories]);
+  
+
+  const selectedCategory = categories.find(
+    (c) => c.title.toLowerCase() === mainTab
+  );
+  const propertyTypes = selectedCategory
+    ? propertyTypesMap[selectedCategory._id] || []
+    : [];
+
+  const selectedPropertyType = propertyTypes.find(
+    (item) => item.title.toLowerCase() === residentialTab
+  );
 
   return (
     <div>
       {/* Main Tabs */}
-     <div className="text-center">
-       <ul className="nav nav-pills mb-4">
-        <li className="nav-item">
-          <button
-            className={`nav-link ${mainTab === "residential" ? "active" : ""}`}
-            onClick={() => setMainTab("residential")}
-          >
-            Residential
-          </button>
-        </li>
-        <li className="nav-item">
-          <button
-            className={`nav-link ${mainTab === "commercial" ? "active" : ""}`}
-            onClick={() => setMainTab("commercial")}
-          >
-            Commercial
-          </button>
-        </li>
-      </ul>
-     </div>
+      <div className="text-center">
+        <ul className="nav nav-pills mb-4">
+          {categories.map((categoryitem) => (
+            <li className="nav-item" key={categoryitem._id}>
+              <button
+                className={`nav-link ${
+                  mainTab === categoryitem.title.toLowerCase() ? "active" : ""
+                }`}
+                onClick={() => {
+                  setMainTab(categoryitem.title.toLowerCase());
+                  // setResidentialTab(""); // Reset sub-tab
+                }}
+              >
+                {categoryitem.title}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Sub Tabs */}
-      {mainTab === "residential" && (
+      {selectedCategory && (
         <>
           <ul className="nav nav-tabs mb-3">
-            <li className="nav-item">
-              <button className={`nav-link ${residentialTab === "high" ? "active" : ""}`} onClick={() => setResidentialTab("high")}>
-                High-Rise
-              </button>
-            </li>
-            <li className="nav-item">
-              <button className={`nav-link ${residentialTab === "low" ? "active" : ""}`} onClick={() => setResidentialTab("low")}>
-                Low-Rise
-              </button>
-            </li>
-            <li className="nav-item">
-              <button className={`nav-link ${residentialTab === "plots" ? "active" : ""}`} onClick={() => setResidentialTab("plots")}>
-                Plots
-              </button>
-            </li>
-            <li className="nav-item">
-              <button className={`nav-link ${residentialTab === "villas" ? "active" : ""}`} onClick={() => setResidentialTab("villas")}>
-                Villas
-              </button>
-            </li>
+            {propertyTypes.map((propertytypeitem) => (
+              <li className="nav-item" key={propertytypeitem._id}>
+                <button
+                  className={`nav-link ${
+                    residentialTab === propertytypeitem.title.toLowerCase()
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    setResidentialTab(propertytypeitem.title.toLowerCase())
+                  }
+                >
+                  {propertytypeitem.title}
+                </button>
+              </li>
+            ))}
           </ul>
-          <ResidentialTabContent activeTab={residentialTab} />
-        </>
-      )}
 
-      {mainTab === "commercial" && (
-        <>
-          <ul className="nav nav-tabs mb-3">
-            <li className="nav-item">
-              <button className={`nav-link ${commercialTab === "retail" ? "active" : ""}`} onClick={() => setCommercialTab("retail")}>
-                Retail Shops
-              </button>
-            </li>
-            <li className="nav-item">
-              <button className={`nav-link ${commercialTab === "office" ? "active" : ""}`} onClick={() => setCommercialTab("office")}>
-                Office Space
-              </button>
-            </li>
-            <li className="nav-item">
-              <button className={`nav-link ${commercialTab === "studio" ? "active" : ""}`} onClick={() => setCommercialTab("studio")}>
-                Studios
-              </button>
-            </li>
-            <li className="nav-item">
-              <button className={`nav-link ${commercialTab === "sco" ? "active" : ""}`} onClick={() => setCommercialTab("sco")}>
-                SCO Plots
-              </button>
-            </li>
-          </ul>
-          <CommercialTabContent activeTab={commercialTab} />
+          {/* Tab Content */}
+          <ResidentialTabContent
+            activeTab={residentialTab}
+            propertytypeid={selectedPropertyType?._id}
+            categoriesid={selectedCategory._id}
+          />
         </>
       )}
     </div>
   );
 };
-const CommercialTabContent = ({ activeTab }) => {
-  return (
-    <div className="tab-pane-content">
-      {activeTab === "retail" && <p>Retail Shops Content</p>}
-      {activeTab === "office" && <p>Office Space Content</p>}
-      {activeTab === "studio" && <p>Studios Content</p>}
-      {activeTab === "sco" && <p>SCO Plots Content</p>}
-    </div>
-  );
-};
 
-const ResidentialTabContent = ({ activeTab }) => {
+const ResidentialTabContent = ({ activeTab, propertytypeid, categoriesid }) => {
   return (
     <div className="tab-pane-content">
-      {activeTab === "high" && <PropertyTable />}
-      {activeTab === "low" && <p>Low-Rise Content</p>}
-      {activeTab === "plots" && <p>Plots Content</p>}
-      {activeTab === "villas" && <p>Villas Content</p>}
+      {activeTab && propertytypeid && categoriesid && (
+        <PropertyTable
+          propertytypeid={propertytypeid}
+          categoriesid={categoriesid}
+        />
+      )}
     </div>
   );
 };

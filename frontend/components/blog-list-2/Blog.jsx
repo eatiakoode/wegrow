@@ -7,6 +7,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 const Blog = () => {
+  function stripHtml(html) {
+    return html.replace(/<[^>]*>/g, '');
+  }
   
   const router = useRouter();
   const [blogs, setBlog] = useState([]);
@@ -64,7 +67,8 @@ const Blog = () => {
   })}</a>
                   </li>
                 </ul>
-                <p>{item.description.slice(0, 65)}</p>
+                {stripHtml(item.description).slice(0, 150)}
+                {/* <div dangerouslySetInnerHTML={{ __html: item.description.slice(0, 100) }} /> */}
               </div>
               {/* End .tc_content */}
 

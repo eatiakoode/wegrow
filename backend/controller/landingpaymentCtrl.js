@@ -11,8 +11,7 @@ const createLandingpayment = asyncHandler(async (req, res) => {
 
     for(var i=0;i<req.body.floorPayments?.length;i++){
 
-        console.log("req.body.floorPayments[i]")
-        console.log(req.body.floorPayments[i])
+        
         var paymentdata={
             "title":req.body.floorPayments[i].title,
             "bedroom":req.body.floorPayments[i].bedroom,
@@ -21,17 +20,7 @@ const createLandingpayment = asyncHandler(async (req, res) => {
             "description":req.body.floorPayments[i].description,
             "landingid":req.body.landingId
         }
-        // console.log("req.body.floorPayments[i]")
-        // console.log(req.file.floorPayments[i])
-        // if (req.files && req.files.floorPayments[i][paymentimage] && Array.isArray(req.files.floorPayments[i][paymentimage]) && req.files.floorPayments[i][paymentimage].length > 0 ) { 
-        //     // console.log(req.body.floorPayments[i].paymentimage)
-        //     console.log("no featuredImageResize")
-        //     const processedImages  =await PaymentImageResize(req.file.floorPayments[i][paymentimage]);
-        //     if (processedImages.length > 0) {
-        //       // ✅ Append logo filename to req.body
-        //       paymentdata.paymentimageurl = "public/images/landingpayment/"+processedImages[0];
-        //     }
-        //   }
+      
         const floorPayments = [];
 
     // Parse text fields like floorPayments[0][title], etc.
@@ -140,8 +129,6 @@ const updateLandingpayment = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    console.log("req.body")
-    console.log(req.body)
     req.body.slug  = slugify(req.body.slug.toLowerCase());
     const updatedLandingpayment = await Landingpayment.findByIdAndUpdate(id, req.body, {
       new: true,
