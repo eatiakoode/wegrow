@@ -10,9 +10,6 @@ const createLandingplan = asyncHandler(async (req, res) => {
   try {
 
     for(var i=0;i<req.body.floorPlans?.length;i++){
-
-        console.log("req.body.floorPlans[i]")
-        console.log(req.body.floorPlans[i])
         var plandata={
             "title":req.body.floorPlans[i].title,
             "bedroom":req.body.floorPlans[i].bedroom,
@@ -53,8 +50,7 @@ const createLandingplan = asyncHandler(async (req, res) => {
         floorPlans[index].planimage = file;
       }
     });
-    console.log("floorPlans floorPlans")
-    console.log(floorPlans)
+   
     // Now process each floor plan image
     for (let i = 0; i < floorPlans.length; i++) {
       const plan = floorPlans[i];

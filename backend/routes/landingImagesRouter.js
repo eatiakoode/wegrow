@@ -6,7 +6,7 @@ const {
   deleteLandingimages,
   getLandingimages,
   getallLandingimages,
-} = require("../controller/landingimagesCtrl.js");
+} = require("../controller/landingimagesCtrl");
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware.js");
 const router = express.Router();
 

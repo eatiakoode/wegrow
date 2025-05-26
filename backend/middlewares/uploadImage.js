@@ -49,26 +49,12 @@ const productImgResize = async (req, res, next) => {
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(`public/images/products/${file.filename}`);
-      // fs.unlinkSync(`public/images/products/${file.filename}`);
+      fs.unlinkSync(file.path);
     })
   );
   next();
 };
 
-// const blogImgResize = async (req, res, next) => {
-//   if (!req.files) return next();
-//   await Promise.all(
-//     req.files.map(async (file) => {
-//       await sharp(file.path)
-//         .resize(300, 300)
-//         .toFormat("jpeg")
-//         .jpeg({ quality: 90 })
-//         .toFile(`public/images/blogs/${file.filename}`);
-//       // fs.unlinkSync(`public/images/blogs/${file.filename}`);
-//     })
-//   );
-//   next();
-// };
 const blogImgResize = async (req) => {
   if (!req.files || !Array.isArray(req.files)) return;
 
@@ -86,7 +72,7 @@ const blogImgResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      // fs.unlinkSync(file.path); // delete original uploaded file
+      fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push(filename);
     })
@@ -120,20 +106,7 @@ const builderImgResize = async (req) => {
 
   return processedFilenames;
 };
-// const builderImgResize = async (req, res, next) => {
-//   if (!req.files) return next();
-//   await Promise.all(
-//     req.files.map(async (file) => {
-//       await sharp(file.path)
-//         .resize(300, 300)
-//         .toFormat("jpeg")
-//         .jpeg({ quality: 90 })
-//         .toFile(`public/images/builder/${file.filename}`);
-//       // fs.unlinkSync(`public/images/blogs/${file.filename}`);
-//     })
-//   );
-//   next();
-// };
+
 const featuredImageResize = async (req) => {
   if (!req.files.featuredimage || !Array.isArray(req.files.featuredimage)) return;
 
@@ -151,7 +124,7 @@ const featuredImageResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      // fs.unlinkSync(file.path); // delete original uploaded file
+      fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push(filename);
     })
@@ -178,7 +151,7 @@ const sitePlanResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      // fs.unlinkSync(file.path); // delete original uploaded file
+      fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push(filename);
     })
@@ -230,7 +203,7 @@ const propertySelectedImgsResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      // fs.unlinkSync(file.path); // delete original uploaded file
+      fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push("public/images/propertyimage/"+filename);
     })
@@ -240,10 +213,8 @@ const propertySelectedImgsResize = async (req) => {
 };
 
 const cityImgResize = async (req) => {
-  console.log("filename 1")
 
   if (!req.files || !Array.isArray(req.files)) return;
-  console.log("filename 2")
 
   const processedFilenames = [];
 
@@ -259,9 +230,8 @@ const cityImgResize = async (req) => {
         .jpeg({ quality: 90 })
         .toFile(outputPath);
 
-      // fs.unlinkSync(file.path); // delete original uploaded file
-// console.log("filename")
-// console.log(filename)
+      fs.unlinkSync(file.path); // delete original uploaded file
+
 
       processedFilenames.push(filename);
     })
@@ -269,51 +239,15 @@ const cityImgResize = async (req) => {
 
   return processedFilenames;
 };
-// const cityImgResize = async (req) => {
-  
 
-//   if (!req.files.citylogo || !Array.isArray(req.files.citylogo)) return;
-
-//   const processedFilenames = [];
- 
-//   await Promise.all(
-//     req.files.citylogo.map(async (file) => {
-//       // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
-//       const filename =file.filename
-//       const outputPath = path.join("public", "images", "city", filename);
-
-//       await sharp(file.path)
-//         .resize(300, 300)
-//         .toFormat("jpeg")
-//         .jpeg({ quality: 90 })
-//         .toFile(outputPath);
-
-//       // fs.unlinkSync(file.path); // delete original uploaded file
-
-//       processedFilenames.push(filename);
-//     })
-//   );
-
-//   return processedFilenames;
-// };
-// const sharp = require("sharp");
-// const path = require("path");
 
 const processFloorPlanImages = async (req) => {
   const processedFilenames = [];
-  // console.log("test1dd")
   if (!req.planimage ) return [];
 
-  // Loop through all files matching the nested fieldname pattern
-  // const planImageFiles = req.files.filter(file =>
-  //   /^floorPlans\[\d+]\\[planimage]$/.test(file.fieldname) ||
-  //   /^floorPlans\[\d+]\[planimage]$/.test(file.fieldname) // for safety across OS
-  // );
-  // console.log("test1")
+  
   var file=req.planimage
-  // await Promise.all(
-  //   planImageFiles.map(async (file) => {
-      // const filename = file.filename;
+ 
       const filename = `floorplan-${Date.now()}-${file.originalname}.jpeg`;
       const outputPath = path.join("public", "images", "propertyplan", filename);
       console.log("test2")
@@ -324,37 +258,24 @@ const processFloorPlanImages = async (req) => {
         .toFile(outputPath);
 
       // Optional: delete original file after processing
-      // fs.unlinkSync(file.path);
+      fs.unlinkSync(file.path);
 
       processedFilenames.push({
         index: parseInt(file.fieldname.match(/\[(\d+)]/)[1]), // extract index from fieldname
         filename,
         url: `public/images/propertyplan/${filename}`,
       });
-  //   })
-  // );
-  // console.log("test3")
-  // console.log(processedFilenames)
+ 
   return processedFilenames;
 };
 const processFloorPlanImagesGet = async (req) => {
   const processedFilenames = [];
-  // console.log("test1dd")
+ 
   if (!req.planimageget ) return [];
 
-  // Loop through all files matching the nested fieldname pattern
-  // const planImageFiles = req.files.filter(file =>
-  //   /^floorPlans\[\d+]\\[planimage]$/.test(file.fieldname) ||
-  //   /^floorPlans\[\d+]\[planimage]$/.test(file.fieldname) // for safety across OS
-  // );
-  // console.log("test1")
   var file=req.planimageget
-  // await Promise.all(
-  //   planImageFiles.map(async (file) => {
-      // const filename = file.filename;
       const filename = `floorplan-${Date.now()}-${file.originalname}.jpeg`;
       const outputPath = path.join("public", "images", "propertyplan", filename);
-      console.log("test2")
       await sharp(file.path)
         .resize(750, 450)
         .toFormat("jpeg")
@@ -362,81 +283,66 @@ const processFloorPlanImagesGet = async (req) => {
         .toFile(outputPath);
 
       // Optional: delete original file after processing
-      // fs.unlinkSync(file.path);
+      fs.unlinkSync(file.path);
 
       processedFilenames.push({
         index: parseInt(file.fieldname.match(/\[(\d+)]/)[1]), // extract index from fieldname
         filename,
         url: `public/images/propertyplan/${filename}`,
       });
-  //   })
-  // );
-  // console.log("test3")
-  // console.log(processedFilenames)
+  
   return processedFilenames;
 };
+const processLandingPlanGet = async (req) => {
+  const processedFilenames = [];
+  if (!req ) return [];
 
-// const PlanImageResize = async (req) => {
-//   console.log("test1dd")
-//   console.log(req)
-//   if (!req.planimage || !Array.isArray(req.planimage)) return;
+  var file=req.floorPlansgetnew
+  
+      const filename = `floorplan-${Date.now()}-${file.originalname}.jpeg`;
+      const outputPath = path.join("public", "images", "landing", filename);
+      await sharp(file.path)
+        .resize(750, 450)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
 
-//   const processedFilenames = [];
-//   console.log("test1")
-//   await Promise.all(
-//     req.map(async (file) => {
-//       console.log("test2")
-//       // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
-//       const filename =file.filename
-//       const outputPath = path.join("public", "images", "propertyplan", filename);
-//       console.log("test3")
-//       await sharp(file.path)
-//         .resize(750, 450)
-//         .toFormat("jpeg")
-//         .jpeg({ quality: 90 })
-//         .toFile(outputPath);
+      // Optional: delete original file after processing
+      fs.unlinkSync(file.path);
 
-//       // fs.unlinkSync(file.path); // delete original uploaded file
+      processedFilenames.push({
+        index: parseInt(file.fieldname.match(/\[(\d+)]/)[1]), // extract index from fieldname
+        filename,
+        url: `public/images/landing/${filename}`,
+      });
+  
+  return processedFilenames;
+};
+const processLandingPlan = async (req) => {
+  const processedFilenames = [];
+  
+  if (!req.floorPlansnew ) return [];
 
-//       processedFilenames.push(filename);
-//     })
-//   );
+  var file=req.floorPlansnew
+      const filename = `floorplan-${Date.now()}-${file.originalname}.jpeg`;
+      const outputPath = path.join("public", "images", "propertyplan", filename);
+      await sharp(file.path)
+        .resize(750, 450)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
 
-//   return processedFilenames;
-// };
-// const amenityImgResize = async (req) => {
-//   if (!req.files || !Array.isArray(req.files)) return;
+      // Optional: delete original file after processing
+      fs.unlinkSync(file.path);
 
-//   const processedFilenames = [];
-
-//   await Promise.all(
-//     req.files.map(async (file) => {
-//       // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
-//       const filename =file.filename
-//       const outputPath = path.join("public", "images", "amenity", filename);
-
-//       const isSvg = path.extname(file.path).toLowerCase() === '.svg';
-
-//       if (isSvg) {
-//         fs.copyFileSync(file.path, outputPath);
-//       } 
-//       // else {
-//       //   await sharp(file.path)
-//       //     .resize(650, 400)
-//       //     .toFormat('jpeg')
-//       //     .jpeg({ quality: 90 })
-//       //     .toFile(outputPath);
-//       // }
-
-//       // fs.unlinkSync(file.path); // delete original uploaded file
-
-//       processedFilenames.push(filename);
-//     })
-//   );
-
-//   return processedFilenames;
-// };
-
+      processedFilenames.push({
+        index: parseInt(file.fieldname.match(/\[(\d+)]/)[1]), // extract index from fieldname
+        filename,
+        url: `public/images/propertyplan/${filename}`,
+      });
+ 
+  return processedFilenames;
+};
 
 const amenityImgResize = async (req) => {
   if (!req.files || !Array.isArray(req.files)) return;
@@ -470,7 +376,7 @@ const amenityImgResize = async (req) => {
       }
 
       // Optional cleanup
-      // fs.unlinkSync(file.path);
+      fs.unlinkSync(file.path);
 
       processedFilenames.push(filename);
     })
@@ -478,6 +384,103 @@ const amenityImgResize = async (req) => {
 
   return processedFilenames;
 };
+const bannerImageResize = async (req) => {
+ 
+  const processedFilenames = [];
+  await Promise.all(
+    req.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "landing", filename);
 
+      await sharp(file.path)
+        .resize(750, 450)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
 
-module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize ,cityImgResize,processFloorPlanImages,photoUploadMiddleware1,processFloorPlanImagesGet,amenityImgResize};
+      fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+const aboutImageResize = async (req) => {
+ 
+  if (!req.files.aboutimage || !Array.isArray(req.files.aboutimage)) return;
+
+  const processedFilenames = [];
+
+  await Promise.all(
+    req.files.aboutimage.map(async (file) => {
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "landing", filename);
+
+      await sharp(file.path)
+        .resize(750, 450)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+const gallerySelectedImgsResize = async (req) => {
+
+  // if (!req.files.gallerySelectedImgs || !Array.isArray(req.files.gallerySelectedImgs)) return;
+
+  const processedFilenames = [];
+  await Promise.all(
+    req.map(async (file) => {
+      
+      // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
+      const filename =file.filename
+      const outputPath = path.join("public", "images", "landing", filename);
+
+      await sharp(file.path)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(file.path); // delete original uploaded file
+
+      processedFilenames.push("public/images/landing/"+filename);
+    })
+  );
+
+  return processedFilenames;
+};
+const groupFilesByFieldname = (files) => {
+  const fileMap = {};
+  files.forEach(file => {
+    if (!fileMap[file.fieldname]) {
+      fileMap[file.fieldname] = [];
+    }
+    fileMap[file.fieldname].push(file);
+  });
+  return fileMap;
+};
+const groupFilesByFieldname2 = (files) => {
+  const fileMap = {};
+  files.forEach(file => {
+    // Normalize fieldname like gallerySelectedImgs[0] → gallerySelectedImgs
+    const baseField = file.fieldname.replace(/\[\d+\]/, '');
+    
+    if (!fileMap[baseField]) {
+      fileMap[baseField] = [];
+    }
+    fileMap[baseField].push(file);
+  });
+  return fileMap;
+};
+
+module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize ,cityImgResize,processFloorPlanImages,photoUploadMiddleware1,processFloorPlanImagesGet,amenityImgResize,bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname,groupFilesByFieldname2,processLandingPlanGet,processLandingPlan};

@@ -4,7 +4,7 @@ const mongoose = require("mongoose"); // Erase if already required
 
 var landingpaymentSchema = new mongoose.Schema(
   {
-    room: {
+    title: {
       type: String,
       index: true,
     },
@@ -31,4 +31,4 @@ var landingpaymentSchema = new mongoose.Schema(
 );
 
 //Export the model
-module.exports = mongoose.model("landingpayment", landingpaymentSchema);
+module.exports = mongoose.model("Landingpayment", landingpaymentSchema);

@@ -9,10 +9,11 @@ import Footer from "@/components/common/footer/Footer";
 import Header from "@/components/common/header/DefaultHeader";
 import MobileMenu from "@/components/common/header/MobileMenu";
 import PopupSignInUp from "@/components/common/PopupSignInUp";
-import properties from "@/data/properties";
+// import properties from "@/data/properties";
 import DetailsContent from "@/components/listing-details-v1/DetailsContent";
 import Sidebar from "@/components/listing-details-v1/Sidebar";
 import ListingOne from "@/components/listing-single/ListingOne";
+import { getFaqByPropertyIdData } from "@/api/frontend/faq";
 
 import { getPropertyBySlug } from "@/api/frontend/property";
 
@@ -21,22 +22,8 @@ const ListingDynamicDetailsV12 = ({params}) => {
   const id = params.id;
   // const property = properties?.find((item) => item.id == id) || properties[0]
   const [property, setProperty] = useState([]);
-  const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
-    // if (typeof window !== "undefined") {
-
-    //   const stored = localStorage.getItem("propertycompare");
-    //   console.log("stored")
-    //   console.log(stored)
-    //   if (stored !== "undefined") {
-
-    //   return stored ? JSON.parse(stored) : [];
-    //   }
-    // }
-    // return [];
-  });
-
-  // const [showBox, setShowBox] = useState(propertySelectedComp.length > 0);
-  // const [showBox, setShowBox] = useState(false);
+  const [propertySelectedComp, setPropertySelectedComp] = useState([]);
+ 
   const [showBox, setShowBox] = useState(false);
   const [faqs, setFaqs] = useState([]);
 
@@ -57,6 +44,7 @@ const ListingDynamicDetailsV12 = ({params}) => {
             try {
               const data = await getPropertyBySlug(id);
               setProperty(data.data)
+              fetchFaqs(data.data._id)
               console.log("propertyid")
               console.log(data)
               console.log("propertyid end")
@@ -70,7 +58,7 @@ const ListingDynamicDetailsV12 = ({params}) => {
           };
       
           fetchProperty();
-          fetchFaqs(id)
+          
        
   }, [id]);
 
