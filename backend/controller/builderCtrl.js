@@ -4,9 +4,7 @@ const validateMongoDbId = require("../utils/validateMongodbId");
 const { uploadPhoto, builderImgResize } = require("../middlewares/uploadImage");
 
 const createBuilder = asyncHandler(async (req, res) => {
-  // console.log(req.body)
-  // console.log(req.file)
-  // builderImgResize(req.file)
+ 
   try {
     if(req.files){
       const processedImages  =await builderImgResize(req);

@@ -8,7 +8,7 @@ const getFaq = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getaFaq = await Faq.findById(id);
+    const getaFaq = await Faq.findById(id).lean();
     const message={
       "status":"success",
       "message":"Data Faq sucessfully",
@@ -22,7 +22,7 @@ const getFaq = asyncHandler(async (req, res) => {
 });
 const getallFaq = asyncHandler(async (req, res) => {
   try {
-    const getallFaq = await Faq.find({"status":true});
+    const getallFaq = await Faq.find({"status":true}).lean();
     const message={
       "status":"success",
       "message":"Data Add sucessfully",
@@ -37,7 +37,7 @@ const getFaqPropertId = asyncHandler(async (req, res) => {
   const { propertyid } = req.params;
   validateMongoDbId(propertyid);
   try {
-    const getallPropert = await Faq.find({ propertyid: propertyid ,"status":true});
+    const getallPropert = await Faq.find({ propertyid: propertyid ,"status":true}).lean();
     const message={
       "status":"success",
       "message":"Data Faq sucessfully",

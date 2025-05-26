@@ -7,9 +7,6 @@ const createPropertyimages = asyncHandler(async (req, res) => {
   try {
     
      const newPropertyimages = await Propertyimages.create(req.body);
-     console.log("req.body")
-    console.log(req.body)
-    //res.json(newProperty);
     const message={
       "status":"success",
       "message":"Data Add sucessfully",

@@ -1,8 +1,8 @@
-const FaqContent = ({faqs}) => {
+const FaqContent = ({landingpage}) => {
   return (
     <>
       <div className="accordion" id="accordionExample">
-      {faqs?.slice(0, 38).map((singleItem,index) => (
+      {landingpage?.faqid?.slice(0, 38).map((singleItem,index) => (
         <div className="card" key={singleItem._id || index}>
           <div id="{`heading${index}`}">
             <button

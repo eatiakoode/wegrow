@@ -6,7 +6,8 @@ const {
   getallPropertyFilterList,
   getPropertySlug,
   createProperty,
-  propertyListByPage
+  propertyListByPage,
+  propertyListTrends
 } = require("../../controller/frontend/propertyFrontendCtrl");
 const { uploadPhoto ,photoUploadMiddleware} = require("../../middlewares/uploadImage");
 const router = express.Router();
@@ -19,5 +20,6 @@ router.get("/slug/:slug", getPropertySlug);
 // router.post("/detail/:id", getProperty);
 router.post("/sell",  photoUploadMiddleware,createProperty);
 router.get("/propertylistpage/:slug",  propertyListByPage);
+router.get("/propertylisttrends",  propertyListTrends);
 
 module.exports = router;

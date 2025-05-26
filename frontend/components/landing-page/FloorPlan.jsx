@@ -2,7 +2,7 @@ import { useState } from "react";
 import FloorFeaturedProperties from "./FloorFeaturedProperties";
 import UnlockModal from "./UnlockModal"; 
 
-const FloorPlanSection = () => {
+const FloorPlanSection = ({landingpage}) => {
   const [floorPlanUnlocked, setFloorPlanUnlocked] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -37,14 +37,14 @@ const FloorPlanSection = () => {
           <div className="gutter-x15">
             <FloorFeaturedProperties
               unlocked={floorPlanUnlocked}
-              setShowModal={setShowModal}
+              setShowModal={setShowModal} landingpage={landingpage}
             />
           </div>
         </div>
       </div>
 
       {showModal && (
-        <UnlockModal onClose={() => setShowModal(false)} onUnlock={handleUnlock} />
+        <UnlockModal onClose={() => setShowModal(false)} onUnlock={handleUnlock} landingpage={landingpage}/>
       )}
     </section>
   );

@@ -161,6 +161,7 @@ const [bannerimage, setBannerImage] = useState(null);
 const [bannerimageget, setBannerImageGet] = useState(null);
   const [bannertitle , setBannerTitle] = useState([]);
   const [bannerdescription, setBannerDescription] = useState([]);
+  const [bannerreview, setBannerReview] = useState([]);
 
   const [aboutimage, setAboutImage] = useState(null);
   const [aboutimageget, setAboutImageGet] = useState(null);
@@ -250,6 +251,7 @@ useEffect(() => {
             setSlug(data.data.slug)
             setBannerTitle(data.data.bannertitle)
             setBannerDescription(data.data.bannerdescription)
+            setBannerReview(data.data.bannerreview)
             setAboutTitle(data.data.abouttitle)
             setAboutDescription(data.data.aboutdescription)
             setSelectedAmenity(data.data.amenityid)
@@ -327,6 +329,7 @@ const updateLanding = async (e) => {
     { key: "slug", value: slug, name: "Slug" },
     { key: "bannertitle", value: bannertitle, name: "Banner title" },
     { key: "bannerdescription", value: bannerdescription, name: "Banner Description" },
+    { key: "bannerreview", value: bannerreview, name: "Banner Raview" },
     { key: "abouttitle", value: abouttitle, name: "About title" },
     { key: "aboutdescription", value: aboutdescription, name: "About Description" },
     { key: "metatitle", value: metatitle, name: "Meta Title" },
@@ -353,7 +356,7 @@ const updateLanding = async (e) => {
     console.log("value dd")
     console.log(value)
     const payload = {
-      title, slug, bannerimage,bannertitle, bannerdescription, aboutimage, abouttitle, aboutdescription,
+      title, slug, bannerimage,bannertitle, bannerdescription,bannerreview, aboutimage, abouttitle, aboutdescription,
       amenityid: selectedAmenity,
       faqs:JSON.stringify(value),
       metatitle, metadescription,
@@ -449,7 +452,7 @@ const updateLanding = async (e) => {
                               <input
                                   type="file"
                                   id="bannerimage"
-                                  accept="image/png, image/gif, image/jpeg"
+                                  accept="image/png, image/gif, image/jpeg, image/svg+xml, image/svg, image/webp"
                                   onChange={uploadBannerImage}
                               />
                                 <label
@@ -483,6 +486,13 @@ const updateLanding = async (e) => {
               {error.bannerdescription && <span className="text-danger">{error.bannerdescription}</span>}
             </div>
       </div>
+      <div className="col-lg-12">
+      <div className="my_profile_setting_textarea form-group">
+              <label htmlFor="bannerReview">Banner Raview</label>
+              <textarea id="bannerReview" className="form-control" rows="7"  value={bannerreview} onChange={(e) => setBannerReview(e.target.value)}  placeholder="Enter banner review"></textarea>
+              {error.bannerreview && <span className="text-danger">{error.bannerreview}</span>}
+            </div>
+            </div>
       </div>
       <div className="row">
           <div className="col-lg-12">
@@ -495,7 +505,7 @@ const updateLanding = async (e) => {
                               <input
                                   type="file"
                                   id="aboutimage"
-                                  accept="image/png, image/gif, image/jpeg"
+                                  accept="image/png, image/gif, image/jpeg, image/svg+xml, image/svg, image/webp"
                                   onChange={uploadAboutImage}
                               />
                                 <label

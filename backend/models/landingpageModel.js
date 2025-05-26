@@ -23,6 +23,10 @@ var landingpageSchema = new mongoose.Schema(
     type: String,
     required: true,
     },
+    bannerreview: {
+      type: String,
+      required: true,
+      },
     bannerimage: {
     type: String,
     // required: true,

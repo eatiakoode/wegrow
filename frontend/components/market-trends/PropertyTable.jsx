@@ -1,6 +1,10 @@
 'use client';
 
 import React from 'react';
+import { useState, useEffect } from "react";
+import Link from 'next/link';
+
+import { getPropertyListTrends } from "@/api/frontend/property";
 
 const propertiesData = [
   {
@@ -71,7 +75,20 @@ const propertiesData = [
   },
 ];
 
-const PropertyTable = () => {
+const PropertyTable = ({propertytypeid,categoriesid}) => {
+  const [propertiesData, setPropertiesData] = useState([]);
+  const fetchProperties = async (propertytypeid,categoriesid) => {
+    console.log("propertytypeid,categoriesiddata getPropertyListTrends")
+    console.log(propertytypeid,categoriesid)
+    const data = await getPropertyListTrends(propertytypeid,categoriesid);
+    console.log("data getPropertyListTrends")
+    console.log(data.data)
+    setPropertiesData(data.data);
+  };
+      useEffect(() => {
+        // fetchPropertyType();
+        fetchProperties(propertytypeid,categoriesid);
+      }, [propertytypeid,categoriesid]); 
   return (
     <div className="overflow-x-auto px-0 py-6">
       <table className="min-w-full bg-white border table-striped rounded-lg shadow-md text-sm">
@@ -86,13 +103,13 @@ const PropertyTable = () => {
         <tbody>
           {propertiesData.map((item, idx) => (
             <tr key={idx} className="border-t">
-              <td className="px-4 py-3">{item.locality}</td>
-              <td className="px-4 py-3">{item.avgPrice}</td>
-              <td className="px-4 py-3">{item.priceRange}</td>
+              <td className="px-4 py-3">{item.locationTitle}</td>
+              <td className="px-4 py-3">₹{item.avgPrice.toFixed(2)}</td>
+              <td className="px-4 py-3">₹{item.minPrice.toFixed(2)} - ₹{item.maxPrice.toFixed(2)}</td>
               <td className="px-4 py-3">
-                <button className="properties-btn">
-                  See {item.properties} Properties
-                </button>
+                <Link href={`/property-list?location=${item.locationId}`} className="properties-btn">
+                  See {item.propertyCount} Properties
+                </Link>
               </td>
             </tr>
           ))}

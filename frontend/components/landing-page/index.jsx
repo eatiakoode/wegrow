@@ -20,13 +20,16 @@ import FaqContent from "./FaqContent";
 import { getFaqTableData } from "@/api/frontend/faq";
 import Testimonial from "../common/Testimonial";
 import BannerSection from "./BannerSection";
+import { getLandingpageBySlug } from "@/api/frontend/landingpage";
+
 // import Team from "./Team";
 // import OurMission from "./OurMission";
 
-const index = () => {
+const index = ({params}) => {
+  const id = params.id;
   const [faqs, setFaqs] = useState([]);
   const [showBox, setShowBox] = useState(false);
-
+  const [landingpage, setLandingpage] = useState([]);
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
@@ -39,6 +42,25 @@ const index = () => {
 
     fetchFaqs();
   }, []);
+  useEffect(() => {
+        if (!id) return;  
+      //   alert(id)    
+        const fetchLandingpage = async () => {
+          try {
+            const data = await getLandingpageBySlug(id);
+            console.log("blog data")
+            console.log(data)
+            setLandingpage(data.data)
+           
+          } catch (error) {
+            console.error("Error fetching Blog:", error);
+          } finally {
+            // setLoading(false);
+          }
+        };
+    
+        fetchLandingpage();
+      }, [id]);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -51,7 +73,7 @@ const index = () => {
       <PopupSignInUp />
 
       {/* <!-- Inner Page Breadcrumb --> */}
-      <BannerSection />
+      <BannerSection landingpage={landingpage} />
       
       {/* <!-- About Text Content --> */}
       <section id="about" className="para-land aboutland about-section scroll-mt-80px border-btm">
@@ -74,8 +96,14 @@ const index = () => {
                   data-wow-delay="0ms"
                   data-wow-duration="1500ms">
                   <Image
-                    src="/assets/images/hotproperties/about.webp"
-                    alt="Story Image One"
+                    // src="/assets/images/hotproperties/about.webp"
+                    src={
+                      landingpage.aboutimage
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${landingpage.aboutimage}`
+                        : "/assets/images/hotproperties/about.webp"
+                    }
+                    alt= {`${landingpage.abouttitle}`}
+                    unoptimized
                     width={1200}
                     height={1000}
                     className="img-fluid w-full h-auto object-cover"
@@ -87,9 +115,14 @@ const index = () => {
                   data-wow-delay="0ms"
                   data-wow-duration="1500ms">
                   <Image
-                    src="/assets/images/hotproperties/about-in.webp"
-                    alt="Story Image Two"
-                    width={1200}
+                  src={
+                    landingpage.aboutimage
+                      ? `${process.env.NEXT_PUBLIC_API_URL}${landingpage.aboutimage}`
+                      : "/assets/images/hotproperties/about-in.webp"
+                  }
+                  alt= {`${landingpage.abouttitle}`}
+                  unoptimized
+                    width={800}
                     height={1000}
                     className="img-fluid w-full h-auto object-cover"
                   />
@@ -101,22 +134,10 @@ const index = () => {
                 {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
                 <h2 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h2> */}
                 <h3 className="mt0">About Us</h3>
-                <h2 className="mt0 color-main">Our Mission is to Help You Find Your Dream Home</h2>
+                <h2 className="mt0 color-main">{landingpage.abouttitle}</h2>
                 {/* <h2 className="mt0">From the Founders' Desk</h2> */}
-                <p>At FindHouse, we believe your home is more than just a place—it's where your story begins. Whether you're buying, renting, or investing, our mission is to connect you with the perfect property that fits your lifestyle, goals, and future.
-                </p>
-                <p>From modern city apartments to spacious family homes and luxurious retreats, we offer a curated selection of listings backed by trusted real estate professionals who guide you every step of the way.</p>
-                <p>Start exploring today and experience a seamless, stress-free journey to your next home. Your dream property is just a click away.</p>
-                <div className="row clearfix">
-                <div className="column col-lg-6 col-md-6 col-sm-12">
-                  <div className="story-two_check"><i className="flaticon-tick"></i>11 Towers<br/>Up to 32 floors High</div>
-                </div>
-                <div className="column col-lg-6 col-md-6 col-sm-12">
-                  <div className="story-two_check"><i className="flaticon-tick"></i>3, 3.5, 4 and 4.5 Bedroom Luxury Residences</div>
-                </div>
                 
-
-              </div>
+                <div dangerouslySetInnerHTML={{ __html: landingpage?.aboutdescription }} />
               </div>
               
             </div>
@@ -126,7 +147,7 @@ const index = () => {
       </section>
           {/* End .row */}
 
-        <PaymentPlanSection />
+        <PaymentPlanSection landingpage={landingpage}/>
           
          <section id="amenities" className="amenityland property-city scroll-mt-80px border-btm">
             <div className="container">
@@ -141,14 +162,14 @@ const index = () => {
               {/* End .row */}
 
               <div className="row">
-                <Amenities />
+                <Amenities landingpage={landingpage}/>
               </div>
               {/* End .row */}
             </div>
           </section>
 
           
-          <FloorPlan />
+          <FloorPlan landingpage={landingpage}/>
                  
           <section id="gallery" className="feature-property-home6 scroll-mt-80px border-btm">
               <div className="container">
@@ -170,84 +191,28 @@ const index = () => {
                   <div className="row gutter-x15">
                     {/* <LandFeaturedProperties />
                      */}
-                     <div className="col-lg-4">
+                     {landingpage?.galleryimages?.slice(0, 20).map((item, idx) => (
+                     <div className="col-lg-4" key={idx}>
                           <div className="properti_city home6">
                             <div className="thumb">
                               <Image
                                 width={768}
                                 height={512}
                                 className="img-fluid"
-                                src="/assets/images/hotproperties/1.webp"
-                                alt="image"
+                                src={
+                                  item.image
+                                    ? `${process.env.NEXT_PUBLIC_API_URL}${item.image}`
+                                    : "/assets/images/hotproperties/1.webp"
+                                }
+                                alt= {`${item.title}`}
+                                unoptimized
+                                
                               />
                             </div>
                           </div>
                       </div>
-                      <div className="col-lg-4">
-                        <div className="properti_city home6">
-                            <div className="thumb">
-                              <Image
-                                width={768}
-                                height={512}
-                                className="img-fluid"
-                                src="/assets/images/hotproperties/2.webp"
-                                alt="image"
-                              />
-                            </div>
-                          </div>
-                      </div>
-                      <div className="col-lg-4">
-                       <div className="properti_city home6">
-                            <div className="thumb">
-                              <Image
-                                width={768}
-                                height={512}
-                                className="img-fluid"
-                                src="/assets/images/hotproperties/3.webp"
-                                alt="image"
-                              />
-                            </div>
-                          </div>
-                      </div>
-                      <div className="col-lg-4">
-                       <div className="properti_city home6">
-                            <div className="thumb">
-                              <Image
-                                width={768}
-                                height={512}
-                                className="img-fluid"
-                                src="/assets/images/hotproperties/4.webp"
-                                alt="image"
-                              />
-                            </div>
-                          </div>
-                      </div>
-                      <div className="col-lg-4">
-                       <div className="properti_city home6">
-                            <div className="thumb">
-                              <Image
-                                width={768}
-                                height={512}
-                                className="img-fluid"
-                                src="/assets/images/hotproperties/5.webp"
-                                alt="image"
-                              />
-                            </div>
-                          </div>
-                      </div>
-                      <div className="col-lg-4">
-                       <div className="properti_city home6">
-                            <div className="thumb">
-                              <Image
-                                width={768}
-                                height={512}
-                                className="img-fluid"
-                                src="/assets/images/hotproperties/1.webp"
-                                alt="image"
-                              />
-                            </div>
-                          </div>
-                      </div>
+                      ))}
+                      
                   </div>
                 </div>
               </div>
@@ -289,7 +254,7 @@ const index = () => {
                 <div className="col-lg-10 offset-lg-1">
                   <div className="faq_content">
                     <div className="faq_according">
-                      <FaqContent faqs={faqs}/>
+                      <FaqContent landingpage={landingpage}/>
                     </div>
                   </div>
                 </div>

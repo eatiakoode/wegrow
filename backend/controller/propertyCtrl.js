@@ -48,9 +48,8 @@ const createProperty = asyncHandler(async (req, res) => {
         .split(",")
         .map((id) => new mongoose.Types.ObjectId(id.trim()));
     }
-    console.log("req.body")
-    console.log(req.body)
     req.body.slug  = slugify(req.body.slug.toLowerCase());
+    req.body.pricesqft = parseFloat(req.body.pricesqft.replace(/,/g, ""));
 
     const newProperty = await Property.create(req.body);
     if (propertySelectedImgs.length > 0) {
@@ -140,6 +139,8 @@ const updateProperty = asyncHandler(async (req, res) => {
     //   }
     // }
     // req.body.propertyimageurl=[];
+    req.body.pricesqft = parseFloat(req.body.pricesqft.replace(/,/g, ""));
+
 
     const updatedProperty = await Property.findByIdAndUpdate(id, req.body, {
       new: true,

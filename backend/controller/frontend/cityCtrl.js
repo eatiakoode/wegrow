@@ -8,7 +8,7 @@ const getCity = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getaCity = await City.findById(id);
+    const getaCity = await City.findById(id).lean();
     const message={
       "status":"success",
       "message":"Data city sucessfully",
@@ -22,7 +22,7 @@ const getCity = asyncHandler(async (req, res) => {
 });
 const getallCity = asyncHandler(async (req, res) => {
   try {
-    const getallCity = await City.find({"status":true}).populate("countryid").populate("stateid");
+    const getallCity = await City.find({"status":true}).populate("countryid").populate("stateid").lean();
     const message={
       "status":"success",
       "message":"Data Add sucessfully",
@@ -37,7 +37,7 @@ const getCityStateId = asyncHandler(async (req, res) => {
   const { stateid } = req.params;
   validateMongoDbId(stateid);
   try {
-    const getallState = await City.find({ stateid: stateid });
+    const getallState = await City.find({ stateid: stateid }).lean();
     const message={
       "status":"success",
       "message":"Data City sucessfully",

@@ -6,9 +6,7 @@ const mongoose = require("mongoose");
 const createLandingimages = asyncHandler(async (req, res) => {
   try {
      const newLandingimages = await Landingimages.create(req.body);
-     console.log("req.body")
-    console.log(req.body)
-    //res.json(newLanding);
+     
     const message={
       "status":"success",
       "message":"Data Add sucessfully",

@@ -392,14 +392,29 @@ const bannerImageResize = async (req) => {
       // const filename = `builder-${Date.now()}-${file.originalname}.jpeg`;
       const filename =file.filename
       const outputPath = path.join("public", "images", "landing", filename);
+      const ext = path.extname(file.originalname).toLowerCase();
+      const isSvg = ext === '.svg';
 
+      const outputDir = path.join("public", "images", "landing");
+        if (!fs.existsSync(outputDir)) {
+          fs.mkdirSync(outputDir, { recursive: true });
+        }
+
+      if (isSvg) {
+      const outputPath1 = path.join(outputDir, filename);
+        
+        // Copy SVG file
+        fs.copyFileSync(file.path, outputPath1);
+        // await fs.promises.writeFile(outputPath, file.data);
+      } else {
       await sharp(file.path)
-        .resize(750, 450)
+        .resize(1920, 1080)
         .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(outputPath);
+      }
 
-      fs.unlinkSync(file.path); // delete original uploaded file
+      // fs.unlinkSync(file.path); // delete original uploaded file
 
       processedFilenames.push(filename);
     })

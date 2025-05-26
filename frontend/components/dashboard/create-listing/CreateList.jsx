@@ -27,6 +27,7 @@ const [title, setTitle] = useState("");
 const [slug, setSlug] = useState("");
 const [description, setDescription] = useState("");
 const [price, setPrice] = useState("");
+const [pricesqft, setPriceSqft] = useState("");
 const [address, setAddress] = useState("");
 const [error, setError] = useState("");
 
@@ -242,6 +243,7 @@ const addProperty = async (e) => {
     { key: "slug", value: slug, name: "Slug" },
     { key: "description", value: description, name: "Description" },
     { key: "price", value: price, name: "Price" },
+    { key: "pricesqft", value: pricesqft, name: "Price Sqft" },
     { key: "address", value: address, name: "Address" },
     { key: "country", value: selectedCountry, name: "Country" },
     { key: "state", value: selectedState, name: "State" },
@@ -276,7 +278,7 @@ const addProperty = async (e) => {
   try {
     console.log(propertySelectedImgs)
     const payload = {
-      title, slug, description, price, address,
+      title, slug, description, price,pricesqft, address,
       countryid: selectedCountry,
       stateid: selectedState,
       cityid: selectedCity,
@@ -328,7 +330,7 @@ const addProperty = async (e) => {
   return (
     <>
     <form onSubmit={addProperty} className="row">
-      <div className="col-lg-5">
+      <div className="col-lg-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="propertyTitle">Property Title</label>
           <input type="text" className="form-control"  id="propertyTitle" value={title} onChange={(e) => setTitle(e.target.value)}  placeholder="Enter property Title"/>
@@ -336,7 +338,7 @@ const addProperty = async (e) => {
 
         </div>
       </div>
-        <div className="col-lg-4">
+        <div className="col-lg-6">
           <div className="my_profile_setting_input form-group">
             <label htmlFor="propertySlug">Property Slug</label>
             <input type="text" className="form-control"  id="propertySlug" value={slug} onChange={(e) => setSlug(e.target.value)}  placeholder="Enter property slug"/>
@@ -344,11 +346,19 @@ const addProperty = async (e) => {
           </div>
         </div>
        
-        <div className="col-lg-3 col-xl-3">
+        <div className="col-lg-6">
         <div className="my_profile_setting_input form-group">
           <label htmlFor="propertyPrice">Price</label>
           <input type="text" className="form-control"  id="propertyPrice" value={price} onChange={(e) => setPrice(e.target.value)}  placeholder="Enter property price"/>
           {error.price && <span className="text-danger">{error.price}</span>}
+         
+        </div>
+      </div>
+      <div className="col-lg-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="propertyPriceSqft">Price/Sqft</label>
+          <input type="text" className="form-control"  id="propertyPriceSqft" value={pricesqft} onChange={(e) => setPriceSqft(e.target.value)}  placeholder="Enter property price Sqft"/>
+          {error.priceSqft && <span className="text-danger">{error.priceSqft}</span>}
          
         </div>
       </div>

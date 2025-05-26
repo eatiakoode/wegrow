@@ -32,6 +32,10 @@ const landingpageRouter = require("./routes/landingpageRouter");
 const landingImagesRouter = require("./routes/landingImagesRouter");
 const landingPlanRouter = require("./routes/landingPlanRouter");
 const landingPaymentRouter = require("./routes/landingPaymentRouter");
+const enqRouter = require("./routes/enqRoute");
+const enqPropertyRouter = require("./routes/enqPropertyRoute");
+const enqLandingRouter = require("./routes/enqLandingRoute");
+
 
 // Frontend API route
 const cityFrontendRoute = require("./routes/frontend/cityFrontendRoute");
@@ -40,9 +44,13 @@ const propertyFrontendRouter = require("./routes/frontend/propertyFrontendRouter
 const testimonialFrontendRouter = require("./routes/frontend/testimonialFrontendRouter");
 const blogFrontendRouter = require("./routes/frontend/blogRouter");
 const faqFrontendRouter = require("./routes/frontend/faqRouter");
-const enqRouter = require("./routes/frontend/enqRoute");
-const enqPropertyRouter = require("./routes/frontend/enqPropertyRouter");
+const enqFrontendRouter = require("./routes/frontend/enqRoute");
+const enqPropertyFrontendRouter = require("./routes/frontend/enqPropertyRouter");
 const propertypageFrontendRoute = require("./routes/frontend/propertypageRouter");
+const landingpageFrontendRoute = require("./routes/frontend/landingpageFrontendRoute");
+
+const enqLandingFrontendRouter = require("./routes/frontend/enqLandingRoute");
+
 
 
 
@@ -92,6 +100,10 @@ app.use("/admin/api/landingpage", landingpageRouter);
 app.use("/admin/api/landingimages", landingImagesRouter);
 app.use("/admin/api/landingplan", landingPlanRouter);
 app.use("/admin/api/landingpayment", landingPaymentRouter);
+app.use("/admin/api/enquiry", enqRouter);
+app.use("/admin/api/propertyenquiry", enqPropertyRouter);
+app.use("/admin/api/landingenquiry", enqLandingRouter);
+
 
 // Frontend API
 app.use("/frontend/api/city", cityFrontendRoute);
@@ -100,9 +112,11 @@ app.use("/frontend/api/property", propertyFrontendRouter);
 app.use("/frontend/api/testimonial", testimonialFrontendRouter);
 app.use("/frontend/api/blog", blogFrontendRouter);
 app.use("/frontend/api/faq", faqFrontendRouter);
-app.use("/frontend/api/enquiry", enqRouter);
-app.use("/frontend/api/propertyenquiry", enqPropertyRouter);
+app.use("/frontend/api/enquiry", enqFrontendRouter);
+app.use("/frontend/api/propertyenquiry", enqPropertyFrontendRouter);
 app.use("/frontend/api/propertypage", propertypageFrontendRoute);
+app.use("/frontend/api/landingpage", landingpageFrontendRoute);
+app.use("/frontend/api/landingenquiry", enqLandingFrontendRouter);
 
 
 const path = require("path");

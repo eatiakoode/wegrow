@@ -18,17 +18,7 @@ const createLandingplan = asyncHandler(async (req, res) => {
             "description":req.body.floorPlans[i].description,
             "landingid":req.body.landingId
         }
-        // console.log("req.body.floorPlans[i]")
-        // console.log(req.file.floorPlans[i])
-        // if (req.files && req.files.floorPlans[i][planimage] && Array.isArray(req.files.floorPlans[i][planimage]) && req.files.floorPlans[i][planimage].length > 0 ) { 
-        //     // console.log(req.body.floorPlans[i].planimage)
-        //     console.log("no featuredImageResize")
-        //     const processedImages  =await PlanImageResize(req.file.floorPlans[i][planimage]);
-        //     if (processedImages.length > 0) {
-        //       // ✅ Append logo filename to req.body
-        //       plandata.planimageurl = "public/images/landingplan/"+processedImages[0];
-        //     }
-        //   }
+      
         const floorPlans = [];
 
     // Parse text fields like floorPlans[0][title], etc.
@@ -136,8 +126,6 @@ const updateLandingplan = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    console.log("req.body")
-    console.log(req.body)
     req.body.slug  = slugify(req.body.slug.toLowerCase());
     const updatedLandingplan = await Landingplan.findByIdAndUpdate(id, req.body, {
       new: true,

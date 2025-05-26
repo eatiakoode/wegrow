@@ -11,7 +11,7 @@ const getProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-    const getProperty = await Property.findById(id).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid");
+    const getProperty = await Property.findById(id).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid").lean();
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
@@ -129,7 +129,7 @@ const getPropertySlug = asyncHandler(async (req, res) => {
   const { slug } = req.params;
   // validateMongoDbId(slug);
   try {
-    const getProperty = await Property.findOne({ slug: slug }).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid").populate('images').populate("floorplan");
+    const getProperty = await Property.findOne({ slug: slug }).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").populate("constructionstatus").populate("furnishingstatus").populate("amenityid").populate('images').populate("floorplan").lean();
     const message={
       "status":"success",
       "message":"Data deleted sucessfully",
@@ -182,8 +182,6 @@ const createProperty = asyncHandler(async (req, res) => {
         .split(",")
         .map((id) => new mongoose.Types.ObjectId(id.trim()));
     }
-    console.log("req.body")
-    console.log(req.body)
     req.body.slug  = slugify(req.body.slug.toLowerCase());
     req.body.admin_approve = false;
 
@@ -257,6 +255,73 @@ const propertyListByPage = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const propertyListTrends = asyncHandler(async (req, res) => {
+  try {
+    let query = {
+      status: true,
+      admin_approve: true,
+    };
+    
+    if (req.query.propertytypeid) {
+      query.propertytypeid =new mongoose.Types.ObjectId(req.query.propertytypeid);
+    }
+    
+    if (req.query.categoriesid) {
+      query.categoryid = new mongoose.Types.ObjectId(req.query.categoriesid);
+    }
+    console.log(query)
+    const result = await Property.aggregate([
+      {
+        $match: query,
+      },
+      {
+        $addFields: {
+          priceNumeric: { $toDouble: "$pricesqft" }, // convert price string to number
+        },
+      },
+      {
+        $group: {
+          _id: "$locationid",
+          propertyCount: { $sum: 1 },
+          avgPrice: { $avg: "$priceNumeric" },
+          minPrice: { $min: "$priceNumeric" },
+          maxPrice: { $max: "$priceNumeric" },
+        },
+      },
+      {
+        $lookup: {
+          from: "locations", // collection name in lowercase and plural
+          localField: "_id",
+          foreignField: "_id",
+          as: "locationDetails",
+        },
+      },
+      {
+        $unwind: "$locationDetails",
+      },
+      {
+        $project: {
+          locationId: "$_id",
+          locationTitle: "$locationDetails.title",
+          propertyCount: 1,
+          avgPrice: 1,
+          minPrice: 1,
+          maxPrice: 1,
+        },
+      },
+    ]);
+    const message={
+      "status":"success",
+      "message":"Data Add sucessfully",
+      "data":result
+    }
+    res.json(message);
+    // return result;
+    
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   getProperty,
   getallPropertyList,
@@ -264,5 +329,6 @@ module.exports = {
   getallPropertyFilterList,
   getPropertySlug,
   createProperty,
-  propertyListByPage
+  propertyListByPage,
+  propertyListTrends
 };

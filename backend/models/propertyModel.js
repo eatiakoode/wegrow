@@ -29,6 +29,12 @@ var propertySchema = new mongoose.Schema(
       // unique: true,
       // index: true,
     },
+    pricesqft: {
+      type: Number,
+      required: true,
+      // unique: true,
+      // index: true,
+    },
     countryid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Country", 
