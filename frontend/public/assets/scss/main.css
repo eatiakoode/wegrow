@@ -1676,6 +1676,32 @@ section.aboutland{
     border-radius: 0 0 0 15px;
     color: var(--white-color);
 }
+.amenities .order_list li{
+  position: relative;
+  padding-left: 40px;
+  margin-bottom: 15px;
+}
+.amenities .order_list .thumb{
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.amenities .order_list .thumb img{
+  position: absolute!important;
+  width:30px!important;
+  left:10px!important;
+  right:auto!important;
+}
+.project_spec .iba_container > div{
+  width: calc(33% - 20px);
+}
+.project_spec .iba_container{
+  gap:20px;
+  flex-wrap: wrap;
+}
+.project_spec .iba_container ul li{
+  font-size: 14px;
+}
       
 
 @media (min-width: 768px) {
@@ -15398,6 +15424,18 @@ section.aboutland h3{
 @media (min-width: 1800px) {
   .sidebar-menu li:not(.header) a {
     font-size: 15px;
+  }
+}
+@media (min-width: 1600px) {
+  .footer_one:before{
+    background-size: contain;
+    bottom: -50px;
+  }
+}
+@media (min-width: 1400px) {
+  .footer_one:before{
+    background-size: contain;
+    bottom: -70px;
   }
 }
 

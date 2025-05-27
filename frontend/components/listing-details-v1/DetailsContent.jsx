@@ -65,7 +65,7 @@ const DetailsContent = ({property,faqs}) => {
       </div> */}
       {/* End .property_attachment_area */}
 
-      <div className="application_statics mt30">
+      <div className="amenities application_statics mt30">
         <div className="row">
           <div className="col-lg-12">
             <h4 className="mb10">Amenities</h4>
@@ -189,7 +189,7 @@ const DetailsContent = ({property,faqs}) => {
       </div>
       <div className="details">
         <h5 className="mb-0">
-          <span className="flaticon-download text-thm pr10"></span> View Property Details Doc
+          <span className="flaticon-view text-thm pr10"></span> View Property Details Doc
         </h5>
       </div>
     </button>
@@ -217,24 +217,52 @@ const DetailsContent = ({property,faqs}) => {
 </div>
 )}
   <div className="property_attachment_area mt30">
+
+  <div className="project_spec property_attachment_area mt30">
     <h4 className="mb30">Project Specifications</h4>
     <div className="iba_container style2">
-      <h5>Floor & Counter</h5>
-      <div className="score">
-        <ul>
-          <li><span>Living/Dining</span><span> Imported Marble Flooring</span></li>
-          <li><span>Living/Dining</span><span> Imported Marble Flooring</span></li>
-        </ul>
-          
+        <div>
+          <h5>Living/Dining</h5>
+          <div className="score">
+            <ul>
+              <li><span>Vitrified Tiles</span></li>
+            </ul>
+          </div>
         </div>
-        <h5>Floor & Counter</h5>
-      <div className="score">
-        <ul>
-          <li><div className="flaticon-pdf text-thm fz30">Living/Dining</div><div className="flaticon-pdf text-thm fz30"> Imported Marble Flooring</div></li>
-        </ul>
-          
+        <div>
+          <h5>Master Bedroom</h5>
+          <div className="score">
+            <ul>
+              <li><span>Vitrified Tiles</span></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h5>Kitchen</h5>
+          <div className="score">
+            <ul>
+              <li><span>Modular Kitchen</span></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h5>Balcony</h5>
+          <div className="score">
+            <ul>
+              <li><span>Vitrified Tiles</span></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h5>Toilets</h5>
+          <div className="score">
+            <ul>
+              <li><span>Vitrified Tiles</span></li>
+            </ul>
+          </div>
         </div>
     </div>
+  </div>
   </div>
 
   
@@ -300,43 +328,7 @@ const DetailsContent = ({property,faqs}) => {
                   </div>
                   </div>
  )}
-      {/* <div className="product_single_content">
-        <div className="mbp_pagination_comments mt30">
-          <div className="total_review">
-            <h4>896 Reviews</h4>
-            <ul className="review_star_list mb0 pl10">
-              <Ratings />
-            </ul>
-            <a className="tr_outoff pl10" href="#">
-              ( 4.5 out of 5 )
-            </a>
-            <a className="write_review float-end fn-xsd" href="#">
-              Write a Review
-            </a>
-          </div>
-         
-          <Comments />
-          <div className="custom_hr"></div>
-
-          <div className="mbp_comment_form style2">
-            <h4>Write a Review</h4>
-            <ul className="review_star">
-              <li className="list-inline-item">
-                <span className="sspd_review">
-                  <ul>
-                    <Ratings />
-                  </ul>
-                </span>
-              </li>
-              <li className="list-inline-item pr15">
-                <p>Your Rating & Review</p>
-              </li>
-            </ul>
-            <ReviewBox />
-          </div>
-        </div>
-      </div> */}
-      {/* End review and comment area area */}
+      
     </>
   );
 };
