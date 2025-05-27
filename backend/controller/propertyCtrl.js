@@ -45,8 +45,7 @@ const createProperty = asyncHandler(async (req, res) => {
       }
       if (req.files && req.files.pdffile && Array.isArray(req.files.pdffile) && req.files.pdffile.length > 0 ) { 
         
-        console.log(req.files.pdffile)
-        console.log("no pdffile")
+       
         const processedImagesplan  =await processUploadedPDFs(req);
 
         if (processedImagesplan.length > 0) {
@@ -113,8 +112,7 @@ const updateProperty = asyncHandler(async (req, res) => {
       }
      
       if (req.files && req.files.featuredimage && Array.isArray(req.files.featuredimage) && req.files.featuredimage.length > 0 ) { 
-        console.log(req.files.featuredimage)
-        console.log("no featuredImageResize")
+       
         const processedImages  =await featuredImageResize(req);
         if (processedImages.length > 0) {
           // ✅ Append logo filename to req.body
@@ -123,8 +121,7 @@ const updateProperty = asyncHandler(async (req, res) => {
       }
       if (req.files && req.files.siteplan && Array.isArray(req.files.siteplan) && req.files.siteplan.length > 0 ) { 
         
-        console.log(req.files.siteplan)
-        console.log("no siteplan")
+        
         const processedImagesplan  =await sitePlanResize(req);
 
         if (processedImagesplan.length > 0) {
@@ -134,8 +131,7 @@ const updateProperty = asyncHandler(async (req, res) => {
       }
       if (req.files && req.files.pdffile && Array.isArray(req.files.pdffile) && req.files.pdffile.length > 0 ) { 
         
-        console.log(req.files.pdffile)
-        console.log("no pdffile")
+       
         const processedImagesplan  =await processUploadedPDFs(req);
 
         if (processedImagesplan.length > 0) {
@@ -200,6 +196,11 @@ const updateProperty = asyncHandler(async (req, res) => {
     res.json(message);
     // res.json(updatedProperty);
   } catch (error) {
+    console.error("Caught in route:", error);
+    res.status(500).json({
+      message: "Internal Server Error",
+      ...(process.env.NODE_ENV !== 'production' && { error: err.message }),
+    });
     throw new Error(error);
   }
 });

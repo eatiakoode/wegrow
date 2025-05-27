@@ -29,6 +29,7 @@ const CreateList = ({property}) => {
   const params = useParams();  
       const id = params?.id; 
   // --- State Hooks ---
+  const [pdffile, setPDFFile] = useState(null);
 const [title, setTitle] = useState("");
 const [slug, setSlug] = useState("");
 const [description, setDescription] = useState("");
@@ -425,7 +426,8 @@ const updateProperty = async (e) => {
       yearbuild, mapembedcode, videoembedcode,
       nearby, sellername, selleremail, sellerphone, 
       reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status,
-      admin_approve:adminapprove
+      admin_approve:adminapprove,
+      pdffile
     };
     
     
@@ -919,6 +921,19 @@ const updateProperty = async (e) => {
           <textarea id="nearBy" className="form-control" rows="7"  value={nearby} onChange={(e) => setNearBy(e.target.value)}  placeholder="Enter Near By"></textarea>
         </div>
       </div>
+      <div className="col-lg-6 col-xl-6">
+     <div className="my_profile_setting_input form-group">
+       
+     <div htmlFor="pdffileget">Brochure PDF</div>
+          <input
+              type="file"
+              accept="application/pdf"
+              onChange={(e) => setPDFFile(e.target.files[0])}
+              
+            />
+          </div>
+     
+   </div>
 
       <div className="col-xl-12">
         <h4 className="mb10">Amenities</h4>

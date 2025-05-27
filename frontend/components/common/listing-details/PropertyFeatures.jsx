@@ -1,3 +1,4 @@
+import Image from "next/image";
 const PropertyFeatures = ({property}) => {
   // const propertyFeatures = [
   //   {
@@ -20,7 +21,22 @@ const PropertyFeatures = ({property}) => {
           <ul className="order_list list-inline-item row">
             {property.amenityid?.map((val, i) => (
               <li className="col-sm-6 col-md-6 col-lg-4" key={i}>
-                <span className="flaticon-tick"></span>
+                {/* <span className="flaticon-tick"></span> */}
+                 <div className="thumb">
+                  <Image
+                    // src="/assets/images/property/gym.svg"
+                    // alt="pc1.jpg"
+                    src={
+                      val.image
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${val.image}`
+                        : "/assets/images/property/gym.svg"
+                    }
+                    alt= {`${val.title}`}
+                    unoptimized
+                    fill
+                    className="amenity-icon"
+                  />
+                </div>
                 {val?.title}
               </li>
             ))}

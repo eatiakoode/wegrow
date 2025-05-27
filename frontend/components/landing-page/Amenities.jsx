@@ -10,8 +10,15 @@ const LandAmenities = ({landingpage}) => {
           <div className="properti_city_home8 text-center d-block">
             <div className="thumb">
               <Image
-                src="/assets/images/property/gym.svg"
-                alt="pc1.jpg"
+                // src="/assets/images/property/gym.svg"
+                // alt="pc1.jpg"
+                src={
+                  item.image
+                    ? `${process.env.NEXT_PUBLIC_API_URL}${item.image}`
+                    : "/assets/images/property/gym.svg"
+                }
+                alt= {`${item.title}`}
+                unoptimized
                 fill
                 className="amenity-icon"
               />

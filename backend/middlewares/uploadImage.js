@@ -6,34 +6,60 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, "../public/images/"));
   },
-  filename: function (req, file, cb) {
-    const uniquesuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniquesuffix + ".jpeg");
+  // filename: function (req, file, cb) {
+  //   const uniquesuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+  //   cb(null, file.fieldname + "-" + uniquesuffix + ".jpeg");
+  // },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname); // check if this is used
+    const filename = `upload-${Date.now()}${ext}`;
+    cb(null, filename);
   },
 });
 
+// const multerFilter = (req, file, cb) => {
+//   if (file.mimetype.startsWith("image")) {
+//     cb(null, true);
+//   } else {
+//     cb({ message: "Unsupported file format" }, false);
+//   }
+// };
 const multerFilter = (req, file, cb) => {
-  if (file.mimetype.startsWith("image")) {
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/jpg",
+    "image/svg+xml",       // ✅ for SVG files
+    "application/pdf",     // ✅ for PDFs
+  ];
+
+  if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb({ message: "Unsupported file format" }, false);
+    console.warn(`Unsupported file: ${file.originalname}, Type: ${file.mimetype}`);
+    cb(new Error("Unsupported file format"), false);
   }
 };
+
 
 const uploadPhoto = multer({
   storage: storage,
   fileFilter: multerFilter,
-  limits: { fileSize: 1000000 },
+  // limits: { fileSize: 1000000 },
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+
 });
 const photoUploadMiddleware = uploadPhoto.fields([
   { name: 'featuredimage', maxCount: 1 },
   { name: 'siteplan', maxCount: 1 },
-  // { name: 'pdffile', maxCount: 1 },
+  { name: 'pdffile', maxCount: 1 },
   { name: 'propertySelectedImgs', maxCount: 10 },
   // { name: 'planimage', maxCount: 80 }
   // { name: 'citylogo', maxCount: 1 },
   
 ]);
+// const photoUploadMiddleware = uploadPhoto.any(); 
 // const uploadPhoto1 = multer({
 //   storage: storage,
 //   fileFilter: multerFilter,
@@ -499,18 +525,16 @@ const groupFilesByFieldname2 = (files) => {
   return fileMap;
 };
 const processUploadedPDFs = async (req) => {
-  console.log("pdfshow req")
-    console.log(req)
+ 
   if (!req.files.pdffile || !Array.isArray(req.files.pdffile)) return;
 
   const processedFilenames = [];
 
   await Promise.all(
     req.files.pdffile.map(async (file) => {
-      console.log("pdfshow req.files.pdffile")
-      console.log(req.files.pdffile)
+     
       const filename = file.filename;
-      const outputPath = path.join("public", "pdfs", "pdffile", filename);
+      const outputPath = path.join("public", "images", "pdffile", filename);
 
       // Ensure destination directory exists
       fs.mkdirSync(path.dirname(outputPath), { recursive: true });
