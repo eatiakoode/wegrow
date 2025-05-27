@@ -6,23 +6,23 @@ import MobileMenu from "../common/header/MobileMenu";
 import PopupSignInUp from "../common/PopupSignInUp";
 import BreadCrumbBanner from "./BreadCrumbBanner";
 import FaqContent from "./FaqContent";
-import { getFaqTableData } from "@/api/frontend/faq";
+// import { getFaqTableData } from "@/api/frontend/faq";
 import { useState, useEffect } from "react";
 
-const index = () => {
+const index = ({faqs}) => {
   const [showBox, setShowBox] = useState(false);
-  const [faqs, setFaqs] = useState([]);
+  // const [faqs, setFaqs] = useState([]);
         // const router = useRouter();
       
-        const fetchFaqs = async () => {
-          const result = await getFaqTableData();
-          // console.log("faqdata")
-          // console.log(data)
-          setFaqs(result.data);
-        };
-        useEffect(() => {
-            fetchFaqs();
-          }, []); 
+        // const fetchFaqs = async () => {
+        //   const result = await getFaqTableData();
+        //   // console.log("faqdata")
+        //   // console.log(data)
+        //   setFaqs(result.data);
+        // };
+        // useEffect(() => {
+        //     fetchFaqs();
+        //   }, []); 
   return (
     <>
       {/* <!-- Main Header Nav --> */}

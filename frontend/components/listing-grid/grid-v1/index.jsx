@@ -11,21 +11,22 @@ import SidebarListing from "../../common/listing/SidebarListing";
 import PopupSignInUp from "../../common/PopupSignInUp";
 import BreadCrumb2 from "./BreadCrumb2";
 import FeaturedItem from "./FeaturedItem";
+// import { getPropertyFilterData } from "@/api/frontend/property";
 import { getPropertytypeByCategoryTableData,getPropertytypeTableData } from "@/api/frontend/propertytype.ts";
 
 import { useState, useEffect } from "react";
 // import { useRouter } from 'next/router';
 // import { useRouter, useParams } from "next/navigation";
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
 
-const index = () => {
+const index = ({ properties, totalCount,filter }) => {
   
-  const searchParams = useSearchParams();
-  const cat = searchParams.get('cat'); 
-  const key = searchParams.get('keyword'); 
-  const cityget = searchParams.get('city'); 
-  const propertytypeget = searchParams.get('propertytype'); 
-  const [category, setCategory] = useState(cat);
+  // const searchParams = useSearchParams();
+  // const cat = searchParams.get('cat'); 
+  // const key = searchParams.get('keyword'); 
+  // const cityget = searchParams.get('city'); 
+  // const propertytypeget = searchParams.get('propertytype'); 
+  const [category, setCategory] = useState("");
 
   const [keyword, setKeyword] = useState("");
   const [city, setCity] = useState("");
@@ -34,11 +35,34 @@ const index = () => {
   const [propertytype, setPropertytype] = useState("");
   const [propertytypes, setPropertytypes] = useState([]);
   /*property paggination*/
-   const [propertyList, setPropertyList] = useState([]);
-const [totalCount, setTotalCount] = useState(0);
+  //  const [propertyList, setPropertyList] = useState([]);
+// const [totalCount, setTotalCount] = useState(0);
 const [currentPage, setCurrentPage] = useState(1);
 const pageSize = 4;
-
+// const [properties, setProperties] = useState([]);
+const [loaderproperty, setLoaderProperty] = useState("");
+// useEffect(() => {
+//   const fetchProperties = async () => {
+//     setLoaderProperty(true);
+//     const filter ={
+//       "keyword":keyword,
+//       "city":city,
+//       "category":category,
+//       "propertytype": propertytype,
+//       "limit":pageSize,
+//       "page":currentPage
+//     };
+//     const data = await getPropertyFilterData(filter);
+//           // console.log("prperty data")
+//           // console.log(data)
+//           setProperties(data.items);
+//           setLoaderProperty(false)
+//           // setPropertyList(data.items)
+//           setTotalCount(data.totalCount)
+          
+//         };
+//   fetchProperties();
+// }, [keyword, city, category, propertytype,currentPage,setTotalCount]);
    const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
       if (typeof window !== "undefined") {
   
@@ -55,11 +79,11 @@ const pageSize = 4;
   
     const [showBox, setShowBox] = useState(false);
     useEffect(  () => {
-      if (cat) {
-        setCategory(cat);
+      if (filter.category) {
+        setCategory(filter.category);
         const fetchData = async () => {
           try {
-            const res = await getPropertytypeByCategoryTableData(cat);
+            const res = await getPropertytypeByCategoryTableData(filter.category);
             
             setPropertytypes(res.data || []);
           } catch (error) {
@@ -80,19 +104,20 @@ const pageSize = 4;
     
         fetchData();
       }
-      if (key) {
-        setKeyword(key);
+      if (filter.keyword) {
+        setKeyword(filter.keyword);
       }
-      if (cityget) {
-        setCity(cityget);
+      if (filter.city) {
+        setCity(filter.city);
       }
-      if (propertytypeget) {
-        setPropertytype(propertytypeget);
+      if (filter.propertytype) {
+        setPropertytype(filter.propertytype);
       }
      
       
-    }, [cat,key,cityget,propertytypeget]);
-
+    }, [filter]);
+    
+           
     // useEffect(() => {
     //   const fetchData = async () => {
     //     try {
@@ -149,7 +174,7 @@ const pageSize = 4;
                 <SidebarListing  keyword={keyword} setKeyword={setKeyword}
   city={city} setCity={setCity}
   category={category} setCategory={setCategory}
-  propertytype={propertytype} setPropertytype={setPropertytype} setPropertytypes={setPropertytypes} propertytypes={propertytypes}  />
+  propertytype={propertytype} setPropertytype={setPropertytype} setPropertytypes={setPropertytypes} propertytypes={propertytypes}/>
               </div>
               {/* End SidebarListing */}
 
@@ -170,7 +195,7 @@ const pageSize = 4;
                 {/* End .offcanvas-heade */}
 
                 <div className="offcanvas-body">
-                  <SidebarListing />
+                  {/* <SidebarListing /> */}
                 </div>
               </div>
               {/* End mobile sidebar listing  */}
@@ -180,17 +205,19 @@ const pageSize = 4;
             <div className="col-md-12 col-lg-8">
               <div className="grid_list_search_result ">
                 <div className="row align-items-center">
-                  <FilterTopBar />
+                  <FilterTopBar loaderproperty={loaderproperty} totalCount={totalCount} />
                 </div>
               </div>
               {/* End .row */}
 
               <div className="row">
-                <FeaturedItem  setPropertySelectedComp={setPropertySelectedComp}
-        setShowBox={setShowBox} keyword={keyword} setKeyword={setKeyword}
-        city={city} setCity={setCity}
-        category={category} setCategory={setCategory}
-        propertytype={propertytype} setPropertytype={setPropertytype}  propertyList={propertyList} setPropertyList={setPropertyList} setTotalCount={setTotalCount} pageSize={pageSize}  currentPage={currentPage} totalCount={totalCount}/>
+              {/* {loaderproperty && (
+                <div>Loading...</div>
+              )} */}
+              {/* ) : (
+                <FeaturedItem  setShowBox={setShowBox} totalCount={totalCount} properties={properties}/> */}
+              
+              <FeaturedItem  setShowBox={setShowBox} totalCount={totalCount} properties={properties}/>
               </div>
               {/* End .row */}
 

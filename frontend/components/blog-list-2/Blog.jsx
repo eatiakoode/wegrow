@@ -2,27 +2,27 @@
 import Link from "next/link";
 // import blogContent from "../../data/blogs";
 import Image from "next/image";
-import { getBlogTableData } from "@/api/frontend/blog";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { getBlogTableData } from "@/api/frontend/blog";
+// import { useState, useEffect } from "react";
+// import { useRouter } from "next/navigation";
 
-const Blog = () => {
+const Blog = ({blogs}) => {
   function stripHtml(html) {
     return html.replace(/<[^>]*>/g, '');
   }
   
-  const router = useRouter();
-  const [blogs, setBlog] = useState([]);
+  // const router = useRouter();
+  // const [blogs, setBlog] = useState([]);
         
-  const fetchBlog = async () => {
-    const data = await getBlogTableData();
-    console.log("blogdata")
-    console.log(data)
-    setBlog(data);
-  };
-  useEffect(() => {
-    fetchBlog();
-  }, []); 
+  // const fetchBlog = async () => {
+  //   const data = await getBlogTableData();
+  //   console.log("blogdata")
+  //   console.log(data)
+  //   setBlog(data);
+  // };
+  // useEffect(() => {
+  //   fetchBlog();
+  // }, []); 
   return (
     <>
       {blogs.slice(0, 6).map((item,index) => (

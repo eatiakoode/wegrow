@@ -20,7 +20,7 @@ const Hero = () => {
             <p>to discover more</p>
           </div> */}
           <div className="thumb">
-            <i class="flaticon-download-arrow"></i>
+            <i className="flaticon-download-arrow"></i>
           </div>
         </a>
       </div>

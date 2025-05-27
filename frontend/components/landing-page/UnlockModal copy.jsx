@@ -36,7 +36,7 @@ const UnlockModal = ({ onClose, onUnlock }) => {
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
           <button type="submit">Submit</button>
-          <button type="button" onClick={onClose} className="cancel-btn"><span class="flaticon-close"></span></button>
+          <button type="button" onClick={onClose} className="cancel-btn"><span className="flaticon-close"></span></button>
         </form>
       </div>
 

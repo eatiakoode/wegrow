@@ -1,32 +1,29 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { getCategoryTableData } from "@/api/frontend/category";
-import { useState } from "react";
-import { useEffect } from "react";
+// import { getCategoryTableData } from "@/api/frontend/category";
+// import { useState } from "react";
+// import { useEffect } from "react";
 
 
 const HeaderMenuContent = ({ float = "" }) => {
   const pathname = usePathname();
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   
-  const fetchCategories = async () => {
-    try {
-      const response = await getCategoryTableData();
-      console.log("response")
-      console.log(response)
-
-      setCategories(response || []);
-    } catch (err) {
-      console.error("Error fetching Category:", err);
-    }
-  };
+  // const fetchCategories = async () => {
+  //   try {
+  //     const response = await getCategoryTableData();
+  //     setCategories(response || []);
+  //   } catch (err) {
+  //     console.error("Error fetching Category:", err);
+  //   }
+  // };
 
   // ();
-useEffect(() => {
-        fetchCategories();
+// useEffect(() => {
+//         fetchCategories();
       
-    }, []);
+//     }, []);
   const home = [
     {
       id: 1,
@@ -238,7 +235,10 @@ useEffect(() => {
   //   { id: 1, name: "Residential", routerPath: "/property-list?cat=residential" },
   //   { id: 2, name: "Commercial", routerPath: "/property-list?cat=commercial" },
   // ];
-  
+  const cat = [
+      { id: 1, name: "Residential", routerPath: "/property-list?cat=67e67294759f85d6bf7a131a" },
+       { id: 2, name: "Commercial", routerPath: "/property-list?cat=67ea48d17cfa562fe8eaafd0" },
+    ];
 
   const blog = [
     { id: 1, name: "Blog List 1", routerPath: "/blog-list-1" },
@@ -306,7 +306,7 @@ useEffect(() => {
         <Link
           href="/about-us"
           className={
-            pathname?.split("/")[1] === "aboutus" ? "ui-active" : undefined
+            pathname?.split("/")[1] === "about-us" ? "ui-active" : undefined
           }
         >
         <span className="title">About Us</span>
@@ -318,7 +318,7 @@ useEffect(() => {
         <a
           href="#"
           className={
-            categories.some((item) => item.routerPath?.split("/")[1] === pathname?.split("/")[1])
+            cat.some((item) => item.routerPath?.split("/")[1] === pathname?.split("/")[1])
               ? "ui-active"
               : undefined
           }
@@ -327,7 +327,7 @@ useEffect(() => {
           <span className="arrow"></span>
         </a>
         <ul className="sub-menu">
-          {categories.map((item) => (
+        {/* {categories.map((item) => (
             <li key={item._id}>
               <Link
                   href={`/property-list?cat=${item._id}`}
@@ -338,6 +338,20 @@ useEffect(() => {
                   }
                 >
                 {item.title}
+              </Link>
+            </li>
+          ))} */}
+          {cat.map((item) => (
+            <li key={item.id}>
+              <Link
+                  href={item.routerPath}
+                  className={
+                    pathname?.split("/")[1] === item.routerPath?.split("/")[1]
+                      ? "ui-active"
+                      : undefined
+                  }
+                >
+                {item.name}
               </Link>
             </li>
           ))}

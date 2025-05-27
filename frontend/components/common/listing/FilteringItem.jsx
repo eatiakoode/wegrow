@@ -24,21 +24,7 @@ const FilteringItem = ({ setKeyword, setCity,setCategory, setPropertytype , keyw
   
   
   const [categories, setCategories] = useState([]);
-  // const {
-  //   keyword,
-  //   city,
-  //   category,
-  //   propertytype,
-  //   // location,
-  //   // status,
-  //   // propertyType,
-  //   // bathrooms,
-  //   // bedrooms,
-  //   // garages,
-  //   // yearBuilt,
-  //   // area,
-  //   // amenities,
-  // } = useSelector((state) => state.properties);
+  
 
   // input state
   const [getKeyword, setGetKeyword] = useState(keyword);
@@ -47,15 +33,7 @@ const FilteringItem = ({ setKeyword, setCity,setCategory, setPropertytype , keyw
   const [getPropertytype, setGetPropertytype] = useState(propertytype);
   
   const [getCategory, setGetCategory] = useState(category);
-  // const [getLocation, setLocation] = useState(location);
-  // const [getStatus, setStatus] = useState(status);
-  // const [getPropertiesType, setPropertiesType] = useState(propertyType);
-  // const [getBathroom, setBathroom] = useState(bathrooms);
-  // const [getBedroom, setBedroom] = useState(bedrooms);
-  // const [getGarages, setGarages] = useState(garages);
-  // const [getBuiltYear, setBuiltYear] = useState(yearBuilt);
-  // const [getAreaMin, setAreaMin] = useState(area.min);
-  // const [getAreaMax, setAreaMax] = useState(area.max);
+  
 
   // advanced state
   const [getAdvanced, setAdvanced] = useState([
@@ -152,8 +130,7 @@ useEffect(() => {
        const fetchCategories = async () => {
             try {
               const response = await getCategoryTableData();
-              console.log("response")
-              console.log(response)
+              
       
               setCategories(response || []);
             } catch (err) {

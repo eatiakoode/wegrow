@@ -1,7 +1,7 @@
 "use client"; 
 import { useEffect, useState } from "react";
 import BlogSidebar from "../common/blog/BlogSidebar";
-import Pagination from "../common/blog/Pagination";
+// import Pagination from "../common/blog/Pagination";
 import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import Header from "../common/header/DefaultHeader";
@@ -10,7 +10,7 @@ import PopupSignInUp from "../common/PopupSignInUp";
 import BreadCrumbBlog from "./BreadCrumbBlog";
 import Blog from "./Blog";
 
-const index = () => {
+const index = ({blogs}) => {
   const [showBox, setShowBox] = useState(false);
   return (
     <>
@@ -36,7 +36,7 @@ const index = () => {
           <div className="row">
             <div className="col-lg-8">
               <div className="row">
-                <Blog />
+                <Blog blogs={blogs}/>
                 {/* End blog item */}
               </div>
               {/* End .row */}

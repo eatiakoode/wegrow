@@ -158,7 +158,7 @@ const Index = () => {
       {/* <!-- Our News & Insights --> */}
           <section id="newsinsights" className="news-insights about-section scroll-mt-80px border-btm">
               <div className="container">
-                <div class="main-title text-center">
+                <div className="main-title text-center">
                   <h2>Market Knowledge</h2>
                   <p>Uncover key information to guide your property investments</p>
                 </div>
