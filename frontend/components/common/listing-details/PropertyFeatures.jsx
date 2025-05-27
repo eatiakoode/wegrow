@@ -29,7 +29,7 @@ const PropertyFeatures = ({property}) => {
                     src={
                       val.image
                         ? `${process.env.NEXT_PUBLIC_API_URL}${val.image}`
-                        : "/assets/images/property/gym.svg"
+                        : "/assets/images/property/thumbnail.svg"
                     }
                     alt= {`${val.title}`}
                     unoptimized

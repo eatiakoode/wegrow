@@ -30,6 +30,7 @@ const CreateList = ({property}) => {
       const id = params?.id; 
   // --- State Hooks ---
   const [pdffile, setPDFFile] = useState(null);
+  const [getpdffile, setGetPDFFile] = useState(null);
 const [title, setTitle] = useState("");
 const [slug, setSlug] = useState("");
 const [description, setDescription] = useState("");
@@ -223,6 +224,10 @@ useEffect(() => {
             setStatus(property.status)
             setAdminApprove(property.admin_approve)
 
+            
+            if(property.brochurepdf) {
+              setGetPDFFile(process.env.NEXT_PUBLIC_API_URL+property.brochurepdf)
+            }
 
             
             if(property.featuredimageurl) {
@@ -923,8 +928,17 @@ const updateProperty = async (e) => {
       </div>
       <div className="col-lg-6 col-xl-6">
      <div className="my_profile_setting_input form-group">
-       
+       {/* (getpdffile) */}
+      
      <div htmlFor="pdffileget">Brochure PDF</div>
+     {getpdffile && (
+        <a
+        href={`${process.env.NEXT_PUBLIC_API_URL}${property.brochurepdf}`}
+        download
+        className="icon_box_area style2 d-flex align-items-center"
+        style={{ textDecoration: 'none' }}
+      >Download Brochure PDF</a>
+        )}
           <input
               type="file"
               accept="application/pdf"
