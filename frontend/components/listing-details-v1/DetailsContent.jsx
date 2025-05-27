@@ -153,11 +153,12 @@ const DetailsContent = ({property,faqs}) => {
       </div>
       )}
       {/* End what's nearby area */}
+      {property?.brochurepdf && (
       <div className="property_attachment_area mt30">
     <h4 className="mb30">Property Brochure</h4>
     <div className="iba_container style2">
       <a
-        href="/assets/images/51_Property_Law.pdf"
+        href={`${process.env.NEXT_PUBLIC_API_URL}${property.brochurepdf}`}
         download
         className="icon_box_area style2 d-flex align-items-center"
         style={{ textDecoration: 'none' }}
@@ -173,6 +174,7 @@ const DetailsContent = ({property,faqs}) => {
       </a>
     </div>
   </div>
+  )}
   {/* <div className="property_attachment_area mt30">
     <h4 className="mb30">Project Specifications</h4>
     <div className="iba_container style2">
