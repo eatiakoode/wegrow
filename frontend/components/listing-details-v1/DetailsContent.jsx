@@ -19,6 +19,7 @@ import WhatsNearby from "../common/listing-details/WhatsNearby";
 import Image from "next/image";
 
 const DetailsContent = ({property,faqs}) => {
+  const [showPdfModal, setShowPdfModal] = useState(false);
   const [showFullBio, setShowFullBio] = useState(false);
   function stripHtml(html) {
     return html.replace(/<[^>]*>/g, '');
@@ -153,12 +154,13 @@ const DetailsContent = ({property,faqs}) => {
       </div>
       )}
       {/* End what's nearby area */}
-      <div className="property_attachment_area mt30">
+      {/* <div className="property_attachment_area mt30">
     <h4 className="mb30">Property Brochure</h4>
     <div className="iba_container style2">
+      <iframe src="/assets/images/51_Property_Law.pdf" frameborder="0"></iframe>
       <a
         href="/assets/images/51_Property_Law.pdf"
-        download
+        target="_blank"
         className="icon_box_area style2 d-flex align-items-center"
         style={{ textDecoration: 'none' }}
       >
@@ -172,8 +174,49 @@ const DetailsContent = ({property,faqs}) => {
         </div>
       </a>
     </div>
+  </div> */}
+
+<div className="property_attachment_area mt30">
+  <h4 className="mb30">Property Brochure</h4>
+  <div className="iba_container style2">
+    <button
+      className="icon_box_area style2 d-flex align-items-center"
+      style={{ textDecoration: 'none', border: 'none', background: 'none', cursor: 'pointer' }}
+      onClick={() => setShowPdfModal(true)}
+    >
+      <div className="score">
+        <span className="flaticon-pdf text-thm fz30"></span>
+      </div>
+      <div className="details">
+        <h5 className="mb-0">
+          <span className="flaticon-download text-thm pr10"></span> View Property Details Doc
+        </h5>
+      </div>
+    </button>
   </div>
-  {/* <div className="property_attachment_area mt30">
+
+  {/* Modal */}
+  {showPdfModal && (
+    <div
+      className="custom-modal">
+      <div
+        className="modal-content">
+        <button
+          onClick={() => setShowPdfModal(false)}>
+          <span class="flaticon-close"></span>
+        </button>
+        <iframe
+          src="/assets/images/51_Property_Law.pdf"
+          width="100%"
+          height="100%"
+          style={{ border: 'none' }}
+        />
+      </div>
+    </div>
+  )}
+</div>
+
+  <div className="property_attachment_area mt30">
     <h4 className="mb30">Project Specifications</h4>
     <div className="iba_container style2">
       <h5>Floor & Counter</h5>
@@ -192,7 +235,9 @@ const DetailsContent = ({property,faqs}) => {
           
         </div>
     </div>
-  </div> */}
+  </div>
+
+  
   {property?.builderid && (
       <div className="application_statics mt30">
         <h4 className="mb10">About Builder</h4>
