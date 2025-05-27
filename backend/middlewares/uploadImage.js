@@ -28,6 +28,7 @@ const uploadPhoto = multer({
 const photoUploadMiddleware = uploadPhoto.fields([
   { name: 'featuredimage', maxCount: 1 },
   { name: 'siteplan', maxCount: 1 },
+  // { name: 'pdffile', maxCount: 1 },
   { name: 'propertySelectedImgs', maxCount: 10 },
   // { name: 'planimage', maxCount: 80 }
   // { name: 'citylogo', maxCount: 1 },
@@ -497,5 +498,30 @@ const groupFilesByFieldname2 = (files) => {
   });
   return fileMap;
 };
+const processUploadedPDFs = async (req) => {
+  console.log("pdfshow req")
+    console.log(req)
+  if (!req.files.pdffile || !Array.isArray(req.files.pdffile)) return;
 
-module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize ,cityImgResize,processFloorPlanImages,photoUploadMiddleware1,processFloorPlanImagesGet,amenityImgResize,bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname,groupFilesByFieldname2,processLandingPlanGet,processLandingPlan};
+  const processedFilenames = [];
+
+  await Promise.all(
+    req.files.pdffile.map(async (file) => {
+      console.log("pdfshow req.files.pdffile")
+      console.log(req.files.pdffile)
+      const filename = file.filename;
+      const outputPath = path.join("public", "pdfs", "pdffile", filename);
+
+      // Ensure destination directory exists
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+
+      // Move file from temp location to target
+      fs.renameSync(file.path, outputPath);
+
+      processedFilenames.push(filename);
+    })
+  );
+
+  return processedFilenames;
+};
+module.exports = { uploadPhoto, productImgResize, blogImgResize,builderImgResize,featuredImageResize,sitePlanResize,photoUploadMiddleware,testimonialImgResize,propertySelectedImgsResize ,cityImgResize,processFloorPlanImages,photoUploadMiddleware1,processFloorPlanImagesGet,amenityImgResize,bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname,groupFilesByFieldname2,processLandingPlanGet,processLandingPlan,processUploadedPDFs};

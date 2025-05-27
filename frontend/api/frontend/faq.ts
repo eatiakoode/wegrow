@@ -4,7 +4,9 @@
     
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/faq/list"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/faq/list", {
+        next: { revalidate: 40 } // ISR: update every 60s
+      }); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }

@@ -16,7 +16,7 @@ const index = () => {
       
         const fetchFaqs = async () => {
           const result = await getFaqTableData();
-          console.log("faqdata")
+          // console.log("faqdata")
           // console.log(data)
           setFaqs(result.data);
         };

@@ -5,6 +5,15 @@ const { notFound, errorHandler } = require("./middlewares/errorHandler");
 const app = express();
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT;
+// const rateLimit = require('express-rate-limit');
+
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 min
+//   max: 100, // limit per IP
+// });
+// app.use(limiter);
+
+
 const authRouter = require("./routes/authRoute");
 
 const countryRouter = require("./routes/countryRouter");
@@ -68,6 +77,9 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+const compression = require("compression");
+app.use(compression());
+
 // const bodyParser = require('body-parser');
 
 // app.use(bodyParser.json({ limit: '10mb' })); // or more

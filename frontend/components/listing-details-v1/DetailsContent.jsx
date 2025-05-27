@@ -20,6 +20,9 @@ import Image from "next/image";
 
 const DetailsContent = ({property,faqs}) => {
   const [showFullBio, setShowFullBio] = useState(false);
+  function stripHtml(html) {
+    return html.replace(/<[^>]*>/g, '');
+  }
     return (
     <>
       <div className="listing_single_description">
@@ -190,6 +193,7 @@ const DetailsContent = ({property,faqs}) => {
         </div>
     </div>
   </div> */}
+  {property?.builderid && (
       <div className="application_statics mt30">
         <h4 className="mb10">About Builder</h4>
       <div className="director-desk mt-0 pt-0">
@@ -208,24 +212,30 @@ const DetailsContent = ({property,faqs}) => {
                                 width={1600}
                                 height={1066}
                                 className="img-fluid rounded-2"
-                                src="/assets/images/about-us.webp"
-                                alt="image"
+                                src={
+                                  property.builderid?.logoimage
+                                    ? `${process.env.NEXT_PUBLIC_API_URL}${property.builderid?.logoimage}`
+                                    : "/default-placeholder.jpg"
+                                }
+                                alt= {`${property.builderid?.title}`}
+                                unoptimized
                                 />
                           </div>
                         </div>
                         <div className="col-lg-8">
                           <div className="who-we-are">
                             <div className="main-title text-left mb-2">
-                              <h4>Neev Residency Pvt Ltd</h4>
-                              <p>Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</p>
+                              <h4>{property.builderid?.title}</h4>
+                             
                             </div>
-                              <p>Neev Residency Pvt Ltd is aiming to provide a quality workmanship at a cost effective price and at the fastest pace. Their commitment to customer satisfaction is reflected in the uncompromising quality & punctuality ensured through systematic and methodological approach.</p>
+                           
+                            <p>{stripHtml(property.builderid?.description).slice(0, 500)}</p>
                               
                               {showFullBio && (
                                   <>
                                     <p>
                                       
-                                      Neev Residency Pvt Ltd believes in providing you with not only a home but also superior living through never-ending practices considering prudent lifestyle.
+                                    {stripHtml(property.builderid?.description).slice(501, 15000)}
                                     </p>
                                     
                                   </>
@@ -244,7 +254,7 @@ const DetailsContent = ({property,faqs}) => {
                       </div>
                   </div>
                   </div>
-
+ )}
       {/* <div className="product_single_content">
         <div className="mbp_pagination_comments mt30">
           <div className="total_review">

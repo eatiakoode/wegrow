@@ -63,7 +63,7 @@ const CreateList = () => {
                     <input
                         type="file"
                         id="image1"
-                        accept="image/png, image/gif, image/jpeg, image/svg+xml, image/svg, image/webp"
+                        accept="image/png, image/gif, image/jpeg, image/svg+xml, image/svg, image/webp, image/avif"
                         onChange={uploadLogo}
                     />
                     <label

@@ -227,6 +227,9 @@ var propertySchema = new mongoose.Schema(
       // unique: true,
       // index: true,
     },
+    brochurepdf:{
+      type: String,
+    },
     propertyimageurl:[{
       type: String,
       // required: true,

@@ -1,13 +1,15 @@
 const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
-const { featuredImageResize,sitePlanResize,propertySelectedImgsResize } = require("../middlewares/uploadImage");
+const { featuredImageResize,sitePlanResize,propertySelectedImgsResize,processUploadedPDFs } = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 const Propertyimage = require("../models/propertyimagesModel");
 
 const createProperty = asyncHandler(async (req, res) => {
   try {
+    console.log("pdfshow")
+    console.log(req.files)
     if (req.files && Object.keys(req.files).length > 0) {
       var propertySelectedImgs  =[]
       if (req.files && req.files.propertySelectedImgs && req.files.propertySelectedImgs.length > 0  && Object.keys(req.files.propertySelectedImgs).length > 0 && Array.isArray(req.files.propertySelectedImgs)) {
@@ -41,6 +43,20 @@ const createProperty = asyncHandler(async (req, res) => {
           req.body.siteplanurl = "public/images/siteplan/"+processedImagesplan[0];
         }
       }
+      if (req.files && req.files.pdffile && Array.isArray(req.files.pdffile) && req.files.pdffile.length > 0 ) { 
+        
+        console.log(req.files.pdffile)
+        console.log("no pdffile")
+        const processedImagesplan  =await processUploadedPDFs(req);
+
+        if (processedImagesplan.length > 0) {
+          console.log("pdfshow processedImagesplan")
+    console.log(processedImagesplan)
+          // ✅ Append logo filename to req.body
+          req.body.brochurepdf = "public/images/pdffile/"+processedImagesplan[0];
+        }
+      }
+      
     }
 
     if (req.body.amenityid && typeof req.body.amenityid === "string") {
@@ -81,7 +97,8 @@ const updateProperty = asyncHandler(async (req, res) => {
   const { id } = req.params;
   validateMongoDbId(id);
   try {
-   
+    console.log("pdfshow")
+    console.log(req.files)
 
     if (req.files && Object.keys(req.files).length > 0) {
       var  propertySelectedImgs  =[]
@@ -113,6 +130,19 @@ const updateProperty = asyncHandler(async (req, res) => {
         if (processedImagesplan.length > 0) {
           // ✅ Append logo filename to req.body
           req.body.siteplanurl = "public/images/siteplan/"+processedImagesplan[0];
+        }
+      }
+      if (req.files && req.files.pdffile && Array.isArray(req.files.pdffile) && req.files.pdffile.length > 0 ) { 
+        
+        console.log(req.files.pdffile)
+        console.log("no pdffile")
+        const processedImagesplan  =await processUploadedPDFs(req);
+
+        if (processedImagesplan.length > 0) {
+          console.log("pdfshow processedImagesplan")
+    console.log(processedImagesplan)
+          // ✅ Append logo filename to req.body
+          req.body.brochurepdf = "public/images/pdffile/"+processedImagesplan[0];
         }
       }
     }
