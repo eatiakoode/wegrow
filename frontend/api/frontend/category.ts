@@ -4,7 +4,7 @@ export async function getCategoryTableData() {
   
 
   try {
-    const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/category"); // Replace with actual API endpoint
+    const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/category"); // Replace with actual API endpoint
     if (!response.ok) {
       throw new Error("Failed to fetch products");
     }
@@ -31,7 +31,7 @@ const token =userData.token
     throw new Error("User not authenticated!");
   }
 
-  const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/category/${id}`, {
+  const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+`api/category/${id}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

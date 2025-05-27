@@ -59,6 +59,8 @@ const propertypageFrontendRoute = require("./routes/frontend/propertypageRouter"
 const landingpageFrontendRoute = require("./routes/frontend/landingpageFrontendRoute");
 
 const enqLandingFrontendRouter = require("./routes/frontend/enqLandingRoute");
+const categoryFrontendRoute = require("./routes/frontend/categoryRoute");
+
 
 
 
@@ -129,6 +131,7 @@ app.use("/frontend/api/propertyenquiry", enqPropertyFrontendRouter);
 app.use("/frontend/api/propertypage", propertypageFrontendRoute);
 app.use("/frontend/api/landingpage", landingpageFrontendRoute);
 app.use("/frontend/api/landingenquiry", enqLandingFrontendRouter);
+app.use("/frontend/api/category", categoryFrontendRoute);
 
 
 const path = require("path");

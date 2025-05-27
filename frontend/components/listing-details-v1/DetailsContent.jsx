@@ -175,7 +175,7 @@ const DetailsContent = ({property,faqs}) => {
       </a>
     </div>
   </div> */}
-
+{property?.brochurepdf && (
 <div className="property_attachment_area mt30">
   <h4 className="mb30">Property Brochure</h4>
   <div className="iba_container style2">
@@ -203,10 +203,10 @@ const DetailsContent = ({property,faqs}) => {
         className="modal-content">
         <button
           onClick={() => setShowPdfModal(false)}>
-          <span class="flaticon-close"></span>
+          <span className="flaticon-close"></span>
         </button>
         <iframe
-          src="/assets/images/51_Property_Law.pdf"
+          src={`${process.env.NEXT_PUBLIC_API_URL}${property.brochurepdf}`}
           width="100%"
           height="100%"
           style={{ border: 'none' }}
@@ -215,7 +215,7 @@ const DetailsContent = ({property,faqs}) => {
     </div>
   )}
 </div>
-
+)}
   <div className="project_spec property_attachment_area mt30">
     <h4 className="mb30">Project Specifications</h4>
     <div className="iba_container style2">

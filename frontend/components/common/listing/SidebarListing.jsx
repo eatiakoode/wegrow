@@ -11,19 +11,17 @@ import { useRouter } from "next/navigation";
 const SidebarListing = ({ setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype,setPropertytypes,propertytypes }) => {
    
     const [propertytypesidebar, setPropertyTypeSidebar] = useState([]);
-    const router = useRouter();
   
     const fetchPropertyType = async () => {
       const data = await countPropertiesByType();
-      console.log("data.data")
-      console.log(data)
+      
       setPropertyTypeSidebar(data.data);
     };
     const [properties, setProperties] = useState([]);
 
 const fetchProperties = async () => {
   const data = await getPropertyFeatureData();
-  console.log(data)
+//   console.log(data)
   setProperties(data);
 };
     useEffect(() => {

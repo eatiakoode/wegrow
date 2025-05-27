@@ -48,7 +48,7 @@ const index = () => {
               <div className="who-we-are flex-column">
                   <p>At <strong>WeGrow Infraventures Pvt Ltd,</strong> we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.</p>
                   <div className="view-all">
-                    <Link href="#team" class="btn btn-primary">
+                    <Link href="#team" className="btn btn-primary">
                       <span className="title">Meet Our Team</span>
                     </Link>
                   </div>
