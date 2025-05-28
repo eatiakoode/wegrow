@@ -111,20 +111,8 @@ const ListingDynamicDetailsV1 = ({blog}) => {
     year: 'numeric',
   })}</a>
                     </li>
-                    {/* <li className="list-inline-item">
-                      <span className="flaticon-view"></span>
-                    </li> */}
-                    {/* <li className="list-inline-item">
-                      <a href="#"> 341 views</a>
-                    </li> */}
-                    {/* <li className="list-inline-item">
-                      <span className="flaticon-chat"></span>
-                    </li>
-                    <li className="list-inline-item">
-                      <a href="#">15</a>
-                    </li> */}
-                  </ul>
-                  <div className="share_btn h1ads_1st_list half_style dn-991 map-half-style position-relative">
+                    <li className="list-inline-item ms-4">
+                      <div className="share_btn h1ads_1st_list half_style dn-991 map-half-style position-relative">
                       <div className="row align-items-center">
                         <div className="col-md-12">
                           <div className="navbered w-100">
@@ -171,6 +159,21 @@ const ListingDynamicDetailsV1 = ({blog}) => {
                       </div>
                       {/* End .row */}
                     </div>
+                    </li>
+                    {/* <li className="list-inline-item">
+                      <span className="flaticon-view"></span>
+                    </li> */}
+                    {/* <li className="list-inline-item">
+                      <a href="#"> 341 views</a>
+                    </li> */}
+                    {/* <li className="list-inline-item">
+                      <span className="flaticon-chat"></span>
+                    </li>
+                    <li className="list-inline-item">
+                      <a href="#">15</a>
+                    </li> */}
+                  </ul>
+                  
                   <div className="thumb">
                     <Image
                       width={692}
