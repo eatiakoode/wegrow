@@ -26,9 +26,56 @@ const DetailsContent = ({property,faqs}) => {
   }
     return (
     <>
-      <div className="listing_single_description">
+      <div className="share_flex listing_single_description">
         <div className="lsd_list">
           <PropertyItem property={property}/>
+                  <div className="share_btn h1ads_1st_list half_style dn-991 map-half-style position-relative">
+                      <div className="row align-items-center">
+                        <div className="col-md-12">
+                          <div className="navbered w-100">
+                            <div className="mega-dropdown home2">
+                              <span
+                                id="show_advbtn"
+                                className="dropbtn"
+                                data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside"
+                                aria-expanded="false"
+                              >
+                                Share
+                              </span>
+
+                              <div className="dropdown-content dropdown-menu ">
+                                <div className="row">
+                                  <div className="col-lg-12">
+                                    <ul class="sub-menu">
+                                      <li>
+                                        <a href="javascript:void(0)"><i class="fa fa-facebook"></i> Facebook</a>
+                                      </li>
+                                      <li>
+                                        <a href="javascript:void(0)"><i class="fa fa-linkedin"></i> Linkedin</a>
+                                      </li>
+                                      <li>
+                                        <a href="javascript:void(0)"><i class="fa fa-twitter"></i> Twitter</a>
+                                      </li>
+                                       <li>
+                                        <a href="javascript:void(0)"><i class="fa fa-instagram"></i> Instagram</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                 
+                                </div>
+                                {/* End .row */}
+                              </div>
+                              {/* End .dropdown-menu */}
+                            </div>
+                          </div>
+                          {/* End .advance filter button */}
+                        </div>
+                        {/* End .col */}
+                        {/* End .col */}
+                      </div>
+                      {/* End .row */}
+                    </div>
         </div>
         {/* End .lsd_list */}
 

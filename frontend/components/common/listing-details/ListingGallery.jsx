@@ -30,7 +30,7 @@ const ListingGallery = () => {
                   <div className="spss style2 mt20 text-end tal-400">
                     <ul className="mb0">
                       <li className="list-inline-item">
-                        <a href="#">
+                        <a href="#" className="tooltip-icon" data-tooltip="Compare">
                           <span className="flaticon-transfer-1"></span>
                         </a>
                       </li>

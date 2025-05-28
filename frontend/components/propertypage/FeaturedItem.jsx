@@ -70,7 +70,7 @@ const FeaturedItem = ({setPropertySelectedComp,setShowBox,properties}) => {
             </ul>
             <ul className="icon mb0">
               <li className="list-inline-item">
-              <a href="#" onClick={(e) => {
+              <a href="#" className="tooltip-icon" data-tooltip="Compare" onClick={(e) => {
               e.preventDefault();
               addCompareProperty(item._id);
             }}>

@@ -7,7 +7,7 @@ const BreadCrumbBanner = () => {
         <div className="row">
           <div className="col-xl-6">
             <div className="breadcrumb_content">
-              <BreadCrumb title="Compare" />
+              <BreadCrumb className="tooltip-icon" data-tooltip="Compare" />
               <h4 className="breadcrumb_title">Compare</h4>
             </div>
           </div>

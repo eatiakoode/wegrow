@@ -1,17 +1,39 @@
-const PropertyItem = ({property})=> {
+// const PropertyItem = ({property})=> {
+//   return (
+//     <ul className="mb0">
+//       <li className="list-inline-item">
+//         <a href="#">{property.propertytypeid?.title}</a>
+//       </li>
+//       <li className="list-inline-item">
+//         <a href="#">Beds: {property.bedrooms}</a>
+//       </li>
+//       <li className="list-inline-item">
+//         <a href="#">Baths: {property.bathrooms}</a>
+//       </li>
+//       <li className="list-inline-item">
+//         <a href="#">{property.sizeprefix}: {property.areasize}</a>
+//       </li>
+//     </ul>
+//   );
+// };
+
+// export default PropertyItem;
+
+
+const PropertyItem = ({ property }) => {
   return (
     <ul className="mb0">
       <li className="list-inline-item">
-        <a href="#">{property.propertytypeid?.title}</a>
+        <span>{property.propertytypeid?.title}</span>
       </li>
       <li className="list-inline-item">
-        <a href="#">Beds: {property.bedrooms}</a>
+        <span>Beds: {property.bedrooms}</span>
       </li>
       <li className="list-inline-item">
-        <a href="#">Baths: {property.bathrooms}</a>
+        <span>Baths: {property.bathrooms}</span>
       </li>
       <li className="list-inline-item">
-        <a href="#">{property.sizeprefix}: {property.areasize}</a>
+        <span>{property.sizeprefix}: {property.areasize}</span>
       </li>
     </ul>
   );

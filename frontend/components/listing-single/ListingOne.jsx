@@ -57,7 +57,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
               <div className="spss style2 text-end tal-400">
                 <ul className="mb0">
                   <li className="list-inline-item">
-                  <a href="#" onClick={(e) => {
+                  <a href="#" className="tooltip-icon" data-tooltip="Compare" onClick={(e) => {
                 e.preventDefault();
                 addCompareProperty(property._id);
               }}>

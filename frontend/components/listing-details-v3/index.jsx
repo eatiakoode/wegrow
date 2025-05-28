@@ -34,7 +34,7 @@ const index = () => {
                 <div className="spss float-start fn-400 mb20">
                   <ul className="mb0">
                     <li className="list-inline-item">
-                      <a href="#">
+                      <a href="#" className="tooltip-icon" data-tooltip="Compare">
                         <span className="flaticon-transfer-1"></span>
                       </a>
                     </li>

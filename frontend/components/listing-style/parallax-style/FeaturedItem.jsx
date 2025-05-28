@@ -166,7 +166,7 @@ const FeaturedItem = () => {
               </ul>
               <ul className="icon mb0">
                 <li className="list-inline-item">
-                  <a href="#">
+                  <a href="#" className="tooltip-icon" data-tooltip="Compare">
                     <span className="flaticon-transfer-1"></span>
                   </a>
                 </li>
