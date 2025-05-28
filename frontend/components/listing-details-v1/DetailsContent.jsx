@@ -216,12 +216,15 @@ const DetailsContent = ({property,faqs}) => {
   )}
 </div>
 )}
+
+{property?.specifications && (
   <div className="property_attachment_area mt30">
 
   <div className="project_spec property_attachment_area mt30">
     <h4 className="mb30">Project Specifications</h4>
-    <div className="iba_container style2">
-        <div>
+    <div className="iba_container style2" dangerouslySetInnerHTML={{ __html: property?.specifications }}>
+    {/* <section  /> */}
+        {/* <div>
           <h5>Living/Dining</h5>
           <div className="score">
             <ul>
@@ -260,11 +263,11 @@ const DetailsContent = ({property,faqs}) => {
               <li><span>Vitrified Tiles</span></li>
             </ul>
           </div>
-        </div>
+        </div> */}
     </div>
   </div>
   </div>
-
+)}
   
   {property?.builderid && (
       <div className="application_statics mt30">

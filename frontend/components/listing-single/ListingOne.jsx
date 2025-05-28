@@ -54,7 +54,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
                 <p>Best value in the area!</p>
               </div>
 
-              <div className="spss style2 mt20 text-end tal-400">
+              <div className="spss style2 text-end tal-400">
                 <ul className="mb0">
                   <li className="list-inline-item">
                   <a href="#" onClick={(e) => {

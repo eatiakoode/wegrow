@@ -36,23 +36,23 @@ const FilteringItem = ({ setKeyword, setCity,setCategory, setPropertytype , keyw
   
 
   // advanced state
-  // const [getAdvanced, setAdvanced] = useState([
-  //   { id: uuidv4(), name: "Air Conditioning" },
-  //   { id: uuidv4(), name: "Barbeque" },
-  //   { id: uuidv4(), name: "Gym" },
-  //   { id: uuidv4(), name: "Microwave" },
-  //   { id: uuidv4(), name: "TV Cable" },
-  //   { id: uuidv4(), name: "Lawn" },
-  //   { id: uuidv4(), name: "Refrigerator" },
-  //   { id: uuidv4(), name: "Swimming Pool" },
-  //   { id: uuidv4(), name: "WiFi" },
-  //   { id: uuidv4(), name: "Sauna" },
-  //   { id: uuidv4(), name: "Dryer" },
-  //   { id: uuidv4(), name: "Washer" },
-  //   { id: uuidv4(), name: "Laundry" },
-  //   { id: uuidv4(), name: "Outdoor Shower" },
-  //   { id: uuidv4(), name: "Window Coverings" },
-  // ]);
+  const [getAdvanced, setAdvanced] = useState([
+    { id: uuidv4(), name: "Air Conditioning" },
+    { id: uuidv4(), name: "Barbeque" },
+    { id: uuidv4(), name: "Gym" },
+    { id: uuidv4(), name: "Microwave" },
+    { id: uuidv4(), name: "TV Cable" },
+    { id: uuidv4(), name: "Lawn" },
+    { id: uuidv4(), name: "Refrigerator" },
+    { id: uuidv4(), name: "Swimming Pool" },
+    { id: uuidv4(), name: "WiFi" },
+    { id: uuidv4(), name: "Sauna" },
+    { id: uuidv4(), name: "Dryer" },
+    { id: uuidv4(), name: "Washer" },
+    { id: uuidv4(), name: "Laundry" },
+    { id: uuidv4(), name: "Outdoor Shower" },
+    { id: uuidv4(), name: "Window Coverings" },
+  ]);
 
   const dispath = useDispatch();
 

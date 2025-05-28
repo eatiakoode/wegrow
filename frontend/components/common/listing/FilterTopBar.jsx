@@ -47,7 +47,7 @@ const FilterTopBar = ({loaderproperty,totalCount}) => {
             {totalCount !== 0 ? (
               "Search results"
             ) : (
-              <span className="text-danger">Not found results</span>
+              <span className="text-danger">No results found.</span>
             )}
           </p>
           )}

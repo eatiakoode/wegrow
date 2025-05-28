@@ -19,20 +19,17 @@ import { useState, useEffect } from "react";
 // import { useRouter, useParams } from "next/navigation";
 // import { useSearchParams } from 'next/navigation';
 
-const index = ({ properties:initialProperties, totalCount:initialCount,filter }) => {
+const index = ({ properties:initialProperties, totalCount:initialCount,filter :initialFilter }) => {
   
   // const searchParams = useSearchParams();
   // const cat = searchParams.get('cat'); 
   // const key = searchParams.get('keyword'); 
   // const cityget = searchParams.get('city'); 
   // const propertytypeget = searchParams.get('propertytype'); 
-  const [category, setCategory] = useState("");
-
-  const [keyword, setKeyword] = useState("");
-  const [city, setCity] = useState("");
-
- 
-  const [propertytype, setPropertytype] = useState("");
+  const [category, setCategory] = useState(initialFilter.category || "");
+  const [keyword, setKeyword] = useState(initialFilter.keyword || "");
+  const [city, setCity] = useState(initialFilter.city || "");
+  const [propertytype, setPropertytype] = useState(initialFilter.propertytype || "");
   const [propertytypes, setPropertytypes] = useState([]);
   /*property paggination*/
   //  const [propertyList, setPropertyList] = useState([]);
@@ -81,11 +78,11 @@ useEffect(() => {
   
     const [showBox, setShowBox] = useState(false);
     useEffect(  () => {
-      if (filter.category) {
-        setCategory(filter.category);
+      if (initialFilter.category) {
+        setCategory(initialFilter.category);
         const fetchData = async () => {
           try {
-            const res = await getPropertytypeByCategoryTableData(filter.category);
+            const res = await getPropertytypeByCategoryTableData(initialFilter.category);
             
             setPropertytypes(res.data || []);
           } catch (error) {
@@ -106,18 +103,18 @@ useEffect(() => {
     
         fetchData();
       }
-      if (filter.keyword) {
-        setKeyword(filter.keyword);
+      if (initialFilter.keyword) {
+        setKeyword(initialFilter.keyword);
       }
-      if (filter.city) {
-        setCity(filter.city);
+      if (initialFilter.city) {
+        setCity(initialFilter.city);
       }
-      if (filter.propertytype) {
-        setPropertytype(filter.propertytype);
+      if (initialFilter.propertytype) {
+        setPropertytype(initialFilter.propertytype);
       }
      
       
-    }, [filter]);
+    }, [initialFilter]);
     
            
     // useEffect(() => {
