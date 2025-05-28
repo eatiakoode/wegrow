@@ -24,6 +24,10 @@ const DetailsContent = ({property,faqs}) => {
   function stripHtml(html) {
     return html?.replace(/<[^>]*>/g, '');
   }
+
+  const shareUrl = process.env.NEXT_PUBLIC_FRONTEND_API_URL+'property-detail/'+property.slug;
+const text = encodeURIComponent(property.metatitle);
+const hashtags = property.metatitle;
     return (
     <>
       <div className="share_flex listing_single_description">
@@ -49,16 +53,16 @@ const DetailsContent = ({property,faqs}) => {
                                   <div className="col-lg-12">
                                     <ul class="sub-menu">
                                       <li>
-                                        <a href="javascript:void(0)"><i class="fa fa-facebook"></i> Facebook</a>
+                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
                                       </li>
                                       <li>
-                                        <a href="javascript:void(0)"><i class="fa fa-linkedin"></i> Linkedin</a>
+                                        <a href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}&hashtags=${hashtags}`} target="_blank"><i class="fa fa-linkedin"></i> Linkedin</a>
                                       </li>
                                       <li>
-                                        <a href="javascript:void(0)"><i class="fa fa-twitter"></i> Twitter</a>
+                                        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
                                       </li>
                                        <li>
-                                        <a href="javascript:void(0)"><i class="fa fa-instagram"></i> Instagram</a>
+                                        <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a>
                                       </li>
                                     </ul>
                                   </div>

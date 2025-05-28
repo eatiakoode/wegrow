@@ -86,9 +86,12 @@ const getallPropertyFilterList = asyncHandler(async (req, res) => {
     if(req.query.propertytype){
       query["propertytypeid"] = req.query.propertytype;      
     }
-    if(req.query.keyword){
-      query["title"] = { $regex: req.query.keyword, $options: "i" };  
-    }   
+    if (req.query.keyword) {
+      query["$or"] = [
+        { title: { $regex: req.query.keyword, $options: "i" } },
+        { description: { $regex: req.query.keyword, $options: "i" } },
+      ];
+    }  
     if(req.query.location){
       query["locationid"] = req.query.location;      
     }

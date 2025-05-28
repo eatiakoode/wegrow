@@ -28,7 +28,9 @@ import Image from "next/image";
 
 const ListingDynamicDetailsV1 = ({blog}) => {
   const [showBox, setShowBox] = useState(false);
-
+  const shareUrl = process.env.NEXT_PUBLIC_FRONTEND_API_URL+'blog-detail/'+blog.slug;
+  const text = encodeURIComponent(blog.metatitle);
+  const hashtags = blog.metatitle;
   
   // const id = params.id;
   //  const [blog, setBlog] = useState("");
@@ -84,6 +86,7 @@ const ListingDynamicDetailsV1 = ({blog}) => {
                   </div>
                   <h3 className="blog_sp_title">{blog?.title}</h3>
                   <ul className="blog_sp_post_meta">
+                    
                     {/* <li className="list-inline-item">
                       <a href="#">
                         <Image
@@ -121,6 +124,53 @@ const ListingDynamicDetailsV1 = ({blog}) => {
                       <a href="#">15</a>
                     </li> */}
                   </ul>
+                  <div className="share_btn h1ads_1st_list half_style dn-991 map-half-style position-relative">
+                      <div className="row align-items-center">
+                        <div className="col-md-12">
+                          <div className="navbered w-100">
+                            <div className="mega-dropdown home2">
+                              <span
+                                id="show_advbtn"
+                                className="dropbtn"
+                                data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside"
+                                aria-expanded="false"
+                              >
+                                Share
+                              </span>
+
+                              <div className="dropdown-content dropdown-menu ">
+                                <div className="row">
+                                  <div className="col-lg-12">
+                                    <ul class="sub-menu">
+                                      <li>
+                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
+                                      </li>
+                                      <li>
+                                        <a href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}&hashtags=${hashtags}`} target="_blank"><i class="fa fa-linkedin"></i> Linkedin</a>
+                                      </li>
+                                      <li>
+                                        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
+                                      </li>
+                                       <li>
+                                        <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                 
+                                </div>
+                                {/* End .row */}
+                              </div>
+                              {/* End .dropdown-menu */}
+                            </div>
+                          </div>
+                          {/* End .advance filter button */}
+                        </div>
+                        {/* End .col */}
+                        {/* End .col */}
+                      </div>
+                      {/* End .row */}
+                    </div>
                   <div className="thumb">
                     <Image
                       width={692}
