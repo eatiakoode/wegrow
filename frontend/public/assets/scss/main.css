@@ -1738,8 +1738,8 @@ section.aboutland{
   background-color: var(--color-primary);
 }
 .share_btn.h1ads_1st_list.half_style .navbered span{ color: var(--white-color);}
-.share_btn .dropdown-content{padding: 0px;min-height: auto;}
-.lsd_list .share_btn .dropdown-content li{line-height: 28px;text-align: left;}
+.share_btn .dropdown-content{padding: 0px;min-height: auto;background-color: #f7f7f7;}
+.lsd_list .share_btn .dropdown-content li{line-height: 28px;text-align: left;display: block;margin:0}
 .lsd_list .share_btn .dropdown-content li i{
   width: 25px;
     background-color: var(--color-primary);

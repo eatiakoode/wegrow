@@ -111,7 +111,7 @@ const ListingDynamicDetailsV1 = ({blog}) => {
     year: 'numeric',
   })}</a>
                     </li>
-                    <li className="list-inline-item ms-4">
+                    <li className="lsd_list list-inline-item ms-4">
                       <div className="share_btn h1ads_1st_list half_style dn-991 map-half-style position-relative">
                       <div className="row align-items-center">
                         <div className="col-md-12">
