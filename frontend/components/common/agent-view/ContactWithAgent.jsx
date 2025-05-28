@@ -120,9 +120,10 @@ const ContactWithAgent = ({property}) => {
               value={budget}
               onChange={(e) => setBudget(e.target.value)}>
               <option value="">Select Budget</option>
-              <option value="1cr">1cr</option>
-              <option value="between 1cr and 5cr">Between 1cr and 5cr</option>
-              <option value="above 5cr">Above 5cr</option>
+              <option value="1cr">Upto 2cr</option>
+              <option value="2 - 5cr">2 - 5cr</option>
+              <option value="5 - 10cr">5 - 10cr</option>
+              <option value="above 10cr">Above 10cr</option>
               <span className="flaticon-download-1 fz12"></span>
             </select>
             {error.budget && <span className="text-danger">{error.budget}</span>}
