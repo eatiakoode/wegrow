@@ -1,7 +1,7 @@
 // import Comments from "../blog-details/Comments";
 // import Ratings from "../blog-details/Ratings";
 // import ReviewBox from "../blog-details/ReviewBox";
-import AdditionalDetails from "../common/listing-details/AdditionalDetails";
+// import AdditionalDetails from "../common/listing-details/AdditionalDetails";
 import { useState } from "react";
 // import Attachments from "../common/listing-details/Attachments";
 import FloorPlans from "../common/listing-details/FloorPlans";
@@ -14,7 +14,7 @@ import PropertyFAQ from "../common/listing-details/PropertyFAQ";
 
 // import PropertyVideo from "../common/listing-details/PropertyVideo";
 // import WalkScore from "../common/listing-details/WalkScore";
-import WhatsNearby from "../common/listing-details/WhatsNearby";
+// import WhatsNearby from "../common/listing-details/WhatsNearby";
 
 import Image from "next/image";
 
@@ -22,7 +22,7 @@ const DetailsContent = ({property,faqs}) => {
   const [showPdfModal, setShowPdfModal] = useState(false);
   const [showFullBio, setShowFullBio] = useState(false);
   function stripHtml(html) {
-    return html.replace(/<[^>]*>/g, '');
+    return html?.replace(/<[^>]*>/g, '');
   }
     return (
     <>
@@ -302,7 +302,7 @@ const DetailsContent = ({property,faqs}) => {
                              
                             </div>
                            
-                            <p>{stripHtml(property.builderid?.description).slice(0, 500)}</p>
+                            <p>{stripHtml(property.builderid?.description)?.slice(0, 500)}</p>
                               
                               {showFullBio && (
                                   <>

@@ -6,7 +6,7 @@ import FilteringItem from "./FilteringItem";
 import { countPropertiesByType } from "@/api/frontend/propertytype";
 import { getPropertyFeatureData } from "@/api/frontend/property";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 const SidebarListing = ({ setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype,setPropertytypes,propertytypes }) => {
    

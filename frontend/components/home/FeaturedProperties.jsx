@@ -4,12 +4,12 @@ import Link from "next/link";
 import Slider from "react-slick";
 // import properties from "../../data/properties";
 import Image from "next/image";
-import { getPropertyFeatureData } from "@/api/frontend/property";
+// import { getPropertyFeatureData } from "@/api/frontend/property";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useCompare } from "@/components/common/footer/CompareContext";
-const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
-  const [properties, setProperties] = useState([]);
+const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) => {
+  // const [properties, setProperties] = useState([]);
   const { propertycompare, setPropertycompare } = useCompare();
   // const [showBox, setShowBox] = useState(false);
   // const [propertySelectedComp, setPropertySelectedComp] = useState([]);
@@ -21,13 +21,13 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
   //   return [];
   // });
   
-      const router = useRouter();
+      // const router = useRouter();
     
-      const fetchProperties = async () => {
-        const data = await getPropertyFeatureData();
-        // console.log(data)
-        setProperties(data);
-      };
+      // const fetchProperties = async () => {
+      //   const data = await getPropertyFeatureData();
+      //   // console.log(data)
+      //   setProperties(data);
+      // };
       const addCompareProperty = async (id) => {
       
         const isExist = propertycompare.includes(id);
@@ -187,9 +187,9 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox }) => {
       </div>
     </div>
   ));
-  useEffect(() => {
-    fetchProperties();
-  }, []); 
+  // useEffect(() => {
+  //   fetchProperties();
+  // }, []); 
   useEffect(() => {
     const stored = localStorage.getItem('propertycompare');
    

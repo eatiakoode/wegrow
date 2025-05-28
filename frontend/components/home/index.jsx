@@ -18,7 +18,7 @@ import WhyChoose from "../common/WhyChoose";
 import PopupSignInUp from "../common/PopupSignInUp";
 import { useState, useEffect } from "react";
 
-const Index = () => {
+const Index = ({properties,findcities,testimonials,cities}) => {
   const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
     if (typeof window !== "undefined") {
 
@@ -72,7 +72,7 @@ const Index = () => {
                 <FeaturedProperties 
                 // propertySelectedComp={propertySelectedComp}
         setPropertySelectedComp={setPropertySelectedComp}
-        setShowBox={setShowBox}/>
+        setShowBox={setShowBox} properties={properties}/>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@ const Index = () => {
             </div>
           </div>
           <div className="row">
-            <FindProperties />
+            <FindProperties findcities={findcities}/>
           </div>
         </div>
       </section>
@@ -130,7 +130,7 @@ const Index = () => {
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="testimonial_grid_slider">
-                <Testimonial />
+                <Testimonial testimonials={testimonials}/>
               </div>
             </div>
           </div>
@@ -274,7 +274,7 @@ const Index = () => {
                         <h2>Explore new properties</h2>
                         <p>Be the first to discover trending off-plan developments with exclusive previews, timely updates, and smart insights to guide your next move.</p>
                       </div>
-                      <ExploreMoreProperties />
+                      <ExploreMoreProperties cities={cities}/>
                     </div>
                     <div className="col-lg-5 offset-lg-1 ml-auto">
                       <div className="main-title text-center">

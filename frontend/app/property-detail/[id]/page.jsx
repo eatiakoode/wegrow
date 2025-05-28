@@ -1,6 +1,7 @@
 import "photoswipe/dist/photoswipe.css";
 import { getPropertyBySlug } from "@/api/frontend/property";
 import PropertyMain from "@/components/listing-details-v1";
+import { getFaqByPropertyIdData } from "@/api/frontend/faq";
 export async function generateMetadata({ params }) {
   try {
     const res = await getPropertyBySlug(params.id);
@@ -38,10 +39,17 @@ export async function generateMetadata({ params }) {
     };
   }
 }
-const ListingDynamicDetailsV1 = ({params})  => {
+const ListingDynamicDetailsV1 = async ({params})  => {
+  const res = await getPropertyBySlug(params.id);
+  // console.log("tests")
+  // console.log(res?.data)
+    const property = res?.data;
+    const dataFAQ = await getFaqByPropertyIdData(property._id);
+    const faqs=dataFAQ.data
+    
   return (
     <>
-      <PropertyMain params={params} />
+      <PropertyMain property={property} faqs={faqs}/>
     </>
   );
 };

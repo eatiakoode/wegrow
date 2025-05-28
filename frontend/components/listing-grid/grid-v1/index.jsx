@@ -11,7 +11,7 @@ import SidebarListing from "../../common/listing/SidebarListing";
 import PopupSignInUp from "../../common/PopupSignInUp";
 import BreadCrumb2 from "./BreadCrumb2";
 import FeaturedItem from "./FeaturedItem";
-// import { getPropertyFilterData } from "@/api/frontend/property";
+import { getPropertyFilterData } from "@/api/frontend/property";
 import { getPropertytypeByCategoryTableData,getPropertytypeTableData } from "@/api/frontend/propertytype.ts";
 
 import { useState, useEffect } from "react";
@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
 // import { useRouter, useParams } from "next/navigation";
 // import { useSearchParams } from 'next/navigation';
 
-const index = ({ properties, totalCount,filter }) => {
+const index = ({ properties:initialProperties, totalCount:initialCount,filter }) => {
   
   // const searchParams = useSearchParams();
   // const cat = searchParams.get('cat'); 
@@ -37,32 +37,34 @@ const index = ({ properties, totalCount,filter }) => {
   /*property paggination*/
   //  const [propertyList, setPropertyList] = useState([]);
 // const [totalCount, setTotalCount] = useState(0);
+const [totalCount, setTotalCount] = useState(initialCount || 0);
 const [currentPage, setCurrentPage] = useState(1);
 const pageSize = 4;
 // const [properties, setProperties] = useState([]);
+const [properties, setProperties] = useState(initialProperties || []);
 const [loaderproperty, setLoaderProperty] = useState("");
-// useEffect(() => {
-//   const fetchProperties = async () => {
-//     setLoaderProperty(true);
-//     const filter ={
-//       "keyword":keyword,
-//       "city":city,
-//       "category":category,
-//       "propertytype": propertytype,
-//       "limit":pageSize,
-//       "page":currentPage
-//     };
-//     const data = await getPropertyFilterData(filter);
-//           // console.log("prperty data")
-//           // console.log(data)
-//           setProperties(data.items);
-//           setLoaderProperty(false)
-//           // setPropertyList(data.items)
-//           setTotalCount(data.totalCount)
+useEffect(() => {
+  const fetchProperties = async () => {
+    // setLoaderProperty(true);
+    const filter ={
+      "keyword":keyword,
+      "city":city,
+      "category":category,
+      "propertytype": propertytype,
+      "limit":pageSize,
+      "page":currentPage
+    };
+    const data = await getPropertyFilterData(filter);
+          // console.log("prperty data")
+          // console.log(data)
+          setProperties(data.items);
+          setLoaderProperty(false)
+          // setPropertyList(data.items)
+          setTotalCount(data.totalCount)
           
-//         };
-//   fetchProperties();
-// }, [keyword, city, category, propertytype,currentPage,setTotalCount]);
+        };
+  fetchProperties();
+}, [keyword, city, category, propertytype,currentPage,setTotalCount]);
    const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
       if (typeof window !== "undefined") {
   

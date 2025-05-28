@@ -1,7 +1,7 @@
 import BuyFilter from "./BuyFilter";
 // import SaleFilter from "./SaleFilter";
 
-const GlobalHeroFilter = ({ className = "" }) => {
+const GlobalHeroFilter = ({ className = "",cities }) => {
   return (
     <div className={`apartments-listing ${className}`}>
       {/* <ul className="nav nav-pills" id="pills-tab" role="tablist">
@@ -42,7 +42,7 @@ const GlobalHeroFilter = ({ className = "" }) => {
           role="tabpanel"
           aria-labelledby="pills-home-tab"
         >
-          <BuyFilter />
+          <BuyFilter cities={cities}/>
         </div>
         {/* <div
           className="tab-pane fade"
