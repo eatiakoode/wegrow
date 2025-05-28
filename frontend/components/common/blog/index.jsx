@@ -170,7 +170,7 @@ const ListingDynamicDetailsV1 = ({blog}) => {
       </section>
 
       {/* <!-- Our Footer Bottom Area --> */}
-      <section className="footer_middle_area pt40 pb40">
+      <section className="footer_middle_area pt15 pb15">
         <div className="container">
           <CopyrightFooter />
         </div>

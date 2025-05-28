@@ -15489,7 +15489,7 @@ section.aboutland h3{
 @media (min-width: 1400px) {
   .footer_one:before{
     background-size: contain;
-    bottom: -70px;
+    bottom: -50px;
   }
 }
 
