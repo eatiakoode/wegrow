@@ -11,7 +11,7 @@ import SidebarListing from "../../common/listing/SidebarListing";
 import PopupSignInUp from "../../common/PopupSignInUp";
 import BreadCrumb2 from "./BreadCrumb2";
 import FeaturedItem from "./FeaturedItem";
-// import { getPropertyFilterData } from "@/api/frontend/property";
+import { getPropertyFilterData } from "@/api/frontend/property";
 import { getPropertytypeByCategoryTableData,getPropertytypeTableData } from "@/api/frontend/propertytype.ts";
 
 import { useState, useEffect } from "react";
@@ -19,50 +19,49 @@ import { useState, useEffect } from "react";
 // import { useRouter, useParams } from "next/navigation";
 // import { useSearchParams } from 'next/navigation';
 
-const index = ({ properties, totalCount,filter }) => {
+const index = ({ properties:initialProperties, totalCount:initialCount,filter :initialFilter }) => {
   
   // const searchParams = useSearchParams();
   // const cat = searchParams.get('cat'); 
   // const key = searchParams.get('keyword'); 
   // const cityget = searchParams.get('city'); 
   // const propertytypeget = searchParams.get('propertytype'); 
-  const [category, setCategory] = useState("");
-
-  const [keyword, setKeyword] = useState("");
-  const [city, setCity] = useState("");
-
- 
-  const [propertytype, setPropertytype] = useState("");
+  const [category, setCategory] = useState(initialFilter.category || "");
+  const [keyword, setKeyword] = useState(initialFilter.keyword || "");
+  const [city, setCity] = useState(initialFilter.city || "");
+  const [propertytype, setPropertytype] = useState(initialFilter.propertytype || "");
   const [propertytypes, setPropertytypes] = useState([]);
   /*property paggination*/
   //  const [propertyList, setPropertyList] = useState([]);
 // const [totalCount, setTotalCount] = useState(0);
+const [totalCount, setTotalCount] = useState(initialCount || 0);
 const [currentPage, setCurrentPage] = useState(1);
 const pageSize = 4;
 // const [properties, setProperties] = useState([]);
+const [properties, setProperties] = useState(initialProperties || []);
 const [loaderproperty, setLoaderProperty] = useState("");
-// useEffect(() => {
-//   const fetchProperties = async () => {
-//     setLoaderProperty(true);
-//     const filter ={
-//       "keyword":keyword,
-//       "city":city,
-//       "category":category,
-//       "propertytype": propertytype,
-//       "limit":pageSize,
-//       "page":currentPage
-//     };
-//     const data = await getPropertyFilterData(filter);
-//           // console.log("prperty data")
-//           // console.log(data)
-//           setProperties(data.items);
-//           setLoaderProperty(false)
-//           // setPropertyList(data.items)
-//           setTotalCount(data.totalCount)
+useEffect(() => {
+  const fetchProperties = async () => {
+    // setLoaderProperty(true);
+    const filter ={
+      "keyword":keyword,
+      "city":city,
+      "category":category,
+      "propertytype": propertytype,
+      "limit":pageSize,
+      "page":currentPage
+    };
+    const data = await getPropertyFilterData(filter);
+          // console.log("prperty data")
+          // console.log(data)
+          setProperties(data.items);
+          setLoaderProperty(false)
+          // setPropertyList(data.items)
+          setTotalCount(data.totalCount)
           
-//         };
-//   fetchProperties();
-// }, [keyword, city, category, propertytype,currentPage,setTotalCount]);
+        };
+  fetchProperties();
+}, [keyword, city, category, propertytype,currentPage,setTotalCount]);
    const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
       if (typeof window !== "undefined") {
   
@@ -79,11 +78,11 @@ const [loaderproperty, setLoaderProperty] = useState("");
   
     const [showBox, setShowBox] = useState(false);
     useEffect(  () => {
-      if (filter.category) {
-        setCategory(filter.category);
+      if (initialFilter.category) {
+        setCategory(initialFilter.category);
         const fetchData = async () => {
           try {
-            const res = await getPropertytypeByCategoryTableData(filter.category);
+            const res = await getPropertytypeByCategoryTableData(initialFilter.category);
             
             setPropertytypes(res.data || []);
           } catch (error) {
@@ -104,18 +103,18 @@ const [loaderproperty, setLoaderProperty] = useState("");
     
         fetchData();
       }
-      if (filter.keyword) {
-        setKeyword(filter.keyword);
+      if (initialFilter.keyword) {
+        setKeyword(initialFilter.keyword);
       }
-      if (filter.city) {
-        setCity(filter.city);
+      if (initialFilter.city) {
+        setCity(initialFilter.city);
       }
-      if (filter.propertytype) {
-        setPropertytype(filter.propertytype);
+      if (initialFilter.propertytype) {
+        setPropertytype(initialFilter.propertytype);
       }
      
       
-    }, [filter]);
+    }, [initialFilter]);
     
            
     // useEffect(() => {

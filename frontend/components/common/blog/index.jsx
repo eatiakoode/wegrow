@@ -1,6 +1,6 @@
 "use client"; 
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 
 import BreadCrumb2 from "@/components/blog-details/BreadCrumb2";
 // import Comments from "@/components/blog-details/Comments";
@@ -18,7 +18,7 @@ import PopupSignInUp from "@/components/common/PopupSignInUp";
 // import blogs from "@/data/blogs";
 import Image from "next/image";
 
-import { getBlogBySlug } from "@/api/frontend/blog";
+// import { getBlogBySlug } from "@/api/frontend/blog";
 
 // export const metadata = {
 //   title: 'Blog Details || Wegrow - Real Estate React Template',
@@ -26,33 +26,33 @@ import { getBlogBySlug } from "@/api/frontend/blog";
 //     'Wegrow - Real Estate React Template',
 // }
 
-const ListingDynamicDetailsV1 = ({params}) => {
+const ListingDynamicDetailsV1 = ({blog}) => {
   const [showBox, setShowBox] = useState(false);
 
   
-  const id = params.id;
-   const [blog, setBlog] = useState("");
+  // const id = params.id;
+  //  const [blog, setBlog] = useState("");
   // const blog = blogs.find((item) => item.id == id) ||  blogs[0]
 
-useEffect(() => {
-      if (!id) return;  
-    //   alert(id)    
-      const fetchBlog = async () => {
-        try {
-          const data = await getBlogBySlug(id);
-          console.log("blog data")
-          console.log(data)
-          setBlog(data.data)
+// useEffect(() => {
+//       if (!id) return;  
+//     //   alert(id)    
+//       const fetchBlog = async () => {
+//         try {
+//           const data = await getBlogBySlug(id);
+//           console.log("blog data")
+//           console.log(data)
+//           setBlog(data.data)
          
-        } catch (error) {
-          console.error("Error fetching Blog:", error);
-        } finally {
-          // setLoading(false);
-        }
-      };
+//         } catch (error) {
+//           console.error("Error fetching Blog:", error);
+//         } finally {
+//           // setLoading(false);
+//         }
+//       };
   
-      fetchBlog();
-    }, [id]);
+//       fetchBlog();
+//     }, [id]);
   return (
     <>
 

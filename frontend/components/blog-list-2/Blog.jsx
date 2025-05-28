@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const Blog = ({blogs}) => {
   function stripHtml(html) {
-    return html.replace(/<[^>]*>/g, '');
+    return html?.replace(/<[^>]*>/g, '');
   }
   
   // const router = useRouter();

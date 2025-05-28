@@ -127,6 +127,12 @@ var propertySchema = new mongoose.Schema(
       // unique: true,
       // index: true,
     },
+    specifications: {
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
     sellername: {
       type: String,
       // required: true,

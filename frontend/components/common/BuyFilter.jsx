@@ -4,45 +4,25 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import { getCityWithPropertyPage} from "@/api/frontend/city";
+// import { getCityWithPropertyPage} from "@/api/frontend/city";
 
-const locations = {
-  "Find Properties in Dubai": [
-    "Apartments for Rent in Dubai",
-    "Apartments for Rent in Downtown Dubai",
-    "Apartments For Rent in International City",
-  ],
-  "Find Properties in Gurgaon": [
-    "Apartments for Rent in Gurgaon",
-    "Villas for Rent in Gurgaon",
-  ],
-  "Find Properties in Delhi": [
-    "Apartments for Rent in Delhi",
-    "Villas for Rent in Delhi",
-  ],
-  "Find Properties in Noida": [
-    "Apartments for Rent in Noida",
-    "Villas for Rent in Noida",
-  ],
-};
+const BuyFilter = ({ className = "" ,cities}) => {
+  // const [cities, setCities] = useState([]);
 
-const BuyFilter = ({ className = "" }) => {
-  const [cities, setCities] = useState([]);
-
-   useEffect(() => {
-        const fetchCities = async () => {
-          try {
-            const response = await getCityWithPropertyPage();
-            // console.log("responsecitylocation")
-            // console.log(response)
-            setCities(response.data || []);
-          } catch (err) {
-            console.error("Error fetching Country:", err);
-          }
-        };
+  //  useEffect(() => {
+  //       const fetchCities = async () => {
+  //         try {
+  //           const response = await getCityWithPropertyPage();
+  //           // console.log("responsecitylocation")
+  //           // console.log(response)
+  //           setCities(response.data || []);
+  //         } catch (err) {
+  //           console.error("Error fetching Country:", err);
+  //         }
+  //       };
     
-        fetchCities();
-      }, []);
+  //       fetchCities();
+  //     }, []);
   const [activeAccordion, setActiveAccordion] = useState(null);
   const router = useRouter();
 
@@ -59,7 +39,7 @@ const BuyFilter = ({ className = "" }) => {
     <div className={`accordion-filter ${className}`}>
       {/* {Object.entries(cities).map(([city, locations]) => ( */}
       {/* {cities.map(([city, locations]) => ( */}
-      {cities.map((city) => (
+      {cities?.map((city) => (
         
         <div key={city._id} className="accordion-item mb-2 border">
           {/* <p

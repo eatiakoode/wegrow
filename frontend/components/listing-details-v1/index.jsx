@@ -17,50 +17,50 @@ import { getFaqByPropertyIdData } from "@/api/frontend/faq";
 
 import { getPropertyBySlug } from "@/api/frontend/property";
 
-const ListingDynamicDetailsV12 = ({params}) => {
+const ListingDynamicDetailsV12 = ({property,faqs}) => {
  
-  const id = params.id;
+  // const id = params.id;
   // const property = properties?.find((item) => item.id == id) || properties[0]
-  const [property, setProperty] = useState([]);
+  // const [property, setProperty] = useState([]);
   const [propertySelectedComp, setPropertySelectedComp] = useState([]);
  
   const [showBox, setShowBox] = useState(false);
-  const [faqs, setFaqs] = useState([]);
+  // const [faqs, setFaqs] = useState([]);
 
-  const fetchFaqs = async (id) => {
-    try {
-      const data = await getFaqByPropertyIdData(id);
-      console.log(" faq data")
-      console.log(data)
-      setFaqs(data.data);
-    } catch (error) {
-      console.error("Error fetching FAQs:", error);
-    }
-  };
+  // const fetchFaqs = async (id) => {
+  //   try {
+  //     const data = await getFaqByPropertyIdData(id);
+  //     console.log(" faq data")
+  //     console.log(data)
+  //     setFaqs(data.data);
+  //   } catch (error) {
+  //     console.error("Error fetching FAQs:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-     if (!id) return;      
-          const fetchProperty = async () => {
-            try {
-              const data = await getPropertyBySlug(id);
-              setProperty(data.data)
-              fetchFaqs(data.data._id)
-              console.log("propertyid")
-              console.log(data)
-              console.log("propertyid end")
+  // useEffect(() => {
+  //    if (!id) return;      
+  //         const fetchProperty = async () => {
+  //           try {
+  //             const data = await getPropertyBySlug(id);
+  //             setProperty(data.data)
+  //             fetchFaqs(data.data._id)
+  //             console.log("propertyid")
+  //             console.log(data)
+  //             console.log("propertyid end")
              
               
-            } catch (error) {
-              console.error("Error fetching Builder:", error);
-            } finally {
-              // setLoading(false);
-            }
-          };
+  //           } catch (error) {
+  //             console.error("Error fetching Builder:", error);
+  //           } finally {
+  //             // setLoading(false);
+  //           }
+  //         };
       
-          fetchProperty();
+  //         fetchProperty();
           
        
-  }, [id]);
+  // }, [id]);
 
   return (
     <>

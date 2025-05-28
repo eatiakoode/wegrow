@@ -1,26 +1,26 @@
-'use client'
+// 'use client'
 
 import Image from "next/image";
 // import testimonials from "../../data/testimonial";
 import Slider from "react-slick";
-import { getTestimonialTableData } from "../../api/frontend/testimonial";
+// import { getTestimonialTableData } from "../../api/frontend/testimonial";
 
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 // import { useRouter } from "next/navigation";
 
-const Testimonial = () => {
-  const [testimonials, setFindTestimonial] = useState([]);
+const Testimonial = ({testimonials}) => {
+  // const [testimonials, setFindTestimonial] = useState([]);
           // const router = useRouter();
         
-          const fetchFindTestimonial = async () => {
-            const data = await getTestimonialTableData();
-            console.log("data")
-            console.log(data)
-            setFindTestimonial(data);
-          };
-          useEffect(() => {
-            fetchFindTestimonial();
-          }, []); 
+          // const fetchFindTestimonial = async () => {
+          //   const data = await getTestimonialTableData();
+          //   console.log("data")
+          //   console.log(data)
+          //   setFindTestimonial(data);
+          // };
+          // useEffect(() => {
+          //   fetchFindTestimonial();
+          // }, []); 
   const settings = {
     dots: true,
     arrow: false,
@@ -33,7 +33,7 @@ const Testimonial = () => {
   return (
     <>
       <Slider {...settings} arrows={false}>
-        {testimonials.slice(0, 5).map((item) => (
+        {testimonials?.slice(0, 5).map((item) => (
           <div className="item" key={item._id}>
             <div className="testimonial_grid">
               <div className="thumb">

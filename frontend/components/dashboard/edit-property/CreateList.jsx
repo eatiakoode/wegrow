@@ -91,6 +91,8 @@ const [constructionstatus, setConstructionstatus] = useState([]);
   const [mapembedcode, setMapEmbedCode] = useState([]);
   const [videoembedcode, setVideoEmbedCode] = useState([]);
   const [nearby, setNearBy] = useState([]);
+  const [specifications, setSpecifications] = useState([]);
+  
   const [sellername, setSellerName] = useState([]);
   const [selleremail, setSellerEmail] = useState([]);
   const [sellerphone, setSellerPhone] = useState([]);
@@ -212,6 +214,8 @@ useEffect(() => {
             setMapEmbedCode(property.mapembedcode)
             setVideoEmbedCode(property.videoembedcode)
             setNearBy(property.nearby)
+            setSpecifications(property.specifications)
+            
             setSellerName(property.sellername)
             setSellerEmail(property.selleremail)
             setSellerPhone(property.sellerphone)
@@ -429,7 +433,7 @@ const updateProperty = async (e) => {
       propertyid, areasize, sizeprefix,
       bedrooms, bathrooms, garages, garagessize,
       yearbuild, mapembedcode, videoembedcode,
-      nearby, sellername, selleremail, sellerphone, 
+      nearby,specifications, sellername, selleremail, sellerphone, 
       reranumber, zipcode, metatitle, metadescription,featuredimage,siteplan,status,
       admin_approve:adminapprove,
       pdffile
@@ -924,6 +928,12 @@ const updateProperty = async (e) => {
         <div className="my_profile_setting_textarea">
           <label htmlFor="nearBy">Near By </label>
           <textarea id="nearBy" className="form-control" rows="7"  value={nearby} onChange={(e) => setNearBy(e.target.value)}  placeholder="Enter Near By"></textarea>
+        </div>
+      </div>
+      <div className="col-lg-12">
+        <div className="my_profile_setting_textarea">
+          <label htmlFor="specifications">Specifications</label>
+          <textarea id="specifications" className="form-control" rows="7"  value={specifications} onChange={(e) => setSpecifications(e.target.value)}  placeholder="Enter Specifications"></textarea>
         </div>
       </div>
       <div className="col-lg-6 col-xl-6">
