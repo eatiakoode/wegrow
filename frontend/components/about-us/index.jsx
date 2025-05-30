@@ -46,12 +46,14 @@ const index = () => {
           <div className="row">
             <div className="col-lg-8 offset-lg-2">
               <div className="who-we-are flex-column">
+                <div>
                   <p>At <strong>WeGrow Infraventures Pvt Ltd,</strong> we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment. With our expert team, we guide residential buyers and commercial investors through every step, ensuring they make the best real estate decisions. Let us help you secure your future with property investments that matter.</p>
                   <div className="view-all">
                     <Link href="#team" className="btn btn-primary">
                       <span className="title">Meet Our Team</span>
                     </Link>
                   </div>
+                </div>
               </div>
             </div>
           </div>
@@ -119,13 +121,14 @@ const index = () => {
                   </div>
                   <div className="col-lg-8">
                     <div className="who-we-are">
-                      <div className="main-title text-left mb-2">
-                        <h2>About Ankit Goyat</h2>
-                        <p>Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</p>
-                      </div>
-                        <p>Mr. Ankit Goyat, the Founder & Chairman of WeGrow Infraventures, has been a driving force in transforming the real estate landscape. With over 7 years of experience, he has built a reputation for delivering client-centric, high-value real estate solutions in both residential and commercial sectors.</p>
-                        <p>Under his visionary leadership, WeGrow Infraventures has redefined real estate consulting by integrating market</p>
-                        {showFullBio && (
+                      
+                          <div className="main-title text-left mb-2">
+                            <h2>About CEO</h2>
+                            <p>Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</p>
+                          </div>
+                          <p>Mr. Ankit Goyat, the Founder & Chairman of WeGrow Infraventures, has been a driving force in transforming the real estate landscape. With over 7 years of experience, he has built a reputation for delivering client-centric, high-value real estate solutions in both residential and commercial sectors.</p>
+                          <p>Under his visionary leadership, WeGrow Infraventures has redefined real estate consulting by integrating market</p>
+                          {showFullBio && (
                             <>
                               <p>
                                 
@@ -149,8 +152,7 @@ const index = () => {
                                 {showFullBio ? "Read Less" : "Read More"}
                               </button>
                           </div>
-                          
-                    </div>
+                        </div> 
                   </div>
                 </div>
             </div>

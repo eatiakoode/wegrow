@@ -7810,9 +7810,8 @@ header .get_in_touch span{
 .commited-to-excellence .who-we-are{
     left: -2px;
     top: 0;
-    background-color: var(--color-primary);
-    outline: 3px dashed var(--white-color);
-    outline-offset: -14px;
+    background-color: var(--lightgrey-color);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
     border-radius: 20px;
     color: var(--white-color);
     width: 100%;
@@ -7820,10 +7819,15 @@ header .get_in_touch span{
     text-align: center;
     display: flex;
     justify-content: center;
-    padding: 30px;
+    padding: 20px;
+}
+.commited-to-excellence .who-we-are > div:first-child{
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 30px 15px;
 }
 .commited-to-excellence .who-we-are p{
-  color: var(--white-color);
+  color: var(--darkgrey-color);
 }
 .commited-to-excellence .who-we-are .view-all{
   position: static;
@@ -10119,15 +10123,20 @@ ul.ab_counting li:last-child {
 
 .team_member {
   background-color: #ffffff;
-  border: 1px solid #ebebeb;
+  border: 1px solid transparent;
   border-radius: 8px;
   padding: 10px;
   position: relative;
   text-align: center;
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+}
+.team_member:hover, .team_member:focus{
+  border: 1px solid #ebebeb;
+  box-shadow: none;
 }
 
 .team_member .thumb {
