@@ -4,6 +4,7 @@ import { useState } from "react";
 import { addBuilderAPI } from "../../../api/builder";
 const CreateList = () => {
    const [title, setTitle] = useState("");
+   const [slug, setSlug] = useState("");
    const [description, setDescription] = useState("");
     const [error, setError] = useState("");
     const [logo, setLogo] = useState(null);
@@ -21,6 +22,14 @@ const CreateList = () => {
         setError("");
       }
     };
+    const handleSlugChange = (e) => {
+      setSlug(e.target.value);
+  
+      // ✅ Clear the error when user starts typing
+      if (e.target.value.trim() !== "") {
+        setError("");
+      }
+    };
   
     const addBuilder = async (e) => {
       e.preventDefault();
@@ -29,12 +38,17 @@ const CreateList = () => {
         setError("Title is required");
         return;
       }
+      if (!slug.trim()) {
+        setError("Slug is required");
+        return;
+      }
     
       setError("");
     
       try {
         const formData = new FormData();
         formData.append("title", title);
+        formData.append("slug", slug);
         formData.append("description", description);
         if (logo) {
           formData.append("logo", logo);
@@ -47,6 +61,7 @@ const CreateList = () => {
         alert(data.message);
     
         setTitle("");
+        setSlug("");
         setDescription("");
         setLogo(null);
       } catch (error) {
@@ -90,6 +105,13 @@ const CreateList = () => {
         <div className="my_profile_setting_input form-group">
           <label htmlFor="builderTitle">Builder Title</label>
           <input type="text" className="form-control" id="builderTitle" value={title} onChange={handleTitleChange} />
+          {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+        </div>
+      </div>
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="builderSlug">Builder Slug</label>
+          <input type="text" className="form-control" id="builderSlug" value={slug} onChange={handleSlugChange} />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
       </div>

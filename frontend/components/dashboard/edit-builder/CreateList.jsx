@@ -11,6 +11,7 @@ const CreateList = () => {
     const router = useRouter();
     const [builder, setBuilder] = useState({ title: "", status: false,description: "", });
     const [title, setTitle] = useState("");
+    const [slug, setSlug] = useState("");
     const [status, setStatus] = useState("");
     const [loading, setLoading] = useState(true);
     const [description, setDescription] = useState("");
@@ -30,8 +31,9 @@ const CreateList = () => {
           console.log("data")
           console.log(data)
           console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
-          // setBlog({ title: data.data.title, status: data.data.status, description: data.data.description });
+          // setBuilder({ title: data.data.title, status: data.data.status, description: data.data.description });
           setTitle(data.data.title)
+          setSlug(data.data.slug)
           setStatus(data.data.status)
           setDescription(data.data.description)
           if(data.data.logoimage) {
@@ -52,6 +54,7 @@ const CreateList = () => {
       try {
         const formData = new FormData();
         formData.append("title", title);
+        formData.append("slug", slug);
         formData.append("description", description);
         formData.append("status", status);
         if (logo) {
@@ -67,11 +70,11 @@ const CreateList = () => {
     };
   
     // const handleChange = (e) => {
-    //   setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    //   setBuilder((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     // };
   
     // const handleStatusChange = () => {
-    //   setBlog((prev) => ({ ...prev, status: !prev.status }));
+    //   setBuilder((prev) => ({ ...prev, status: !prev.status }));
     // };
   
     if (loading) return <p>Loading...</p>;
@@ -114,6 +117,20 @@ const CreateList = () => {
         name="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+      />
+        </div>
+      </div>
+      {/* End .col */}
+      <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="BuilderSlug">Builder Slug</label>
+          <input
+        type="text"
+        className="form-control"
+        id="BuilderSlug"
+        name="slug"
+        value={slug}
+        onChange={(e) => setSlug(e.target.value)}
       />
         </div>
       </div>
