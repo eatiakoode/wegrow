@@ -7115,6 +7115,8 @@ header .get_in_touch span{
   right: 30px;
 }
 
+.property_detaill_view .container > .row:nth-of-type(2) .property_box{height: 450px;overflow: auto;}
+
 .spss ul li {
   border-radius: 8px;
   background-color: rgb(0, 106, 112);
@@ -7327,7 +7329,7 @@ header .get_in_touch span{
   border-radius: 8px;
   background-color: rgb(247, 247, 247);
   height: 40px;
-  padding: 6px 25px;
+  padding: 6px 15px;
   text-align: center;
 }
 

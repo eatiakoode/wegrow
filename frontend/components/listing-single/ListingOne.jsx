@@ -22,7 +22,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
   };
   return (
     
-    <section className="listing-title-area mt85 md-mt0">
+    <section className="property_detaill_view listing-title-area mt85 md-mt0">
     <div className="container">
       <Gallery>
         <div className="row mb30">
@@ -123,7 +123,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
           {/* End .col-sm-7 .col-lg-8 */}
 
           <div className="col-sm-5 col-lg-4">
-            <div className="row">
+            <div className="property_box row">
               {property?.images?.map((val, index) => (
                 <div className="col-6" key={index}>
                   <div className="spls_style_two img-gallery-box mb24">
