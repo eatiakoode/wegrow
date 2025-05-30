@@ -52,4 +52,22 @@
   
     return response.json();
   };
-
+  export const getBuilderBySlugWithProperty = async (id: string) => {
+  
+    const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+`api/builder/byidwithproperty/slug/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+      // body: JSON.stringify({ id }),
+    });
+  
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to get builder");
+    }
+  
+    return response.json();
+  };
+  

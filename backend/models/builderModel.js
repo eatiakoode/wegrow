@@ -1,6 +1,7 @@
 const mongoose = require("mongoose"); // Erase if already required
 
 // Declare the Schema of the Mongo model
+const Property = require("../models/propertyModel");
 
 var builderSchema = new mongoose.Schema(
   {
@@ -37,6 +38,13 @@ var builderSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+builderSchema.virtual('propertylist', {
+  ref: 'Property', // Make sure this matches the model name for your images schema
+  localField: '_id',
+  foreignField: 'builderid',
+});
 
+builderSchema.set('toObject', { virtuals: true });
+builderSchema.set('toJSON', { virtuals: true });
 //Export the model
 module.exports = mongoose.model("Builder", builderSchema);

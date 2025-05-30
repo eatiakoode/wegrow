@@ -42,8 +42,25 @@ const getBuilderSlug = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const getBuilderWithProperty = asyncHandler(async (req, res) => {
+  const { slug } = req.params;
+  // validateMongoDbId(id);
+  try {
+    const getaBuilder = await Builder.findOne({slug:slug}).populate("propertylist").lean();
+    const message={
+      "status":"success",
+      "message":"Data deleted sucessfully",
+      "data":getaBuilder
+    }
+    res.json(message);
+   //res.json(getaBuilder);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   getBuilder,
   getallBuilder,
-  getBuilderSlug
+  getBuilderSlug,
+  getBuilderWithProperty
 };

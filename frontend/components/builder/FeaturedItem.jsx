@@ -8,27 +8,14 @@ import { addLength } from "@/features/properties/propertiesSlice";
 // import properties from "@/data/properties";
 import Image from "next/image";
 
-const FeaturedItem = ({setPropertySelectedComp,setShowBox,properties}) => {
+const FeaturedItem = ({setPropertySelectedComp,setShowBox,builder}) => {
   const dispatch = useDispatch();
   const { statusType, featured, isGridOrList } = useSelector(
     (state) => state.filter
   );
   // status handler
-  let content = properties.items
+  let content = builder?.propertylist
     ?.slice(0, 36)
-    // ?.filter(keywordHandler)
-    // ?.filter(locationHandler)
-    // ?.filter(statusHandler)
-    // ?.filter(propertiesHandler)
-    // ?.filter(priceHandler)
-    // ?.filter(bathroomHandler)
-    // ?.filter(bedroomHandler)
-    // ?.filter(garagesHandler)
-    // ?.filter(builtYearsHandler)
-    // ?.filter(areaHandler)
-    // ?.filter(advanceHandler)
-    // ?.sort(statusTypeHandler)
-    // ?.filter(featuredHandler)
     .map((item,index) => (
       <div
       className={`${
@@ -158,8 +145,8 @@ const FeaturedItem = ({setPropertySelectedComp,setShowBox,properties}) => {
 
   // add length of filter items
   useEffect(() => {
-    dispatch(addLength(properties.totalCount));
-  }, [dispatch, properties]);
+    dispatch(addLength(builder.totalCount));
+  }, [dispatch, builder]);
 
   return <>{content}</>;
 };
