@@ -20838,8 +20838,8 @@ button.gm-ui-hover-effect:focus {
     right: 20px;
     left: auto;
     z-index: 9;
-    width: 600px;
-    max-width: 100%;
+    max-width: 600px;
+    width: auto;
     padding-bottom: 70px;
 }
 .compare_section{
