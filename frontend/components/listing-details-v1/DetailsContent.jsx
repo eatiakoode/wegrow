@@ -11,6 +11,7 @@ import PropertyFeatures from "../common/listing-details/PropertyFeatures";
 import PropertyItem from "../common/listing-details/PropertyItem";
 import PropertyLocation from "../common/listing-details/PropertyLocation";
 import PropertyFAQ from "../common/listing-details/PropertyFAQ";
+import Link from "next/link";
 
 // import PropertyVideo from "../common/listing-details/PropertyVideo";
 // import WalkScore from "../common/listing-details/WalkScore";
@@ -140,14 +141,7 @@ const hashtags = property.metatitle;
         </div>
       </div>
       {/* End .location_area */}
-      {faqs?.length > 0 && (
-      <div className="application_statics mt30">
-        <h4 className="mb30">FAQ</h4>
-        <div className="faq_according style2">
-          <PropertyFAQ faqs={faqs}/>
-        </div>
-      </div>
-      )}
+      
 
 {property.floorplan?.length > 0 && (
       <div className="application_statics mt30">
@@ -368,12 +362,16 @@ const hashtags = property.metatitle;
                                   </>
                                 )}
                                 <div className="view-all" style={{position:'static',transform:'none'}}>
-                                    <button
+                                    {/* <button
                                       className="btn btn-primary"
                                       onClick={() => setShowFullBio(!showFullBio)}
                                     >
                                       {showFullBio ? "Read Less" : "Read More"}
-                                    </button>
+                                    </button> */}
+                                    
+                                     <Link href={`/builder/${property.builderid?.slug}`} className="btn btn-primary">
+                                     Read More
+                                              </Link>
                                 </div>
                                 
                           </div>
@@ -382,7 +380,14 @@ const hashtags = property.metatitle;
                   </div>
                   </div>
  )}
-      
+      {faqs?.length > 0 && (
+      <div className="application_statics mt30">
+        <h4 className="mb30">FAQ</h4>
+        <div className="faq_according style2">
+          <PropertyFAQ faqs={faqs}/>
+        </div>
+      </div>
+      )}
     </>
   );
 };

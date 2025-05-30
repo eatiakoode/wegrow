@@ -41,12 +41,12 @@ const PropertyDetails = ({property}) => {
           </li>
           <li>
             <p>
-              Garage : <span>{property.garages}</span>
+              Parking : <span>{property.garages}</span>
             </p>
           </li>
           <li>
             <p>
-              Garage Size : <span>{property.garagessize} {property.garagessize}</span>
+            Parking Size : <span>{property.garagessize} {property.garagessize}</span>
             </p>
           </li>
         </ul>

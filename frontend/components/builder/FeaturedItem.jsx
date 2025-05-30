@@ -8,15 +8,15 @@ import { addLength } from "@/features/properties/propertiesSlice";
 // import properties from "@/data/properties";
 import Image from "next/image";
 
-const FeaturedItem = ({setPropertySelectedComp,setShowBox,builder}) => {
+const FeaturedItem = ({setPropertySelectedComp,setShowBox,properties}) => {
   const dispatch = useDispatch();
   const { statusType, featured, isGridOrList } = useSelector(
     (state) => state.filter
   );
   // status handler
-  let content = builder?.propertylist
-    ?.slice(0, 36)
-    .map((item,index) => (
+  let content = properties
+    // ?.slice(0, 36)
+    ?.map((item,index) => (
       <div
       className={`${
         isGridOrList ? "col-12 feature-list" : "col-md-4 col-lg-4"
@@ -145,8 +145,8 @@ const FeaturedItem = ({setPropertySelectedComp,setShowBox,builder}) => {
 
   // add length of filter items
   useEffect(() => {
-    dispatch(addLength(builder.totalCount));
-  }, [dispatch, builder]);
+    dispatch(addLength(properties.totalCount));
+  }, [dispatch, properties]);
 
   return <>{content}</>;
 };
