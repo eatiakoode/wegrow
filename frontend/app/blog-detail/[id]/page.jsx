@@ -41,19 +41,19 @@ export async function generateMetadata({ params }) {
     return {
       title: blog.metatitle? blog.metatitle : blog.title || 'Property Details | Wegrow',
       description: blog.metadescription?.slice(0, 200) ? blog.metadescription : blog.description?.slice(0, 200)|| 'Read more on Wegrow blog.',
-      // openGraph: {
-      //   title: blog.title,
-      //   description: blog.description?.slice(0, 150),
-      //   images: blog.logoimage
-      //     ? [
-      //         {
-      //           url: `${process.env.NEXT_PUBLIC_API_URL}${blog.logoimage}`,
-      //           width: 800,
-      //           height: 600,
-      //         },
-      //       ]
-      //     : [],
-      // },
+      openGraph: {
+        title: blog.title,
+        description: blog.description?.slice(0, 150),
+        images: blog.logoimage
+          ? [
+              {
+                url: `${process.env.NEXT_PUBLIC_API_URL}${blog.logoimage}`,
+                width: 800,
+                height: 600,
+              },
+            ]
+          : [],
+      },
     };
   } catch (error) {
     console.error("Metadata error:", error);

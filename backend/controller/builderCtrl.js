@@ -2,6 +2,8 @@ const Builder = require("../models/builderModel");
 const asyncHandler = require("express-async-handler");
 const validateMongoDbId = require("../utils/validateMongodbId");
 const { uploadPhoto, builderImgResize } = require("../middlewares/uploadImage");
+const slugify = require("slugify");
+
 
 const createBuilder = asyncHandler(async (req, res) => {
  
@@ -15,6 +17,7 @@ const createBuilder = asyncHandler(async (req, res) => {
         req.body.logoimage = "public/images/builder/"+processedImages[0];
       }
     }
+    req.body.slug  = slugify(req.body.slug.toLowerCase());
     const newBuilder = await Builder.create(req.body);
     const message={
       "status":"success",
@@ -40,7 +43,7 @@ const updateBuilder = asyncHandler(async (req, res) => {
           req.body.logoimage = "public/images/builder/"+processedImages[0];
         }
       }
-
+  req.body.slug  = slugify(req.body.slug.toLowerCase());
     const updatedBuilder = await Builder.findByIdAndUpdate(id, req.body, {
       new: true,
     });
