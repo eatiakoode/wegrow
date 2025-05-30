@@ -876,7 +876,7 @@ const updateProperty = async (e) => {
 
       <div className="col-lg-6 col-xl-4">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="garages">Garages</label>
+          <label htmlFor="garages">Parkings</label>
           <input type="text"
               className="form-control"
               id="garages"
@@ -888,7 +888,7 @@ const updateProperty = async (e) => {
 
       <div className="col-lg-6 col-xl-4">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="garagesSize">Garages Size</label>
+          <label htmlFor="garagesSize">Parkings Size</label>
           <input type="text"
               className="form-control"
               id="garagesSize"

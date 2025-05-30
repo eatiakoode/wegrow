@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { ObjectId } = require("mongodb");
 const slugify = require("slugify");
 const PropertyPage = require("../../models/propertypageModel");
+const Builder=require("../../models/builderModel")
 const { featuredImageResize,sitePlanResize,propertySelectedImgsResize } = require("../../middlewares/uploadImage");
 
 const getProperty = asyncHandler(async (req, res) => {
@@ -327,6 +328,51 @@ const propertyListTrends = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const propertyListByBuilder = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    //  const getaPropertyPage = await Builder.findOne({ slug: slug }).lean();
+    let query = {};
+    // let query ={"status":true}
+    query["status"] =true;
+    query["admin_approve"] =true;
+    
+    
+    if(id){
+      query["builderid"] = id;      
+    }
+    
+    let limit=100;
+    let skip=1;
+
+    if (req.query.limit ) {
+      limit=req.query.limit;
+      skip=req.query.skip;     
+  }
+    // const getallProperty = await Property.find(query).populate("cityid").populate("categoryid").populate("propertytypeid").populate("locationid").sort({updated_at: -1}).skip((skip - 1) * limit).limit(parseInt(limit)).lean();
+    const [propertyList, totalCount] = await Promise.all([
+      Property.find(query)
+        .populate("cityid")
+        .populate("categoryid")
+        .populate("propertytypeid")
+        .populate("locationid")
+        .sort({ updated_at: -1 })
+        .skip((skip - 1) * limit)
+        .limit(limit)
+        .lean(),
+    
+      Property.countDocuments(query) // total matching without skip/limit
+    ]);
+    res.status(200).json({
+      items: propertyList,
+      totalCount: totalCount,
+      currentPage: skip,
+      totalPages: Math.ceil(totalCount / limit)
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   getProperty,
   getallPropertyList,
@@ -335,5 +381,6 @@ module.exports = {
   getPropertySlug,
   createProperty,
   propertyListByPage,
-  propertyListTrends
+  propertyListTrends,
+  propertyListByBuilder
 };

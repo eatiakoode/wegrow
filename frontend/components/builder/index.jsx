@@ -13,7 +13,7 @@ import FeaturedItem from "./FeaturedItem";
 
 // import { getPropertyPageBySlug } from "@/api/frontend/propertypage";
 
-// import { getPropertyListbyPropertypage } from "@/api/frontend/property";
+import { getPropertyListbyBuilder } from "@/api/frontend/property";
 
 import Image from "next/image";
 
@@ -37,41 +37,39 @@ const ListingDynamicDetailsproperty = ({builder}) => {
     
     // const id = params.id;
     //  const [propertypage, setPropertyPage] = useState("");
-    //  const [properties, setProperties] = useState("");
+     const [properties, setProperties] = useState([]);
     // const blog = blogs.find((item) => item.id == id) ||  blogs[0]
   
-//   useEffect(() => {
-//     // alert(id)   
-//         if (!id) return;  
+  useEffect(() => {
+    // alert(id)   
+        // if (!builder) return;  
          
-//         const fetchPropertyPage = async () => {
-//           try {
-//             const data = await getPropertyPageBySlug(id);
-//             console.log("PropertyPage data")
-//             console.log(data)
-//             setPropertyPage(data.data)
+        // const fetchPropertyPage = async () => {
+        //   try {
+        //     const data = await getPropertyPageBySlug(id);
+        //     console.log("PropertyPage data")
+        //     console.log(data)
+        //     setPropertyPage(data.data)
            
-//           } catch (error) {
-//             console.error("Error fetching PropertyPage:", error);
-//           } finally {
-//             // setLoading(false);
-//           }
-//         };
+        //   } catch (error) {
+        //     console.error("Error fetching PropertyPage:", error);
+        //   } finally {
+        //     // setLoading(false);
+        //   }
+        // };
     
-//         fetchPropertyPage();
-//         const fetchData = async () => {
-//           try {
-//             const res = await getPropertyListbyPropertypage(id);
-// console.log("res")
-// console.log(res)
-//             setProperties(res || []);
-//           } catch (error) {
-//             console.error("Error fetching property types:", error);
-//           }
-//         };
+        // fetchPropertyPage();
+        const fetchData = async () => {
+          try {
+            const res = await getPropertyListbyBuilder(builder?._id);
+            setProperties(res.items || []);
+          } catch (error) {
+            console.error("Error fetching property types:", error);
+          }
+        };
     
-//         fetchData();
-//       }, [id]);
+        fetchData();
+      }, [builder]);
   
   return (
     <>
@@ -115,7 +113,7 @@ const ListingDynamicDetailsproperty = ({builder}) => {
                           </div>
                         </div>
                         <FeaturedItem setPropertySelectedComp={setPropertySelectedComp}
-                        setShowBox={setShowBox} builder={builder}/>
+                        setShowBox={setShowBox} properties={properties}/>
                             </div>
                       </div>
                 </section>
