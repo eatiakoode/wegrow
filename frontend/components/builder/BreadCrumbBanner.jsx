@@ -1,6 +1,6 @@
 import BreadCrumb from "../common/BreadCrumb";
 
-const BreadCrumbBanner = ({propertypage}) => {
+const BreadCrumbBanner = ({builder}) => {
   return (
     <section className="inner_page_breadcrumb">
       <video
@@ -16,8 +16,8 @@ const BreadCrumbBanner = ({propertypage}) => {
         <div className="row">
           <div className="col-xl-6">
             <div className="breadcrumb_content">
-            <BreadCrumb title={propertypage.title} />
-              <h4 className="breadcrumb_title">{propertypage.title}</h4>
+            <BreadCrumb title={builder.title} />
+              <h4 className="breadcrumb_title">{builder.title}</h4>
             </div>
           </div>
           {/* End .col */}

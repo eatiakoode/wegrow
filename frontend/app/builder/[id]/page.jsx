@@ -1,10 +1,10 @@
 import dynamic from "next/dynamic";
-import { getBuilderBySlug } from "@/api/frontend/builder";
+import { getBuilderBySlugWithProperty } from "@/api/frontend/builder";
 import BuilderDetail from "@/components/builder";
 
 export async function generateMetadata({ params }) {
   try {
-    const res = await getBuilderBySlug(params.id);
+    const res = await getBuilderBySlugWithProperty(params.id);
     const builder = res?.data;
 
     if (!builder) {
@@ -44,7 +44,7 @@ const BuilderDetailsDynamic = async ({params}) => {
   
   const id = params.id;
   
-const res = await getBuilderBySlug(params.id);
+const res = await getBuilderBySlugWithProperty(params.id);
     const builder = res?.data;
   return (
     <>

@@ -11,13 +11,13 @@ import PopupSignInUp from "../common/PopupSignInUp";
 import BreadCrumbBanner from "./BreadCrumbBanner";
 import FeaturedItem from "./FeaturedItem";
 
-import { getPropertyPageBySlug } from "@/api/frontend/propertypage";
+// import { getPropertyPageBySlug } from "@/api/frontend/propertypage";
 
-import { getPropertyListbyPropertypage } from "@/api/frontend/property";
+// import { getPropertyListbyPropertypage } from "@/api/frontend/property";
 
 import Image from "next/image";
 
-const ListingDynamicDetailsproperty = ({params}) => {
+const ListingDynamicDetailsproperty = ({builder}) => {
   // alert("test")
   const [showBox, setShowBox] = useState(false);
   const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
@@ -35,43 +35,43 @@ const ListingDynamicDetailsproperty = ({params}) => {
   });
   
     
-    const id = params.id;
-     const [propertypage, setPropertyPage] = useState("");
-     const [properties, setProperties] = useState("");
+    // const id = params.id;
+    //  const [propertypage, setPropertyPage] = useState("");
+    //  const [properties, setProperties] = useState("");
     // const blog = blogs.find((item) => item.id == id) ||  blogs[0]
   
-  useEffect(() => {
-    // alert(id)   
-        if (!id) return;  
+//   useEffect(() => {
+//     // alert(id)   
+//         if (!id) return;  
          
-        const fetchPropertyPage = async () => {
-          try {
-            const data = await getPropertyPageBySlug(id);
-            console.log("PropertyPage data")
-            console.log(data)
-            setPropertyPage(data.data)
+//         const fetchPropertyPage = async () => {
+//           try {
+//             const data = await getPropertyPageBySlug(id);
+//             console.log("PropertyPage data")
+//             console.log(data)
+//             setPropertyPage(data.data)
            
-          } catch (error) {
-            console.error("Error fetching PropertyPage:", error);
-          } finally {
-            // setLoading(false);
-          }
-        };
+//           } catch (error) {
+//             console.error("Error fetching PropertyPage:", error);
+//           } finally {
+//             // setLoading(false);
+//           }
+//         };
     
-        fetchPropertyPage();
-        const fetchData = async () => {
-          try {
-            const res = await getPropertyListbyPropertypage(id);
-console.log("res")
-console.log(res)
-            setProperties(res || []);
-          } catch (error) {
-            console.error("Error fetching property types:", error);
-          }
-        };
+//         fetchPropertyPage();
+//         const fetchData = async () => {
+//           try {
+//             const res = await getPropertyListbyPropertypage(id);
+// console.log("res")
+// console.log(res)
+//             setProperties(res || []);
+//           } catch (error) {
+//             console.error("Error fetching property types:", error);
+//           }
+//         };
     
-        fetchData();
-      }, [id]);
+//         fetchData();
+//       }, [id]);
   
   return (
     <>
@@ -85,7 +85,7 @@ console.log(res)
       <PopupSignInUp />
 
       {/* <!-- Inner Page Breadcrumb --> */}
-      <BreadCrumbBanner propertypage={propertypage} />
+      <BreadCrumbBanner builder={builder} />
 
       {/* <!-- About Text Content --> */}
       <section id="about" className="commited-to-excellence para-land aboutland about-section scroll-mt-80px border-btm pb0 bgc-f7">
@@ -95,7 +95,8 @@ console.log(res)
                    <div className="main-title text-left">
                      {/* <h2 className="mt0 color-main">About Ankit Goyat</h2>
                      <h2 className="mt0">Expertise : Commercial Projects | Residential Projects | Real Estate Investment | Client-Centric Solutions</h2> */}
-                   <p> <div dangerouslySetInnerHTML={{ __html: propertypage?.description }} /></p>
+                     <h3 className='mt0'> About Us</h3><h2 className='mt0 color-main'>{builder?.title}</h2>
+                   <p> <div dangerouslySetInnerHTML={{ __html: builder?.description }} /></p>
                     
                     </div>
                  </div>
@@ -114,7 +115,7 @@ console.log(res)
                           </div>
                         </div>
                         <FeaturedItem setPropertySelectedComp={setPropertySelectedComp}
-                        setShowBox={setShowBox} properties={properties}/>
+                        setShowBox={setShowBox} builder={builder}/>
                             </div>
                       </div>
                 </section>
