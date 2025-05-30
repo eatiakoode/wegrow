@@ -110,13 +110,15 @@ const getallPropertyFilterList = asyncHandler(async (req, res) => {
         .populate("categoryid")
         .populate("propertytypeid")
         .populate("locationid")
-        .sort({ updated_at: -1 })
+        // .sort({ updated_at: -1 })
+        .sort({ _id: -1})
         .skip((skip - 1) * limit)
         .limit(limit)
         .lean(),
     
       Property.countDocuments(query) // total matching without skip/limit
     ]);
+    propertyList.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
     res.status(200).json({
       items: propertyList,
       totalCount: totalCount,
