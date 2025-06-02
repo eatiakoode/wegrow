@@ -18,7 +18,7 @@ import PopupSignInUp from "../common/PopupSignInUp";
 // import WhyChoose from "../common/WhyChoose";
 import FaqContent from "./FaqContent";
 import { getFaqTableData } from "@/api/frontend/faq";
-import Testimonial from "../common/Testimonial";
+import Testimonial from "./Testimonial";
 import BannerSection from "./BannerSection";
 import { getLandingpageBySlug } from "@/api/frontend/landingpage";
 
@@ -230,9 +230,9 @@ const index = ({params}) => {
                 </div>
               </div>
               <div className="row">
-                <div className="col-lg-6 offset-lg-3">
+                <div className="col-lg-8 offset-lg-2">
                   <div className="testimonial_grid_slider style2 gutter-x15">
-                    <Testimonial />
+                    <Testimonial landingpage={landingpage}/>
                   </div>
                 </div>
               </div>
