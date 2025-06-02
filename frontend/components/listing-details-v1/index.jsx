@@ -3,7 +3,7 @@
 import "photoswipe/dist/photoswipe.css";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+// import { useRouter, useParams } from "next/navigation";
 import CopyrightFooter from "@/components/common/footer/CopyrightFooter";
 import Footer from "@/components/common/footer/Footer";
 import Header from "@/components/common/header/DefaultHeader";
@@ -13,9 +13,9 @@ import PopupSignInUp from "@/components/common/PopupSignInUp";
 import DetailsContent from "@/components/listing-details-v1/DetailsContent";
 import Sidebar from "@/components/listing-details-v1/Sidebar";
 import ListingOne from "@/components/listing-single/ListingOne";
-import { getFaqByPropertyIdData } from "@/api/frontend/faq";
+// import { getFaqByPropertyIdData } from "@/api/frontend/faq";
 
-import { getPropertyBySlug } from "@/api/frontend/property";
+// import { getPropertyBySlug } from "@/api/frontend/property";
 
 const ListingDynamicDetailsV12 = ({property,faqs}) => {
  

@@ -1,6 +1,6 @@
-"use client";
+// "use client";
 
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
 const PropertyFAQ = ({ faqs }) => {
   // const [faqs, setFaqs] = useState([]);
@@ -24,7 +24,7 @@ const PropertyFAQ = ({ faqs }) => {
   return (
     <div className="accordion" id="accordionExample">
       {faqs?.slice(0, 38).map((singleItem,index) => (
-      <div className="card floor_plan">
+      <div className="card floor_plan" key={index}>
         <div id={`heading${index}`}>
           <h2 className="mb-0">
             <button

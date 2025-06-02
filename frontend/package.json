@@ -31,7 +31,8 @@
     "react-toastify": "^11.0.5",
     "sass": "^1.68.0",
     "slick-carousel": "^1.8.1",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {
     "@types/react-toastify": "^4.0.2"

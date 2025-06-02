@@ -1,12 +1,7 @@
 // 'use client'
 
 import Image from "next/image";
-// import testimonials from "../../data/testimonial";
 import Slider from "react-slick";
-// import { getTestimonialTableData } from "../../api/frontend/testimonial";
-
-// import { useState, useEffect } from "react";
-// import { useRouter } from "next/navigation";
 
 const Testimonial = ({testimonials}) => {
   // const [testimonials, setFindTestimonial] = useState([]);

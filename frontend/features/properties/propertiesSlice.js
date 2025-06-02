@@ -1,6 +1,4 @@
-// import Categorie from "@/components/common/listing/Categorie";
 import { createSlice } from "@reduxjs/toolkit";
-// import { addCategory } from "../agent/agentSlice";
 
 const initialState = {
     keyword: "",
