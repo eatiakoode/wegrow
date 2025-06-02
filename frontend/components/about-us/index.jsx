@@ -14,10 +14,23 @@ import Link from "next/link";
 import Image from "next/image";
 import Team from "./Team";
 import OurMission from "./OurMission";
+import { getTestimonialTableData } from "@/api/frontend/testimonial";
 
 const index = () => {
   const [showBox, setShowBox] = useState(false);
   const [showFullBio, setShowFullBio] = useState(false);
+  const [testimonials, setFindTestimonial] = useState([]);
+          // const router = useRouter();
+        
+          const fetchFindTestimonial = async () => {
+            const data = await getTestimonialTableData();
+            // console.log("data")
+            // console.log(data)
+            setFindTestimonial(data);
+          };
+          useEffect(() => {
+            fetchFindTestimonial();
+          }, []); 
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -188,7 +201,7 @@ const index = () => {
           <div className="row">
             <div className="col-lg-6 offset-lg-3">
               <div className="testimonial_grid_slider style2 gutter-x15">
-                <Testimonial />
+                <Testimonial testimonials={testimonials}/>
               </div>
             </div>
           </div>

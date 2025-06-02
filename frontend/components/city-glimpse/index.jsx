@@ -7,19 +7,10 @@ import CopyrightFooter from "../common/footer/CopyrightFooter";
 import Footer from "../common/footer/Footer";
 import Header from "../common/header/DefaultHeader";
 import MobileMenu from "../common/header/MobileMenu";
-import Sidebar from "@/components/listing-details-v1/Sidebar";
-import TabDetailsContent from "@/components/market-trends/TabDetailsContent";
 import CityDetailsContent from "@/components/city-glimpse/CityDetailsContent";
 import NeedHelp from "@/components/city-glimpse/NeedHelp";
-import PriceCards from "@/components/market-trends/PriceCards";
-import Partners from "../common/Partners";
 import PopupSignInUp from "../common/PopupSignInUp";
-import BreadCrumb2 from "@/components/agent-details/BreadCrumb2";
-import WhyChoose from "../common/WhyChoose";
-import Testimonial from "../common/Testimonial";
 import BreadCrumbBanner from "./BreadCrumbBanner";
-import Team from "./Team";
-import OurMission from "./OurMission";
 
 const index = () => {
  return (

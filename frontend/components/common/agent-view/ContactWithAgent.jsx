@@ -124,8 +124,8 @@ const ContactWithAgent = ({property}) => {
               <option value="2 - 5cr">2 - 5cr</option>
               <option value="5 - 10cr">5 - 10cr</option>
               <option value="above 10cr">Above 10cr</option>
-              <span className="flaticon-download-1 fz12"></span>
-            </select>
+            </select>            
+            <span className="flaticon-download-1 fz12"></span>
             {error.budget && <span className="text-danger">{error.budget}</span>}
           </div>
         </li>

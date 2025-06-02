@@ -130,18 +130,18 @@ const ListingDynamicDetailsV1 = ({blog}) => {
                               <div className="dropdown-content dropdown-menu ">
                                 <div className="row">
                                   <div className="col-lg-12">
-                                    <ul class="sub-menu">
+                                    <ul className="sub-menu">
                                       <li>
-                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i class="fa fa-facebook"></i> Facebook</a>
+                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i className="fa fa-facebook"></i> Facebook</a>
                                       </li>
                                       <li>
-                                        <a href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}&hashtags=${hashtags}`} target="_blank"><i class="fa fa-linkedin"></i> Linkedin</a>
+                                        <a href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}&hashtags=${hashtags}`} target="_blank"><i className="fa fa-linkedin"></i> Linkedin</a>
                                       </li>
                                       <li>
-                                        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank"><i class="fa fa-twitter"></i> Twitter</a>
+                                        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank"><i className="fa fa-twitter"></i> Twitter</a>
                                       </li>
                                        <li>
-                                        <a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram"></i> Instagram</a>
+                                        <a href="https://www.instagram.com/" target="_blank"><i className="fa fa-instagram"></i> Instagram</a>
                                       </li>
                                     </ul>
                                   </div>

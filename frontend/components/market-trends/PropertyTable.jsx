@@ -78,11 +78,8 @@ const propertiesData = [
 const PropertyTable = ({propertytypeid,categoriesid}) => {
   const [propertiesData, setPropertiesData] = useState([]);
   const fetchProperties = async (propertytypeid,categoriesid) => {
-    console.log("propertytypeid,categoriesiddata getPropertyListTrends")
-    console.log(propertytypeid,categoriesid)
+   
     const data = await getPropertyListTrends(propertytypeid,categoriesid);
-    console.log("data getPropertyListTrends")
-    console.log(data.data)
     setPropertiesData(data.data);
   };
       useEffect(() => {

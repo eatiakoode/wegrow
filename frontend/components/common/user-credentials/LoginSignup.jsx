@@ -17,7 +17,7 @@ const LoginSignup = () => {
       <div className="modal-body container pb20">
         <div className="row">
           <div className="col-lg-12">
-            <ul className="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
+            {/* <ul className="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
               <li className="nav-item">
                 <a
                   className="nav-link active"
@@ -31,7 +31,6 @@ const LoginSignup = () => {
                   Login
                 </a>
               </li>
-              {/* End login tab */}
 
               <li className="nav-item">
                 <a
@@ -46,8 +45,7 @@ const LoginSignup = () => {
                   Register
                 </a>
               </li>
-              {/* End Register tab */}
-            </ul>
+            </ul> */}
             {/* End .sign_up_tab */}
           </div>
         </div>

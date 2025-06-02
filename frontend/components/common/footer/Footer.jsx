@@ -9,6 +9,7 @@ import { useCompare } from "@/components/common/footer/CompareContext";
 
 const Footer = ({  showBox,setShowBox }) => {
    const [properties, setProperties] = useState([]);
+   const [hydrated, setHydrated] = useState(false);
   //  const { propertycompare } = useCompare();
   const { propertycompare, setPropertycompare } = useCompare();
   
@@ -27,8 +28,11 @@ const Footer = ({  showBox,setShowBox }) => {
       );
   };
   useEffect(() => {
+    setHydrated(true);
+  }, []);
+  useEffect(() => {
     const fetchProperties = async () => {
-      if (Array.isArray(propertycompare) && propertycompare.length > 0) {
+      if (Array.isArray(propertycompare) && propertycompare?.length > 0) {
         const propertycomparelist = propertycompare.join(",");
         const data = await getPropertyCompareData(propertycomparelist);
         setProperties(data);
@@ -135,53 +139,72 @@ const Footer = ({  showBox,setShowBox }) => {
           <SubscribeForm />
         </div>
       </div>
-      <div className="compare_properties"
-      >
+      <div className="compare_properties">
         <div
-    className="compare_wrapper"
-    onMouseEnter={() => setShowBox(true)}
-    onMouseLeave={() => setShowBox(false)}
-  >
-            <div className={`compare_section row ${showBox ? 'd-flex' : 'd-none'}`}>
-            {properties.length !== 0 ? (
-              ""
-            ) : (
+          className="compare_wrapper"
+          onMouseEnter={() => setShowBox(true)}
+          onMouseLeave={() => setShowBox(false)}
+        >
+          {/* Always render with d-none during SSR */}
+          <div
+            className={`compare_section row ${
+              hydrated ? (showBox ? "d-flex" : "d-none") : "d-none"
+            }`}
+          >
+            {properties.length === 0 && (
               <span className="text-danger">Add for compare</span>
             )}
-            {properties.map((item, index) => (
+
+            {properties.map((item) => (
               <div className="item col-4" key={item._id}>
-              <a href="#" onClick={(e) => {
-                  e.preventDefault();
-                  deleteCompareProperty(item._id);
-                }}>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteCompareProperty(item._id);
+                  }}
+                >
                   <span className="flaticon-close"></span>
                 </a>
 
-          <Image
-                      width={343}
-                      height={220}
-                      className="img-whp w-100 h-100 cover"
-                      src={
-                        item.featuredimageurl
-                          ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
-                          : "/default-placeholder.jpg"
-                      }
-                      alt= {`${item.title}`}
-                      unoptimized // Optional: disables Next.js image optimization (useful if external images)
-                    />
-            <Link href={`/property-detail/${item.slug}`} className="fp_price">
-              {item.price}
-            </Link>
-            <p className="text-thm">{item.title}</p>
-
+                <Image
+                  width={343}
+                  height={220}
+                  className="img-whp w-100 h-100 cover"
+                  src={
+                    item.featuredimageurl
+                      ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
+                      : "/default-placeholder.jpg"
+                  }
+                  alt={`${item.title}`}
+                  unoptimized
+                />
+                <Link href={`/property-detail/${item.slug}`} className="fp_price">
+                  {item.price}
+                </Link>
+                <p className="text-thm">{item.title}</p>
               </div>
             ))}
-          
+          </div>
+
+          {/* <div
+            className={`countcompare ${
+              hydrated && properties.length > 0 ? "d-flex" : "d-none"
+            }`}
+          >
+            <Link href={`/compare`} className="countcomparelink">
+              Compare ({propertycompare?.length || 0})
+            </Link>
+          </div> */}
+           {hydrated && properties.length > 0 && (
+            <div className="countcompare d-flex">
+              <Link href={`/compare`} className="countcomparelink">
+                Compare ({propertycompare?.length || 0})
+              </Link>
             </div>
-            <div className={`countcompare ${properties.length>0 ? 'd-flex' : 'd-none'}`}
-            ><Link href={`/compare`} className="countcomparelink"> Compare ({propertycompare?.length || 0})</Link></div>
-      </div>
-      </div>
+          )}
+        </div>
+      </div>  
     </>
   );
 };
