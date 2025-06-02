@@ -247,7 +247,7 @@ const hashtags = property.metatitle;
 
     {/* Modal */}
     {showPdfModal && (
-      <div className="custom-modal">
+      <div className="modal-overlay">
         <div className="modal-content">
           <button
             onClick={() => {
@@ -256,7 +256,7 @@ const hashtags = property.metatitle;
               setName('');
               setPhone('');
             }}
-          >
+           className="cancel-btn">
             <span className="flaticon-close"></span>
           </button>
 
@@ -294,7 +294,7 @@ const hashtags = property.metatitle;
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary mt-2">
+              <button type="submit">
                 Submit & View Brochure
               </button>
             </form>
