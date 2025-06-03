@@ -11154,12 +11154,12 @@ li.slick-slide.slick-active:nth-child(8) img {
   flex:1;
   margin-right: 0px!important;
 }
-.compare_cities.membership_container .mc_parent_list .list-inline-item .mc_child_list li{
+.compare_cities.membership_container .mc_parent_list .list-inline-item .mc_child_list li:nth-of-type(7){
   height: 180px;
   overflow: auto;
 }
 .compare_cities.membership_container .mc_parent_list li:first-of-type{
-  padding-top: 0px;
+  padding-top: 143px;
 }
 ul.mc_parent_list .membership_header .thumb {
   border-radius: 8px;
