@@ -30,13 +30,14 @@ const Header = () => {
         {/* <!-- Ace Responsive Menu --> */}
 
         <Link href="/" className="navbar_brand float-start dn-smd">
-          <Image
+        <Image
             width={170}
             height={65}
             className="logo1 contain"
-            src="/assets/images/logo.svg"
+            src={`${process.env.NEXT_PUBLIC_API_URL}public/assets/images/logo.svg`}
             alt="logo.svg"
           />
+
           <Image
             width={170}
             height={65}
@@ -44,7 +45,7 @@ const Header = () => {
             src="/assets/images/logo2.png"
             alt="logo2.png"
           />
-          {/* <span>Wegrow</span> */}
+          {/* <span>WeGrow</span> */}
         </Link>
         {/* site logo brand */}
 

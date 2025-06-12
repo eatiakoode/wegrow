@@ -67,10 +67,11 @@ const Footer = ({  showBox,setShowBox }) => {
                 width={170}
                 height={75}
                 className="logo1 img-fluid"
-                src="/assets/images/logo.svg"
+                // src="/assets/images/logo.svg"
+                src={`${process.env.NEXT_PUBLIC_API_URL}public/assets/images/logo.svg`}
                 alt="image"
               />
-          {/* <span>Wegrow</span> */}
+          {/* <span>WeGrow</span> */}
           </Link>
           <p>
           we pride ourselves on helping you find the perfect property that meets your budget. Specializing in projects across Gurgaon and Delhi NCR, we offer a tailored approach to home buying and property investment.

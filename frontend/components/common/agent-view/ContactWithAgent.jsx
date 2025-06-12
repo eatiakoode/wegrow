@@ -58,6 +58,7 @@ const ContactWithAgent = ({property}) => {
       }
 
       setError({});
+      
     // (Reset other fields here if needed)
   } catch (err) {
     setError({ general: err.message || "Something went wrong" });

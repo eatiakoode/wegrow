@@ -103,14 +103,15 @@ const SidebarMenu = () => {
     <>
       <ul className="sidebar-menu">
         <li className="sidebar_header header">
-          <Link href="/">
+           <Link href="/cmswegrow/my-dashboard">
             <Image
               width={170}
               height={65}
-              src="/assets/images/logo.svg"
+              // src="/assets/images/logo.svg"
+              src={`${process.env.NEXT_PUBLIC_API_URL}public/assets/images/logo.svg`}
               alt="logo.svg"
             />
-            {/* <span>Wegrow</span> */}
+            {/* <span>WeGrow</span> */}
           </Link>
         </li>
         {/* End header */}

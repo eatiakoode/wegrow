@@ -59,13 +59,13 @@ const hashtags = property.metatitle;
                                   <div className="col-lg-12">
                                     <ul className="sub-menu">
                                       <li>
-                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i className="fa fa-facebook"></i> Facebook</a>
+                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
                                       </li>
                                       <li>
-                                        <a href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}&hashtags=${hashtags}`} target="_blank"><i className="fa fa-linkedin"></i> Linkedin</a>
+                                        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank"><i className="fa fa-linkedin"></i> Linkedin</a>
                                       </li>
                                       <li>
-                                        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank"><i className="fa fa-twitter"></i> Twitter</a>
+                                        <a href={`https://twitter.com/intent/tweet?url=${shareUrl}&text=${text}&hashtags=${hashtags}`} target="_blank"><i className="fa fa-x-twitter"></i> Twitter</a>
                                       </li>
                                        <li>
                                         <a href="https://www.instagram.com/" target="_blank"><i className="fa fa-instagram"></i> Instagram</a>
