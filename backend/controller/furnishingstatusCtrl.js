@@ -1,6 +1,6 @@
 const Furnishingstatus = require("../models/furnishingstatusModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 
 const createFurnishingstatus = asyncHandler(async (req, res) => {
   try {

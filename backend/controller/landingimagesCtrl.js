@@ -1,6 +1,6 @@
 const Landingimages = require("../models/landingimagesModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const mongoose = require("mongoose");
 
 const createLandingimages = asyncHandler(async (req, res) => {

@@ -1,6 +1,6 @@
 const Property = require("../models/propertyModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const { featuredImageResize,sitePlanResize,propertySelectedImgsResize,processUploadedPDFs,processFloorPlanImagesAdd,groupFilesByFieldname,groupFilesByFieldname2,featuredImageResizeAdd,featuredImageResizeAddSite,featuredImageResizeAddMaster,propertySelectedImgsResizeadd,processUploadedPDFsadd,masterPlanResize,processFloorPlanImages } = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 const slugify = require("slugify");

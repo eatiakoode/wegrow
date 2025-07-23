@@ -1,6 +1,6 @@
 const Property = require("../../models/propertyModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../../utils/validateMongodbid");
+const validateMongoDbId = require("../../utils/validateMongodbId");
 const mongoose = require("mongoose");
 const { ObjectId } = require("mongodb");
 const slugify = require("slugify");

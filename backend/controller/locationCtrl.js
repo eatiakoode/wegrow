@@ -1,6 +1,6 @@
 const Location = require("../models/locationModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const { locationImgResize } = require("../middlewares/uploadImage");
 
 const createLocation = asyncHandler(async (req, res) => {

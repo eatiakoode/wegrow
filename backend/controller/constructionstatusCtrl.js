@@ -1,6 +1,6 @@
 const Constructionstatus = require("../models/constructionstatusModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 
 const createConstructionstatus = asyncHandler(async (req, res) => {
   try {

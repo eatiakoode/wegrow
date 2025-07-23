@@ -1,6 +1,6 @@
 const Landingpage = require("../../models/landingpageModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../../utils/validateMongodbid");
+const validateMongoDbId = require("../../utils/validateMongodbId");
 
 const getLandingpage = asyncHandler(async (req, res) => {
   const { id } = req.params;

@@ -1,6 +1,6 @@
 const PropertyPage = require("../../models/propertypageModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../../utils/validateMongodbid");
+const validateMongoDbId = require("../../utils/validateMongodbId");
 
 const getPropertyPage = asyncHandler(async (req, res) => {
   const { id } = req.params;

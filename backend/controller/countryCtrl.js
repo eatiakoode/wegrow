@@ -1,6 +1,6 @@
 const Country = require("../models/countryModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 
 const createCountry = asyncHandler(async (req, res) => {
   try {

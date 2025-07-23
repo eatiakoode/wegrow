@@ -1,6 +1,6 @@
 const Testimonial = require("../models/testimonialModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const { uploadPhoto, testimonialImgResize } = require("../middlewares/uploadImage");
 
 const createTestimonial = asyncHandler(async (req, res) => {

@@ -1,6 +1,6 @@
 const Propertytype = require("../../models/propertytypeModel.js");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../../utils/validateMongodbid");
+const validateMongoDbId = require("../../utils/validateMongodbId");
 
 const getPropertytype = asyncHandler(async (req, res) => {
   const { id } = req.params;

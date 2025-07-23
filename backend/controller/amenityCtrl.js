@@ -1,6 +1,6 @@
 const Amenity = require("../models/amenityModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const { uploadPhoto, amenityImgResize } = require("../middlewares/uploadImage");
 
 const createAmenity = asyncHandler(async (req, res) => {

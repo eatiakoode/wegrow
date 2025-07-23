@@ -1,6 +1,6 @@
 const Cityglimpse = require("../models/cityglimpseModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 const City = require("../models/cityModel");

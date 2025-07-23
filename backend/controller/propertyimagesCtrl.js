@@ -1,6 +1,6 @@
 const Propertyimages = require("../models/propertyimagesModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const mongoose = require("mongoose");
 
 const createPropertyimages = asyncHandler(async (req, res) => {

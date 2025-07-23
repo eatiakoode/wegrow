@@ -1,6 +1,6 @@
 const Agent = require("../models/agentModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 
 const createAgent = asyncHandler(async (req, res) => {
   try {

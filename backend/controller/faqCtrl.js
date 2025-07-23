@@ -1,6 +1,6 @@
 const Faq = require("../models/faqModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 
 const createFaq = asyncHandler(async (req, res) => {
   try {

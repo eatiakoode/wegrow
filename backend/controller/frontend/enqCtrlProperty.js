@@ -1,6 +1,6 @@
 const Enquiry = require("../../models/enqModelProperty.js");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../../utils/validateMongodbid");
+const validateMongoDbId = require("../../utils/validateMongodbId");
 const { enqueryPropertyMail } = require("../../middlewares/enqueryMail");
 
 

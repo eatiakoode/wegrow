@@ -1,6 +1,6 @@
 const Landingpage = require("../models/landingpageModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const { bannerImageResize,aboutImageResize,gallerySelectedImgsResize,groupFilesByFieldname,processFloorPlanImages,groupFilesByFieldname2,processLandingPlanGet,processLandingPlan} = require("../middlewares/uploadImage");
 const mongoose = require("mongoose");
 const slugify = require("slugify");

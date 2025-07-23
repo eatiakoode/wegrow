@@ -1,6 +1,6 @@
 const Location = require("../../models/locationModel.js");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../../utils/validateMongodbid.js");
+const validateMongoDbId = require("../../utils/validateMongodbId.js");
 
 
 const getLocation = asyncHandler(async (req, res) => {

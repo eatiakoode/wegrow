@@ -1,6 +1,6 @@
 const Blog = require("../models/blogModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbid");
+const validateMongoDbId = require("../utils/validateMongodbId");
 const { uploadPhoto, blogImgResize } = require("../middlewares/uploadImage");
 const slugify = require("slugify");
 
