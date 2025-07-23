@@ -1,6 +1,6 @@
 const Builder = require("../models/builderModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbId");
+const validateMongoDbId = require("../utils/validateMongodbid");
 const { uploadPhoto, builderImgResize } = require("../middlewares/uploadImage");
 const slugify = require("slugify");
 

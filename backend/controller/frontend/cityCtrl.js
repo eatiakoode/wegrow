@@ -1,6 +1,6 @@
 const City = require("../../models/cityModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../../utils/validateMongodbId");
+const validateMongoDbId = require("../../utils/validateMongodbid");
 const Property = require("../../models/propertyModel");
 
 

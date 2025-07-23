@@ -1,6 +1,6 @@
 const City = require("../models/cityModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbId");
+const validateMongoDbId = require("../utils/validateMongodbid");
 const { cityImgResize } = require("../middlewares/uploadImage");
 
 const createCity = asyncHandler(async (req, res) => {

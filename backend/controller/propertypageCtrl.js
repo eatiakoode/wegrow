@@ -1,6 +1,6 @@
 const Propertypage = require("../models/propertypageModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbId");
+const validateMongoDbId = require("../utils/validateMongodbid");
 const mongoose = require("mongoose");
 const slugify = require("slugify");
 

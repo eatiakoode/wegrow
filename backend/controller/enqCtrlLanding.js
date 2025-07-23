@@ -1,6 +1,6 @@
 const EnquiryLanding = require("../models/enqLandingModel");
 const asyncHandler = require("express-async-handler");
-const validateMongoDbId = require("../utils/validateMongodbId");
+const validateMongoDbId = require("../utils/validateMongodbid");
 const { enqueryLandingMail } = require("../middlewares/enqueryMail");
 
 
