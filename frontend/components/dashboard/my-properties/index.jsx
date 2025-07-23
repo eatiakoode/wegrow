@@ -1,3 +1,4 @@
+"use client"; // Add this at the top
 import Header from "../../common/header/dashboard/Header";
 import SidebarMenu from "../../common/header/dashboard/SidebarMenu";
 import MobileMenu from "../../common/header/MobileMenu";
@@ -6,8 +7,40 @@ import Filtering from "./Filtering";
 import Pagination from "./Pagination";
 import SearchBox from "./SearchBox";
 import CopyRight from "../../common/footer/CopyRight";
+import { getPropertyTableData } from "@/api/property";
 
-const index = () => {
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation"; 
+
+const index = ({ properties:initialProperties, totalCount:initialCount,filter :initialFilter }) => {
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [properties, setProperties] = useState(initialProperties);
+  const [totalCount, setTotalCount] = useState(initialCount);
+  const [pageSize] = useState(initialFilter.limit);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  // const currentPage = parseInt(searchParams.get('page') || 1);
+  
+      useEffect(() => {
+        const fetchPropertyData = async () => {
+        const filter ={
+     
+      "limit":pageSize,
+      "page":currentPage
+    };
+     const data = await getPropertyTableData(filter);
+        setProperties(data.items);
+          // setLoaderProperty(false)
+          // setPropertyList(data.items)
+          setTotalCount(data.totalCount)
+      };
+    fetchPropertyData();
+  }, [currentPage]);
+  // const handlePageChange = (page) => {
+  //   router.push(`?page=${page}`); // updates URL and triggers re-fetch
+  // };
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -53,8 +86,8 @@ const index = () => {
 
                 <div className="col-lg-4 col-xl-4 mb10">
                   <div className="breadcrumb_content style2 mb30-991">
-                    <h2 className="breadcrumb_title">My Properties List</h2>
-                    {/* <p>We are glad to see you again!</p> */}
+                    <h2 className="breadcrumb_title">All Properties</h2>
+                    <p>View, filter, and manage all property listings available on your platform.</p>
                   </div>
                 </div>
                 {/* End .col */}
@@ -82,13 +115,21 @@ const index = () => {
                   <div className="my_dashboard_review mb40">
                     <div className="property_table">
                       <div className="table-responsive mt0">
-                        <TableData />
+                        <TableData properties={properties} setProperties={setProperties}/>
                       </div>
                       {/* End .table-responsive */}
 
                       {/* <div className="mbp_pagination">
                         <Pagination />
                       </div> */}
+                      <div className="mbp_pagination">
+                        <Pagination
+                        totalCount={totalCount}
+                         pageSize={pageSize}
+                      currentPage={currentPage}
+                        onPageChange={(page) => setCurrentPage(page)}
+                       />
+                      </div>
                       {/* End .mbp_pagination */}
                     </div>
                     {/* End .property_table */}

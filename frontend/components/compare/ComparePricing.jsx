@@ -44,7 +44,7 @@ const ComparePricing = ({ setPropertySelectedComp, setShowBox }) => {
                     src={
                       item.featuredimageurl
                         ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
-                        : "/default-placeholder.jpg"
+                        : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                     }
                     alt= {`${item.title}`}
                     unoptimized 
@@ -91,6 +91,9 @@ const ComparePricing = ({ setPropertySelectedComp, setShowBox }) => {
               <a className="btn pricing_btn" href={`/property-detail/${item.slug}`}>
               {item.furnishingstatus?.title}
               </a>
+            </li>
+            <li>
+              <a href={`/property-detail/${item.slug}`}>View Property</a>
             </li>
           </ul>
         </li>

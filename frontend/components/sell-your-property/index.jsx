@@ -132,22 +132,26 @@ const index = () => {
   // --- Fetch Initial Data ---
   useEffect(() => {
     const fetchData = async () => {
+      const filter = {
+    limit: 1000,
+    page:  1
+  }
       try {
         const [countryRes, constRes, furnRes, catRes, amenityRes, builderRes] = await Promise.all([
           getCountryTableData(),
           getConstructionstatusTableData(),
           getFurnishingstatusTableData(),
-          getCategoryTableData(),
-          getAmenityTableData(),
-          getBuilderTableData(),
+          getCategoryTableData(filter),
+          getAmenityTableData(filter),
+          getBuilderTableData(filter),
         ]);
   
         setCountries(countryRes || []);
         setConstructionstatus(constRes || []);
         setFurnishingstatus(furnRes || []);
-        setCategories(catRes || []);
-        setAmenities(amenityRes || []);
-        setBuilders(builderRes || []);
+        setCategories(catRes.items || []);
+        setAmenities(amenityRes.item || []);
+        setBuilders(builderRes.items || []);
       } catch (err) {
         console.error("Error loading initial data:", err);
       }
@@ -237,11 +241,7 @@ const index = () => {
    
     e.preventDefault();
     const newErrors = {};
-    console.log("propertySelectedImgs")
-    console.log(propertySelectedImgs)
     
-    console.log("siteplan")
-    console.log(siteplan)
     const requiredFields = [
       { key: "title", value: title, name: "Title" },
       { key: "slug", value: slug, name: "Slug" },
@@ -264,22 +264,17 @@ const index = () => {
     ];
   
     requiredFields.forEach(field => {
-      // console.log(field.value+" field.value")
-      // console.log(field.key+" field.key")
-      // console.log(field.name+" field.name")
+      
       if (!field.value || (typeof field.value === "string" && !field.value.trim())) {
-        console.log("field.name"+field.name)
         newErrors[field.key] = `${field.name} is required`;
       }
     });
   
     if (Object.keys(newErrors).length > 0) {
-      console.log("test")
       return setError(newErrors);
     }
   
     try {
-      console.log(propertySelectedImgs)
       const payload = {
         title, slug, description, price, address,
         countryid: selectedCountry,
@@ -358,7 +353,7 @@ const index = () => {
                </div>
                  <div className="col-lg-4">
                    <div className="my_profile_setting_input form-group">
-                     <label htmlFor="propertySlug">Property Slug</label>
+                     <label htmlFor="propertySlug">Property Slug (SEO URL)</label>
                      <input type="text" className="form-control"  id="propertySlug" value={slug} onChange={(e) => setSlug(e.target.value)}  placeholder="Enter property slug"/>
                      {error.slug && <span className="text-danger">{error.slug}</span>}
                    </div>
@@ -760,7 +755,7 @@ const index = () => {
          
                <div className="col-lg-6 col-xl-4">
                  <div className="my_profile_setting_input form-group">
-                   <label htmlFor="garagesSize">Parkings Size</label>
+                   <label htmlFor="garagesSize">Parkings description</label>
                    <input type="text"
                        className="form-control"
                        id="garagesSize"
@@ -772,7 +767,7 @@ const index = () => {
          
                <div className="col-lg-6 col-xl-4">
                  <div className="my_profile_setting_input form-group">
-                   <label htmlFor="yearBuild">Year Built</label>
+                   <label htmlFor="yearBuild">Possession Year</label>
                    <input type="text"
                        className="form-control"
                        id="yearBuild"

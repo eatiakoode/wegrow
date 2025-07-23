@@ -6,6 +6,7 @@ import properties from "../../../data/properties";
 import { getPropertypageTableData,deletePropertypageAPI } from "../../../api/propertypage";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
 
 const TableData = () => {
   const [propertypageList, setPropertypageList] = useState([]);
@@ -13,7 +14,6 @@ const TableData = () => {
     
       const fetchPropertypageData = async () => {
         const data = await getPropertypageTableData();
-        console.log(data)
         setPropertypageList(data);
       };
       const deletePropertypage = async (id) => {
@@ -23,7 +23,7 @@ const TableData = () => {
           try {
             const data = await deletePropertypageAPI(id); // 🔹 Call the API function
             
-            alert(data.message);
+            toast.success(data.message);
             setPropertypageList((prevPropertypageList) => prevPropertypageList.filter((propertypage) => propertypage._id !== id));
             //setTitle(""); // ✅ Reset input after success
           } catch (error) {
@@ -38,7 +38,7 @@ const TableData = () => {
     // "View",
     "Action",
   ];
-  let tbodyContent = propertypageList?.slice(0, 10)?.map((item, index) => (
+  let tbodyContent = propertypageList?.map((item, index) => (
     <tr key={item.id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">

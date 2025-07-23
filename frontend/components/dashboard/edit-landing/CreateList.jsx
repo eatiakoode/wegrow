@@ -13,7 +13,7 @@ import {  deleteLandingImagesAPI } from "../../../api/landingimage";
 import {  deletePropertyplanAPI } from "../../../api/landingplan";
 import {  deletePaymentplanAPI } from "../../../api/landingpayment";
 
-
+import { toast } from 'react-toastify';
 
 
 
@@ -196,13 +196,17 @@ const [selectedAmenity, setSelectedAmenity] = useState("");
 useEffect(() => {
   const fetchData = async () => {
     try {
+      const filter = {
+    limit: 1000,
+    page:  1
+  }
       const [ amenityRes] = await Promise.all([
         
-        getAmenityTableData(),
+        getAmenityTableData(filter),
       ]);
 
       
-      setAmenities(amenityRes || []);
+      setAmenities(amenityRes.items || []);
     } catch (err) {
       console.error("Error loading initial data:", err);
     }
@@ -222,8 +226,13 @@ useEffect(() => {
   // Fetch data and set options
   const fetchData = async () => {
     try {
-      const data = await getFaqTableData(); // Make sure this returns the expected format
-      const mappedOptions = data.map((item) => ({
+      const filter ={
+     
+      "limit":1000,
+      "page":1
+    };
+      const data = await getFaqTableData(filter); // Make sure this returns the expected format
+      const mappedOptions = data?.items.map((item) => ({
         label: item.title,
         value: item._id,
       }));
@@ -338,11 +347,7 @@ const updateLanding = async (e) => {
   ];
 
   requiredFields.forEach(field => {
-    // console.log(field.value+" field.value")
-    // console.log(field.key+" field.key")
-    // console.log(field.name+" field.name")
     if (!field.value || (typeof field.value === "string" && !field.value.trim())) {
-      console.log("field.name"+field.name)
       newErrors[field.key] = `${field.name} is required`;
     }
   });
@@ -407,9 +412,15 @@ const updateLanding = async (e) => {
     
 
 
-    const res = await updateLandingpageAPI(id,formData);
-    router.push("/cmswegrow/my-landing");
+    const data = await updateLandingpageAPI(id,formData);
+    // router.push("/cmswegrow/my-landing");
     // alert(res.message);
+     toast.success(data.message);
+    if(data.status=="success"){
+      setTimeout(() => {
+      router.push("/cmswegrow/my-landing");
+      }, 1500); 
+    }
 
     // Reset fields and errors
     setError({});
@@ -434,7 +445,7 @@ const updateLanding = async (e) => {
       </div>
         <div className="col-lg-6">
           <div className="my_profile_setting_input form-group">
-            <label htmlFor="propertySlug">Property Slug</label>
+            <label htmlFor="propertySlug">Property Slug (SEO URL)</label>
             <input type="text" className="form-control"  id="propertySlug" value={slug} onChange={(e) => setSlug(e.target.value)}  placeholder="Enter property slug"/>
             {error.slug && <span className="text-danger">{error.slug}</span>}
           </div>
@@ -612,7 +623,7 @@ const updateLanding = async (e) => {
                                 src={
                                   item.image
                                     ? `${process.env.NEXT_PUBLIC_API_URL}${item.image}`
-                                    : "/default-placeholder.jpg"
+                                    : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                                 }
                                 alt= {`${item.title}${item._id}`}
                                 unoptimized

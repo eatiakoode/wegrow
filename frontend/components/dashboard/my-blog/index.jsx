@@ -53,12 +53,11 @@ const index = () => {
 
                 <div className="col-lg-4 col-xl-4 mb10">
                   <div className="breadcrumb_content style2 mb30-991">
-                    <h2 className="breadcrumb_title">My Blog List</h2>
-                    {/* <p>We are glad to see you again!</p> */}
+                    <h2 className="breadcrumb_title">All Blog Posts</h2>
+                    <p>View, edit, and manage all published and draft blog articles on your platform.</p>
                   </div>
                 </div>
                 {/* End .col */}
-
                 <div className="col-lg-8 col-xl-8">
                   <div className="candidate_revew_select style2 text-end mb30-991">
                     <ul className="mb0">

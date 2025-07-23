@@ -16,19 +16,28 @@ const FloorPlans = ({property}) => {
               aria-controls={`collapse${index}`}
             >
               <ul className="mb0 d-flex align-items-cener flex-wrap">
-                <li className="d-inline-flex list-inline-item">{singleItem.title}</li>
+                {singleItem?.title && singleItem?.title !== "undefined" && (
+                  <li className="d-inline-flex list-inline-item">{singleItem?.title} &nbsp; &nbsp; </li> 
+                  )}
+                  {singleItem?.areasize && singleItem?.areasize !== "undefined" &&   (
                 <li className="d-inline-flex list-inline-item">
-                  <p>Size:</p> <span>{singleItem.areasize} Sqft</span>
-                </li>
+                  <p>Size: &nbsp; </p> <span>{singleItem?.areasize}</span> &nbsp;&nbsp; 
+                </li> 
+                )}
+                  {singleItem?.bedroom && singleItem?.bedroom != "undefined" &&  (
                 <li className="d-inline-flex list-inline-item">
-                  <p>Rooms:</p> <span>{singleItem.bedroom}</span>
-                </li>
+                  <p>Type : &nbsp; </p> <span>{singleItem?.bedroom}</span> &nbsp;&nbsp;
+                </li> 
+                )}
                 {/* <li className="d-inline-flex list-inline-item">
                   <p>Baths:</p> <span>530 Sqft</span>
                 </li> */}
+                
+                  {singleItem?.price && singleItem?.price !== "undefined" && (
                 <li className="d-inline-flex list-inline-item">
-                  <p>Price:</p> <span>{singleItem.price}</span>
+                  <p>Price: &nbsp;</p> <span>{singleItem?.price}</span>
                 </li>
+                )}
               </ul>
             </button>
           </h2>
@@ -47,14 +56,16 @@ const FloorPlans = ({property}) => {
               src={
                 singleItem.planimageurl
                   ? `${process.env.NEXT_PUBLIC_API_URL}${singleItem.planimageurl}`
-                  : "/default-placeholder.jpg"
+                  : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
               }
               alt= {`${singleItem.title}${index + 1}`}
               unoptimized 
             />
-            <p>
+            {singleItem?.description && singleItem?.description !== "undefined" && (
+               <p>
             {singleItem.description}
             </p>
+            )}
           </div>
         </div>
       </div>

@@ -1,21 +1,16 @@
 "use client"; // Add this at the top
 import Image from "next/image";
 
-import { getLocationTableData,deleteLocationAPI } from "../../../api/location.ts";
+import { getLocationTableData,deleteLocationAPI } from "@/api/location";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
+
 // import moment from 'moment';
 
-const TableData = () => {
-  console.log("test")
-   const [locationList, setLocationList] = useState([]);
-    const router = useRouter();
+const TableData = ({locationList,setLocationList}) => {
   
-    const fetchLocationData = async () => {
-      const data = await getLocationTableData();
-      console.log(data)
-      setLocationList(data);
-    };
+    const router = useRouter();
     const deleteLocation = async (id) => {
         const isConfirmed = window.confirm("Are you sure you want to delete this location?");
         if (!isConfirmed) return;
@@ -23,7 +18,7 @@ const TableData = () => {
         try {
           const data = await deleteLocationAPI(id); // 🔹 Call the API function
           
-          alert(data.message);
+           toast.success(data.message);
           setLocationList((prevLocationList) => prevLocationList.filter((location) => location._id !== id));
           //setTitle(""); // ✅ Reset input after success
         } catch (error) {
@@ -38,11 +33,9 @@ const TableData = () => {
     "Status",
     "Action",
   ];
-  // console.log('locationList')
-  // console.log(locationList)
-  // console.log('locationListw')
+  
 
-  let tbodyContent = locationList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = locationList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">
@@ -102,9 +95,9 @@ const TableData = () => {
       {/* End td */}
     </tr>
   ));
-useEffect(() => {
-    fetchLocationData();
-  }, []); 
+// useEffect(() => {
+//     fetchLocationData();
+//   }, []); 
   
   return (
     <>
@@ -121,7 +114,7 @@ useEffect(() => {
         {/* End theaad */}
 
         <tbody>{tbodyContent}</tbody>
-      </table>
+      </table>    
     </>
   );
 };

@@ -1,5 +1,5 @@
 const express = require("express");
-const { uploadPhoto ,photoUploadMiddleware} = require("../middlewares/uploadImage");
+const { uploadPhoto ,photoUploadMiddleware,photoUploadMiddleware1} = require("../middlewares/uploadImage");
 const {
   createProperty,
   updateProperty,
@@ -10,8 +10,8 @@ const {
 const { authMiddleware, isAdmin } = require("../middlewares/authMiddleware.js");
 const router = express.Router();
 
-router.post("/", authMiddleware,  isAdmin, photoUploadMiddleware,createProperty);
-router.put("/:id", authMiddleware, isAdmin,photoUploadMiddleware, updateProperty);
+router.post("/", authMiddleware,  isAdmin, photoUploadMiddleware1,createProperty);
+router.put("/:id", authMiddleware, isAdmin,photoUploadMiddleware1, updateProperty);
 router.delete("/:id", authMiddleware, isAdmin, deleteProperty);
 router.get("/:id", getProperty);
 router.get("/", getallProperty);

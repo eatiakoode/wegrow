@@ -53,8 +53,8 @@ const index = () => {
 
                 <div className="col-lg-4 col-xl-4 mb10">
                   <div className="breadcrumb_content style2 mb30-991">
-                    <h2 className="breadcrumb_title">My Landing Page List</h2>
-                    {/* <p>We are glad to see you again!</p> */}
+                    <h2 className="breadcrumb_title">All Landing Pages</h2>
+                    <p>View and manage all landing pages created for property promotions, campaigns, or SEO targeting.</p>
                   </div>
                 </div>
                 {/* End .col */}

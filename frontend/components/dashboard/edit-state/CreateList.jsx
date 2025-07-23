@@ -5,14 +5,11 @@ import { useRouter, useParams } from "next/navigation";
 import { getStateById, updateStateAPI } from "../../../api/state";
 
 import { getCountryTableData } from "../../../api/country";
-
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
-  const params = useParams();
-    console.log("Params:", params); // Debugging log
-  
+  const params = useParams();  
     const id = params?.id;
-    console.log("State ID:", id); // Debugging log
   
     const router = useRouter();
     const [state, setState] = useState({ title: "", status: false });
@@ -26,7 +23,7 @@ const CreateList = () => {
       const fetchState = async () => {
         try {
           const data = await getStateById(id);
-          console.log("Fetched State Data:", data); // Debugging log
+         
           setState({ title: data.data.title, status: data.data.status });
           setSelectedCountry(data.data.countryid);
         } catch (error) {
@@ -40,8 +37,6 @@ const CreateList = () => {
       const fetchCountries = async () => {
         try {
           const response = await getCountryTableData();
-          console.log("response")
-          console.log(response)
   
           setCountries(response || []);
         } catch (err) {
@@ -59,9 +54,15 @@ const CreateList = () => {
           ...state,
           countryid: selectedCountry,
         };
-        await updateStateAPI(id, updatedState);
-        alert("State updated successfully!");
-        router.push("/cmswegrow/my-state");
+        const data = await updateStateAPI(id, updatedState);
+        // alert("State updated successfully!");
+        // router.push("/cmswegrow/my-state");
+        toast.success(data.message);
+        if(data.status=="success"){
+          setTimeout(() => {
+          router.push("/cmswegrow/my-state");
+          }, 1500); 
+        }
       } catch (error) {
         alert("Failed to update State.");
         console.error(error);

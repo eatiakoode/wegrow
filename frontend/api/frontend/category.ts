@@ -1,6 +1,6 @@
 export async function getCategoryTableData() {
   // Fake delay
-  await new Promise((resolve) => setTimeout(resolve, 1400));
+  await new Promise((resolve) => setTimeout(resolve, 10));
   
 
   try {
@@ -21,22 +21,23 @@ export const getCategoryById = async (id: string) => {
 
 
   // const token =process.env.NEXT_PUBLIC_TOKEN;
-  const userData = JSON.parse(localStorage.getItem("user"));
-console.log(userData.name);
-// const token = localStorage.getItem("token"); // 🔹 Retrieve token
-// // console.log("token")
-//     const token =process.env.NEXT_PUBLIC_TOKEN;
-const token =userData.token
-  if (!token) {
-    throw new Error("User not authenticated!");
-  }
+//   const userData = JSON.parse(localStorage.getItem("user"));
+// console.log(userData.name);
+// // const token = localStorage.getItem("token"); // 🔹 Retrieve token
+// // // console.log("token")
+// //     const token =process.env.NEXT_PUBLIC_TOKEN;
+// const token =userData.token
+//   if (!token) {
+//     throw new Error("User not authenticated!");
+//   }
 
   const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+`api/category/${id}`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+      // Authorization: `Bearer ${token}`,
     },
+    next: { revalidate: 60 }
     // body: JSON.stringify({ id }),
   });
 

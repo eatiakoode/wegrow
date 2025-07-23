@@ -2,32 +2,12 @@
 
 import Link from "next/link";
 import Slider from "react-slick";
-// import properties from "../../data/properties";
 import Image from "next/image";
-// import { getPropertyFeatureData } from "@/api/frontend/property";
 import { useState, useEffect } from "react";
-// import { useRouter } from "next/navigation";
 import { useCompare } from "@/components/common/footer/CompareContext";
 const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) => {
-  // const [properties, setProperties] = useState([]);
   const { propertycompare, setPropertycompare } = useCompare();
-  // const [showBox, setShowBox] = useState(false);
-  // const [propertySelectedComp, setPropertySelectedComp] = useState([]);
-  // const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
-  //   if (typeof window !== "undefined") {
-  //     const stored = localStorage.getItem("propertycompare");
-  //     return stored ? JSON.parse(stored) : [];
-  //   }
-  //   return [];
-  // });
   
-      // const router = useRouter();
-    
-      // const fetchProperties = async () => {
-      //   const data = await getPropertyFeatureData();
-      //   // console.log(data)
-      //   setProperties(data);
-      // };
       const addCompareProperty = async (id) => {
       
         const isExist = propertycompare.includes(id);
@@ -46,6 +26,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
   const settings = {
     dots: true,
     arrows: false,
+    infinite: properties.length > 2,
     slidesToShow: 3,
     slidesToScroll: 3,
     autoplay: false,
@@ -55,7 +36,8 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
         breakpoint: 1200,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 4,
+          slidesToScroll: 1,
+          infinite: properties.length > 1,
         },
       },
       {
@@ -63,6 +45,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
         settings: {
           slidesToShow: 1,
           slidesToScroll: 3,
+          infinite: properties.length > 1,
         },
       },
     ],
@@ -79,7 +62,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
             src={
               item.featuredimageurl
                 ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
-                : "/default-placeholder.jpg"
+                : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
             }
             alt= {`${item.title}`}
             unoptimized // Optional: disables Next.js image optimization (useful if external images)
@@ -128,26 +111,43 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
             </h4>
             <p>
               <span className="flaticon-placeholder"></span>
-              {item.cityid?.title}, {item.locationid?.title} {item.address}
+            {item.address}, {item.locationid?.title} ,{item.cityid?.title}
             </p>
 
             <ul className="prop_details mb0">
               {/* {item.itemDetails.map((val, i) => ( */}
-                <li className="list-inline-item" key="1">
-                  <a href="#">
-                  Beds: {item.bedrooms}
-                  </a>
-                </li>
+              {item.paymentplan && (
+               <li className="list-inline-item" key="1">
+                <a href="{`/property-detail/${item.slug}">
+                Payment Plan: {item.paymentplan}
+                </a>
+              </li>
+              )}
+              {item.areasize && (
                 <li className="list-inline-item" key="2">
-                  <a href="#">
-                  Baths: {item.bathrooms}
-                  </a>
-                </li>
-                <li className="list-inline-item" key="3">
                   <a href={`/property-detail/${item.slug}`}>
-                  {item.sizeprefix}: {item.areasize}
+                  Size: {item.areasize} {item.sizeprefix}
                   </a>
                 </li>
+                 )}
+               {item.categoryid._id=="67ea48d17cfa562fe8eaafd0" && item.foodcourt && (
+              <li className="list-inline-item" key="3">
+                <a href={`/property-detail/${item.slug}`}>
+                Food court/restaurant: {item.foodcourt ? "Yes" : "No"}
+                </a>
+              </li>
+              )}
+              
+              
+              {item.categoryid._id=="67ea48d17cfa562fe8eaafd0" && item.multiplex && (
+              <li className="list-inline-item" key="4">
+                <a href={`/property-detail/${item.slug}`}>
+                Multiplex: {item.multiplex ? "Yes" : "No"}
+                </a>
+              </li>
+            )}
+            
+                
               {/* ))} */}
             </ul>
           </div>
@@ -156,7 +156,7 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
           <div className="fp_footer">
             <ul className="fp_meta float-start mb0">
               <li className="list-inline-item">
-                <Link href={`tel:${item.sellerphone}`}>
+                <Link href={`tel:${item?.sellerid?.phone}`}>
                   <Image
                     width={40}
                     height={40}
@@ -166,16 +166,16 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
                 </Link>
               </li>
               <li className="list-inline-item">
-                <Link href={`tel:${item.sellerphone}`}>{item.sellername}</Link>
+                <Link href={`tel:${item?.sellerid?.phone}`}>{item?.sellerid?.title}</Link>
               </li>
             </ul>
             {/* <div className="fp_pdate float-end">{item.postedYear}</div> */}
             <div className="fp_pdate float-end d-flex gap-2 align-items-center">
-              <a href={`tel:${item.sellerphone}`} className="me-2 circle-shape text-dark">
+              <a href={`tel:${item?.sellerid?.phone}`} className="me-2 circle-shape text-dark">
                 {/* <i className="fa fa-phone"></i> */}
                 <span className="flaticon-telephone"></span>
               </a>
-              <a href={`mailto:${item.selleremail}`} className="circle-shape text-dark">
+              <a href={`mailto:${item?.sellerid?.email}`} className="circle-shape text-dark">
                 {/* <i className="fa fa-envelope"></i> */}
                 <span className="flaticon-black-back-closed-envelope-shape"></span>
               </a>
@@ -211,13 +211,31 @@ const FeaturedProperties = ({ setPropertySelectedComp, setShowBox,properties }) 
   }, [propertycompare]);
   
   
+  // return (
+  //   <>
+  //     <Slider {...settings} arrows={false}>
+  //       {content}
+  //     </Slider>
+  //   </>
+  // );
   return (
-    <>
+  <>
+    {properties.length > 2 ? (
       <Slider {...settings} arrows={false}>
         {content}
       </Slider>
-    </>
-  );
+    ) : (
+      <div className="row">
+        {properties.map((item, index) => (
+          <div className="col-md-6" key={item._id}>
+            {content[index]}
+          </div>
+        ))}
+      </div>
+    )}
+  </>
+);
+
 };
 
 export default FeaturedProperties;

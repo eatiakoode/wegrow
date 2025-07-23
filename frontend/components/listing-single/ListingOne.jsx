@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useCompare } from "@/components/common/footer/CompareContext";
 
 
-export default function ListingOne({property,setPropertySelectedComp, setShowBox }) {
+export default function ListingOne({property,setPropertySelectedComp, setShowBox,propertyimage }) {
   const { propertycompare, setPropertycompare } = useCompare();
   const addCompareProperty = async (id) => {
+    
       
     const isExist = propertycompare.includes(id);
   
@@ -30,7 +31,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
             <div className="single_property_title d-flex justify-content-between align-items-center mt30-767">
               <div>
                 <h2>{property?.title}</h2>
-                <p>{property.cityid?.title}, {property.locationid?.title} {property.address}</p>
+                <p>{property.address}, {property.locationid?.title}, {property.cityid?.title}</p>
               </div>
               <div>
                 <a href={`tel:${property?.sellerphone}`} className="circle-shape text-dark d-inline-block me-2">
@@ -108,7 +109,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
                           src={
                             property.featuredimageurl
                               ? `${process.env.NEXT_PUBLIC_API_URL}${property.featuredimageurl}`
-                              : "/default-placeholder.jpg"
+                              : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                           }
                           alt= {`${property.title}`}
                           unoptimized // Optional: disables Next.js image optimization (useful if external images)
@@ -124,7 +125,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
 
           <div className="col-sm-5 col-lg-4">
             <div className="property_box row">
-              {property?.images?.map((val, index) => (
+              {propertyimage?.map((val, index) => (
                 <div className="col-6" key={index}>
                   <div className="spls_style_two img-gallery-box mb24">
                     <Item
@@ -142,7 +143,7 @@ export default function ListingOne({property,setPropertySelectedComp, setShowBox
                             src={
                               val.image
                                 ? `${process.env.NEXT_PUBLIC_API_URL}${val.image}`
-                                : "/default-placeholder.jpg"
+                                : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                             }
                             alt= {`${property.title}`}
                             unoptimized 

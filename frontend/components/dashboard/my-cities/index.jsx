@@ -54,7 +54,7 @@ const index = () => {
                 <div className="col-lg-4 col-xl-4 mb10">
                   <div className="breadcrumb_content style2 mb30-991">
                     <h2 className="breadcrumb_title">My Cities List</h2>
-                    {/* <p>We are glad to see you again!</p> */}
+                    <p>Create a city entry to associate with properties in a selected state.</p>
                   </div>
                 </div>
                 {/* End .col */}

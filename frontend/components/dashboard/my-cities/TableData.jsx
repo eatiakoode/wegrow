@@ -6,15 +6,14 @@ import { getCityTableData,deleteCityAPI } from "../../../api/city";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 // import moment from 'moment';
+import { toast } from 'react-toastify';
 
 const TableData = () => {
-  // console.log("test")
    const [cityList, setCityList] = useState([]);
     const router = useRouter();
   
     const fetchCityData = async () => {
       const data = await getCityTableData();
-      console.log(data)
       setCityList(data);
     };
     const deleteCity = async (id) => {
@@ -24,7 +23,8 @@ const TableData = () => {
         try {
           const data = await deleteCityAPI(id); // 🔹 Call the API function
           
-          alert(data.message);
+          // alert(data.message);
+           toast.success(data.message);
           setCityList((prevCityList) => prevCityList.filter((city) => city._id !== id));
           //setTitle(""); // ✅ Reset input after success
         } catch (error) {
@@ -40,7 +40,7 @@ const TableData = () => {
     "Status",
     "Action",
   ];
-  let tbodyContent = cityList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = cityList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">

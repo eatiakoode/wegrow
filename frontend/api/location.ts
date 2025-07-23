@@ -1,4 +1,4 @@
-export const addLocationAPI = async (location) => {
+export const addLocationAPI = async (formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
     // const token =process.env.NEXT_PUBLIC_TOKEN;
@@ -16,10 +16,10 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/location", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(location),
+      body: formData,
     });
   
     if (!response.status) {
@@ -31,12 +31,12 @@ const token =userData.token
   };
   
 
-  export async function getLocationTableData() {
+  export async function getLocationTableData(filter) {
     // Fake delay
-    await new Promise((resolve) => setTimeout(resolve, 1400));
+    await new Promise((resolve) => setTimeout(resolve, 10));
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/location"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+"api/location?limit="+filter.limit+"&skip="+filter.page); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -117,7 +117,7 @@ const token =userData.token
   };
 
 
-  export const updateLocationAPI = async (id,location) => {
+  export const updateLocationAPI = async (id,formData) => {
     // const token = localStorage.getItem("token"); // 🔹 Retrieve token
 
     // const token =process.env.NEXT_PUBLIC_TOKEN;
@@ -134,10 +134,10 @@ const token =userData.token
     const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/location/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(location),
+      body: formData,
     });
   
     if (!response.status) {
@@ -150,7 +150,7 @@ const token =userData.token
 
   export const  getLocationByCityTableData = async (id: string) => {
     // Fake delay
-    await new Promise((resolve) => setTimeout(resolve, 1400));
+    await new Promise((resolve) => setTimeout(resolve, 10));
   console.log("es"+id)
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_ADMIN_API_URL+`api/location/bycity/${id}`); // Replace with actual API endpoint

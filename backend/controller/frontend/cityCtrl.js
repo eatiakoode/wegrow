@@ -52,25 +52,52 @@ const getCityStateId = asyncHandler(async (req, res) => {
 
 const countPropertiesByCity = asyncHandler(async (req, res) => {
   try {
+    // const result = await City.aggregate([
+    //   {
+    //     $lookup: {
+    //       from: "properties", // the collection name in MongoDB
+    //       localField: "_id",
+    //       foreignField: "cityid",
+    //       as: "properties"
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       cityId: "$_id",
+    //       cityName: "$title",
+    //       citylogoimage:"$citylogoimage",
+    //       propertyCount: { $size: "$properties" }
+    //     }
+    //   },
+    //   {
+    //   $sort: { createdAt: -1 }
+    // }
+    // ]);
     const result = await City.aggregate([
-      {
-        $lookup: {
-          from: "properties", // the collection name in MongoDB
-          localField: "_id",
-          foreignField: "cityid",
-          as: "properties"
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          cityId: "$_id",
-          cityName: "$title",
-          citylogoimage:"$citylogoimage",
-          propertyCount: { $size: "$properties" }
-        }
-      }
-    ]);
+  {
+    $lookup: {
+      from: "properties", // collection name
+      localField: "_id",
+      foreignField: "cityid",
+      as: "properties"
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      cityId: "$_id",
+      cityName: "$title",
+      citylogoimage: "$citylogoimage",
+      createdAt: 1, // include it so you can sort
+      propertyCount: { $size: "$properties" }
+    }
+  },
+  {
+    $sort: { createdAt: 1 }
+  }
+]);
+
     // const getallState = await City.find({ stateid: stateid });
     const message={
       "status":"success",
@@ -158,11 +185,28 @@ const getCityWithPropertypage = asyncHandler(async (req, res) => {
   }
 
 });
+const getByidGlimpse = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    const getaCity = await City.findById(id).populate("cityglimpse");
+    const message={
+      "status":"success",
+      "message":"Data city sucessfully",
+      "data":getaCity
+    }
+    res.json(message);
+   //res.json(getaCity);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = {
   getCity,
   getallCity,
   getCityStateId,
   countPropertiesByCity,
   getCityWithLocation,
-  getCityWithPropertypage
+  getCityWithPropertypage,
+  getByidGlimpse
 };

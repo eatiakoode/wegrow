@@ -12,6 +12,7 @@ import {
   Sidebar
 } from "react-pro-sidebar";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -256,8 +257,11 @@ const listing = [
 // ];
 
 const property = [
-  { id: 1, name: "Residential", routerPath: "/property-list?cat=residential" },
-  { id: 2, name: "Commercial", routerPath: "/property-list?cat=commercial" },
+  { id: 1, name: "Residential", routerPath: "/property-list?cat=67e67294759f85d6bf7a131a" },
+  { id: 2, name: "Commercial", routerPath: "/property-list?cat=67ea48d17cfa562fe8eaafd0" },
+  { id: 3, name: "SCO Plots", routerPath: "/property-list?cat=686e180e92dba9f24fab5f92" },
+  { id: 4, name: "Industrial Plots", routerPath: "/property-list?cat=686e18b092dba9f24fab6011" },
+  
 ];
 
 const blog = [
@@ -312,14 +316,21 @@ const pages = [
 const MobileMenuContent = () => {
   const pathname = usePathname()
   const router = useRouter()
+  const [isMounted, setIsMounted] = useState(false); 
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
 
   return (
 <>
         <div className="sidebar-header">
           <Link href="/" className="sidebar-header-inner">
             <Image
-              width={40}
-              height={45}
+              width={100}
+              height={38}
               className="nav_logo_img img-fluid mt20"
               src="/assets/images/header-logo2.png"
               alt="header-logo.png"
@@ -358,7 +369,7 @@ const MobileMenuContent = () => {
             onClick={()=>router.push("/about-us")}
              
               className={
-                pathname === "aboutus" ? "ui-active" : 'inactive-mobile-menu'
+                pathname === "/aboutus" ? "ui-active" : 'inactive-mobile-menu'
               }
             >
               About Us
@@ -545,40 +556,42 @@ const MobileMenuContent = () => {
               Contact
             </div>
           </MenuItem>
-
-          <MenuItem>
-            <div
-            onClick={()=>router.push("/login")}
-    
-              className={pathname === "/login" ? "ui-active" : 'inactive-mobile-menu'}
-            >
-              <span className="flaticon-user"></span> Login
+          <MenuItem className="mobile-phone-call mt-3">
+            <div className="d-flex align-items-start justify-content-start gap-0">
+              <span className="flaticon-call pe-2"></span>
+              <a href="tel:+917421922000" className="text-decoration-none text-dark">
+                <span className="flaticon-telephone pe-1"></span> +91 742-192-2000
+              </a>
             </div>
           </MenuItem>
 
-          <MenuItem>
-            <div
-            onClick={()=>router.push("/register")}
+          <MenuItem className="mobile-social-icons mt-3">
+            <div className="d-flex gap-3 ps-2">
+              <a href="https://www.facebook.com/WeGrowInfraventurespvtltd/" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://x.com/wegrowinfra/" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-twitter"></i>
+              </a>
+              <a href="https://www.instagram.com/wegrowinfraventures/" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.linkedin.com/company/wegrow-infraventures-pvt-ltd/" target="_blank" rel="noopener noreferrer">
+                <i className="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </MenuItem>
+
+          
+
         
-              className={
-                pathname === "/register" ? "ui-active" : 'inactive-mobile-menu'
-              }
-            >
-              <span className="flaticon-edit"></span> Register
-            </div>
-          </MenuItem>
+
+          
         </Menu>
         </div>
       {/* </Sidebar> */}
 
-      
-        <Link
-          href="/create-listing"
-          className="btn btn-block btn-lg btn-thm circle"
-          style={{width:'90%',margin:'0px auto'}}
-        >
-          <span className="flaticon-plus"></span> Create Listing
-        </Link></>
+       </>
      
    
   );

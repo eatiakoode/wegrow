@@ -9,12 +9,12 @@ import { getStateByCountryTableData } from "../../../api/state";
 import { getLocationByCityTableData } from "../../../api/location";
 import { getCategoryTableData } from "../../../api/category";
 import { getPropertytypeByCategoryTableData} from "../../../api/propertytype";
-import { getAmenityTableData } from "../../../api/amenity";
-import { getBuilderTableData } from "../../../api/builder";
-import { getConstructionstatusTableData } from "../../../api/constructionstatus";
-import { getFurnishingstatusTableData } from "../../../api/furnishingstatus";
-import { getPropertypageById, updatePropertypageAPI } from "../../../api/propertypage";
-
+import { getAmenityTableData } from "@/api/amenity";
+import { getBuilderTableData } from "@/api/builder";
+import { getConstructionstatusTableData } from "@/api/constructionstatus";
+import { getFurnishingstatusTableData } from "@/api/furnishingstatus";
+import { getPropertypageById, updatePropertypageAPI } from "@/api/propertypage";
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const router = useRouter();
@@ -70,9 +70,7 @@ useEffect(() => {
         const fetchPropertypage = async () => {
           try {
             const data = await getPropertypageById(id);
-            console.log("data")
-            console.log(data)
-            // console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
+            
             // setBuilder({ title: data.data.title, status: data.data.status, description: data.data.description });
             setTitle(data.data.title)
             setSlug(data.data.slug)
@@ -117,21 +115,24 @@ useEffect(() => {
         fetchPropertypage();
      
   const fetchData = async () => {
-    
+    const filter = {
+    limit: 1000,
+    page:  1
+  }
     try {
       const [countryRes, constRes, furnRes, catRes, builderRes] = await Promise.all([
         getCountryTableData(),
         getConstructionstatusTableData(),
         getFurnishingstatusTableData(),
-        getCategoryTableData(),
-        getBuilderTableData(),
+        getCategoryTableData(filter),
+        getBuilderTableData(filter),
       ]);
 
       setCountries(countryRes || []);
       setConstructionstatus(constRes || []);
       setFurnishingstatus(furnRes || []);
-      setCategories(catRes || []);
-      setBuilders(builderRes || []);
+      setCategories(catRes.items || []);
+      setBuilders(builderRes.items || []);
     } catch (err) {
       console.error("Error loading initial data:", err);
     }
@@ -237,9 +238,7 @@ const updatePropertypage = async (e) => {
   ];
 
   requiredFields.forEach(field => {
-    // console.log(field.value+" field.value")
-    // console.log(field.key+" field.key")
-    // console.log(field.name+" field.name")
+   
     if (!field.value || (typeof field.value === "string" && !field.value.trim())) {
       console.log("field.name"+field.name)
       newErrors[field.key] = `${field.name} is required`;
@@ -276,9 +275,16 @@ const updatePropertypage = async (e) => {
     }
 
 
-    const res = await updatePropertypageAPI(id,payload);
+    const data = await updatePropertypageAPI(id,payload);
     // alert(res.message);
-    router.push("/cmswegrow/my-propertypage");
+    // router.push("/cmswegrow/my-propertypage");
+    toast.success(data.message);
+    if(data.status=="success"){
+      setTimeout(() => {
+      router.push("/cmswegrow/my-propertypage");
+      }, 1500); 
+    }
+
 
     // Reset fields and errors
     setError({});
@@ -303,7 +309,7 @@ const updatePropertypage = async (e) => {
       </div>
         <div className="col-lg-6">
           <div className="my_profile_setting_input form-group">
-            <label htmlFor="propertySlug">Property Slug</label>
+            <label htmlFor="propertySlug">Property Slug (SEO URL)</label>
             <input type="text" className="form-control"  id="propertySlug" value={slug} onChange={(e) => setSlug(e.target.value)}  placeholder="Enter property slug"/>
             {error.slug && <span className="text-danger">{error.slug}</span>}
           </div>

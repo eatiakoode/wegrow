@@ -4,6 +4,7 @@ import { getTestimonialTableData,deleteTestimonialAPI } from "../../../api/testi
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 // import moment from 'moment';
+import { toast } from 'react-toastify';
 
 const TableData = () => {
    const [testimonialList, setTestimonialList] = useState([]);
@@ -11,7 +12,6 @@ const TableData = () => {
   
     const fetchTestimonialData = async () => {
       const data = await getTestimonialTableData();
-      console.log(data)
       setTestimonialList(data);
     };
     const deleteTestimonial = async (id) => {
@@ -21,7 +21,7 @@ const TableData = () => {
         try {
           const data = await deleteTestimonialAPI(id); // 🔹 Call the API function
           
-          alert(data.message);
+         toast.success(data.message);
           setTestimonialList((prevTestimonialList) => prevTestimonialList.filter((testimonial) => testimonial._id !== id));
           //setTitle(""); // ✅ Reset input after success
         } catch (error) {
@@ -35,7 +35,7 @@ const TableData = () => {
     "Status",
     "Action",
   ];
-  let tbodyContent = testimonialList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = testimonialList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">

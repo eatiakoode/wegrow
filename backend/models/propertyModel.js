@@ -23,6 +23,10 @@ var propertySchema = new mongoose.Schema(
       // unique: true,
       // index: true,
     },
+    highlights: {
+      type: String,
+      
+    },
     price: {
       type: String,
       required: true,
@@ -161,6 +165,11 @@ var propertySchema = new mongoose.Schema(
       ref: "Builder", // 🔗 This should match the name you used in mongoose.model("Builder", ...)
       // required: true,
     },
+    sellerid: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Seller", // 🔗 This should match the name you used in mongoose.model("Builder", ...)
+      // required: true,
+    },
     agentid: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Agent", // 🔗 This should match the name you used in mongoose.model("Agent", ...)
@@ -228,6 +237,32 @@ var propertySchema = new mongoose.Schema(
       // index: true,
     },
     siteplanurl:{
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    paymentplan:{
+      type: String,
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    foodcourt:{
+      type: Boolean,
+      default: false
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    multiplex:{
+      type: Boolean,
+      default: false
+      // required: true,
+      // unique: true,
+      // index: true,
+    },
+    masterplanurl:{
       type: String,
       // required: true,
       // unique: true,

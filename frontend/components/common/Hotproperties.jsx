@@ -15,8 +15,7 @@ const Hotproperties = () => {
 
   const fetchProperties = async () => {
     const data = await getPropertyHotData();
-    console.log("data getPropertyFeatureData")
-    console.log(data)
+
     setProperties(data);
   };
   // const HotpropertiesImages = [
@@ -73,7 +72,7 @@ const Hotproperties = () => {
               src={
                 property.featuredimageurl
                   ? `${process.env.NEXT_PUBLIC_API_URL}${property.featuredimageurl}`
-                  : "/default-placeholder.jpg"
+                  : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
               }
               alt= {`${property.title}`}
               unoptimized

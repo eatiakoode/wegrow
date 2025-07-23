@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { getFaqById, updateFaqAPI } from "../../../api/faq";
 import { getPropertyTableData } from "../../../api/property";
-
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const params = useParams();  
@@ -23,9 +23,7 @@ const CreateList = () => {
       const fetchFaq = async () => {
         try {
           const data = await getFaqById(id);
-          console.log("data")
-          console.log(data)
-          console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
+          
           // setFaq({ title: data.data.title, status: data.data.status, description: data.data.description });
           setTitle(data.data.title)
           setStatus(data.data.status)
@@ -42,11 +40,15 @@ const CreateList = () => {
       fetchFaq();
       const fetchProperties = async () => {
               try {
-                const response = await getPropertyTableData();
+                 const filter = {
+    limit: 1000,
+    page:  1
+  }
+                const response = await getPropertyTableData(filter);
                 console.log("response")
                 console.log(response)
         
-                setProperties(response || []);
+                setProperties(response?.items || []);
               } catch (err) {
                 console.error("Error fetching property:", err);
               }
@@ -62,9 +64,16 @@ const CreateList = () => {
           "title": title,
           "description": description,
           "propertyid":selectedProperty};
-        await updateFaqAPI(id, formData);
-        alert("Faq updated successfully!");
-        router.push("/cmswegrow/my-faq");
+        const data =await updateFaqAPI(id, formData);
+        // alert("Faq updated successfully!");
+        // router.push("/cmswegrow/my-faq");
+        toast.success(data.message);
+        if(data.status=="success"){
+          setTimeout(() => {
+          router.push("/cmswegrow/my-faq");
+          }, 1500); 
+        }
+        
       } catch (error) {
         alert("Failed to update Faq.");
         console.error(error);

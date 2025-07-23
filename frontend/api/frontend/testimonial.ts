@@ -1,10 +1,10 @@
  export async function getTestimonialTableData() {
     // Fake delay
-    await new Promise((resolve) => setTimeout(resolve, 1400));
+    await new Promise((resolve) => setTimeout(resolve, 10));
     
   
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/testimonial/list"); // Replace with actual API endpoint
+      const response = await fetch(process.env.NEXT_PUBLIC_FRONTEND_API_URL+"api/testimonial/list",{next: { revalidate: 60 }}); // Replace with actual API endpoint
       if (!response.ok) {
         throw new Error("Failed to fetch Testimonial");
       }

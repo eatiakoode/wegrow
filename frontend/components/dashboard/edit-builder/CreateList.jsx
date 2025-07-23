@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getBuilderById, updateBuilderAPI } from "../../../api/builder";
-
+import { getBuilderById, updateBuilderAPI } from "@/api/builder";
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const params = useParams();  
@@ -18,6 +18,8 @@ const CreateList = () => {
     const [error, setError] = useState("");  
     const [logo, setLogo] = useState(null);
     const [logoimage, setLogoImage] = useState(null);
+    const [metatitle, setMetatitle] = useState([]);
+  const [metadescription, setMetaDescription] = useState([]);
     const uploadLogo = (e) => {
       setLogo(e.target.files[0]);
       setLogoImage("")
@@ -28,14 +30,13 @@ const CreateList = () => {
       const fetchBuilder = async () => {
         try {
           const data = await getBuilderById(id);
-          console.log("data")
-          console.log(data)
-          console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
           // setBuilder({ title: data.data.title, status: data.data.status, description: data.data.description });
           setTitle(data.data.title)
           setSlug(data.data.slug)
           setStatus(data.data.status)
           setDescription(data.data.description)
+          setMetatitle(data.data.metatitle)
+          setMetaDescription(data.data.metadescription)
           if(data.data.logoimage) {
           setLogoImage(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
           }
@@ -57,12 +58,20 @@ const CreateList = () => {
         formData.append("slug", slug);
         formData.append("description", description);
         formData.append("status", status);
+         formData.append("metatitle", metatitle);
+        formData.append("metadescription", metadescription);
         if (logo) {
           formData.append("logo", logo);
         }
-        await updateBuilderAPI(id, formData);
-        alert("Builder updated successfully!");
-        router.push("/cmswegrow/my-builder");
+        const data =await updateBuilderAPI(id, formData);
+        // alert("Builder updated successfully!");
+        // router.push("/cmswegrow/my-builder");
+        toast.success(data.message);
+        if(data.status=="success"){
+            setTimeout(() => {
+            router.push("/cmswegrow/my-builder");
+            }, 1500); 
+          }
       } catch (error) {
         alert("Failed to update Builder.");
         console.error(error);
@@ -123,7 +132,7 @@ const CreateList = () => {
       {/* End .col */}
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="BuilderSlug">Builder Slug</label>
+          <label htmlFor="BuilderSlug">Builder Slug (SEO URL)</label>
           <input
         type="text"
         className="form-control"
@@ -164,7 +173,36 @@ const CreateList = () => {
       </div>
       {/* End .col */}
 
-     
+      <div className=" mt30 ">
+                    <div className="col-lg-12">
+                      <h3 className="mb30">Meta Information</h3>
+                    </div>
+                    <div className="row">
+                    <div className="col-lg-12">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="builderMetatitle">Meta Title</label>
+         
+          <input type="text"
+              className="form-control"
+              id="builderMetatitle"
+              value={metatitle}
+              onChange={(e) => setMetatitle(e.target.value)} />
+        </div>
+      </div>
+      <div className="col-lg-12">
+          <div className="my_profile_setting_textarea form-group">
+            <label htmlFor="builderMetaDescription">Meta Description</label>
+            <textarea id="builderMetaDescription" className="form-control" rows="7"  value={metadescription} onChange={(e) => setMetaDescription(e.target.value)}  placeholder="Enter meta description"></textarea>
+            {error.metadescription && <span className="text-danger">{error.metadescription}</span>}
+          </div>
+          
+        </div>
+        
+
+      {/* End .col */}
+      </div>
+      
+                  </div>
 
 
       <div className="col-xl-12">

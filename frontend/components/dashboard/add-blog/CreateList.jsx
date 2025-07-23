@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { addBlogAPI } from "../../../api/blog";
+import { useRouter, useParams } from "next/navigation";
 
 import { getBlogcategoryTableData } from "../../../api/blogcategory";
+import { toast } from 'react-toastify';
 const CreateList = () => {
+  const router = useRouter();
    const [title, setTitle] = useState("");
    const [slug, setSlug] = useState("");
    const [description, setDescription] = useState("");
@@ -14,22 +17,23 @@ const CreateList = () => {
     const [logo, setLogo] = useState(null);
     const [blogcategories, setBlogcategories] = useState([]);
   const [selectedBlogcategory, setSelectedBlogcategory] = useState("");
+  const [metatitle, setMetatitle] = useState([]);
+  const [metadescription, setMetaDescription] = useState([]);
+   const [isSubmitting, setisSubmitting] = useState("");
 useEffect(() => {
-    
-      const fetchBlogcategories = async () => {
-            try {
-              const response = await getBlogcategoryTableData();
-              console.log("response")
-              console.log(response)
-      
-              setBlogcategories(response || []);
-            } catch (err) {
-              console.error("Error fetching Blogcategory:", err);
-            }
-          };
-      
-          fetchBlogcategories();
-    });
+  const fetchBlogcategories = async () => {
+    try {
+      const response = await getBlogcategoryTableData();
+      console.log("response");
+      console.log(response);
+      setBlogcategories(response || []);
+    } catch (err) {
+      console.error("Error fetching Blogcategory:", err);
+    }
+  };
+
+  fetchBlogcategories();
+}, []);
     // upload profile
     const uploadLogo = (e) => {
         setLogo(e.target.files[0]);
@@ -56,6 +60,7 @@ useEffect(() => {
     };
     const addBlog = async (e) => {
       e.preventDefault();
+      setisSubmitting(true)
     
       if (!title.trim()) {
         setError("Title is required");
@@ -75,6 +80,8 @@ useEffect(() => {
         formData.append("description", description);
         formData.append("source", source);
         formData.append("date", date);
+        formData.append("metatitle", metatitle);
+        formData.append("metadescription", metadescription);
         formData.append("blogcategory", selectedBlogcategory);
         if (logo) {
           formData.append("logo", logo);
@@ -84,7 +91,14 @@ useEffect(() => {
     // console.log(formData)
         const data = await addBlogAPI(formData); // Use FormData here
         console.log(data);
-        alert(data.message);
+        // alert(data.message);
+         toast.success(data.message);
+        
+         if(data.status=="success"){
+         setTimeout(() => {
+          router.push("/cmswegrow/my-blog");
+          }, 1500); 
+        }
     
         setTitle("");
         setDescription("");
@@ -156,7 +170,7 @@ useEffect(() => {
       </div>
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="blogSlug">Blog Slug</label>
+          <label htmlFor="blogSlug">Blog Slug (SEO URL)</label>
           <input type="text" className="form-control" id="blogSlug" value={slug} onChange={handleSlugChange} />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
@@ -202,13 +216,42 @@ useEffect(() => {
       </div>
       {/* End .col */}
 
-     
+     <div className=" mt30 ">
+                    <div className="col-lg-12">
+                      <h3 className="mb30">Meta Information</h3>
+                    </div>
+                    <div className="row">
+                    <div className="col-lg-12">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="blogMetatitle">Meta Title</label>
+         
+          <input type="text"
+              className="form-control"
+              id="blogMetatitle"
+              value={metatitle}
+              onChange={(e) => setMetatitle(e.target.value)} />
+        </div>
+      </div>
+      <div className="col-lg-12">
+          <div className="my_profile_setting_textarea form-group">
+            <label htmlFor="blogMetaDescription">Meta Description</label>
+            <textarea id="blogMetaDescription" className="form-control" rows="7"  value={metadescription} onChange={(e) => setMetaDescription(e.target.value)}  placeholder="Enter meta description"></textarea>
+            {error.metadescription && <span className="text-danger">{error.metadescription}</span>}
+          </div>
+          
+        </div>
+        
+
+      {/* End .col */}
+      </div>
+      
+                  </div>
 
 
       <div className="col-xl-12">
         <div className="my_profile_setting_input">
           <button className="btn btn1 float-start" type="button" onClick={() => window.location.href = '/cmswegrow/my-dashboard'}>Back</button>
-          <button type="submit" className="btn btn2 float-end">Submit</button>
+          <button type="submit" className="btn btn2 float-end" disabled={isSubmitting} >{isSubmitting ? 'Sending...' : 'Submit'}</button>
         </div>
       </div>
       </form>

@@ -2,15 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getCountryById, updateCountryAPI } from "../../../api/country";
-
+import { getCountryById, updateCountryAPI } from "@/api/country";
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const params = useParams();
-    console.log("Params:", params); // Debugging log
   
     const id = params?.id;
-    console.log("Country ID:", id); // Debugging log
   
     const router = useRouter();
     const [country, setCountry] = useState({ title: "", status: false });
@@ -22,7 +20,6 @@ const CreateList = () => {
       const fetchCountry = async () => {
         try {
           const data = await getCountryById(id);
-          console.log("Fetched Country Data:", data); // Debugging log
           setCountry({ title: data.data.title, status: data.data.status });
         } catch (error) {
           console.error("Error fetching Country:", error);
@@ -37,9 +34,14 @@ const CreateList = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        await updateCountryAPI(id, country);
-        alert("Country updated successfully!");
-        router.push("/cmswegrow/my-country");
+        const data = await updateCountryAPI(id, country);
+        // alert("Country updated successfully!");
+        toast.success(data.message);
+        if(data.status=="success"){
+          setTimeout(() => {
+          router.push("/cmswegrow/my-country");
+          }, 1500); 
+        }
       } catch (error) {
         alert("Failed to update Country.");
         console.error(error);

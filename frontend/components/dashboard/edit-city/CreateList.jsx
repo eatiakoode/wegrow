@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { getCityById, updateCityAPI } from "../../../api/city";
 import { getCountryTableData } from "../../../api/country";
 import { getStateByCountryTableData } from "../../../api/state";
+import { toast } from 'react-toastify';
 
 
 const CreateList = () => {
@@ -25,15 +26,13 @@ const CreateList = () => {
     const [city, setCity] = useState({ title: "", status: false });
     const uploadLogo = (e) => {
       setCityLogo(e.target.files[0]);
+      setCityLogoImage("")
   };
     useEffect(() => {
       if (!id) return;      
       const fetchCity  = async () => {
         try {
           const data = await getCityById(id);
-          console.log("data")
-          console.log(data)
-          console.log(process.env.NEXT_PUBLIC_API_URL+data.data.citylogoimage)
           // setBlog({ title: data.data.title, status: data.data.status, description: data.data.description });
           setTitle(data.data.title)
           setStatus(data.data.status)
@@ -102,9 +101,15 @@ const CreateList = () => {
         if (citylogo) {
           formData.append("citylogo", citylogo);
         }
-        await updateCityAPI(id, formData);
+        const data =await updateCityAPI(id, formData);
         // alert("City updated successfully!");
-        router.push("/cmswegrow/my-cities");
+        // router.push("/cmswegrow/my-cities");
+        toast.success(data.message);
+        if(data.status=="success"){
+          setTimeout(() => {
+          router.push("/cmswegrow/my-cities");
+          }, 1500); 
+        }
       } catch (error) {
         alert("Failed to update city.");
         console.error(error);

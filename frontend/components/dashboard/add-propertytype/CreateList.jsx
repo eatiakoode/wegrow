@@ -3,21 +3,29 @@
 import { useState, useEffect } from "react";
 import { addPropertytypeAPI } from "../../../api/propertytype";
 import { getCategoryTableData } from "../../../api/category";
+import { useRouter, useParams } from "next/navigation";
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+const router = useRouter();
+  const [isSubmitting, setisSubmitting] = useState("");
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await getCategoryTableData();
+        const filter = {
+          limit: 1000,
+          page:  1
+        }
+        const response = await getCategoryTableData(filter);
         console.log("response")
         console.log(response)
 
-        setCategories(response || []);
+        setCategories(response.items || []);
       } catch (err) {
         console.error("Error fetching Category:", err);
       }
@@ -37,6 +45,7 @@ const CreateList = () => {
 
   const addPropertytype = async (e) => {
     e.preventDefault();
+    setisSubmitting(true)
 
     if (!title.trim()) {
       setError("Title is required");
@@ -48,7 +57,13 @@ const CreateList = () => {
     try {
       const data = await addPropertytypeAPI(title, selectedCategory);
       console.log(data);
-      alert(data.message);
+      // alert(data.message);
+      toast.success(data.message);
+      if(data.status=="success"){
+         setTimeout(() => {
+            router.push("/cmswegrow/my-propertytype");
+            }, 1500); 
+      }
       setTitle("");
       setSelectedCategory("");
     } catch (error) {
@@ -96,8 +111,8 @@ const CreateList = () => {
 
         <div className="col-xl-12">
           <div className="my_profile_setting_input">
-            <button type="button" className="btn btn1 float-start" type="button" onClick={() => window.location.href = '/cmswegrow/my-dashboard'}>Back</button>
-            <button type="submit" className="btn btn2 float-end">Submit</button>
+            <button type="button" className="btn btn1 float-start" onClick={() => window.location.href = '/cmswegrow/my-dashboard'}>Back</button>
+            <button type="submit" className="btn btn2 float-end" disabled={isSubmitting} >{isSubmitting ? 'Sending...' : 'Submit'}</button>
           </div>
         </div>
       </form>

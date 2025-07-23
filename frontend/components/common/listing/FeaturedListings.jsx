@@ -15,7 +15,7 @@ const FeaturedListings = ({properties}) => {
               src={
                 item.featuredimageurl
                   ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
-                  : "/default-placeholder.jpg"
+                  : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
               }
               alt= {`${item.title}`}
               unoptimized
@@ -32,15 +32,38 @@ const FeaturedListings = ({properties}) => {
             </Link>
 
             <ul className="mb0">
-                <li key={1} className="list-inline-item">
-                Beds: {item.bedrooms}
+              {item.paymentplan && (
+               <li className="list-inline-item" key="1">
+                <a href={`/property-detail/${item.slug}`}>
+                Payment Plan: {item.paymentplan}
+                </a>
+              </li>
+              )}
+              {item.areasize && (
+                <li className="list-inline-item" key="2">
+                  <a href={`/property-detail/${item.slug}`}>
+                  Size: {item.areasize} {item.sizeprefix}
+                  </a>
                 </li>
-                <li key={2} className="list-inline-item">
-                Baths: {item.bathrooms}
-                </li>
-                <li key={3} className="list-inline-item">
-                {item.sizeprefix}: {item.areasize}
-                </li>
+                 )}
+                {item.categoryid._id=="67ea48d17cfa562fe8eaafd0" && (
+              <li className="list-inline-item" key="3">
+                <a href={`/property-detail/${item.slug}`}>
+                Food court/restaurant: {item.foodcourt ? "Yes" : "No"}
+                </a>
+              </li>
+              )}
+             
+              
+              {item.categoryid._id=="67ea48d17cfa562fe8eaafd0" && (
+              <li className="list-inline-item" key="4">
+                <a href="#">
+                Multiplex: {item.multiplex ? "Yes" : "No"}
+                </a>
+              </li>
+            )}
+           
+                
                 
                 
             </ul>

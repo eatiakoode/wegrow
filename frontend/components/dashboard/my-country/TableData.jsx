@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getCountryTableData,deleteCountryAPI } from "../../../api/country";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
 // import moment from 'moment';
 
 const TableData = () => {
@@ -11,7 +12,6 @@ const TableData = () => {
   
     const fetchCountryData = async () => {
       const data = await getCountryTableData();
-      console.log(data)
       setCountryList(data);
     };
     const deleteCountry = async (id) => {
@@ -21,7 +21,8 @@ const TableData = () => {
         try {
           const data = await deleteCountryAPI(id); // 🔹 Call the API function
           
-          alert(data.message);
+          // alert(data.message);
+          toast.success(data.message);
           setCountryList((prevCountryList) => prevCountryList.filter((country) => country._id !== id));
           //setTitle(""); // ✅ Reset input after success
         } catch (error) {
@@ -35,7 +36,7 @@ const TableData = () => {
     "Status",
     "Action",
   ];
-  let tbodyContent = countryList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = countryList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">

@@ -27,22 +27,6 @@ const FeaturedItem = ({  setShowBox,totalCount,properties}) => {
               setShowBox(true);
             }
           };
-    // const fetchProperties = async () => {
-    //   const filter ={
-    //     "keyword":keyword,
-    //     "city":city,
-    //     "category":category,
-    //     "propertytype": propertytype,
-    //     "limit":pageSize,
-    //     "page":currentPage
-    //   };
-    //   const data = await getPropertyFilterData(filter);
-    //         // console.log("prperty data")
-    //         // console.log(data)
-    //         setProperties(data.items);
-    //         // setPropertyList(data.items)
-    //         setTotalCount(data.totalCount)
-    //       };
   
 
   const dispatch = useDispatch();
@@ -84,7 +68,7 @@ const FeaturedItem = ({  setShowBox,totalCount,properties}) => {
                 src={
                   item.featuredimageurl
                     ? `${process.env.NEXT_PUBLIC_API_URL}${item.featuredimageurl}`
-                    : "/default-placeholder.jpg"
+                    : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                 }
                 alt= {`${item.title}${index + 1}${item.featuredimageurl}`}
                 unoptimized // Optional: disables Next.js image optimization (useful if external images)
@@ -133,26 +117,44 @@ const FeaturedItem = ({  setShowBox,totalCount,properties}) => {
             </h4>
             <p>
               <span className="flaticon-placeholder"></span>
-              {item.cityid?.title}, {item.locationid?.title} {item.address}
+              {item.address}, {item.locationid?.title} , {item.cityid?.title}
             </p>
 
             <ul className="prop_details mb0">
               {/* {item.itemDetails.map((val, i) => ( */}
-                <li className="list-inline-item" key="1">
-                  <a href="#">
-                  Beds: {item.bedrooms}
-                  </a>
-                </li>
+              {item.paymentplan && (
+               <li className="list-inline-item" key="1">
+                <a href={`/property-detail/${item.slug}`}>
+                Payment Plan: {item.paymentplan}
+                </a>
+              </li>
+              )}
+            {item.areasize && (
                 <li className="list-inline-item" key="2">
-                  <a href="#">
-                  Baths: {item.bathrooms}
+                  <a href={`/property-detail/${item.slug}`}>
+                  Size: {item.areasize} {item.sizeprefix}
                   </a>
                 </li>
-                <li className="list-inline-item" key="3">
-                  <a href="#">
-                  {item.sizeprefix}: {item.areasize}
-                  </a>
-                </li>
+                 )}
+
+                {item.categoryid._id=="67ea48d17cfa562fe8eaafd0" && item.foodcourt && (
+              <li className="list-inline-item" key="3">
+                <a href={`/property-detail/${item.slug}`}>
+                Food court/restaurant: {item.foodcourt ? "Yes" : "No"}
+                </a>
+              </li>
+              )}
+             
+              
+              
+              {item.categoryid._id=="67ea48d17cfa562fe8eaafd0" && item.multiplex && (
+              <li className="list-inline-item" key="4">
+                <a href={`/property-detail/${item.slug}`}>
+                Multiplex: {item.multiplex ? "Yes" : "No"}
+                </a>
+              </li>
+            )}
+           
               {/* ))} */}
             </ul>
             </div>
@@ -161,7 +163,7 @@ const FeaturedItem = ({  setShowBox,totalCount,properties}) => {
             <div className="fp_footer">
             <ul className="fp_meta float-start mb0">
               <li className="list-inline-item">
-                <Link href={`tel:${item.sellerphone}`}>
+                <Link href={`tel:${item?.sellerid?.phone}`}>
                   <Image
                     width={40}
                     height={40}
@@ -171,15 +173,15 @@ const FeaturedItem = ({  setShowBox,totalCount,properties}) => {
                 </Link>
               </li>
               <li className="list-inline-item">
-                <Link href={`tel:${item.sellerphone}`}>{item.sellername}</Link>
+                <Link href={`tel:${item?.sellerid?.phone}`}>{item?.sellerid?.title}</Link>
               </li>
             </ul>
             <div className="fp_pdate float-end d-flex gap-2 align-items-center">
-              <a href={`tel:${item.sellerphone}`} className="me-2 circle-shape text-dark">
+              <a href={`tel:${item?.sellerid?.phone}`} className="me-2 circle-shape text-dark">
                 {/* <i className="fa fa-phone"></i> */}
                 <span className="flaticon-telephone"></span>
               </a>
-              <a href={`mailto:${item.selleremail}`} className="circle-shape text-dark">
+              <a href={`mailto:${item?.sellerid?.email}`} className="circle-shape text-dark">
                 {/* <i className="fa fa-envelope"></i> */}
                 <span className="flaticon-black-back-closed-envelope-shape"></span>
               </a>

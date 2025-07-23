@@ -12,14 +12,18 @@ export const metadata = {
 export default async function MyDashboardPage() {
   try {
     // Run requests in parallel to reduce wait time
+     const filter = {
+    limit: 1000,
+    page:  1
+  }
     const [propertyRes, enqueryCountProperty, enqueryCountLanding, enqueryCount] = await Promise.all([
-      getPropertyTableData(),
+      getPropertyTableData(filter),
       getPropertyEnquiryTableData(),
       getLandingEnquiryTableData(),
       getEnquiryTableData(),
     ]);
 
-    const properties = propertyRes || [];
+    const properties = propertyRes?.items || [];
     const enqueryProperty = enqueryCountProperty || [];
     const enqueryLanding = enqueryCountLanding || [];
     const enquery = enqueryCount || [];

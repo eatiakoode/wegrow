@@ -4,18 +4,12 @@ import Image from "next/image";
 import { getPropertytypeTableData,deletePropertytypeAPI } from "../../../api/propertytype";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
 // import moment from 'moment';
 
-const TableData = () => {
-  console.log("test")
-   const [propertytypeList, setPropertytypeList] = useState([]);
+const TableData = ({propertytypeList,setPropertytypeList}) => {
     const router = useRouter();
   
-    const fetchPropertytypeData = async () => {
-      const data = await getPropertytypeTableData();
-      console.log(data)
-      setPropertytypeList(data);
-    };
     const deletePropertytype = async (id) => {
         const isConfirmed = window.confirm("Are you sure you want to delete this propertytype?");
         if (!isConfirmed) return;
@@ -23,7 +17,8 @@ const TableData = () => {
         try {
           const data = await deletePropertytypeAPI(id); // 🔹 Call the API function
           
-          alert(data.message);
+          // alert(data.message);
+          toast.success(data.message);
           setPropertytypeList((prevPropertytypeList) => prevPropertytypeList.filter((propertytype) => propertytype._id !== id));
           //setTitle(""); // ✅ Reset input after success
         } catch (error) {
@@ -40,7 +35,7 @@ const TableData = () => {
   ];
  
 
-  let tbodyContent = propertytypeList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = propertytypeList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">
@@ -100,9 +95,9 @@ const TableData = () => {
       {/* End td */}
     </tr>
   ));
-useEffect(() => {
-    fetchPropertytypeData();
-  }, []); 
+// useEffect(() => {
+//     fetchPropertytypeData();
+//   }, []); 
   
   return (
     <>

@@ -5,14 +5,12 @@ import { useRouter, useParams } from "next/navigation";
 import { getPropertytypeById, updatePropertytypeAPI } from "../../../api/propertytype";
 
 import { getCategoryTableData } from "../../../api/category";
-
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const params = useParams();
-    console.log("Params:", params); // Debugging log
   
     const id = params?.id;
-    console.log("Propertytype ID:", id); // Debugging log
   
     const router = useRouter();
     const [propertytype, setPropertytype] = useState({ title: "", status: false });
@@ -39,11 +37,13 @@ const CreateList = () => {
       fetchPropertytype();
       const fetchCategories = async () => {
         try {
-          const response = await getCategoryTableData();
-          console.log("response")
-          console.log(response)
+          const filter = {
+            limit: 1000,
+            page:  1
+          }
+          const response = await getCategoryTableData(filter);
   
-          setCategories(response || []);
+          setCategories(response.items || []);
         } catch (err) {
           console.error("Error fetching Category:", err);
         }
@@ -59,9 +59,15 @@ const CreateList = () => {
           ...propertytype,
           categoryid: selectedCategory,
         };
-        await updatePropertytypeAPI(id, updatedPropertytype);
-        alert("Propertytype updated successfully!");
-        router.push("/cmswegrow/my-propertytype");
+        const data =await updatePropertytypeAPI(id, updatedPropertytype);
+        // alert("Propertytype updated successfully!");
+        // router.push("/cmswegrow/my-propertytype");
+        toast.success(data.message);
+        if(data.status=="success"){
+            setTimeout(() => {
+            router.push("/cmswegrow/my-propertytype");
+            }, 1500); 
+          }
       } catch (error) {
         alert("Failed to update Propertytype.");
         console.error(error);

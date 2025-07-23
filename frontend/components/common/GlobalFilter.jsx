@@ -41,10 +41,7 @@ const GlobalFilter = ({ className = "" }) => {
       const fetchPropertytypes = async () => {
         try {
           // const value="67e67294759f85d6bf7a131a"
-          const response = await getPropertytypeByCategoryTableData(category);
-          console.log("responsepropertytypes")
-          console.log(response.data)
-          
+          const response = await getPropertytypeByCategoryTableData(category);         
   
           setPropertytypes(response.data || []);
         } catch (err) {
@@ -92,7 +89,7 @@ const GlobalFilter = ({ className = "" }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Find your dream home e — start typing..."
+              placeholder="Find your dream home — start typing..."
               // onChange={(e) => dispatch(addKeyword(e.target.value))}
               onChange={(e) => setKeyword(e.target.value)} 
             />

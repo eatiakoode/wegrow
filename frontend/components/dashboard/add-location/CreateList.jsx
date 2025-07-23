@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { addLocationAPI } from "../../../api/location";
-import { getCityTableData,getCityByStateTableData } from "../../../api/city";
+import { addLocationAPI } from "@/api/location";
+import { getCityTableData,getCityByStateTableData } from "@/api/city";
 
-import { getCountryTableData } from "../../../api/country";
-import { getStateByCountryTableData } from "../../../api/state";
+import { getCountryTableData } from "@/api/country";
+import { getStateByCountryTableData } from "@/api/state";
+import { useRouter, useParams } from "next/navigation";
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const [title, setTitle] = useState("");
@@ -17,6 +19,10 @@ const CreateList = () => {
    
   const [cities, setCities] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
+  const router = useRouter();
+  const [locationlogo, setLocationLogo] = useState(null);
+  const [isSubmitting, setisSubmitting] = useState("");
+   const [istrending, setIstrending] = useState("");
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -75,6 +81,7 @@ const handleCountryChange = (e) => {
 
   const addLocation = async (e) => {
     e.preventDefault();
+    setisSubmitting(true)
 
     if (!title.trim()) {
       setError("Title is required");
@@ -84,26 +91,73 @@ const handleCountryChange = (e) => {
     setError("");
 
     try {
-      const addLocation = {
-        title:title,
-                countryid: selectedCountry,
-                stateid: selectedState,
-                cityid: selectedCity,
-              };
+      // const addLocation = {
+      //   title:title,
+      //           countryid: selectedCountry,
+      //           stateid: selectedState,
+      //           cityid: selectedCity,
+      //         };
+      const formData = new FormData();
+        formData.append("title", title);
+        formData.append("countryid", selectedCountry);
+        formData.append("stateid", selectedState);
+        formData.append("cityid", selectedCity);
+         formData.append("istrending", istrending);
+        if (locationlogo) {
+          formData.append("locationlogo", locationlogo);
+        }
+              
               // const data = await addCityAPI(addCity);
-      const data = await addLocationAPI(addLocation);
+      const data = await addLocationAPI(formData);
       console.log(data);
-      alert(data.message);
+      // alert(data.message);
+      toast.success(data.message);
+      if(data.status=="success"){
+         setTimeout(() => {
+          router.push("/cmswegrow/my-location");
+          }, 1500); 
+      }
       setTitle("");
       setSelectedCity("");
+      setLocationLogo(null);
     } catch (error) {
       setError(error.message);
     }
   };
-  
+   const uploadLocationLogo = (e) => {
+      setLocationLogo(e.target.files[0]);
+    };
   return (
     <>
       <form onSubmit={addLocation} className="row">
+         <div className="col-lg-12">
+                <div className="wrap-custom-file">
+                    <input
+                        type="file"
+                        id="image1"
+                       accept="image/png, image/gif, image/jpeg, image/svg+xml, image/svg, image/webp, image/avif"
+                        onChange={uploadLocationLogo}
+                    />
+                    <label
+                        style={
+                            locationlogo !== null
+                                ? {
+                                      backgroundImage: `url(${URL.createObjectURL(
+                                          locationlogo
+                                      )})`,
+                                  }
+                                : undefined
+                        }
+                        htmlFor="image1"
+                    >
+                        <span>
+                            <i className="flaticon-download"></i> Upload Photo{" "}
+                        </span>
+                    </label>
+                </div>
+                <p>*minimum 260px x 260px</p>
+            </div>
+            {/* End .col */}
       <div className="col-lg-6 col-xl-6">
           <div className="my_profile_setting_input ui_kit_select_search form-group">
             <label htmlFor="countrySelect">Select Country</label>
@@ -177,13 +231,28 @@ const handleCountryChange = (e) => {
             {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
           </div>
         </div>
-
+ <div className="col-lg-6 col-xl-6">
+        <div className="my_profile_setting_input ui_kit_select_search form-group">
+          <label>Trending Location</label>
+          <select
+  className="selectpicker form-select"
+  data-live-search="true"
+  data-width="100%"
+  value={istrending ? "active" : "deactive"}
+  onChange={(e) => setIstrending(e.target.value === "active")}
+>
+        <option value="active">Active</option>
+        <option value="deactive">Deactive</option>
+      </select>
+        </div>
+      </div>
+      {/* End .col */}
        
 
         <div className="col-xl-12">
           <div className="my_profile_setting_input">
-            <button type="button" className="btn btn1 float-start" type="button" onClick={() => window.location.href = '/cmswegrow/my-dashboard'}>Back</button>
-            <button type="submit" className="btn btn2 float-end">Submit</button>
+            <button type="button" className="btn btn1 float-start" onClick={() => window.location.href = '/cmswegrow/my-dashboard'}>Back</button>
+            <button type="submit" className="btn btn2 float-end" disabled={isSubmitting} >{isSubmitting ? 'Sending...' : 'Submit'}</button>
           </div>
         </div>
       </form>

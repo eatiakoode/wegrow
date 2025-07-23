@@ -2,15 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { getAmenityById, updateAmenityAPI } from "../../../api/amenity";
+import { getAmenityById, updateAmenityAPI } from "@/api/amenity";
 
-
+import { toast } from 'react-toastify';
 const CreateList = () => {
   const params = useParams();
-    // console.log("Params:", params); // Debugging log
   
     const id = params?.id;
-    // console.log("Amenity ID:", id); // Debugging log
   
     const router = useRouter();
     const [amenity, setAmenity] = useState({ title: "", status: false });
@@ -30,7 +28,6 @@ const CreateList = () => {
       const fetchAmenity = async () => {
         try {
           const data = await getAmenityById(id);
-          console.log("Fetched Amenity Data:", data); // Debugging log
           setAmenity({ title: data.data.title, status: data.data.status });
           setTitle(data.data.title)
           // setSlug(data.data.slug)
@@ -51,15 +48,22 @@ const CreateList = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
+        console.log("title",title)
         const formData = new FormData();
         formData.append("title", title);
         formData.append("status", status);
         if (logo) {
           formData.append("logo", logo);
         }
-        await updateAmenityAPI(id, formData);
-        alert("Amenity updated successfully!");
-        router.push("/cmswegrow/my-amenities");
+        const data = await updateAmenityAPI(id, formData);
+        // alert("Amenity updated successfully!");
+        // router.push("/cmswegrow/my-amenities");
+         toast.success(data.message);
+          if(data.status=="success"){
+            setTimeout(() => {
+            router.push("/cmswegrow/my-amenities");
+            }, 1500); 
+          }
       } catch (error) {
         alert("Failed to update Amenity.");
         console.error(error);
@@ -67,6 +71,7 @@ const CreateList = () => {
     };
   
     const handleChange = (e) => {
+      setTitle(e.target.value)
       setAmenity((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
   
@@ -113,6 +118,7 @@ const CreateList = () => {
         id="amenityTitle"
         name="title"
         value={amenity.title}
+        // onChange={(e) => setTitle(e.target.value)}
         onChange={handleChange}
       />
         </div>

@@ -4,6 +4,8 @@ import Image from "next/image";
 import { getStateTableData,deleteStateAPI } from "../../../api/state";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify';
+
 // import moment from 'moment';
 
 const TableData = () => {
@@ -12,7 +14,6 @@ const TableData = () => {
   
     const fetchStateData = async () => {
       const data = await getStateTableData();
-      console.log(data)
       setStateList(data);
     };
     const deleteState = async (id) => {
@@ -22,7 +23,8 @@ const TableData = () => {
         try {
           const data = await deleteStateAPI(id); // 🔹 Call the API function
           
-          alert(data.message);
+          // alert(data.message);
+          toast.success(data.message);
           setStateList((prevStateList) => prevStateList.filter((state) => state._id !== id));
           //setTitle(""); // ✅ Reset input after success
         } catch (error) {
@@ -38,7 +40,7 @@ const TableData = () => {
     "Action",
   ];
 
-  let tbodyContent = stateList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = stateList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">

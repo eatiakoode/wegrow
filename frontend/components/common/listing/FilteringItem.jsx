@@ -16,7 +16,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 
-const FilteringItem = ({ setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype,setPropertytypes,propertytypes }) => {
+const FilteringItem = ({ setKeyword, setCity,setCategory, setPropertytype , keyword, city,category, propertytype,setPropertytypes,propertytypes, location }) => {
 
  
   const [cities, setCities] = useState([]);
@@ -64,7 +64,6 @@ const FilteringItem = ({ setKeyword, setCity,setCategory, setPropertytype , keyw
   }, [dispath, getKeyword]);
 
   useEffect(() => {
-    // console.log("hbj")
     dispath(addCity(getCity));
   }, [dispath, getCity]);
 
@@ -117,8 +116,6 @@ useEffect(() => {
       const fetchCities = async () => {
         try {
           const response = await getCityTableData();
-          console.log("response")
-          console.log(response)
           setCities(response.data || []);
         } catch (err) {
           console.error("Error fetching Country:", err);
@@ -146,7 +143,6 @@ useEffect(() => {
         setCategory(value);
         try {
           const res = await getPropertytypeByCategoryTableData(value);
-          console.log("test property")
           setPropertytypes(res.data || []);
         } catch (err) {
           console.error("Error fetching property types:", err);
@@ -397,7 +393,7 @@ useEffect(() => {
               className="selectpicker w100 show-tick form-select"
               value={getBuiltYear}
             >
-              <option value="">Year built</option>
+              <option value="">Possession Year</option>
               <option value="2013">2013</option>
               <option value="2014">2014</option>
               <option value="2015">2015</option>

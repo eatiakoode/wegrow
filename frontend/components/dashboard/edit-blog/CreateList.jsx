@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { getBlogById, updateBlogAPI } from "../../../api/blog";
 import { getBlogcategoryTableData } from "../../../api/blogcategory";
+import { toast } from 'react-toastify';
 
 
 const CreateList = () => {
+  
   const params = useParams();  
     const id = params?.id;  
     const router = useRouter();
@@ -21,6 +23,8 @@ const CreateList = () => {
     const [error, setError] = useState("");  
     const [logo, setLogo] = useState(null);
     const [logoimage, setLogoImage] = useState(null);
+    const [metatitle, setMetatitle] = useState([]);
+  const [metadescription, setMetaDescription] = useState([]);
     const uploadLogo = (e) => {
       setLogoImage("")
       setLogo(e.target.files[0]);
@@ -32,9 +36,6 @@ const CreateList = () => {
       const fetchBlog = async () => {
         try {
           const data = await getBlogById(id);
-          console.log("data")
-          console.log(data)
-          console.log(process.env.NEXT_PUBLIC_API_URL+data.data.logoimage)
           // setBlog({ title: data.data.title, status: data.data.status, description: data.data.description });
           setTitle(data.data.title)
           setSlug(data.data.slug)
@@ -42,6 +43,8 @@ const CreateList = () => {
           setDescription(data.data.description)
           setSource(data.data.source)
           setDate(data.data.date)
+          setMetatitle(data.data.metatitle)
+          setMetaDescription(data.data.metadescription)
           
           setSelectedBlogcategory(data.data.blogcategory)
           if(data.data.logoimage) {
@@ -58,9 +61,7 @@ const CreateList = () => {
       const fetchBlogcategories = async () => {
             try {
               const response = await getBlogcategoryTableData();
-              console.log("response")
-              console.log(response)
-      
+              
               setBlogcategories(response || []);
             } catch (err) {
               console.error("Error fetching Blogcategory:", err);
@@ -84,12 +85,20 @@ const CreateList = () => {
         formData.append("source", source);
         formData.append("date", date);
         formData.append("status", status);
+         formData.append("metatitle", metatitle);
+        formData.append("metadescription", metadescription);
         if (logo) {
           formData.append("logo", logo);
         }
-        await updateBlogAPI(id, formData);
-        alert("Blog updated successfully!");
-        router.push("/cmswegrow/my-blog");
+       const res = await updateBlogAPI(id, formData);
+        // alert("Blog updated successfully!");
+        toast.success(res.message);
+         
+         if(res.status=="success"){
+            setTimeout(() => {
+              router.push("/cmswegrow/my-blog");
+              }, 1500); 
+          }
       } catch (error) {
         alert("Failed to update Blog.");
         console.error(error);
@@ -170,7 +179,7 @@ const CreateList = () => {
       {/* End .col */}
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="BlogSlug">Blog Slug</label>
+          <label htmlFor="BlogSlug">Blog Slug (SEO URL)</label>
           <input
         type="text"
         className="form-control"
@@ -226,7 +235,36 @@ const CreateList = () => {
       {/* End .col */}
 
      
+ <div className=" mt30 ">
+                    <div className="col-lg-12">
+                      <h3 className="mb30">Meta Information</h3>
+                    </div>
+                    <div className="row">
+                    <div className="col-lg-12">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="blogMetatitle">Meta Title</label>
+         
+          <input type="text"
+              className="form-control"
+              id="blogMetatitle"
+              value={metatitle}
+              onChange={(e) => setMetatitle(e.target.value)} />
+        </div>
+      </div>
+      <div className="col-lg-12">
+          <div className="my_profile_setting_textarea form-group">
+            <label htmlFor="blogMetaDescription">Meta Description</label>
+            <textarea id="blogMetaDescription" className="form-control" rows="7"  value={metadescription} onChange={(e) => setMetaDescription(e.target.value)}  placeholder="Enter meta description"></textarea>
+            {error.metadescription && <span className="text-danger">{error.metadescription}</span>}
+          </div>
+          
+        </div>
+        
 
+      {/* End .col */}
+      </div>
+      
+                  </div>
 
       <div className="col-xl-12">
         <div className="my_profile_setting_input">

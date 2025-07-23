@@ -3,14 +3,12 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { getBlogcategoryById, updateBlogcategoryAPI } from "../../../api/blogcategory";
-
+import { toast } from 'react-toastify';
 
 const CreateList = () => {
   const params = useParams();
-    console.log("Params:", params); // Debugging log
   
     const id = params?.id;
-    console.log("Blogcategory ID:", id); // Debugging log
   
     const router = useRouter();
     const [blogcategory, setBlogcategory] = useState({ title: "", status: false });
@@ -22,7 +20,6 @@ const CreateList = () => {
       const fetchBlogcategory = async () => {
         try {
           const data = await getBlogcategoryById(id);
-          console.log("Fetched Blogcategory Data:", data); // Debugging log
           setBlogcategory({ title: data.data.title, status: data.data.status });
         } catch (error) {
           console.error("Error fetching Blogcategory:", error);
@@ -37,9 +34,15 @@ const CreateList = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        await updateBlogcategoryAPI(id, blogcategory);
-        alert("Blogcategory updated successfully!");
-        router.push("/cmswegrow/my-blogcategory");
+        const data =await updateBlogcategoryAPI(id, blogcategory);
+        // alert("Blogcategory updated successfully!");
+        // router.push("/cmswegrow/my-blogcategory");
+        toast.success(data.message);
+        if(data.status=="success"){
+          setTimeout(() => {
+          router.push("/cmswegrow/my-blogcategory");
+          }, 1500); 
+        }
       } catch (error) {
         alert("Failed to update Blogcategory.");
         console.error(error);

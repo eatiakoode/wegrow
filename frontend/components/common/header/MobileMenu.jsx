@@ -21,11 +21,16 @@ const MobileMenu = () => {
           {/* main_logo_home2 */}
 
           <ul className="menu_bar_home2">
-            <li className="list-inline-item list_s">
+            {/* <li className="list-inline-item list_s">
               <Link href="/login">
                 <span className="flaticon-user"></span>
               </Link>
-            </li>
+            </li> */}
+            <li className="list-inline-item border_listing">
+            <a href="tel:+917421922000">
+              <span className="flaticon-telephone"></span>
+            </a>
+          </li>
             <li
               className="list-inline-item"
               data-bs-toggle="offcanvas"

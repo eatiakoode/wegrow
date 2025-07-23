@@ -9,7 +9,7 @@ const Team = () => {
   const settings = {
     dots: false,
     arrows: true,
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: false,
     speed: 1200,
@@ -72,7 +72,7 @@ const Team = () => {
               <div className="details">
                 <h4>
                   {" "}
-                  <Link href={`/agent-details/${item.id}`}>{item.name}</Link>
+                  {item.name}
                 </h4>
                 <p>{item.type}</p>
               </div>

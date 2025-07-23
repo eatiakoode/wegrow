@@ -52,8 +52,8 @@ const index = ({properties,enqueryProperty,enqueryLanding,enquery}) => {
 
                 <div className="col-lg-12 mb10">
                   <div className="breadcrumb_content style2">
-                    <h2 className="breadcrumb_title">Howdy, Admin</h2>
-                    <p>We are glad to see you again!</p>
+                    <h2 className="breadcrumb_title">Your Dashboard Overview</h2>
+                    <p>Track properties, manage leads, and stay updated in one place.</p>
                   </div>
                 </div>
               </div>

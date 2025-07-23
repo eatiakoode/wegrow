@@ -11,6 +11,7 @@ import SidebarListing from "../../common/listing/SidebarListing";
 import PopupSignInUp from "../../common/PopupSignInUp";
 import BreadCrumb2 from "./BreadCrumb2";
 import FeaturedItem from "./FeaturedItem";
+import BreadCrumbBanner from "@/components/listing-grid/grid-v1/BreadCrumbBanner";
 import { getPropertyFilterData } from "@/api/frontend/property";
 import { getPropertytypeByCategoryTableData,getPropertytypeTableData } from "@/api/frontend/propertytype.ts";
 
@@ -19,7 +20,7 @@ import { useState, useEffect } from "react";
 // import { useRouter, useParams } from "next/navigation";
 // import { useSearchParams } from 'next/navigation';
 
-const index = ({ properties:initialProperties, totalCount:initialCount,filter :initialFilter }) => {
+const index = ({ properties:initialProperties, totalCount:initialCount,filter :initialFilter,categorydata }) => {
   
   // const searchParams = useSearchParams();
   // const cat = searchParams.get('cat'); 
@@ -30,6 +31,8 @@ const index = ({ properties:initialProperties, totalCount:initialCount,filter :i
   const [keyword, setKeyword] = useState(initialFilter.keyword || "");
   const [city, setCity] = useState(initialFilter.city || "");
   const [propertytype, setPropertytype] = useState(initialFilter.propertytype || "");
+  const [location, setLocation] = useState(initialFilter.location || "");
+  
   const [propertytypes, setPropertytypes] = useState([]);
   /*property paggination*/
   //  const [propertyList, setPropertyList] = useState([]);
@@ -48,12 +51,12 @@ useEffect(() => {
       "city":city,
       "category":category,
       "propertytype": propertytype,
+      "location": location,
       "limit":pageSize,
       "page":currentPage
     };
     const data = await getPropertyFilterData(filter);
-          // console.log("prperty data")
-          // console.log(data)
+          
           setProperties(data.items);
           setLoaderProperty(false)
           // setPropertyList(data.items)
@@ -61,13 +64,12 @@ useEffect(() => {
           
         };
   fetchProperties();
-}, [keyword, city, category, propertytype,currentPage,setTotalCount]);
+}, [keyword, city, category, propertytype,location,currentPage,setTotalCount]);
    const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
       if (typeof window !== "undefined") {
   
         const stored = localStorage.getItem("propertycompare");
-        console.log("stored")
-        console.log(stored)
+        
         if (stored !== "undefined") {
   
         return stored ? JSON.parse(stored) : [];
@@ -112,26 +114,14 @@ useEffect(() => {
       if (initialFilter.propertytype) {
         setPropertytype(initialFilter.propertytype);
       }
+      if (initialFilter.location) {
+        setPropertytype(initialFilter.location);
+      }
+      
      
       
     }, [initialFilter]);
     
-           
-    // useEffect(() => {
-    //   const fetchData = async () => {
-    //     try {
-    //       const res = await getPropertytypeTableData();
-    //       console.log("setPropertytypes index")
-    //       console.log(setPropertytypes)
-    //       setPropertytypes(res || []);
-    //     } catch (error) {
-    //       console.error("Error fetching property types:", error);
-    //     }
-    //   };
-  
-    //   fetchData();
-    
-    //       }, [setPropertytypes]);
   return (
     <>
       {/* <!-- Main Header Nav --> */}
@@ -143,8 +133,10 @@ useEffect(() => {
       {/* <!-- Modal --> */}
       <PopupSignInUp />
 
+      <BreadCrumbBanner categorydata={categorydata}/>
+      
       {/* <!-- Listing Grid View --> */}
-      <section className="our-listing bgc-f7 pb30-991 mt85 md-mt0 ">
+      <section className="our-listing bgc-f7 pb30-991  md-mt0 ">
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
@@ -171,9 +163,9 @@ useEffect(() => {
             <div className="col-lg-4 col-xl-4">
               <div className="sidebar-listing-wrapper">
                 <SidebarListing  keyword={keyword} setKeyword={setKeyword}
-  city={city} setCity={setCity}
-  category={category} setCategory={setCategory}
-  propertytype={propertytype} setPropertytype={setPropertytype} setPropertytypes={setPropertytypes} propertytypes={propertytypes}/>
+                city={city} setCity={setCity}
+                category={category} setCategory={setCategory}
+                propertytype={propertytype} setPropertytype={setPropertytype} setPropertytypes={setPropertytypes} propertytypes={propertytypes} location={location}/>
               </div>
               {/* End SidebarListing */}
 
@@ -194,7 +186,12 @@ useEffect(() => {
                 {/* End .offcanvas-heade */}
 
                 <div className="offcanvas-body">
-                  {/* <SidebarListing /> */}
+                  <div className="sidebar-listing-wrapper">
+                    <SidebarListing  keyword={keyword} setKeyword={setKeyword}
+                    city={city} setCity={setCity}
+                    category={category} setCategory={setCategory}
+                    propertytype={propertytype} setPropertytype={setPropertytype} setPropertytypes={setPropertytypes} propertytypes={propertytypes} location={location}/>
+                  </div>
                 </div>
               </div>
               {/* End mobile sidebar listing  */}

@@ -4,6 +4,7 @@ import { getBlogcategoryTableData,deleteBlogcategoryAPI } from "../../../api/blo
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 // import moment from 'moment';
+import { toast } from 'react-toastify';
 
 const TableData = () => {
    const [blogcategoryList, setBlogcategoryList] = useState([]);
@@ -11,7 +12,6 @@ const TableData = () => {
   
     const fetchBlogcategoryData = async () => {
       const data = await getBlogcategoryTableData();
-      console.log(data)
       setBlogcategoryList(data);
     };
     const deleteBlogcategory = async (id) => {
@@ -21,7 +21,7 @@ const TableData = () => {
         try {
           const data = await deleteBlogcategoryAPI(id); // 🔹 Call the API function
           
-          alert(data.message);
+          toast.success(data.message);
           setBlogcategoryList((prevBlogcategoryList) => prevBlogcategoryList.filter((blogcategory) => blogcategory._id !== id));
           //setTitle(""); // ✅ Reset input after success
         } catch (error) {
@@ -35,7 +35,7 @@ const TableData = () => {
     "Status",
     "Action",
   ];
-  let tbodyContent = blogcategoryList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = blogcategoryList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">

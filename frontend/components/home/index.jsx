@@ -11,6 +11,7 @@ import Testimonial from "../common/Testimonial";
 import ExploreMoreProperties from "../common/ExploreMoreProperties";
 import Hotproperties from "../common/Hotproperties";
 import FeaturedProperties from "./FeaturedProperties";
+import TrendingLocations from "./TrendingLocations";
 import FindProperties from "./FindProperties";
 import Header from "./Header";
 import Hero from "./Hero";
@@ -18,13 +19,13 @@ import WhyChoose from "../common/WhyChoose";
 import PopupSignInUp from "../common/PopupSignInUp";
 import { useState, useEffect } from "react";
 
-const Index = ({properties,findcities,testimonials,cities}) => {
+const Index = ({properties,findcities,testimonials,cities,locationlist}) => {
+ 
   const [propertySelectedComp, setPropertySelectedComp] = useState(() => {
     if (typeof window !== "undefined") {
 
       const stored = localStorage.getItem("propertycompare");
-      console.log("stored")
-      console.log(stored)
+      
       if (stored !== "undefined") {
 
       return stored ? JSON.parse(stored) : [];
@@ -36,7 +37,6 @@ const Index = ({properties,findcities,testimonials,cities}) => {
   const [showBox, setShowBox] = useState(propertySelectedComp.length > 0);
   // const [showBox, setShowBox] = useState(false);
   // const [showBox, setShowBox] = useState(false);
-
 
   // Sync localStorage
   useEffect(() => {
@@ -56,6 +56,24 @@ const Index = ({properties,findcities,testimonials,cities}) => {
 
       {/* <!-- Home Design --> */}
       <Hero />
+
+      <section id="trending-location" className="trending-location">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 offset-lg-3">
+              <div className="main-title text-center mb40">
+                <h2>Trending Locations</h2>
+                <p>Explore the most sought-after neighborhoods and up-and-coming areas, carefully selected by our experts for their value, lifestyle, and investment potential.</p>
+              </div>
+            </div>
+            <div className="col-lg-12">
+              <div className="trending_location_slider gutter-x15">
+                <TrendingLocations locationlist={locationlist}/> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* <!-- Feature Properties --> */}
       <section id="feature-property" className="feature-property bgc-f7">

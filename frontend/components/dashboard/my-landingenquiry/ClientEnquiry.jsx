@@ -11,8 +11,7 @@ const AuthorReview = () => {
   const [enquiryList, setEnquiryList] = useState([]);
   const fetchEnquiryData = async () => {
         const data = await getLandingEnquiryTableData();
-        console.log("dataenquiryList")
-        console.log(data)
+        
         setEnquiryList(data);
       };
   
@@ -29,6 +28,7 @@ const AuthorReview = () => {
               
              
                <div> <span className="text-thm">Name: {item.name}</span></div>
+               <div> <span className="text-thm">Phone: {item.phone}</span> </div>
                <div> <span className="text-thm">Email: {item.email}</span> </div>
               
               <span className="sspd_review float-end">

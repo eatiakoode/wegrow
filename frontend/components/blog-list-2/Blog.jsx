@@ -26,7 +26,7 @@ const Blog = ({blogs}) => {
   return (
     <>
       {blogs.slice(0, 6).map((item,index) => (
-        <div className="col-lg-6" key={item.id}>
+        <div className="col-lg-6" key={index}>
           <div className="for_blog feat_property">
             <div className="thumb">
               <Link href={`/blog-detail/${item.slug}`}>
@@ -38,7 +38,7 @@ const Blog = ({blogs}) => {
                   src={
                     item.logoimage
                       ? `${process.env.NEXT_PUBLIC_API_URL}${item.logoimage}`
-                      : "/default-placeholder.jpg"
+                      : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                   }
                   alt= {`${item.title}${index + 1}`}
                   unoptimized 

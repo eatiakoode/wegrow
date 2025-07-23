@@ -1,60 +1,72 @@
 const PropertyDetails = ({property}) => {
   return (
     <>
-      <div className="col-md-6 col-lg-6 col-xl-4">
+      <div className="property-detail-item">
         <ul className="list-inline-item">
+          {property.propertyid && (
+            <li>
+              <p>
+                Property ID : <span>{property.propertyid}</span>
+              </p>
+            </li>
+          )}
+          {property.price && (
+            <li>
+              <p>
+                Price : <span>{property.price}</span>
+              </p>
+            </li>
+          )}
+          {(property.areasize || property.sizeprefix) && (
+            <li>
+              <p>
+                Property Size : <span>{property.areasize} {property.sizeprefix}</span>
+              </p>
+            </li>
+          )}
+          {property.yearbuild && (
+            <li>
+              <p>
+                Possession Year : <span>{property.yearbuild}</span>
+              </p>
+            </li>
+          )}
+          
+           {property.bedrooms && (
           <li>
             <p>
-              Property ID : <span>{property.propertyid}</span>
+              {property.categoryid._id=="67ea48d17cfa562fe8eaafd0" ? "Meeting rooms and cabins":"Bedrooms"} : <span>{property.bedrooms}</span>
             </p>
           </li>
-          <li>
-            <p>
-              Price : <span>{property.price}</span>
-            </p>
-          </li>
-          <li>
-            <p>
-              Property Size : <span>{property.areasize} {property.sizeprefix}</span>
-            </p>
-          </li>
-          <li>
-            <p>
-              Year Built : <span>{property.yearbuild}</span>
-            </p>
-          </li>
-        </ul>
-      </div>
-      {/* End .col */}
-
-      <div className="col-md-6 col-lg-6 col-xl-4">
-        <ul className="list-inline-item">
-          <li>
-            <p>
-              Bedrooms : <span>{property.bedrooms}</span>
-            </p>
-          </li>
+          )}
+          {property.bathrooms && (
           <li>
             <p>
               Bathrooms : <span>{property.bathrooms}</span>
             </p>
           </li>
+          )}
+          {property.garages && (
           <li>
             <p>
               Parking : <span>{property.garages}</span>
             </p>
           </li>
+          )}
+          {property.garages && (
           <li>
             <p>
-            Parking Size : <span>{property.garagessize} {property.garagessize}</span>
+            Parking Space: <span>{property.garages}</span>
             </p>
           </li>
-        </ul>
-      </div>
-      {/* End .col */}
-
-      <div className="col-md-6 col-lg-6 col-xl-4">
-        <ul className="list-inline-item">
+          )}
+          {property.garagessize && (
+          <li>
+            <p>
+            Parking : <span>{property.garagessize}</span>
+            </p>
+          </li>
+          )}
           <li>
             <p>
               Property Type : <span>{property.propertytypeid?.title}</span>
@@ -65,8 +77,18 @@ const PropertyDetails = ({property}) => {
               Property Status : <span>{property.furnishingstatus?.title}</span>
             </p>
           </li>
+          {property.reranumber && (
+            <li className="rera_no">
+              <p>
+                Rera Number : <span>{property.reranumber}</span>
+              </p>
+            </li>
+          )}
         </ul>
       </div>
+      {/* End .col */}
+
+      
     </>
   );
 };

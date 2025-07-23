@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { addBuilderAPI } from "../../../api/builder";
+import { addBuilderAPI } from "@/api/builder";
+import { useRouter, useParams } from "next/navigation";
+import { toast } from 'react-toastify';
 const CreateList = () => {
    const [title, setTitle] = useState("");
    const [slug, setSlug] = useState("");
    const [description, setDescription] = useState("");
     const [error, setError] = useState("");
     const [logo, setLogo] = useState(null);
+    const router = useRouter();
+     const [isSubmitting, setisSubmitting] = useState("");
+     const [metatitle, setMetatitle] = useState([]);
+  const [metadescription, setMetaDescription] = useState([]);
 
     // upload profile
     const uploadLogo = (e) => {
@@ -33,6 +39,7 @@ const CreateList = () => {
   
     const addBuilder = async (e) => {
       e.preventDefault();
+      setisSubmitting(true)
     
       if (!title.trim()) {
         setError("Title is required");
@@ -50,6 +57,8 @@ const CreateList = () => {
         formData.append("title", title);
         formData.append("slug", slug);
         formData.append("description", description);
+        formData.append("metatitle", metatitle);
+        formData.append("metadescription", metadescription);
         if (logo) {
           formData.append("logo", logo);
         }
@@ -58,7 +67,14 @@ const CreateList = () => {
     // console.log(formData)
         const data = await addBuilderAPI(formData); // Use FormData here
         console.log(data);
-        alert(data.message);
+        toast.success(data.message);
+            
+        if(data.status=="success"){
+         setTimeout(() => {
+          router.push("/cmswegrow/my-builder");
+          }, 1500); 
+        }
+        // alert(data.message);
     
         setTitle("");
         setSlug("");
@@ -110,7 +126,7 @@ const CreateList = () => {
       </div>
       <div className="col-lg-6 col-xl-6">
         <div className="my_profile_setting_input form-group">
-          <label htmlFor="builderSlug">Builder Slug</label>
+          <label htmlFor="builderSlug">Builder Slug (SEO URL)</label>
           <input type="text" className="form-control" id="builderSlug" value={slug} onChange={handleSlugChange} />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
         </div>
@@ -143,12 +159,42 @@ const CreateList = () => {
       {/* End .col */}
 
      
+     <div className=" mt30 ">
+                    <div className="col-lg-12">
+                      <h3 className="mb30">Meta Information</h3>
+                    </div>
+                    <div className="row">
+                    <div className="col-lg-12">
+        <div className="my_profile_setting_input form-group">
+          <label htmlFor="builderMetatitle">Meta Title</label>
+         
+          <input type="text"
+              className="form-control"
+              id="builderMetatitle"
+              value={metatitle}
+              onChange={(e) => setMetatitle(e.target.value)} />
+        </div>
+      </div>
+      <div className="col-lg-12">
+          <div className="my_profile_setting_textarea form-group">
+            <label htmlFor="builderMetaDescription">Meta Description</label>
+            <textarea id="builderMetaDescription" className="form-control" rows="7"  value={metadescription} onChange={(e) => setMetaDescription(e.target.value)}  placeholder="Enter meta description"></textarea>
+            {error.metadescription && <span className="text-danger">{error.metadescription}</span>}
+          </div>
+          
+        </div>
+        
+
+      {/* End .col */}
+      </div>
+      
+                  </div>
 
 
       <div className="col-xl-12">
         <div className="my_profile_setting_input">
           <button className="btn btn1 float-start" type="button" onClick={() => window.location.href = '/cmswegrow/my-dashboard'}>Back</button>
-          <button type="submit" className="btn btn2 float-end">Submit</button>
+          <button type="submit" className="btn btn2 float-end" disabled={isSubmitting} >{isSubmitting ? 'Sending...' : 'Submit'}</button>
         </div>
       </div>
       </form>

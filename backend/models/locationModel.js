@@ -24,6 +24,16 @@ var locationSchema = new mongoose.Schema(
       ref: "City", // 🔗 This should match the name you used in mongoose.model("City", ...)
       required: true,
     },
+    locationlogoimage: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
+    istrending: {
+      type: Boolean,
+      default: true,
+    },
     status: {
       type: Boolean,
       default: true,

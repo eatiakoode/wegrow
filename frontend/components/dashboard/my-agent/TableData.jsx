@@ -11,7 +11,6 @@ const TableData = () => {
   
     const fetchAgentData = async () => {
       const data = await getAgentTableData();
-      console.log(data)
       setAgentList(data);
     };
     const deleteAgent = async (id) => {
@@ -35,7 +34,7 @@ const TableData = () => {
     "Status",
     "Action",
   ];
-  let tbodyContent = agentList?.slice(0, 10)?.map((item) => (
+  let tbodyContent = agentList?.map((item) => (
     <tr key={item._id}>
       <td scope="row">
         <div className="feat_property list favorite_page style2">

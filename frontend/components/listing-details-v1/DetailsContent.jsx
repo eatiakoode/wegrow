@@ -20,7 +20,11 @@ import Link from "next/link";
 
 import Image from "next/image";
 
-const DetailsContent = ({property,faqs}) => {
+import { addBrochureEnquiryAPI } from "@/api/frontend/brochureenquiry";
+import { useRouter, useParams } from "next/navigation";
+import { useForm } from 'react-hook-form';
+
+const DetailsContent = ({property,faqs,propertydetail}) => {
   const [showPdfModal, setShowPdfModal] = useState(false);
   const [showFullBio, setShowFullBio] = useState(false);
   const [name, setName] = useState("");
@@ -34,6 +38,43 @@ const [showIframe, setShowIframe] = useState(false);
   const shareUrl = process.env.NEXT_PUBLIC_FRONTEND_API_URL+'property-detail/'+property.slug;
 const text = encodeURIComponent(property.metatitle);
 const hashtags = property.metatitle;
+
+// const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+   const [successmsg, setSuccessmsg] = useState("");
+    const router = useRouter();
+    const {
+      register,
+      handleSubmit,
+      formState: { errors, isSubmitting, isSubmitSuccessful },
+      reset,
+    } = useForm();
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+  const onSubmit = async (data) => {
+     
+      try {
+        const payload = {
+        ...data,
+        propertyid:property._id, // ✅ manually add the date
+      };
+       router.push("/thank-you");
+        const res = await addBrochureEnquiryAPI(payload);
+        if(res.status=="success"){
+          setSuccessmsg(res.message)
+          setName("")
+          setPhone("")
+          setShowIframe(true);
+        }
+  
+        setError({});
+       
+      // (Reset other fields here if needed)
+    } catch (err) {
+      setError({ general: err.message || "Something went wrong" });
+    }
+    };
     return (
     <>
       <div className="share_flex listing_single_description">
@@ -59,7 +100,7 @@ const hashtags = property.metatitle;
                                   <div className="col-lg-12">
                                     <ul className="sub-menu">
                                       <li>
-                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
+                                        <a href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`} target="_blank"><i className="fa fa-facebook"></i> Facebook</a>
                                       </li>
                                       <li>
                                         <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank"><i className="fa fa-linkedin"></i> Linkedin</a>
@@ -90,7 +131,7 @@ const hashtags = property.metatitle;
         {/* End .lsd_list */}
 
         <h4 className="mb30">Description</h4>
-        <PropertyDescriptions property={property}/>
+        <PropertyDescriptions property={property} propertydetail={propertydetail}/>
       </div>
       {/* End .listing_single_description */}
 
@@ -138,7 +179,7 @@ const hashtags = property.metatitle;
         <h4 className="mb30">
           Location{" "}
           <small className="float-end">
-          {property.cityid?.title}, {property.locationid?.title} {property.address}
+          {property.address}, {property.locationid?.title}, {property.cityid?.title}
           </small>
         </h4>
         <div className="property_video p0">
@@ -159,7 +200,7 @@ const hashtags = property.metatitle;
     )}
      {/* End .floor_plane */}
      {property?.videoembedcode && (
-      <div className="application_statics shop_single_tab_content style2 mt30">
+      <div className="application_statics iframe-video shop_single_tab_content style2 mt30">
       <h4 className="mb30"> Property video</h4>
       <div dangerouslySetInnerHTML={{ __html: property?.videoembedcode }} />
       </div>
@@ -180,7 +221,28 @@ const hashtags = property.metatitle;
                     src={
                       property.siteplanurl
                         ? `${process.env.NEXT_PUBLIC_API_URL}${property.siteplanurl}`
-                        : "/default-placeholder.jpg"
+                        : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
+                    }
+                    alt= {`${property.title}`}
+                    unoptimized // Optional: disables Next.js image optimization (useful if external images)
+                  />
+        </div>
+      </div>
+      )}
+       {property?.masterplanurl && (
+      <div className="application_statics mt30">
+      <h4 className="mb10">Master Plan</h4>
+        <div
+          className={`education_distance mb15`}
+        >
+        <Image
+                    width={343}
+                    height={220}
+                    className="img-whp w-100 h-100 cover"
+                    src={
+                      property.masterplanurl
+                        ? `${process.env.NEXT_PUBLIC_API_URL}${property.masterplanurl}`
+                        : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                     }
                     alt= {`${property.title}`}
                     unoptimized // Optional: disables Next.js image optimization (useful if external images)
@@ -263,36 +325,66 @@ const hashtags = property.metatitle;
           {!showIframe ? (
             // Form section
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (name && phone) {
-                  setShowIframe(true);
-                } else {
-                  alert("Please enter both name and phone number");
-                }
-              }}
+              // onSubmit={(e) => {
+              //   e.preventDefault();
+              //   if (name && phone) {
+              //     setShowIframe(true);
+              //   } else {
+              //     alert("Please enter both name and phone number");
+              //   }
+              // }}
+              onSubmit={handleSubmit(onSubmit)}
               className="p-3"
             >
               <h5 className="mb-3">Enter your details to view brochure</h5>
               <div className="mb-2">
-                <input
+                {/* <input
                   type="text"
                   className="form-control"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                />
+                /> */}
+                <input
+              id="form_name"
+              name="form_name"
+              className="form-control"
+              // required="required"
+              type="text"
+              placeholder="Name"
+              // value={name} onChange={(e) => setName(e.target.value)}
+              {...register('name', { required: 'Name is required' })}
+            />
+            
+          {errors.name && <p className="text-danger">{errors.name.message}</p>}
               </div>
               <div className="mb-2">
-                <input
-                  type="tel"
-                  className="form-control"
-                  placeholder="Phone Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                />
+                  <input
+              id="form_phone"
+              name="form_phone"
+              className="form-control required phone"
+              // required="required"
+              type="phone"
+              placeholder="Phone"
+             {...register('phone', {
+                required: 'Phone number is required',
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message: 'Enter a valid 10-digit phone number',
+                },
+                maxLength: {
+                  value: 10,
+                  message: 'Phone number must be 10 digits',
+                },
+                minLength: {
+                  value: 10,
+                  message: 'Phone number must be 10 digits',
+                },
+              })}
+              maxLength={10}
+            />
+            {errors.phone && <span className="text-danger">{errors.phone.message}</span>}
               </div>
               <button type="submit">
                 Submit & View Brochure
@@ -388,7 +480,7 @@ const hashtags = property.metatitle;
                                 src={
                                   property.builderid?.logoimage
                                     ? `${process.env.NEXT_PUBLIC_API_URL}${property.builderid?.logoimage}`
-                                    : "/default-placeholder.jpg"
+                                    : `${process.env.NEXT_PUBLIC_API_URL}public/assets/images/thumbnail.webp`
                                 }
                                 alt= {`${property.builderid?.title}`}
                                 unoptimized
