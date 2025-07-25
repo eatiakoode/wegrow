@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/common/ScrollTop";
 import { ToastProvider } from "@/components/ToastContext";
 import { CompareProvider } from "@/components/common/footer/CompareContext";
 import "../public/assets/scss/index.scss";
+import Script from 'next/script';
 
 // Only import Bootstrap JS on the client side
 if (typeof window !== "undefined") {
